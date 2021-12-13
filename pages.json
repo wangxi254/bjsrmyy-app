@@ -22,6 +22,12 @@
 					"style": {
 						"navigationBarTitleText": "医院介绍"
 					}
+				},
+				{
+					"path":"roomIntro",
+					"style": {
+						"navigationBarTitleText": "科室介绍"
+					}
 				}
 			]
 		}

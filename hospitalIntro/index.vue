@@ -32,11 +32,14 @@
 		</view>
 		
 		<view v-if="currentindex === 1">
-			
+			<view class="traffic">
+				公交13路，109路，10路
+			</view>
 		</view>
 		
 		<view v-if="currentindex === 2">
-			
+			<view class="contact">咨询热线：</view>
+			<view class="number">0851-88888888</view>
 		</view>
 		
 	</view>
@@ -75,7 +78,7 @@
 			height: 50px;
 			line-height: 50px;
 			text-align: center;
-			font-size: 15px;
+			font-size: $uni-font-normal-title;
 		}
 		.active{
 			color: $uni-color-primary;
@@ -94,7 +97,7 @@
 	.content1{
 		.hs1-title{
 			color: $uni-color-primary;
-			font-size: 18px;
+			font-size: $uni-font-big-title;
 			height: 40px;
 			line-height: 40px;
 			margin-left: 15px;
@@ -116,7 +119,7 @@
 			border-bottom: 0.5px solid $uni-border-color;
 			.hs1-text{
 				color: $uni-text-color;
-				font-size: 13px;
+				font-size: $uni-font-detail-title;
 				text{
 					color: $uni-color-primary;
 				}
@@ -131,7 +134,26 @@
 		.hs1-detail{
 			padding: 10px;
 			color: $uni-text-color;
-			font-size: 13px;
+			font-size: $uni-font-detail-title;
 		}
+	}
+	
+	.traffic{
+		margin: 10px;;
+		color: $uni-text-color-grey;
+		font-size: $uni-font-detail-title;
+	}
+	
+	.contact{
+		margin-top: 10px;
+		margin-left: 10px;
+		color: $uni-text-color;
+		font-size: $uni-font-detail-title;
+	}
+	
+	.number{
+		margin-left: 10px;
+		color: $uni-text-color-grey;
+		font-size: $uni-font-detail-title;
 	}
 </style>
