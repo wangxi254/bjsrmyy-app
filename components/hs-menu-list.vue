@@ -42,7 +42,7 @@
 		flex-wrap: wrap;
 		justify-content: space-between;
 		align-content: space-between;
-		background: #f7f7f7;
+		background: #FFFFFF;
 		padding:20px 0;
 		.Grid-Item {
 			width: 50%;
