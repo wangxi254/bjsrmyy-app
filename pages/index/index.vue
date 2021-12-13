@@ -10,7 +10,7 @@
 		data(){
 			return {
 				dataList:[
-						{id:1,img:'/static/tabbar/home.png',title:'医院介绍',detail:'appointment'},
+						{id:1,img:'/static/tabbar/home.png',title:'医院介绍',detail:'appointment',navigation:'../../hospitalIntro/index'},
 						{id:2,img:'/static/tabbar/home.png',title:'出诊安排',detail:'appointment'},
 						{id:3,img:'/static/tabbar/home.png',title:'就诊指南',detail:'appointment'},
 						{id:4,img:'/static/tabbar/home.png',title:'科室介绍',detail:'appointment'},
@@ -27,6 +27,9 @@
 		methods:{
 			menuClick(item){
 				console.log("item",JSON.stringify(item));
+				uni.navigateTo({
+					url:item.navigation,
+				})
 			}
 		}
 	}

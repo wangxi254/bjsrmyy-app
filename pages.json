@@ -13,6 +13,19 @@
 			}
 		}
 	],
+	"subPackages": [
+		{
+			"root": "hospitalIntro",
+			"pages": [
+				{
+					"path":"index",
+					"style": {
+						"navigationBarTitleText": "医院介绍"
+					}
+				}
+			]
+		}
+	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",
