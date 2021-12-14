@@ -11,7 +11,29 @@
 			"style": {
 				"navigationBarTitleText": "个人中心"
 			}
+		},
+		// 挂号 start
+		{
+			"path": "pages/yx/Booking_instructions/index",
+			"style": {
+				"navigationBarTitleText": "预约须知"
+			}
+		},
+		// 科室
+		{
+			"path": "pages/yx/Department/index"
+		},
+		// 可预约
+		{
+			"path": "pages/yx/appointment/index"
+		},
+		{
+			"path": "pages/yx/Registration/index",
+			"style": {
+				"navigationBarTitleText": "当日挂号"
+			}
 		}
+		// 挂号 end
 	],
 	"subPackages": [
 		{
@@ -34,7 +56,7 @@
 	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "uni-app",
+		"navigationBarTitleText": "hospital",
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8"
 	},
