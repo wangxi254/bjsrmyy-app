@@ -28,6 +28,36 @@
 					"style": {
 						"navigationBarTitleText": "科室介绍"
 					}
+				},
+				{
+					"path":"roomDetail",
+					"style": {
+						"navigationBarTitleText": "科室介绍"
+					}
+				},
+				{
+					"path":"expertIntro",
+					"style": {
+						"navigationBarTitleText": "专家介绍"
+					}
+				},
+				{
+					"path":"expertorDetail",
+					"style": {
+						"navigationBarTitleText": "专家介绍"
+					}
+				},
+				{
+					"path":"expertorList",
+					"style": {
+						"navigationBarTitleText": "专家介绍"
+					}
+				},
+				{
+					"path":"naviToFloor",
+					"style": {
+						"navigationBarTitleText": "楼层导航"
+					}
 				}
 			]
 		}

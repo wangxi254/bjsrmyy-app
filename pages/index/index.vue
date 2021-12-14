@@ -14,8 +14,8 @@
 						{id:2,img:'/static/tabbar/home.png',title:'出诊安排',detail:'appointment'},
 						{id:3,img:'/static/tabbar/home.png',title:'就诊指南',detail:'appointment'},
 						{id:4,img:'/static/tabbar/home.png',title:'科室介绍',detail:'appointment',navigation:'../../hospitalIntro/roomIntro'},
-						{id:5,img:'/static/tabbar/home.png',title:'专家介绍',detail:'appointment'},
-						{id:6,img:'/static/tabbar/home.png',title:'楼层导航',detail:'appointment'},
+						{id:5,img:'/static/tabbar/home.png',title:'专家介绍',detail:'appointment',navigation:'../../hospitalIntro/expertIntro'},
+						{id:6,img:'/static/tabbar/home.png',title:'楼层导航',detail:'appointment',navigation:'../../hospitalIntro/naviToFloor'},
 						{id:7,img:'/static/tabbar/home.png',title:'健康百科',detail:''},
 						{id:8,img:'/static/tabbar/home.png',title:'健康咨询',detail:'appointment'}
 				   ]
