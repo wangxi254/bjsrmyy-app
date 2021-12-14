@@ -66,6 +66,14 @@
 				height: 34rpx;
 				line-height: 34rpx;
 				color: #06121e;
+				font-size: 28rpx;
+				font-weight: 500;
+			}
+			.GSDetail {
+				width: 100%;
+				height: 34rpx;
+				line-height: 34rpx;
+				color: #06121e;
 				font-size: 24rpx;
 			}
 		}

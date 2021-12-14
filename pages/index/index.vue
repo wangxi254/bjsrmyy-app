@@ -17,7 +17,9 @@
 						{id:5,img:'/static/tabbar/home.png',title:'专家介绍',detail:'appointment',navigation:'../../hospitalIntro/expertIntro'},
 						{id:6,img:'/static/tabbar/home.png',title:'楼层导航',detail:'appointment',navigation:'../../hospitalIntro/naviToFloor'},
 						{id:7,img:'/static/tabbar/home.png',title:'健康百科',detail:''},
-						{id:8,img:'/static/tabbar/home.png',title:'健康咨询',detail:'appointment'}
+						{id:8,img:'/static/tabbar/home.png',title:'健康咨询',detail:'appointment'},
+						{id:9,img:'/static/tabbar/home.png',title:'预约挂号',detail:'Appointment',navigation:'/pages/yx/Booking_instructions/index'},
+						{id:10,img:'/static/tabbar/home.png',title:'当日挂号',detail:'Day Registration',navigation:'/pages/yx/Registration/index'}
 				   ]
 			}
 		},
