@@ -82,6 +82,17 @@
 					}
 				}
 			]
+		},
+		{
+			"root": "guidance",
+			"pages": [
+				{
+					"path":"index",
+					"style": {
+						"navigationBarTitleText": "智能导诊"
+					}
+				}
+			]
 		}
 	],
 	"globalStyle": {

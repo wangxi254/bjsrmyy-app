@@ -21,7 +21,8 @@
 						{id:7,img:'/static/tabbar/home.png',title:'健康百科',detail:''},
 						{id:8,img:'/static/tabbar/home.png',title:'健康咨询',detail:'appointment'},
 						{id:9,img:'/static/tabbar/home.png',title:'预约挂号',detail:'Appointment',navigation:'/pages/yx/Booking_instructions/index'},
-						{id:10,img:'/static/tabbar/home.png',title:'当日挂号',detail:'Day Registration',navigation:'/pages/yx/Registration/index'}
+						{id:10,img:'/static/tabbar/home.png',title:'当日挂号',detail:'Day Registration',navigation:'/pages/yx/Registration/index'},
+						{id:11,img:'/static/tabbar/home.png',title:'智能导诊',detail:'Intelligent Guidance',navigation:'../../guidance/index'},
 				   ],
 				banners:[
 					{img:"http://www.pptbz.com/pptpic/UploadFiles_6909/201203/2012031220134655.jpg"},
