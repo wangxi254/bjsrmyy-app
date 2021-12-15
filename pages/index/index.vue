@@ -1,11 +1,13 @@
 <template>
 	<view>
+		<hsBannerView :banners="banners" :props="props" @bannerClick="bannerClick" />
 		<hsMenuList :List="dataList" @menuClick="menuClick" />
 	</view>
 </template>
 
 <script>
 	import hsMenuList from "../../components/hs-menu-list.vue";
+	import hsBannerView from "../../components/hs-banner-view.vue";
 	export default{
 		data(){
 			return {
@@ -20,18 +22,33 @@
 						{id:8,img:'/static/tabbar/home.png',title:'健康咨询',detail:'appointment'},
 						{id:9,img:'/static/tabbar/home.png',title:'预约挂号',detail:'Appointment',navigation:'/pages/yx/Booking_instructions/index'},
 						{id:10,img:'/static/tabbar/home.png',title:'当日挂号',detail:'Day Registration',navigation:'/pages/yx/Registration/index'}
-				   ]
+				   ],
+				banners:[
+					{img:"http://www.pptbz.com/pptpic/UploadFiles_6909/201203/2012031220134655.jpg"},
+					{img:"http://www.pptbz.com/pptpic/UploadFiles_6909/201203/2012031220134655.jpg"},
+					{img:"http://www.pptbz.com/pptpic/UploadFiles_6909/201203/2012031220134655.jpg"},
+				],
+				props:{
+					image:"img",
+				}
 			}
 		},
 		components:{
-			hsMenuList
+			hsMenuList,
+			hsBannerView
+		},
+		onLoad() {
+			
 		},
 		methods:{
 			menuClick(item){
-				console.log("item",JSON.stringify(item));
+				console.log("menuClick:item===>",JSON.stringify(item));
 				uni.navigateTo({
 					url:item.navigation,
 				})
+			},
+			bannerClick(item){
+				console.log("bannerClick:item==>",JSON.stringify(item));
 			}
 		}
 	}
