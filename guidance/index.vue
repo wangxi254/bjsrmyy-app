@@ -1,39 +1,72 @@
 <template>
 	<view class="content">
 		<view class="sex">
-			<div class="man">男</div>
-			<div class="woman">女</div>
+			<div @click="changeSex('man')" class="man" :class="{'activeSex': sex === 'man'}">男</div>
+			<div @click="changeSex('woman')" class="woman" :class="{'activeSex': sex === 'woman'}">女</div>
 		</view>
 		
 		<view class="list">症状列表</view>
 		
 		<!--人体图片-->
 		<div class="picture">
-			<img id="imaPic" src="../static/guidance/man.png" width="80%" height="99%" style="margin-left: 10%;margin-right: 10%;position: absolute;" />
+			<img id="imaPic" :src="personPic" width="80%" height="99%" style="margin-left: 10%;margin-right: 10%;position: absolute;" />
 			<!--头部-->
-			<div class="head"></div>
+			<div @click="choosePart('head')" class="head"></div>
 			<!--颈部-->
-			<div class="neck"></div>
+			<div @click="choosePart('neck')" class="neck"></div>
 			<!--胸部-->
-			<div class="bosom"></div>
+			<div @click="choosePart('bosom')" class="bosom"></div>
 			<!--腹部-->
-			<div class="belly"></div>
+			<div @click="choosePart('belly')" class="belly"></div>
 			<!--上肢左-->
-			<div class="upperLimbLeft"></div>
+			<div @click="choosePart('upperLimbLeft')" class="upperLimbLeft"></div>
 			<!--上肢右-->
-			<div class="upperLimbRight"></div>
+			<div @click="choosePart('upperLimbRight')" class="upperLimbRight"></div>
 			<!--生殖器-->
-			<div class="genitals"></div>
+			<div @click="choosePart('genitals')" class="genitals"></div>
 			<!--下肢-->
-			<div class="lowerLimbs"></div>
+			<div @click="choosePart('lowerLimbs')" class="lowerLimbs"></div>
 		</div>
-		<div class="zhuanshen">
+		<div @click="zs" class="zhuanshen">
 			<!--<img class="zhuanshen" src="img/zhuanshen.png" width="10%" height="7%" />-->
 		</div>
 	</view>
 </template>
 
 <script>
+	export default {
+		data() {
+			return {
+				sex: 'man', // 当前性别
+				currentType: 'zm', // 当前正背面
+				personPic: '../static/guidance/man.png' // 当前人体图片
+			}
+		},
+		methods: {
+			zs() {
+				if (this.sex === 'man') {
+					this.personPic = this.currentType === 'zm' ? '../static/guidance/manZ.png' : '../static/guidance/man.png'
+				} else {
+					this.personPic = this.currentType === 'zm' ? '../static/guidance/womanZ.png' : '../static/guidance/woman.png'
+				}
+				this.currentType = this.currentType === 'zm' ? 'fm' : 'zm'
+			},
+			changeSex(sex) {
+				this.sex = sex
+				if (this.sex === 'man') {
+					this.personPic = this.currentType === 'zm' ? '../static/guidance/man.png' : '../static/guidance/manZ.png'
+				} else {
+					this.personPic = this.currentType === 'zm' ? '../static/guidance/woman.png' : '../static/guidance/womanZ.png'
+				}
+			},
+			choosePart(type) {
+				console.log(type)
+				uni.navigateTo({
+					url: './guidanceList',
+				})
+			}
+		}
+	}
 </script>
 
 <style lang="scss" scoped>
@@ -68,11 +101,9 @@
 			.man {
 				width: 50%;
 				height: 100%;
-				background: #007AFC;
 				border-radius: 10px;
 				float: left;
 				text-align: center;
-				color: white;
 				z-index: 3;
 			}
 			
@@ -84,6 +115,11 @@
 				float: left;
 				text-align: center;
 				z-index: 3;
+			}
+			
+			.activeSex {
+				background: #007AFC;
+				color: white;
 			}
 		}
 		

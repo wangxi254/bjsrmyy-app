@@ -91,6 +91,12 @@
 					"style": {
 						"navigationBarTitleText": "智能导诊"
 					}
+				},
+				{
+					"path":"guidanceList",
+					"style": {
+						"navigationBarTitleText": "导诊列表"
+					}
 				}
 			]
 		}
