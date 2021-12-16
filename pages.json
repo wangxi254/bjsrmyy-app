@@ -97,6 +97,12 @@
 					"style": {
 						"navigationBarTitleText": "导诊列表"
 					}
+				},
+				{
+					"path":"symptomsList",
+					"style": {
+						"navigationBarTitleText": "已选择症状"
+					}
 				}
 			]
 		}

@@ -1,9 +1,9 @@
 <template>
 	<view class="row navBox">
 		<!-- 左侧一级分类列表 -->
-		<scroll-view scroll-y class="leftNavBox">
+		<scroll-view scroll-y :scroll-into-view="leftActive" class="leftNavBox">
 			<view class="leftNavItem py-20 text-center" v-for="(item,index) in leftNavData" :key="index" @tap="leftTap(item,index)" >
-				<view :class="leftActiveIndex===index?'leftActive':'leftUnActive'" class="leftNavContent py-10">
+				<view :id="'test'+item.id" :class="leftActive==='test'+item.id?'leftActive':'leftUnActive'" class="leftNavContent py-10">
 					{{item.title}}
 				</view>
 			</view>
@@ -23,13 +23,20 @@
 	export default {
 		data() {
 			return {
-				leftNavData: [{title:'四肢', id: 1},{title:'口腔', id: 2},{title:'面部', id: 3},{title:'四肢', id: 1},{title:'口腔', id: 2},{title:'面部', id: 3},{title:'四肢', id: 1},{title:'口腔', id: 2},{title:'面部', id: 3},{title:'四肢', id: 1},{title:'口腔', id: 2},{title:'面部', id: 3},{title:'四肢', id: 1},{title:'口腔', id: 2},{title:'面部', id: 3},{title:'四肢', id: 1},{title:'口腔', id: 2},{title:'面部', id: 3},{title:'四肢', id: 1},{title:'口腔', id: 2},{title:'面部', id: 3}],
-				rightNavData: [{title: '肾虚', id: 1},{title: '肾虚', id: 1},{title: '肾虚', id: 1},{title: '肾虚', id: 1},{title: '肾虚', id: 1}]
+				leftActive: 'test18',
+				leftNavData: [{title:'四肢', id: 1},{title:'口腔', id: 2},{title:'面部', id: 3},{title:'四肢', id: 4},{title:'口腔', id: 5},{title:'面部', id: 6},{title:'四肢', id: 7},{title:'口腔', id: 8},{title:'面部', id: 9},{title:'四肢', id: 10},{title:'口腔', id: 11},{title:'面部', id: 12},{title:'四肢', id: 13},{title:'口腔', id: 14},{title:'面部', id: 15},{title:'四肢', id: 16},{title:'口腔', id: 17},{title:'面部', id: 18},{title:'四肢', id: 19},{title:'口腔', id: 20},{title:'面部', id: 21}],
+				rightNavData: [{title: '肾虚', id: 1},{title: '肾虚', id: 1},{title: '肾虚', id: 1},{title: '肾虚', id: 1},{title: '肾虚', id: 1},{title: '肾虚', id: 1},{title: '肾虚', id: 1},{title: '肾虚', id: 1},{title: '肾虚', id: 1},{title: '肾虚', id: 1},{title: '肾虚', id: 1},{title: '肾虚', id: 1},{title: '肾虚', id: 1},{title: '肾虚', id: 1},{title: '肾虚', id: 1},{title: '肾虚', id: 1},{title: '肾虚', id: 1}]
 			}
 		},
 		methods: {
-			leftTap() {},
-			clickObjectItem() {}
+			leftTap(item) {
+				this.leftActive = 'test' + item.id
+			},
+			clickObjectItem() {
+				uni.navigateTo({
+					url: './symptomsList',
+				})
+			}
 		}
 	}
 </script>
@@ -63,7 +70,6 @@
 		height: 50px;
 		line-height: 50px;
 		text-align: center;
-		font-size: 14px;
 	}
 	
 	.leftActive {
