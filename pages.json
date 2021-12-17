@@ -88,6 +88,29 @@
 					}
 				}
 			]
+		},
+		{
+			"root": "guidance",
+			"pages": [
+				{
+					"path":"index",
+					"style": {
+						"navigationBarTitleText": "智能导诊"
+					}
+				},
+				{
+					"path":"guidanceList",
+					"style": {
+						"navigationBarTitleText": "导诊列表"
+					}
+				},
+				{
+					"path":"symptomsList",
+					"style": {
+						"navigationBarTitleText": "已选择症状"
+					}
+				}
+			]
 		}
 	],
 	"globalStyle": {
