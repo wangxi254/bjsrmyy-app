@@ -40,6 +40,14 @@ export default {
 				{
 					floor:"3F",
 					room:"门诊化验室、收费处、药方、挂号处、急诊室、住院处、抽血室、换药室"
+				},
+				{
+					floor:"3F",
+					room:"门诊化验室、收费处、药方、挂号处、急诊室、住院处、抽血室、换药室"
+				},
+				{
+					floor:"3F",
+					room:"门诊化验室、收费处、药方、挂号处、急诊室、住院处、抽血室、换药室"
 				}
 			],
 			// 每页数据量
@@ -117,11 +125,4 @@ export default {
 	font-weight: bold;
 }
 
-uni-table{
-	border-collapse: collapse; 
-}
-
-uni-table uni-tr{
-	border-bottom: 1px solid #F24544;
-}
 </style>
