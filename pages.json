@@ -80,6 +80,12 @@
 					"style": {
 						"navigationBarTitleText": "楼层导航"
 					}
+				},
+				{
+					"path":"FloorList",
+					"style": {
+						"navigationBarTitleText": "楼层导航"
+					}
 				}
 			]
 		}

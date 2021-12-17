@@ -1,96 +1,127 @@
 <template>
-    <view class="content flex-column">
-        <view class="top-view flex-center" @tap="clickEvnet(0)">
-            点击我实现滚动到顶部
-        </view>
-        <view class="scroll-view flex-1">
-            <scroll-view :scroll-y="true" :scroll-top="scrollTop" :style="{'height':scrollViewH}" scroll-with-animation="true">
-                <block v-for="(item,index) in list" :key="index">
-                    <view class="item-view">
-                        {{item}}
-                    </view>
-                </block>
-            </scroll-view>
-        </view>
-        <view class="bottom-view flex-center" @tap="clickEvnet(1)">
-            点击我实现滚动到底部
-        </view>
-    </view>
+	<view>
+		<view class="uni-container">
+			<uni-table ref="table" :loading="loading" border stripe emptyText="暂无更多数据" @selection-change="selectionChange">
+				<uni-tr>
+					<uni-th width="60" align="center">
+						<view class="header">楼层</view>
+					</uni-th>
+					<uni-th align="center">
+						<view class="header">科室</view>
+					</uni-th>
+				</uni-tr>
+				<uni-tr v-for="(item, index) in tableData" :key="index">
+					<uni-td>{{ item.floor }}</uni-td>
+					<uni-td>
+						<view class="name">{{ item.room }}</view>
+					</uni-td>
+				</uni-tr>
+			</uni-table>
+			<view class="uni-pagination-box"><uni-pagination show-icon :page-size="pageSize" :current="pageCurrent" :total="total" @change="change" /></view>
+		</view>
+	</view>
 </template>
 
 <script>
-    export default {
-        data() {
-            return {
-                scrollViewH: "",
-                scrollTop: 0,
-                list: []
-            }
-        },
-        onLoad(options) {
-            let that = this;
-            for (var i = 0; i < 100; i++) {
-                that.list.push("滚动列表内容" + i)
-            }
+	
+export default {
+	data() {
+		return {
+			searchVal: '',
+			tableData: [
+				{
+					floor:"1F",
+					room:"门诊化验室、收费处、药方、挂号处、急诊室、住院处、抽血室、换药室"
+				},
+				{
+					floor:"2F",
+					room:"门诊化验室、收费处、药方、挂号处、急诊室、住院处、抽血室、换药室"
+				},
+				{
+					floor:"3F",
+					room:"门诊化验室、收费处、药方、挂号处、急诊室、住院处、抽血室、换药室"
+				}
+			],
+			// 每页数据量
+			pageSize: 10,
+			// 当前页
+			pageCurrent: 1,
+			// 数据总量
+			total: 0,
+			loading: false
+		}
+	},
+	onLoad() {
+		this.selectedIndexs = []
+		this.getData(1)
+	},
+	methods: {
+		// 多选处理
+		selectedItems() {
+			return this.selectedIndexs.map(i => this.tableData[i])
+		},
+		// 多选
+		selectionChange(e) {
+			console.log(e.detail.index)
+			this.selectedIndexs = e.detail.index
+		},
+		//批量删除
+		delTable() {
+			console.log(this.selectedItems())
+		},
+		// 分页触发
+		change(e) {
+			this.$refs.table.clearSelection()
+			this.selectedIndexs.length = 0
+			this.getData(e.current)
+		},
+		// 搜索
+		search() {
+			this.getData(1, this.searchVal)
+		},
+		// 获取数据
+		getData(pageCurrent, value = '') {
+			this.loading = true
+			this.pageCurrent = pageCurrent
+			this.loading = false
+			// this.request({
+			// 	pageSize: this.pageSize,
+			// 	pageCurrent: pageCurrent,
+			// 	value: value,
+			// 	success: res => {
+			// 		// console.log('data', res);
+			// 		this.tableData = res.data
+			// 		this.total = res.total
+			// 		this.loading = false
+			// 	}
+			// })
 			
-        },
-        mounted() {
-            let that = this;
-            const query = uni.createSelectorQuery().in(this);
-            query.select('.scroll-view').boundingClientRect();
-            query.exec(res => {
-                const scrollViewH = res[0].height;
-                console.log("scrollViewH==" + scrollViewH)
-                that.scrollViewH = scrollViewH + "px"
-            });
-        },
-        methods: {
-            clickEvnet(type) {
-                let that = this;
-                that.goToBottom(type == 0 ? 0 : 99999)
-            },
-            // 容器滚动到底部
-            goToBottom(scrollTop) {
-                let that = this
-                that.scrollTop = scrollTop + Math.random() * 10
-            },
-        }
-    }
+		}
+		
+	}
+}
 </script>
 
-<style>
-    .content {
-        height: 100%;
-    }
+<style lang="less" scoped>
+/* #ifndef H5 */
+/* page {
+	padding-top: 85px;
+} */
+/* #endif */
+.uni-group {
+	display: flex;
+	align-items: center;
+}
+.header{
+	color: #000000;
+	font-weight: bold;
+}
 
-    .flex-column {
-        display: flex;
-        flex-direction: column;
-    }
-    .flex-center{
-        align-items:center;
-        justify-content:center;
-    }
-    .flex-1 {
-        flex: 1;
-    }
+uni-table{
+	border-collapse: collapse; 
+}
 
-    .scroll-view {
-        background-color: red;
-        overflow: hidden;
-    }
-
-    .top-view,
-    .bottom-view {
-        background-color: #0081FF;
-        height: 50px;
-        color: #fff;
-        font-size: 18px;
-    }
-
-    .item-view {
-        color: #333333;
-        padding: 10px;
-        border-bottom: 1px solid #888888;
-    }
+uni-table uni-tr{
+	border-bottom: 1px solid #F24544;
+}
 </style>

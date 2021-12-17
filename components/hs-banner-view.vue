@@ -1,9 +1,9 @@
 <template>
-	<view v-if="banners && banners.length > 0">
-		<swiper :indicator-dots="banner.indicatorDots" :autoplay="banner.autoplay"
+	<view v-if="banners && banners.length > 0" class="banner-view">
+		<swiper  :indicator-dots="banner.indicatorDots" :autoplay="banner.autoplay"
 			:interval="banner.interval" :duration="banner.duration">
 			<swiper-item v-for="(item, index) in banners" :key="index">
-				<image :src="item[props.image]" mode="aspectFill" @click="bannerClick(item)">
+				<image class="banner-view" :src="item[props.image]" mode="aspectFill" @click="bannerClick(item)">
 				</image>
 			</swiper-item>
 		</swiper>
@@ -52,4 +52,15 @@
 		display: flex;
 		flex-direction: row;
 	}
+	
+	.banner-view{
+		width: 100%;
+	}
+	
+	// .banner-img{
+	// 	margin-left: 15px;
+	// 	margin-right: 15px;
+	// 	width: 345px;
+	// }
+	
 </style>
