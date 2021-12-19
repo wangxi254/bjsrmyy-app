@@ -7,11 +7,11 @@
 			</view>
 			<!-- #endif -->
 			<!-- #ifndef MP-ALIPAY -->
-			<uni-icons color="#FFFFFF" class="uni-searchbar__box-icon-search" size="18" type="search" />
+			<uni-icons :color="placeholderColor" class="uni-searchbar__box-icon-search" size="18" type="search" />
 			<!-- #endif -->
-			<input v-if="show" :focus="showSync" :placeholder="placeholder" placeholder-style="color:#FFFFFF" :maxlength="maxlength" @confirm="confirm" class="uni-searchbar__box-search-input"
+			<input v-if="show" :focus="showSync" :placeholder="placeholder" :placeholder-style="'color:'+placeholderColor" :maxlength="maxlength" @confirm="confirm" class="uni-searchbar__box-search-input" 
 			 confirm-type="search" type="text" v-model="searchVal" />
-			<text v-else class="uni-searchbar__text-placeholder">{{ placeholder }}</text>
+			<text v-else class="uni-searchbar__text-placeholder" :style="'color:'+placeholderColor">{{ placeholder }}</text>
 			<view v-if="show && (clearButton==='always'||clearButton==='auto'&&searchVal!=='')" class="uni-searchbar__box-icon-clear" @click="clear">
 				<uni-icons color="#999999" class="" size="24" type="clear" />
 			</view>
@@ -28,6 +28,10 @@
 			uniIcons
 		},
 		props: {
+			placeholderColor: {
+				type: String,
+				default: "#FFFFFF"
+			},
 			placeholder: {
 				type: String,
 				default: "请输入搜索内容"
@@ -159,7 +163,7 @@
 	.uni-searchbar__box-search-input {
 		flex: 1;
 		font-size: $uni-font-size-base;
-		color: #FF8223;
+		color: $uni-text-color;
 	}
 
 	.uni-searchbar__box-icon-clear {

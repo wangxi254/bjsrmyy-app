@@ -1,10 +1,12 @@
 <template>
 	<view>
 		<view style="top">
-			<uniSearch :bgColor='gray' @input='filterData'></uniSearch>
-			<uni-notice-bar :scrollable="true" :showIcon="true" :single="true" text="注：出诊时间如有变化，以当日挂号为准" />
+			<view class="search">
+				<uniSearch :bgColor='gray' @input='filterData' radius="6" bgColor="#fff" placeholderColor="#808080"></uniSearch>
+			</view>
+			<uni-notice-bar backgroundColor="#FEF0E9" :scrollable="true" :showIcon="true" :single="true" text="注：出诊时间如有变化，以当日挂号为准" />
 		</view>
-		<category style="height: 680px;overflow: hidden;" :categoryList="categoryList" :subCategoryList="subCategoryList" @categoryMainClick="categoryMainClick" @categorySubClick="categorySubClick"></category>
+		<category activeTextColor="#007aff" style="height: 680px;overflow: hidden;" :categoryList="categoryList" :subCategoryList="subCategoryList" @categoryMainClick="categoryMainClick" @categorySubClick="categorySubClick"></category>
 	</view>
 </template>
 
@@ -77,5 +79,14 @@
 		font-size: 20rpx;
 		margin-left: 20px;
 		color: red;
+	}
+	.search{
+		margin: 20rpx;
+		box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
+	}
+	::v-deep {
+		.uni-noticebar__content-text,.uni-noticebar-icon .uni-icons{
+			color: $uni-color-primary !important;
+		}
 	}
 </style>

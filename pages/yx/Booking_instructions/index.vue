@@ -1,6 +1,6 @@
 <template>
 	<view class="page">
-		<uni-title type="h2" title="预约须知" align="center"></uni-title>
+		<uni-title class="title" type="h2" title="预约须知" align="center"></uni-title>
 		<view>
 			为方便您早日康复，请您认真阅读预约就诊须知；
 		</view>
@@ -10,8 +10,8 @@
 				{{item1.con}}
 			</view>
 		</view>
-		<view class="uni-padding-wrap" style="margin-top: 15px;">
-			<button type="primary" @click="toNext">我已了解，继续预约</button>
+		<view class="uni-padding-wrap" style="margin: 15rpx 0;">
+			<button class="btn" type="primary" @click="toNext">我已了解，继续预约</button>
 		</view>
 	</view>
 </template>
@@ -79,6 +79,16 @@
 
 <style lang="scss" scoped>
 	view {
-		line-height: 50rpx;
+		// line-height: 50rpx;
+		font-family: fangsong;
+		line-height: 2;
+		::v-deep .uni-title__base{
+			font-family: fangsong;
+		}
+		.btn{
+			font-size: $uni-font-size-lg;
+			font-family: none;
+			background: $uni-color-primary;
+		}
 	}
 </style>
