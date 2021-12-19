@@ -11,7 +11,7 @@
 			</view>
 		</view>
 		<view class="uni-padding-wrap" style="margin: 15rpx 0;">
-			<button class="btn" type="primary" @click="toNext">我已了解，继续预约</button>
+			<button class="primary-btn btn" type="primary" @click="toNext">我已了解，继续预约</button>
 		</view>
 	</view>
 </template>
@@ -80,15 +80,15 @@
 <style lang="scss" scoped>
 	view {
 		// line-height: 50rpx;
-		font-family: fangsong;
+		//font-family: fangsong;
 		line-height: 2;
 		::v-deep .uni-title__base{
-			font-family: fangsong;
+			//font-family: fangsong;
 		}
-		.btn{
-			font-size: $uni-font-size-lg;
-			font-family: none;
-			background: $uni-color-primary;
-		}
+		// .btn{
+		// 	font-size: $uni-font-size-lg;
+		// 	font-family: none;
+		// 	background: $uni-color-primary;
+		// }
 	}
 </style>

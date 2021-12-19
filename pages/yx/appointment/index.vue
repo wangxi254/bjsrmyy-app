@@ -1,6 +1,6 @@
 <template>
 	<view class="detailPage">
-		<scroll-view scroll-x style="height:80px">
+		<scroll-view v-if="showDate" scroll-x style="height:80px">
 			<view style="width: 100%;background: #fff;height:80px" >
 			</view>
 		</scroll-view>
@@ -45,10 +45,9 @@
 				</view>
 				<view class="nodes">选择想要预约的时间段</view>
 				<view class="selList flex flex1 flex-wrap ">
-					<view class="sel-item justify-center" v-for="(item,index) in selList" :key="index">
+					<view class="sel-item justify-center" v-for="(item,index) in selList" :key="index" @click="chooseDate(item)">
 						{{item}}
 					</view>
-					<!-- <view style="height: 100vh;background:red;width: 100%"></view> -->
 				</view>
 			</view>
 		</uni-popup>
@@ -70,11 +69,12 @@
 					{name: "张三",img: "", price: 10.5,surplus: 30,postion: "主任医师",describe: "擅长冠心病的接入治疗，高血压及心力衰竭的诊治"},
 					{name: "张三",img: "", price: 10.5,surplus: 30,postion: "主任医师",describe: "擅长冠心病的接入治疗，高血压及心力衰竭的诊治"}
 				]],
-				selList: ['14:00-15:00','14:00-15:00','14:00-15:00','14:00-15:00','14:00-15:00']
+				selList: ['14:00-15:00','14:00-15:00','14:00-15:00','14:00-15:00','14:00-15:00'],
+				showDate: true
 			}
 		},
 		onLoad: function (option) { //option为object类型，会序列化上个页面传递的参数
-			console.log(option); 
+			option.type == 1?(this.showDate = false): ""
 			uni.setNavigationBarTitle({
 			　　title:option.title
 			})
@@ -86,6 +86,11 @@
 			open(){
 				console.log(this.$refs)
 				this.$refs.popup.open('right')
+			},
+			chooseDate(row){
+				uni.navigateTo({
+					url:'/pages/yx/appointment/confirm'
+				})
 			}
 		}
 	}

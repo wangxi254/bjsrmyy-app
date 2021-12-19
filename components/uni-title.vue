@@ -130,39 +130,39 @@
 	}
 
 	.uni-title__base {
-		font-size: 15px;
+		font-size: 30rpx;
 		color: #333;
 		font-weight: 500;
 	}
 
 	.uni-h1 {
-		font-size: 20px;
+		font-size: 40rpx;
 		color: #333;
 		font-weight: bold;
 	}
 
 	.uni-h2 {
-		font-size: 18px;
+		font-size: 36rpx;
 		color: #333;
 		font-weight: bold;
 	}
 
 	.uni-h3 {
-		font-size: 16px;
+		font-size: 32rpx;
 		color: #333;
 		font-weight: bold;
 		/* font-weight: 400; */
 	}
 
 	.uni-h4 {
-		font-size: 14px;
+		font-size: 28rpx;
 		color: #333;
 		font-weight: bold;
 		/* font-weight: 300; */
 	}
 
 	.uni-h5 {
-		font-size: 12px;
+		font-size: 24rpx;
 		color: #333;
 		font-weight: bold;
 		/* font-weight: 200; */

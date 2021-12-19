@@ -25,11 +25,12 @@
 				gray: 'rgb(229 229 229)',
 				categoryList:[],
 				subCategoryList:[],
-				categoryListOld: []
+				categoryListOld: [],
+				pageType: 0
 			}
 		},
-		onLoad() {
-
+		onLoad(options) {
+			options.type && (this.pageType = options.type)
 		},
 		mounted() {
 			for(var i=0;i<20;i++){
@@ -49,7 +50,7 @@
 			categorySubClick(category){
 				console.log(category);
 				uni.navigateTo({
-					url:'/pages/yx/appointment/index?title=' + category.name
+					url:'/pages/yx/appointment/index?title=' + category.name +'&&type=' +this.pageType
 				})
 			},
 			filterData(val) {

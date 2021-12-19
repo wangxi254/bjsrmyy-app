@@ -2,10 +2,23 @@ text,view{
     font-size: $uni-font-size-base;
     color: $uni-text-color;
 }
+.textRed{
+    color: red;
+}
 .detailPage {
+    position: relative;
     height: 100%;
+    z-index: 1;
     background-color: $uni-bg-color-grey;
 }
+.pageContainer{
+    padding: 20rpx;
+    box-sizing: border-box;
+}
 
-//uni-app switch
+//uni-app button
+.primary-btn{
+    font-size: $uni-font-size-lg;
+    background: $uni-color-primary !important;
+}
 
