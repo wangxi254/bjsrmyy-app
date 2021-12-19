@@ -11,37 +11,37 @@
 		<div class="picture" :class="{'zm': currentType === 'zm','fm': currentType === 'fm','man': sex === 'man','woman': sex === 'woman'}">
 			<img id="imaPic" :src="personPic" style="width:80%;height:99%;margin-left: 10%;margin-right: 10%;position: absolute;" />
 			<!--头部-->
-			<div @click="choosePart('head')" class="head"></div>
+			<div @click="choosePart('head', 344128816648425472)" class="head"></div>
 			<!--面部-->
-			<div @click="choosePart('face')" class="face"></div>
+			<div @click="choosePart('face', 343584532023087104)" class="face"></div>
 			<!--口腔-->
-			<div @click="choosePart('oral')" class="oral"></div>
+			<div @click="choosePart('oral', 343528358145822720)" class="oral"></div>
 			<!--左眼-->
-			<div @click="choosePart('leye')" class="leye"></div>
+			<div @click="choosePart('leye', 343584789637238784)" class="leye"></div>
 			<!--右眼-->
-			<div @click="choosePart('reye')" class="reye"></div>
+			<div @click="choosePart('reye', 343584789637238784)" class="reye"></div>
 			<!--右耳-->
-			<div @click="choosePart('lear')" class="lear"></div>
+			<div @click="choosePart('lear', 343584766727950336)" class="lear"></div>
 			<!--右耳-->
-			<div @click="choosePart('rear')" class="rear"></div>
+			<div @click="choosePart('rear', 343584766727950336)" class="rear"></div>
 			<!--颈部-->
-			<div @click="choosePart('neck')" class="neck"></div>
+			<div @click="choosePart('neck', 343584727536373760)" class="neck"></div>
 			<!--胸部-->
-			<div @click="choosePart('bosom')" class="bosom"></div>
+			<div @click="choosePart('bosom', 343584938107211776)" class="bosom"></div>
 			<!--背部-->
-			<div @click="choosePart('back')" class="back"></div>
+			<div @click="choosePart('back', 343584843697623040)" class="back"></div>
 			<!--腹部-->
-			<div @click="choosePart('belly')" class="belly"></div>
+			<div @click="choosePart('belly', 343584955891060736)" class="belly"></div>
 			<!--腰部-->
-			<div @click="choosePart('waist')" class="waist"></div>
+			<div @click="choosePart('waist', 343584582216323072)" class="waist"></div>
 			<!--上肢左-->
-			<div @click="choosePart('upperLimbLeft')" class="upperLimbLeft"></div>
+			<div @click="choosePart('upperLimbLeft', 343584665154490368)" class="upperLimbLeft"></div>
 			<!--上肢右-->
-			<div @click="choosePart('upperLimbRight')" class="upperLimbRight"></div>
+			<div @click="choosePart('upperLimbRight', 343584665154490368)" class="upperLimbRight"></div>
 			<!--生殖器-->
 			<div @click="choosePart('genitals')" class="genitals"></div>
 			<!--下肢-->
-			<div @click="choosePart('lowerLimbs')" class="lowerLimbs"></div>
+			<div @click="choosePart('lowerLimbs', 343584868481765376)" class="lowerLimbs"></div>
 		</div>
 		<div @click="zs" class="zhuanshen">
 			<!--<img class="zhuanshen" src="img/zhuanshen.png" width="10%" height="7%" />-->
@@ -75,11 +75,37 @@
 					this.personPic = this.currentType === 'zm' ? '../static/guidance/woman.png' : '../static/guidance/womanZ.png'
 				}
 			},
-			choosePart(type) {
-				console.log(type)
-				uni.navigateTo({
-					url: './guidanceList',
-				})
+			choosePart(type, id) {
+				// 343528331197419520 四肢
+				// 343528358145822720 口腔
+				// 343584532023087104 面部
+				// 343584556333273088 臀部
+				// 343584582216323072 腰部
+				// 343584627024072704 会阴
+				// 343584646523392000 皮肤
+				// 343584665154490368 上肢
+				// 343584727536373760 颈部
+				// 343584766727950336 五官
+				// 343584789637238784 眼
+				// 343584809195278336 全身
+				// 343584843697623040 背部
+				// 343584868481765376 下肢
+				// 343584938107211776 胸部
+				// 343584955891060736 腹部
+				// 344128816648425472 颅部
+				if (type === 'genitals') {
+					// 正面=会阴 反面=臀部
+					this.currentType === 'zm' && uni.navigateTo({
+						url: './guidanceList?id=343584627024072704',
+					})
+					this.currentType === 'fm' && uni.navigateTo({
+						url: './guidanceList?id=343584556333273088',
+					})
+				} else {
+					uni.navigateTo({
+						url: './guidanceList?id=' + id,
+					})
+				}
 			}
 		}
 	}

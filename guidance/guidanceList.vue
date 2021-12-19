@@ -28,7 +28,19 @@
 				rightNavData: [{title: '肾虚', id: 1},{title: '肾虚', id: 1},{title: '肾虚', id: 1},{title: '肾虚', id: 1},{title: '肾虚', id: 1},{title: '肾虚', id: 1},{title: '肾虚', id: 1},{title: '肾虚', id: 1},{title: '肾虚', id: 1},{title: '肾虚', id: 1},{title: '肾虚', id: 1},{title: '肾虚', id: 1},{title: '肾虚', id: 1},{title: '肾虚', id: 1},{title: '肾虚', id: 1},{title: '肾虚', id: 1},{title: '肾虚', id: 1}]
 			}
 		},
+		created() {
+			this.getData()
+			console.log(this.getParam(location.href, 'id'))
+		},
 		methods: {
+			getData() {
+				uni.request({
+				    url: 'http://47.111.101.255:8082/smartinquiry/body/listRelData', //仅为示例，并非真实接口地址。
+				    success: (res) => {
+				        console.log(res.data);
+				    }
+				});
+			},
 			leftTap(item) {
 				this.leftActive = 'test' + item.id
 			},
@@ -36,6 +48,12 @@
 				uni.navigateTo({
 					url: './symptomsList',
 				})
+			},
+			getParam(path, name) { 
+			    const reg = new RegExp("(^|\\?|&)" + name + "=([^&]*)(\\s|&|$)", "i");   
+			    if (reg.test(path))  
+					return unescape(RegExp.$2.replace(/\+/g, " ")); 
+			    return "";    
 			}
 		}
 	}
