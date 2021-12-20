@@ -69,10 +69,6 @@
 </script>
 
 <style lang="scss" scoped>
-	.flex-row{
-		display: flex;
-		flex-direction: row;
-	}
 	
 	.expert{
 		padding: 8px 15px;

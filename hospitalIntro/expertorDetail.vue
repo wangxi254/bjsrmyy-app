@@ -97,11 +97,6 @@
 		background: #F1F1F1;
 	}
 	
-	.flex-row{
-		display: flex;
-		flex-direction: row;
-	}
-	
 	.doctor-header{
 		background: #FFFFFF;
 		padding: 15px;

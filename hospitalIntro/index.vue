@@ -64,14 +64,7 @@
 </script>
 
 <style lang="scss" scoped>
-	.flex-row{
-		display: flex;
-		flex-direction: row;
-	}
 	
-	.flex1{
-		flex: 1;
-	}
 	
 	.head{
 		.head-view{

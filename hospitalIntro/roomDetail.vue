@@ -33,10 +33,6 @@
 </script>
 
 <style lang="scss" scoped>
-	.flex-row{
-		display: flex;
-		flex-direction: row;
-	}
 	
 	.content{
 		background: $uni-bg-color-hover;

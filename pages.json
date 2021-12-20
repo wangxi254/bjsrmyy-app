@@ -111,6 +111,23 @@
 					}
 				}
 			]
+		},
+		{
+			"root": "mine/diagnose",
+			"pages": [
+				{
+					"path":"diagnoseLsit",
+					"style": {
+						"navigationBarTitleText": "就诊人管理"
+					}
+				},
+				{
+					"path":"addDisagnoser",
+					"style": {
+						"navigationBarTitleText": "添加就诊人"
+					}
+				}
+			]
 		}
 	],
 	"globalStyle": {

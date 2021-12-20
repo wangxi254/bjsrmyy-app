@@ -95,10 +95,6 @@
 </script>
 
 <style lang="scss" scoped>
-	.flex-row{
-		display: flex;
-		flex-direction: row;
-	}
 	
 	.search{
 		height: 44px;
