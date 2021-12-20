@@ -5,7 +5,9 @@
 				<!-- <scroll-view scroll-y :style="'height:'+height+'px'"> -->
 				<scroll-view scroll-y style="height:680px">
 					<view class="nav-left-item" v-for="(item,index) in categoryList" @click="categoryClickMain(item,index)" :key="index"
-					 :style="index==categoryActive?'color:'+activeTextColor+';background-color:'+activeBackgroundColor:''">
+					:class="{'acitveItem': index==categoryActive}"
+					:style="index==categoryActive?'color:'+activeTextColor?activeTextColor:''+';background-color:'+activeBackgroundColor?activeBackgroundColor:'':''">
+					 <!-- :style="index==categoryActive?'color:'+activeTextColor+';background-color:'+activeBackgroundColor:''"> -->
 						{{item[label]}}
 					</view>
 				</scroll-view>
@@ -62,11 +64,11 @@
 			},
 			activeTextColor: {
 				type: String,
-				default: '#F24544'
+				default: ''
 			},
 			activeBackgroundColor: {
 				type: String,
-				default: '#e5e5e5'
+				default: ''
 			},
 			label: {
 				type: String,
@@ -110,7 +112,7 @@
 	}
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 	.nav {
 		display: flex;
 		width: 100%;
@@ -128,6 +130,11 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
+		background: #f0f0f0;
+	}
+	.acitveItem{
+		background: #f7f7f7;
+		color: $uni-color-primary;
 	}
 
 	.nav-right {

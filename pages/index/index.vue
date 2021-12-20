@@ -21,7 +21,7 @@
 						{id:7,img:'/static/tabbar/home.png',title:'健康百科',detail:''},
 						{id:8,img:'/static/tabbar/home.png',title:'健康咨询',detail:'appointment'},
 						{id:9,img:'/static/tabbar/home.png',title:'预约挂号',detail:'Appointment',navigation:'/pages/yx/Booking_instructions/index'},
-						{id:10,img:'/static/tabbar/home.png',title:'当日挂号',detail:'Day Registration',navigation:'/pages/yx/Registration/index'},
+						{id:10,img:'/static/tabbar/home.png',title:'当日挂号',detail:'Day Registration',navigation:'/pages/yx/Department/index?type=1'},
 						{id:11,img:'/static/tabbar/home.png',title:'智能导诊',detail:'Intelligent Guidance',navigation:'../../guidance/index'},
 				   ],
 				banners:[

@@ -7,7 +7,7 @@
 			}
 		},
 		{
-			"path": "pages/mine/mine",
+			"path": "pages/mine/mine", 
 			"style": {
 				"navigationBarTitleText": "个人中心"
 			}
@@ -27,11 +27,26 @@
 		{
 			"path": "pages/yx/appointment/index"
 		},
+		// 预约确认页
+		{
+			"path": "pages/yx/appointment/confirm"
+		},
+		// 预约支付页
+		{
+			"path": "pages/yx/appointment/payment"
+		},
 		{
 			"path": "pages/yx/Registration/index",
 			"style": {
 				"navigationBarTitleText": "当日挂号"
 			}
+		},
+		// 预约列表
+		{
+			"path": "pages/yx/appointRecord/index"
+		},
+		{
+			"path": "pages/showIcon/index"
 		}
 		// 挂号 end
 	],
