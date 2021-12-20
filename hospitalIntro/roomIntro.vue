@@ -22,30 +22,31 @@
 		data() {
 			return {
 				leftNavData:[
-					{title:1},
-					{title:2},
-					{title:3},
-					{title:4},
-					{title:5},
-					{title:6},
-					{title:20},
-					{title:7},
-					{title:8},
-					{title:9},
-					{title:10},
-					{title:40},
-					{title:11},
-					{title:12},
-					{title:13},
-					{title:14},
-					{title:36},
-					{title:15},
-					{title:16},
-					{title:50},
-					{title:17},
-					{title:18},
-					{title:19},
-					{title:20},
+					{title:'康复医学科'},
+					{title:'整形烧伤皮肤外科'},
+					{title:'血液肿瘤科'},
+					{title:'药剂科'},
+					{title:'皮肤科'},
+					{title:'康复医学科'},
+					{title:'整形烧伤皮肤外科'},
+					{title:'血液肿瘤科'},
+					{title:'药剂科'},
+					{title:'皮肤科'},
+					{title:'康复医学科'},
+					{title:'整形烧伤皮肤外科'},
+					{title:'血液肿瘤科'},
+					{title:'药剂科'},
+					{title:'皮肤科'},
+					{title:'康复医学科'},
+					{title:'整形烧伤皮肤外科'},
+					{title:'血液肿瘤科'},
+					{title:'药剂科'},
+					{title:'皮肤科'},
+					{title:'康复医学科'},
+					{title:'整形烧伤皮肤外科'},
+					{title:'血液肿瘤科'},
+					{title:'药剂科'},
+					{title:'皮肤科'},
 				],
 				rightNavData:[],
 				searchText:'',
@@ -68,11 +69,13 @@
 			leftClick(item){
 				console.log("expert:",JSON.stringify(item));
 				if(item.title){
-					let array = [];
-					for(let i=0; i < item.title; i++){
-						array.push(Math.ceil(Math.random()*20));
-					}
-					this.rightNavData = array;
+					this.rightNavData = [
+						{title:'康复医学科'},
+						{title:'整形烧伤皮肤外科'},
+						{title:'血液肿瘤科'},
+						{title:'药剂科'},
+						{title:'皮肤科'},
+					];
 				}
 			},
 			searchClick(){
