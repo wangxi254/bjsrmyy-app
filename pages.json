@@ -128,18 +128,30 @@
 			]
 		},
 		{
-			"root": "mine/diagnose",
+			"root": "mine",
 			"pages": [
 				{
-					"path":"diagnoseLsit",
+					"path":"diagnose/diagnoseLsit",
 					"style": {
 						"navigationBarTitleText": "就诊人管理"
 					}
 				},
 				{
-					"path":"addDisagnoser",
+					"path":"diagnose/addDisagnoser",
 					"style": {
 						"navigationBarTitleText": "添加就诊人"
+					}
+				},
+				{
+					"path":"report/checkreport",
+					"style": {
+						"navigationBarTitleText": "检查报告"
+					}
+				},
+				{
+					"path":"report/testreport",
+					"style": {
+						"navigationBarTitleText": "化验报告"
 					}
 				}
 			]

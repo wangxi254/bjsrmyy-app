@@ -14,10 +14,19 @@
 	flex-direction: row;
 }
 
+.space-between{
+	display: flex;
+	justify-content: space-between;
+}
+
 .flex1{
 	flex: 1;
 }
 
 .bottomborder{
 	border-bottom: 0.5px solid #c8c7cc;
+}
+
+.hs-border{
+	border: 0.5px solid #c8c7cc;
 }
