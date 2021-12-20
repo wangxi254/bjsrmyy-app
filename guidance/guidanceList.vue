@@ -2,9 +2,9 @@
 	<view class="row navBox">
 		<!-- 左侧一级分类列表 -->
 		<scroll-view scroll-y :scroll-into-view="leftActive" class="leftNavBox">
-			<view class="leftNavItem py-20 text-center" v-for="(item,index) in leftNavData" :key="index" @tap="leftTap(item,index)" >
-				<view :id="'test'+item.id" :class="leftActive==='test'+item.id?'leftActive':'leftUnActive'" class="leftNavContent py-10">
-					{{item.title}}
+			<view class="leftNavItem py-20 text-center" v-for="(item,index) in navData" :key="item.id" @tap="leftTap(item,index)" >
+				<view :id="'nav'+item.id" :class="leftActive==='nav'+item.id?'leftActive':'leftUnActive'" class="leftNavContent py-10">
+					{{item.name}}
 				</view>
 			</view>
 		</scroll-view>
@@ -12,7 +12,7 @@
 			<!-- 右侧二级分类列表 -->
 		<scroll-view scroll-y class="rightBox" scroll-with-animation>
 			<view class="rightNavItem" @click="clickObjectItem(item)" v-for="(item,index) in rightNavData" :key="index">
-				<span>{{item.title}}</span>
+				<span>{{item.name}}</span>
 				<span>></span>
 			</view>
 		</scroll-view>
@@ -23,31 +23,54 @@
 	export default {
 		data() {
 			return {
-				leftActive: 'test18',
-				leftNavData: [{title:'四肢', id: 1},{title:'口腔', id: 2},{title:'面部', id: 3},{title:'四肢', id: 4},{title:'口腔', id: 5},{title:'面部', id: 6},{title:'四肢', id: 7},{title:'口腔', id: 8},{title:'面部', id: 9},{title:'四肢', id: 10},{title:'口腔', id: 11},{title:'面部', id: 12},{title:'四肢', id: 13},{title:'口腔', id: 14},{title:'面部', id: 15},{title:'四肢', id: 16},{title:'口腔', id: 17},{title:'面部', id: 18},{title:'四肢', id: 19},{title:'口腔', id: 20},{title:'面部', id: 21}],
-				rightNavData: [{title: '肾虚', id: 1},{title: '肾虚', id: 1},{title: '肾虚', id: 1},{title: '肾虚', id: 1},{title: '肾虚', id: 1},{title: '肾虚', id: 1},{title: '肾虚', id: 1},{title: '肾虚', id: 1},{title: '肾虚', id: 1},{title: '肾虚', id: 1},{title: '肾虚', id: 1},{title: '肾虚', id: 1},{title: '肾虚', id: 1},{title: '肾虚', id: 1},{title: '肾虚', id: 1},{title: '肾虚', id: 1},{title: '肾虚', id: 1}]
+				
+				leftActive: '',
+				navData: [],
+				rightNavData: []
 			}
 		},
 		created() {
 			this.getData()
-			console.log(this.getParam(location.href, 'id'))
 		},
 		methods: {
 			getData() {
 				uni.request({
-				    url: 'http://47.111.101.255:8082/smartinquiry/body/listRelData', //仅为示例，并非真实接口地址。
+				    url: 'https://min.his.gzskt.net/bjrmWebApi/smartinquiry/body/listRelData', //仅为示例，并非真实接口地址。
 				    success: (res) => {
-				        console.log(res.data);
+						this.navData = res.data.data
+						if (!this.leftActive) {
+							this.leftActive = 'nav' + this.navData[0].id
+							this.rightNavData = this.navData[0]
+						}
+						this.$nextTick(function(){
+							if (this.getParam(location.href, 'id')) {
+								this.leftActive = 'nav' + this.getParam(location.href, 'id')
+							}
+							if (this.leftActive) {
+								const arr = this.navData.filter((item) => {
+									return ('nav' + item.id) === this.leftActive
+								})
+								if (arr && arr.length > 0) {
+									this.rightNavData = arr[0].symptoms
+								}
+							}
+						})
 				    }
 				});
 			},
 			leftTap(item) {
-				this.leftActive = 'test' + item.id
+				this.leftActive = 'nav' + item.id
+				const arr = this.navData.filter((item) => {
+					return ('nav' + item.id) === this.leftActive
+				})
+				if (arr && arr.length > 0) {
+					this.rightNavData = arr[0].symptoms
+				}
 			},
 			clickObjectItem() {
-				uni.navigateTo({
-					url: './symptomsList',
-				})
+				// uni.navigateTo({
+				// 	url: './symptomsList',
+				// })
 			},
 			getParam(path, name) { 
 			    const reg = new RegExp("(^|\\?|&)" + name + "=([^&]*)(\\s|&|$)", "i");   
