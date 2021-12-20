@@ -70,7 +70,6 @@
 					{
 						value:'man',
 						name:'男',
-						checked: 'true'
 					},
 					{
 						value:'womam',
@@ -81,8 +80,21 @@
 				
 			}
 		},
-		onLoad() {
-
+		onLoad(options) {
+			console.log("options==>",options.item);
+			if(options.item){
+				let item = JSON.parse(options.item);
+				this.name = item.name;
+				this.idcard = item.idnumber;
+				this.phone = item.phone;
+				if(item.sex == 'woman'){
+					this.current = 1;
+					console.log("woman")
+				}else{
+					this.current = 0;
+				}
+				
+			}
 		},
 		methods: {
 			clickSwit(){
