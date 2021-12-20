@@ -1,11 +1,13 @@
 <template>
 	<view>
 		<view v-for="item in list" class="cell" @click="navitoPage(item)">
-			<view>
-				{{item.name}}
+			<view class="flex-row info">
+				<view class="name">
+					{{item.name}}
+				</view>
+				<image class="right-img" src="../../static/common/right.png"></image>
 			</view>
 		</view>
-	
 	</view>
 </template>
 
@@ -35,5 +37,22 @@
 </script>
 
 <style lang="scss" scoped>
+	.cell{
+		.info{
+			align-items: center;
+			margin-left: 15px;
+			margin-right: 15px;
+			justify-content: space-between;
+			.name{
+				line-height: 40px;
+				height: 40px;
+			}
+			.right-img{
+				width: 15px;
+				height: 15px;
+			}
+		}
+	}
+	
 	
 </style>
