@@ -1,5 +1,5 @@
 <template>
-    <view class="card">
+    <view class="card" @click="_onClick">
         <slot name="header" />
         <view class="card-body">
             <slot />
@@ -21,6 +21,11 @@ export default {
         titleSuffixIcon: {
             type:String,
             default: ''
+        }
+    },
+    methods: {
+        _onClick() {
+            this.$emit('click')
         }
     }
 }

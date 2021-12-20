@@ -25,6 +25,8 @@
 						{id:11,img:'/static/tabbar/home.png',title:'智能导诊',detail:'Intelligent Guidance',navigation:'../../guidance/index'},
 						{id:12,img:'/static/tabbar/home.png',title:'检查报告',detail:'appointment',navigation:'../../mine/report/checkreport'},
 						{id:13,img:'/static/tabbar/home.png',title:'检验报告',detail:'appointment',navigation:'../../mine/report/testreport'},
+						{id:14,img:'/static/tabbar/home.png',title:'缴费记录',detail:'records',navigation:'/pages/yx/records/PayRecord'},
+						{id:15,img:'/static/tabbar/home.png',title:'门诊清单',detail:'records',navigation:'/pages/yx/records/listRecord'},
 				   ],
 				banners:[
 					{img:"http://www.pptbz.com/pptpic/UploadFiles_6909/201203/2012031220134655.jpg"},
