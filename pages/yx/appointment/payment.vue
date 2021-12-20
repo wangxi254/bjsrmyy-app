@@ -53,11 +53,18 @@
             <view class="pay-btn" @click="payfor">立即支付</view>
         </view>
         <view style="height: 100rpx"></view>
+        <uni-popup ref="popup" type="dialog">
+            <uni-popup-dialog mode="base" title="提示" content="是否确定取消当前预约" @close="closeMsg"
+            @confirm="confirmMsg" message="成功消息" :duration="2000"></uni-popup-dialog>
+        </uni-popup>
   </view>
 </template>
 
 <script>
+import uniPopup from '@/components/uni-popup/components/uni-popup/uni-popup.vue'
+import uniPopupDialog from '@/components/uni-popup/components/uni-popup-dialog/uni-popup-dialog.vue'
 export default {
+    components: { uniPopup, uniPopupDialog },
     data(){
         return {
             
@@ -71,7 +78,15 @@ export default {
 			})
         },
         cancel() {
-            console.log("取消预约")
+            this.$refs.popup.open()
+        },
+        closeMsg() {
+            this.$refs.popup.close()
+        },
+        confirmMsg() {
+            uni.navigateTo({
+					url:'/pages/yx/appointRecord/index'
+			})
         },
         goList() {
             uni.navigateTo({

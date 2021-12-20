@@ -59,7 +59,7 @@
 	import NoData from '@/components/nodata/index.vue' 
 	import uniPopup from '@/components/uni-popup/components/uni-popup/uni-popup.vue'
 	export default {
-		components: { NoData,uniPopup },
+		components: { NoData, uniPopup },
 		data() {
 			return {
 				personImg: require('../../../common/styles/imgs/person.jpg'),
