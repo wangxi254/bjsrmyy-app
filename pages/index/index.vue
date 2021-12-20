@@ -51,9 +51,7 @@
 				})
 			},
 			bannerClick(item){
-				uni.navigateTo({
-					url:"../../mine/report/testreport"
-				})
+				
 			}
 		}
 	}
