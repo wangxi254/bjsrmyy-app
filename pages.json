@@ -47,8 +47,16 @@
 		},
 		{
 			"path": "pages/showIcon/index"
-		}
+		},
 		// 挂号 end
+		// 缴费记录
+		{
+			"path": "pages/records/PayRecord"
+		},
+		// 门诊清单
+		{
+			"path": "pages/records/listRecord"
+		}
 	],
 	"subPackages": [
 		{
