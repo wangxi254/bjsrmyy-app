@@ -1,7 +1,7 @@
 <template>
 	<view class="row navBox">
 		<!-- 左侧一级分类列表 -->
-		<scroll-view scroll-y :scroll-into-view="leftActive" class="leftNavBox">
+		<scroll-view scroll-y :scroll-into-view="firstId" class="leftNavBox">
 			<view class="leftNavItem py-20 text-center" v-for="(item,index) in navData" :key="item.id" @tap="leftTap(item,index)" >
 				<view :id="'nav'+item.id" :class="leftActive==='nav'+item.id?'leftActive':'leftUnActive'" class="leftNavContent py-10">
 					{{item.name}}
@@ -23,7 +23,7 @@
 	export default {
 		data() {
 			return {
-				
+				firstId: '',
 				leftActive: '',
 				navData: [],
 				rightNavData: []
@@ -44,6 +44,7 @@
 						}
 						this.$nextTick(function(){
 							if (this.getParam(location.href, 'id')) {
+								this.firstId = 'nav' + this.getParam(location.href, 'id')
 								this.leftActive = 'nav' + this.getParam(location.href, 'id')
 							}
 							if (this.leftActive) {
@@ -59,6 +60,7 @@
 				});
 			},
 			leftTap(item) {
+				this.firstId = ''
 				this.leftActive = 'nav' + item.id
 				const arr = this.navData.filter((item) => {
 					return ('nav' + item.id) === this.leftActive

@@ -12,7 +12,7 @@
 			<!-- 右侧二级分类列表 -->
 		<scroll-view scroll-y class="col20-15" scroll-with-animation>
 			<view class="rightNavItem" @click="clickObjectItem(oitem)" v-for="(oitem,index) in rightNavData" :key="index">
-				{{oitem.title}}
+				{{oitem}}
 			</view>
 		</scroll-view>
 		
