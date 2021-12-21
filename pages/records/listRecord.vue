@@ -31,29 +31,12 @@
     <view class="pageContainer">
         
     </view>
-    
-
-    <uni-popup ref="userpopup">
-        <view class="userlist-view">
-            <view class="title-model flex justify-between">
-                <text>选择就诊人</text>
-                <view class="usermanage">就诊人管理</view>
-            </view>
-            <scroll-view class="list-view" scroll-y="true">
-                <view v-for="(item,index) in userList" :key="index"
-                 class="user-item flex justify-between" @click="changeUser(item)">
-                    <text>{{item.name}}</text>
-                    <text>{{item.idCard}}</text>
-                </view>
-            </scroll-view>
-            
-        </view>
-    </uni-popup>
+    <userModel ref="userModelref"  @changeUser="changeUser" />
   </view>
 </template>
 
 <script>
-import uniPopup from '@/components/uni-popup/components/uni-popup/uni-popup.vue'
+import userModel from '@/components/userList/index.vue'
 function getDate(type) {
 		const date = new Date();
 
@@ -72,7 +55,7 @@ function getDate(type) {
 		return `${year}-${month}-${day}`;
 }
 export default {
-    components: { uniPopup },
+    components: { userModel },
     data(){
         return {
             searchForm: {
@@ -80,29 +63,16 @@ export default {
                 endDate: ""
             },
             startDate:getDate('start'),
-			endDate:getDate('end'),
-            userList: [{
-                name: "张三",
-                idCard: "5201******1211"
-            },{
-                name: "张三",
-                idCard: "5201******1211"
-            },{
-                name: "张三",
-                idCard: "5201******1211"
-            },{
-                name: "张三",
-                idCard: "5201******1211"
-            }]
+			endDate:getDate('end')
         }
     },
     methods: {
         showUserList() {
-            this.$refs.userpopup.open('bottom');
+            this.$refs.userModelref.show();
         },
         changeUser(row) {
-            this.$refs.userpopup.close();
-        },
+            
+        }
     }
 }
 </script>
@@ -121,33 +91,6 @@ export default {
             text-align: center;
         }
     }
-    .userlist-view{
-        width: calc(100% - 40rpx);
-        background:#fff;
-        margin: 0 auto;
-        margin-bottom: 20rpx;
-        border-radius: $uni-border-radius-lg;
-        .title-model{
-            border-bottom: none !important;
-        }
-        .usermanage{
-            color: $uni-color-primary;
-            font-size: $uni-font-size-sm;
-        }
-        .list-view{
-            max-height: 400rpx;
-            overflow: auto;
-            // padding: 20rpx;
-            box-sizing: border-box;
-            .user-item{
-                background: $uni-bg-color-grey;
-                padding: 30rpx 20rpx;
-                border-radius: $uni-border-radius-lg;
-                margin: 20rpx;
-            }
-        }
-        
-    }
     .search-view{
         background: #fff;
         padding: 20rpx;
@@ -161,11 +104,5 @@ export default {
             box-sizing: border-box;
             text-align: center;
         }
-    }
-    .title-model{
-        width: 100%;
-        border-bottom: 1px solid #eee;
-        padding: 20rpx;
-        box-sizing: border-box;
     }
 </style>

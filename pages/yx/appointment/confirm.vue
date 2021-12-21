@@ -1,3 +1,11 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: seven
+ * @Date: 2021-12-21 20:38:45
+ * @LastEditors: seven
+ * @LastEditTime: 2021-12-21 23:10:45
+-->
 <template>
   <view class="detailPage pageContainer">
         <hs-card class="tips-view">
@@ -21,7 +29,7 @@
             <view>时间：<text class="textRed">2021-12-19</text></view>
             <view>时段：<text class="textRed">上午</text></view>
         </hs-card>
-        <hs-card class="appointuser-view">
+        <hs-card class="appointuser-view" @click="showUserList">
             <template v-slot:header>
                 <view class="title-model flex justify-between">
                     <text>张三(自费)</text>
@@ -36,16 +44,25 @@
             </view>
         </hs-card>
         <button class="primary-btn btn" type="primary" @click="submit">提交</button>
+        <userModel ref="userModelref"  @changeUser="changeUser" />
   </view>
 </template>
 
 <script>
+import userModel from '@/components/userList/index.vue'
 export default {
+    components: { userModel },
     methods: {
         submit() {
             uni.navigateTo({
 					url:'/pages/yx/appointment/payment'
 			})
+        },
+        showUserList() {
+            this.$refs.userModelref.show();
+        },
+        changeUser(row) {
+            
         }
     }
 }

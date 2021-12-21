@@ -115,27 +115,13 @@
             </view>
         </view>
     </uni-popup>
-    <uni-popup ref="userpopup">
-        <view class="userlist-view">
-            <view class="title-model flex justify-between">
-                <text>选择就诊人</text>
-                <view class="usermanage">就诊人管理</view>
-            </view>
-            <scroll-view class="list-view" scroll-y="true">
-                <view v-for="(item,index) in userList" :key="index"
-                 class="user-item flex justify-between" @click="changeUser(item)">
-                    <text>{{item.name}}</text>
-                    <text>{{item.idCard}}</text>
-                </view>
-            </scroll-view>
-            
-        </view>
-    </uni-popup>
+    <userModel ref="userModelref"  @changeUser="changeUser" />
   </view>
 </template>
 
 <script>
 import uniPopup from '@/components/uni-popup/components/uni-popup/uni-popup.vue'
+import userModel from '@/components/userList/index.vue'
 function getDate(type) {
 		const date = new Date();
 
@@ -154,7 +140,7 @@ function getDate(type) {
 		return `${year}-${month}-${day}`;
 }
 export default {
-    components: { uniPopup },
+    components: { uniPopup, userModel },
     data(){
         return {
             statusEnum: {
@@ -171,20 +157,7 @@ export default {
                 status: 0
             },
             startDate:getDate('start'),
-			endDate:getDate('end'),
-            userList: [{
-                name: "张三",
-                idCard: "5201******1211"
-            },{
-                name: "张三",
-                idCard: "5201******1211"
-            },{
-                name: "张三",
-                idCard: "5201******1211"
-            },{
-                name: "张三",
-                idCard: "5201******1211"
-            }]
+			endDate:getDate('end')
         }
     },
     mounted() {
@@ -201,7 +174,10 @@ export default {
             this.$refs.searchpopup.open();
         },
         showUserList() {
-            this.$refs.userpopup.open('bottom');
+            this.$refs.userModelref.show();
+        },
+        changeUser(row) {
+            
         },
         clickTags(key,val) {
             this.searchForm[key] = val;
@@ -310,33 +286,6 @@ export default {
         border: 1rpx solid $uni-border-color;
         border-radius: $uni-border-radius-base;
         padding: 10rpx 20rpx;
-    }
-    .userlist-view{
-        width: calc(100% - 40rpx);
-        background:#fff;
-        margin: 0 auto;
-        margin-bottom: 20rpx;
-        border-radius: $uni-border-radius-lg;
-        .title-model{
-            border-bottom: none !important;
-        }
-        .usermanage{
-            color: $uni-color-primary;
-            font-size: $uni-font-size-sm;
-        }
-        .list-view{
-            max-height: 400rpx;
-            overflow: auto;
-            // padding: 20rpx;
-            box-sizing: border-box;
-            .user-item{
-                background: $uni-bg-color-grey;
-                padding: 30rpx 20rpx;
-                border-radius: $uni-border-radius-lg;
-                margin: 20rpx;
-            }
-        }
-        
     }
     
 </style>
