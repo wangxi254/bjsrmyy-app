@@ -16,13 +16,13 @@
 						<view class="ztime">
 							<span class="ztime-zw">上午</span>
 							<view class="persons">
-								<span v-if="person.timeType === '上午'" v-for="person in item.persons">{{person.docCode}}</span>
+								<span v-if="person.timeType === '上午' && person.docInfo" v-for="person in item.persons">{{person.docInfo.docName}}</span>
 							</view>
 						</view>
 						<view class="ztime">
 							<span class="ztime-zw">下午</span>
 							<view class="persons">
-										<span v-if="person.timeType === '下午'" v-for="person in item.persons">{{person.docCode}}</span>
+										<span v-if="person.timeType === '下午' && person.docInfo" v-for="person in item.persons">{{person.docInfo.docName}}</span>
 							</view>
 						</view>
 					</view>
