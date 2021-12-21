@@ -139,17 +139,6 @@
 			]
 		},
 		{
-			"root": "scheduling",
-			"pages": [
-				{
-					"path":"index",
-					"style": {
-						"navigationBarTitleText": "出诊信息"
-					}
-				}
-			]
-		},	
-		{
 			"root": "mine",
 			"pages": [
 				{
