@@ -21,19 +21,19 @@ export default {
 					if(res.data){
 						if(hastoast){
 							uni.showToast({
-								title: res.data.retMsg,
+								title: res.data.msg,
 								icon: 'none',
 								duration:3000
 							});
 						}
-						if (res.data.retCode== 0) {
-							resolve(res.data);
-						}else if(res.data.retCode== 401){
+						if (res.data.code== 200) {
+							resolve(res);
+						}else if(res.data.code== 401){
 							uni.setStorageSync("token", null);
-							resolve(res.data);
+							resolve(res);
 						}
 						else {
-							resolve(res.data);
+							resolve(res);
 						}
 					}else{
 						if(hastoast){
@@ -61,5 +61,70 @@ export default {
 			});
 		});
 	},
+	arequest(params){
+		let token = uni.getStorageSync('token') || '';
+		let data = params.query || {};
+		let requrl = config.baseUrl + params.path;// 审核临时用一下接口uat版本控制接口
+		let hastoast = params.hastoast || false;
+		return uni.request({
+			url: requrl,
+			method: params.method || 'GET',
+			data: data,
+			header: {
+				'Content-Type': 'application/json',
+				'x-auth-token':token,
+			},
+		})
+	},
+	// 错误处理
+	errorCheck(err, res, errfun = false, resfun = false) {
+		console.log("请求结果=======", res,err)
+		if (err) {
+			typeof errfun === 'function' && errfun();
+			uni.showToast({
+				title: '加载失败',
+				icon: "none"
+			});
+			return false;
+		}
+		if (res.statusCode === 200 && res.data.code === 1 && res.data.msg != '') {
+			typeof errfun === 'function' && resfun();
+			if (!toast) {
+				uni.showToast({
+					title: res.data.msg,
+					icon: "none"
+				});
+				return false;
+			}
+		}
+		if (res.statusCode === 500 && res.data.code === 1) {
+			typeof errfun === 'function' && resfun();
+			uni.showToast({
+				title: "服务器错误",
+				icon: "none"
+			});
+			return false;
+		}
+	
+		if (res.statusCode === 401 && res.data.code === 401) {
+			// 清除缓存
+			uni.showToast({
+				title: "请重新登录",
+				icon: "none"
+			});
+			
+			throw new Error('未登录')
+			return false
+		}
+		if (res.statusCode !== 200) {
+			typeof errfun === 'function' && resfun();
+			uni.showToast({
+				title: res.data.error || res.data.msg,
+				icon: "none"
+			});
+			return false;
+		}
+		return true;
+	}
 	
 }

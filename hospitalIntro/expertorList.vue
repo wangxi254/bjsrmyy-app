@@ -63,7 +63,15 @@
 			},
 			input(item){
 				console.log("input:",JSON.stringify(item));
+			},
+			getDepartment(){
+				this.$request({
+					path:'/expert/mobile/listNoPage'
+				}).then(res=>{
+					
+				})
 			}
+			
 		}
 	}
 </script>

@@ -26,13 +26,9 @@
 						{id:12,img:'/static/tabbar/home.png',title:'检查报告',detail:'appointment',navigation:'../../mine/report/checkreport'},
 						{id:13,img:'/static/tabbar/home.png',title:'检验报告',detail:'appointment',navigation:'../../mine/report/testreport'},
 				   ],
-				banners:[
-					{img:"http://www.pptbz.com/pptpic/UploadFiles_6909/201203/2012031220134655.jpg"},
-					{img:"http://www.pptbz.com/pptpic/UploadFiles_6909/201203/2012031220134655.jpg"},
-					{img:"http://www.pptbz.com/pptpic/UploadFiles_6909/201203/2012031220134655.jpg"},
-				],
+				banners:[],
 				props:{
-					image:"img",
+					image:"carouselImageUrl",
 				}
 			}
 		},
@@ -41,7 +37,7 @@
 			hsBannerView
 		},
 		onLoad() {
-			
+			this.requestHospitalInto();
 		},
 		methods:{
 			menuClick(item){
@@ -52,6 +48,30 @@
 			},
 			bannerClick(item){
 				
+			},
+			hospitalnews(id){
+				let that = this;
+				this.$request({
+					path:"/hospitalInfo/mobile/selectUsableHospitalInfoByHospital",
+					query:{
+						hospitalId:id
+					},
+				}).then(res=>{
+					if(res.data.code == 200){
+						that.banners = res.data.data;
+					}
+				})
+			},
+			async requestHospitalInto(){
+				const [error,result] = await this.$arequest({
+					path:"/hospital/mobile/getHospital",
+				});
+				console.log("getHospital==>",JSON.stringify(result));
+				console.log("getHospital==>",JSON.stringify(result.data.code));
+				if(result.data.code == 200){
+					this.hospitalInto = result.data.data;
+					this.hospitalnews(result.data.data.id);
+				}
 			}
 		}
 	}

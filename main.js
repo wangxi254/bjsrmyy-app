@@ -14,6 +14,8 @@ Vue.component('hs-card',hsCard)
 
 import request from 'common/request.js';
 Vue.prototype.$request = request.apprequst;
+Vue.prototype.$arequest = request.arequest;
+
 
 App.mpType = 'app' 
 

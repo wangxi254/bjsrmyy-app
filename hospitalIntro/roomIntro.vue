@@ -92,7 +92,17 @@
 				uni.navigateTo({
 					url:`./roomDetail?item=${JSON.stringify(item)}`
 				})
+			},
+			getDepartment(){
+				this.$request({
+					path:'/department/mobile/listNoPage'
+				}).then(res=>{
+					
+				})
 			}
+
+			
+			
 		}
 	}
 </script>

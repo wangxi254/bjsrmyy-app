@@ -19,7 +19,7 @@
 			<view class="hs1-title">{{hospitalInto.name}}</view>
 			<image class="hs1-img" src="http://www.pptbz.com/pptpic/UploadFiles_6909/201203/2012031220134655.jpg"></image>
 			<view class="flex-row item">
-				<view class="hs1-text">咨询电话：<text>{{hospitalInto.contact}}</text></view>
+				<view class="hs1-text" @click="totel">咨询电话：<text>{{hospitalInto.contact}}</text></view>
 				<image class="hs1-icon" mode="aspectFill" src="http://www.pptbz.com/pptpic/UploadFiles_6909/201203/2012031220134655.jpg"></image>
 			</view>
 			<view class="flex-row item">
@@ -39,7 +39,7 @@
 		
 		<view v-if="currentindex === 2">
 			<view class="contact">咨询热线：</view>
-			<view class="number">{{hospitalInto.contact}}</view>
+			<view class="number" @click="totel">{{hospitalInto.contact}}</view>
 		</view>
 		
 	</view>
@@ -53,22 +53,29 @@
 				hospitalInto:{}
 			}
 		},
-		onLoad() {
+		onLoad(options) {
 			this.requestHospitalInto();
 		},
 		methods: {
 			clickTab(index){
 				this.currentindex = index;
 			},
-			requestHospitalInto(){
-				let that = this;
-				this.$request({
+			async requestHospitalInto(){
+				const [error,result] = await this.$arequest({
 					path:"/hospital/mobile/getHospital",
-				}).then(res=>{
-					if(res.code == 200){
-						that.hospitalInto = res.data;
-					}
-				})
+				});
+				console.log("getHospital==>",JSON.stringify(result));
+				console.log("getHospital==>",JSON.stringify(result.data.code));
+				if(result.data.code == 200){
+					this.hospitalInto = result.data.data;
+				}
+			},
+			totel(){
+				if(this.hospitalInto.contact){
+					uni.makePhoneCall({
+					  phoneNumber: this.hospitalInto.contact //
+					});
+				}
 			}
 		}
 	}
