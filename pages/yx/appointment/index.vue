@@ -1,6 +1,6 @@
 <template>
 	<view class="detailPage">
-		<chooseDay v-if="showDate" @clickDate="clickDate" />
+		<chooseDay v-if="showDate && !loading" :hasData="hasData" @clickDate="clickDate" />
 		<view class="sel-condition">
 			<text>{{currentDate}}</text>
 			<view class="v-switch">
@@ -21,7 +21,7 @@
 							<text class="name">{{x.name}}</text>
 							<view class="flex items-center">
 								<text class="price">挂号费：{{x.price}}</text>
-								<view class="surplus" @click="open">可预约({{x.surplus}})</view>
+								<view class="surplus" @click="open(x)">可预约({{x.surplus}})</view>
 							</view>
 						</view>
 						<view class="tex">
@@ -42,13 +42,14 @@
 				</view>
 				<view class="nodes">选择想要预约的时间段</view>
 				<view class="selList flex flex1 flex-wrap ">
-					<view class="sel-item justify-center" v-for="(item,index) in selList" :key="index" @click="chooseDate(item)">
+					<view class="sel-item justify-center" v-for="(item,index) in selList[currentRow.type]" :key="index" @click="chooseDate(item)">
 						{{item}}
 					</view>
 				</view>
 			</view>
 		</uni-popup>
-		<NoData />
+		<full-loading :loadshow="loading" text="加载中"></full-loading>
+		<!-- <NoData /> -->
 	</view>
 </template>
 
@@ -63,36 +64,111 @@
 				personImg: require('../../../common/styles/imgs/person.jpg'),
 				hasNum: false,
 				currentDate: '',
-				list: [[{name: "张三",img: "", price: 10.5,surplus: 30,postion: "主任医师",describe: "擅长冠心病的接入治疗，高血压及心力衰竭的诊治"}
-				,{name: "张三",img: "", price: 10.5,surplus: 30,postion: "主任医师",describe: "擅长冠心病的接入治疗，高血压及心力衰竭的诊治"}],[
-					{name: "张三",img: "", price: 10.5,surplus: 30,postion: "主任医师",describe: "擅长冠心病的接入治疗，高血压及心力衰竭的诊治"},
-					{name: "张三",img: "", price: 10.5,surplus: 30,postion: "主任医师",describe: "擅长冠心病的接入治疗，高血压及心力衰竭的诊治"}
-				]],
-				selList: ['14:00-15:00','14:00-15:00','14:00-15:00','14:00-15:00','14:00-15:00'],
-				showDate: true
+				Data: [],
+				list: [],
+				selList: [
+					['08:00-08:30','08:30-9:00','09:00-09:30','09:30-10:00','10:00-10:30','10:30-11:00','11:00-11:30','11:30-12:00',],
+					['14:00-14:30','14:30-15:00','15:00-15:30','15:30-16:00','16:00-16:30','16:30-17:00','17:00-17:30'],
+				],
+				hasData: {},
+				showDate: true,
+				loading: true,
+				classId: '',
+				currentRow: {}
 			}
 		},
 		onLoad: function (option) { //option为object类型，会序列化上个页面传递的参数
 			option.type == 1?(this.showDate = false): ""
+			option.id?(this.classId = option.id): (this.classId = 'P')
 			uni.setNavigationBarTitle({
 			　　title:option.title
 			})
+			this.getexpert();
 		},
 		methods: {
+			getDateforSearch() {
+				function returnDate(num){
+					var time = new Date()
+					//判断当前时间是否超过20:00
+					time.getHours()>20 && (num = num + 1);
+					var date = new Date(time.setDate(time.getDate() + num)).getDate()  //这里先获取日期，在按需求设置日期，最后获取需要的
+					var year = time.getFullYear()  //获取年份
+					var month = time.getMonth() + 1 
+					
+					return year+'-'+month + '-' + date
+				}
+				var arr = []
+				for (let i = 0; i < 7; i++) {
+					arr.push(returnDate(i))
+				}
+				return arr;
+			},
 			changeHasNum(){
 
 			},
-			open(){
-				console.log(this.$refs)
-				this.$refs.popup.open('right')
+			open(row){
+				//this.$refs.popup.open('right')
+				this.currentRow = row;
+				this.$refs.popup.open('right');
+				// uni.navigateTo({
+				// 	url:'/pages/yx/appointment/confirm?row=' + JSON.stringify(row)
+				// })
 			},
 			chooseDate(row){
+				this.currentRow['timePart'] = row;
+				this.currentRow['currentDate'] = this.currentDate;
 				uni.navigateTo({
-					url:'/pages/yx/appointment/confirm'
+					url:'/pages/yx/appointment/confirm?row=' + JSON.stringify(this.currentRow)
 				})
 			},
 			clickDate(date) {
+				// 获取当前日期的专家
+				const topArr = [],
+				bottomArr = [];
+				this.Data.map(item=>{
+					if(item.date == date && item.classId == this.classId && item.timeType == '上午') topArr.push({
+						name: item.docInfo.docName,
+						img: '',
+						price: item.etPrice,
+						postion: item.docInfo.docTitle,
+						describe: item.docInfo.special,
+						surplus: item.docInfo.total1,
+						depName:item.depName,
+						type: 0
+					})
+					if(item.date == date && item.classId == this.classId && item.timeType == '下午') bottomArr.push({
+						name: item.docInfo.docName,
+						img: '',
+						price: item.etPrice,
+						postion: item.docInfo.docTitle,
+						describe: item.docInfo.special,
+						surplus: item.docInfo.total2,
+						depName:item.depName,
+						type: 1
+					})
+				})
+				this.list = [topArr,bottomArr]
 				this.currentDate = date;
+			},
+			getexpert(){
+				const arr = this.getDateforSearch();
+				const firstDate = arr.shift();
+				const endDate = arr.pop();
+				this.$request({
+					path:`/smartinquiry/schedule/list?ampm=0&beginDate=${firstDate}&endDate=${endDate}`,
+				}).then(res=>{
+					this.loading = false;
+					if(res.data.code == 200){
+						const data = res.data.data || [];
+						this.Data = data;
+						arr.map(item=>{
+							const has = data.find(x=>{
+								return x.date == item
+							})
+							this.hasData[item] = has?true: false;
+						})
+					}
+				})
 			}
 		}
 	}
