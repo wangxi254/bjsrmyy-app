@@ -20,7 +20,7 @@
 					<view class="flex-row">
 						<view>{{item.docName}}</view>
 						<view style="margin-left: 10px;">{{item.docTitle}}</view>
-						<view class="flex1"  @click.stop="usrfav(item)">关注</view>
+						<view class="flex1" style="text-align: right;"  @click.stop="usrfav(item)">关注</view>
 					</view>
 					<view class="expertor-pro">
 						<text class="">擅长：</text>{{item.special}}
