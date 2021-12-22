@@ -96,6 +96,9 @@ export default {
 				});
 				return false;
 			}
+			uni.navigateTo({
+				url:"/components/authModel/authModel.vue"
+			})
 		}
 		if (res.statusCode === 500 && res.data.code === 1) {
 			typeof errfun === 'function' && resfun();
@@ -112,6 +115,10 @@ export default {
 				title: "请重新登录",
 				icon: "none"
 			});
+			
+			uni.navigateTo({
+				url:"/components/authModel/authModel.vue"
+			})
 			
 			throw new Error('未登录')
 			return false
