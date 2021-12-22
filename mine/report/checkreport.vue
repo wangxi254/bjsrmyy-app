@@ -63,7 +63,7 @@
 			}
 		},
 		onLoad() {
-			
+			this.getCheckreport();
 		},
 		methods: {
 			bindSDateChange(e) {
@@ -75,7 +75,22 @@
 			  let date = e.detail.value;
 			  this.endDate = date;
 			  this.list = [];
+			},
+			getCheckreport(){
+				this.$request({
+					path:'/checkReport/mobile/getInfo'
+				}).then(res=>{
+					
+				})
+			},
+			getDetailInfo(){
+				this.$request({
+					path:'/checkReport/mobile/getDetailInfo'
+				}).then(res=>{
+					
+				})
 			}
+			
 		}
 	}
 </script>

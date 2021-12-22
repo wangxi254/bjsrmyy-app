@@ -18,11 +18,11 @@
 				<image class="expert-icon" src="../static/tabbar/homed.png">
 				<view class="content">
 					<view class="flex-row">
-						<view>{{item.name}}</view>
-						<view>{{item.job}}</view>
+						<view>{{item.docName}}</view>
+						<view style="margin-left: 10px;">{{item.docTitle}}</view>
 					</view>
 					<view class="expertor-pro">
-						<text class="">擅长：</text>{{item.professional}}
+						<text class="">擅长：</text>{{item.special}}
 					</view>
 				</view>
 				<image class="right-icon" src="../static/tabbar/homed.png">
@@ -35,16 +35,16 @@
 	export default {
 		data() {
 			return {
-				expertorList:[
-					{name:"刘小芳1",job:"主任医师",professional:"恶性实体肿瘤、血液病诊治",icon:"../static/tabbar/homed.png"},
-					{name:"刘小芳2",job:"主任医师",professional:"恶性实体肿瘤、血液病诊治,恶性实体肿瘤、血液病诊治,恶性实体肿瘤、血液病诊治,恶性实体肿瘤、血液病诊治",icon:"../static/tabbar/homed.png"},
-				],
+				expertorList:[],
 				searchText:'',
 				isNotSearching:true,
 			}
 		},
-		onLoad() {
-
+		onLoad(options) {
+			if(options.item){
+				let item = JSON.parse(options.item)
+				this.getexpert(item.depCode);
+			}
 		},
 		methods: {
 			onClick(item){
@@ -64,11 +64,19 @@
 			input(item){
 				console.log("input:",JSON.stringify(item));
 			},
-			getDepartment(){
+			getexpert(depCode){
+				let date = new Date().toISOString().slice(0, 10);
 				this.$request({
-					path:'/expert/mobile/listNoPage'
+					path:'/expert/mobile/listNoPage',
+					query:{
+						beginDate:date,
+						endDate:date,
+						depCode:depCode
+					}
 				}).then(res=>{
-					
+					if(res.data.code == 200){
+						this.expertorList = res.data.data;
+					}
 				})
 			}
 			

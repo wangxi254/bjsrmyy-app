@@ -21,50 +21,14 @@
 	export default {
 		data() {
 			return {
-				leftNavData:[
-					{title:1},
-					{title:2},
-					{title:3},
-					{title:4},
-					{title:5},
-					{title:6},
-					{title:7},
-					{title:8},
-					{title:9},
-					{title:10},
-					{title:11},
-					{title:12},
-					{title:13},
-					{title:14},
-					{title:15},
-					{title:16},
-					{title:17},
-					{title:18},
-					{title:19},
-					{title:20},
-					{title:1},
-					{title:2},
-					{title:3},
-					{title:4},
-					{title:5},
-					{title:6},
-					{title:7},
-					{title:8},
-					{title:9},
-					{title:1},
-					{title:2},
-					{title:3},
-					{title:4},
-					{title:5},
-					{title:6},
-					{title:7},
-					{title:8},
-					{title:9},
-				],
+				leftNavData:[],
 				rightNavData:[],
 				searchText:'',
 				isNotSearching:true,
 				scrollHeiht:'',
+				leftProps:{
+					depName:"docName"
+				},
 			}
 		},
 		onLoad() {
@@ -73,23 +37,21 @@
 			console.log("height===>",height);
 			console.log("height===>",JSON.stringify(uni.getSystemInfoSync()));
 			this.scrollHeiht=`height:${height}px`
+			this.getexpert();
 		},
 		onShow() {
-			this.leftClick(this.leftNavData[0]);
+			// this.leftClick(this.leftNavData[0]);
 		},
 		components:{
 			hsSubfieldList
 		},
 		methods: {
 			leftClick(item){
-				if(item.title){
-					let array = [];
-					let num = Math.ceil(Math.random()*20); 
-					for(let i=0; i < num; i++){
-						array.push(Math.random()*30);
-					}
-					this.rightNavData = array;
-				}
+				let array = [];
+				this.rightNavData = array;
+				uni.navigateTo({
+					url:`./expertorList?item=${JSON.stringify(item)}`
+				})
 			},
 			rightClick(item){
 				uni.navigateTo({
@@ -105,6 +67,22 @@
 			cancleEdit(){
 				this.isNotSearching = true;
 			},
+			getexpert(){
+				
+				let date = new Date().toISOString().slice(0, 10);
+				this.$request({
+					path:'/department/mobile/listNoPage',
+					query:{
+						beginDate:date,
+						endDate:date,
+						regtype:1
+					}
+				}).then(res=>{
+					if(res.data.code == 200){
+						this.leftNavData = res.data.data;
+					}
+				})
+			}
 		}
 	}
 </script>

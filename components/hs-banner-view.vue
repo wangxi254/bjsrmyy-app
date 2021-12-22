@@ -41,7 +41,7 @@
 		},
 		watch:{
 			props (newProps) {
-			  this.pickerProps = Object.assign({}, defaultProps, newProps)
+			  this.props = Object.assign({}, defaultProps, newProps)
 			}
 		}
 	}

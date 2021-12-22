@@ -4,11 +4,10 @@
 		<scroll-view scroll-y class="leftNavBox col20-5">
 			<view class="leftNavItem py-20 text-center" v-for="(item,index) in leftNavData" :key="index" @tap="leftTap(item,index)" >
 				<view :class="leftActiveIndex===index?'leftActive':'leftUnActive'" class="leftNavContent py-10">
-					{{item.title}}
+					{{item.depName}}
 				</view>
 			</view>
 		</scroll-view>
-		
 			<!-- 右侧二级分类列表 -->
 		<scroll-view scroll-y class="col20-15" scroll-with-animation>
 			<view class="rightNavItem" @click="clickObjectItem(oitem)" v-for="(oitem,index) in rightNavData" :key="index">
@@ -20,6 +19,9 @@
 </template>
 
 <script>
+	const defaultProps = {
+		depName: 'depName',
+	}
 	export default {
 		props: {
 			leftNavData:{
@@ -35,6 +37,9 @@
 				default:'',  /* 可视区域的高度 */
 				
 			},
+			leftProps:{
+				type:Object,
+			}
 		},
 		data() {
 			return {
@@ -57,6 +62,11 @@
 			clickObjectItem(item){
 				console.log("rightTap:",JSON.stringify(item));
 				this.$emit('rightClick', item);
+			}
+		},
+		watch:{
+			leftProps (newProps) {
+			  this.leftProps = Object.assign({}, defaultProps, newProps)
 			}
 		}
 	}

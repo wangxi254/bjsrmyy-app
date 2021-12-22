@@ -21,32 +21,7 @@
 	export default {
 		data() {
 			return {
-				leftNavData:[
-					{title:1},
-					{title:2},
-					{title:3},
-					{title:4},
-					{title:5},
-					{title:6},
-					{title:20},
-					{title:7},
-					{title:8},
-					{title:9},
-					{title:10},
-					{title:40},
-					{title:11},
-					{title:12},
-					{title:13},
-					{title:14},
-					{title:36},
-					{title:15},
-					{title:16},
-					{title:50},
-					{title:17},
-					{title:18},
-					{title:19},
-					{title:20},
-				],
+				leftNavData:[],
 				rightNavData:[],
 				searchText:'',
 				isNotSearching:true,
@@ -57,6 +32,7 @@
 			/* 获取屏幕可视区域的高度 */
 			let height=uni.getSystemInfoSync().windowHeight - 44
 			this.scrollHeiht=`height:${height}px`
+			this.getDepartment();
 		},
 		onShow() {
 			this.leftClick(this.leftNavData[0]);
@@ -67,13 +43,8 @@
 		methods: {
 			leftClick(item){
 				console.log("expert:",JSON.stringify(item));
-				if(item.title){
-					let array = [];
-					for(let i=0; i < item.title; i++){
-						array.push(Math.ceil(Math.random()*20));
-					}
-					this.rightNavData = array;
-				}
+				let array = [];
+				this.rightNavData = array;
 			},
 			searchClick(){
 				this.isNotSearching = false;
@@ -91,15 +62,22 @@
 				})
 			},
 			getDepartment(){
+				
+				let date = new Date().toISOString().slice(0, 10);
 				this.$request({
-					path:'/department/mobile/listNoPage'
+					path:'/department/mobile/listNoPage',
+					query:{
+						beginDate:date,
+						endDate:date,
+						regtype:1
+					}
 				}).then(res=>{
-					
+					if(res.data.code == 200){
+						this.leftNavData = res.data.data;
+					}
 				})
 			}
 
-			
-			
 		}
 	}
 </script>
