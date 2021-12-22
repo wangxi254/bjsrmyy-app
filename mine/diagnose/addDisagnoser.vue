@@ -48,7 +48,7 @@
 			</view>
 		</view>
 		
-		<view class="addBtn">
+		<view class="addBtn" @click="addPatient">
 			绑定
 		</view>
 	</view>
@@ -107,6 +107,40 @@
 						break;
 					}
 				}
+			},
+			addPatient(){
+				if(this.name.length === 0){
+					return uni.showToast({
+						icon:'none',
+						title:"请输入姓名"
+					})
+				}
+				if(this.idcard.length === 0){
+					return uni.showToast({
+						icon:'none',
+						title:"请输入身份证号"
+					})
+				}
+				if(this.idcard.length !== 18){
+					return uni.showToast({
+						icon:'none',
+						title:"请输入正确的身份证号"
+					})
+				}
+				
+				this.$request({
+					path:"/patient/mobile/add",
+					method:'POST',
+					query:{
+						userId:uni.getStorageSync("userId"),
+						credentialNo:this.idcard,
+						credentialType:8,
+						name:this.name,
+					}
+				}).then(res=>{
+					console.log("res",JSON.stringify(res));
+				})
+				
 			}
 			
 		}

@@ -56,6 +56,12 @@
 		// 门诊清单
 		{
 			"path": "pages/records/listRecord"
+		},
+		{
+			"path": "pages/auth/auth", 
+			"style": {
+				"navigationStyle": "custom"
+			}
 		}
 	],
 	"mine": [
@@ -114,6 +120,12 @@
 					"path":"FloorList",
 					"style": {
 						"navigationBarTitleText": "楼层导航"
+					}
+				},
+				{
+					"path":"guideDiag",
+					"style": {
+						"navigationBarTitleText": "电子导诊单"
 					}
 				}
 			]
