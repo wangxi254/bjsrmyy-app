@@ -1,11 +1,8 @@
 <template>
 	<view class="detailPage">
-		<scroll-view v-if="showDate" scroll-x style="height:80px">
-			<view style="width: 100%;background: #fff;height:80px" >
-			</view>
-		</scroll-view>
+		<chooseDay v-if="showDate" @clickDate="clickDate" />
 		<view class="sel-condition">
-			<text>2021-12-19</text>
+			<text>{{currentDate}}</text>
 			<view class="v-switch">
 				<text>只看有号</text>
 				<switch :checked="hasNum" @change="changeHasNum" color="#007aff" style="transform:scale(0.5)" />
@@ -58,12 +55,14 @@
 <script>
 	import NoData from '@/components/nodata/index.vue' 
 	import uniPopup from '@/components/uni-popup/components/uni-popup/uni-popup.vue'
+	import chooseDay from '@/components/choosedate/index.vue'
 	export default {
-		components: { NoData, uniPopup },
+		components: { NoData, uniPopup, chooseDay },
 		data() {
 			return {
 				personImg: require('../../../common/styles/imgs/person.jpg'),
 				hasNum: false,
+				currentDate: '',
 				list: [[{name: "张三",img: "", price: 10.5,surplus: 30,postion: "主任医师",describe: "擅长冠心病的接入治疗，高血压及心力衰竭的诊治"}
 				,{name: "张三",img: "", price: 10.5,surplus: 30,postion: "主任医师",describe: "擅长冠心病的接入治疗，高血压及心力衰竭的诊治"}],[
 					{name: "张三",img: "", price: 10.5,surplus: 30,postion: "主任医师",describe: "擅长冠心病的接入治疗，高血压及心力衰竭的诊治"},
@@ -91,6 +90,9 @@
 				uni.navigateTo({
 					url:'/pages/yx/appointment/confirm'
 				})
+			},
+			clickDate(date) {
+				this.currentDate = date;
 			}
 		}
 	}
