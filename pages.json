@@ -21,11 +21,15 @@
 		},
 		// 科室
 		{
-			"path": "pages/yx/Department/index"
+			"path": "pages/yx/Department/index",
+			"style": {
+				"navigationBarTitleText": "科室"
+			}
 		},
 		// 可预约
 		{
 			"path": "pages/yx/appointment/index"
+			
 		},
 		// 预约确认页
 		{
@@ -43,7 +47,10 @@
 		},
 		// 预约列表
 		{
-			"path": "pages/yx/appointRecord/index"
+			"path": "pages/yx/appointRecord/index",
+			"style": {
+				"navigationBarTitleText": "预约记录"
+			}
 		},
 		{
 			"path": "pages/showIcon/index"
@@ -51,16 +58,22 @@
 		// 挂号 end
 		// 缴费记录
 		{
-			"path": "pages/records/PayRecord"
+			"path": "pages/records/PayRecord",
+			"style": {
+				"navigationBarTitleText": "缴费记录"
+			}
 		},
 		// 门诊清单
 		{
-			"path": "pages/records/listRecord"
+			"path": "pages/records/listRecord",
+			"style": {
+				"navigationBarTitleText": "门诊清单"
+			}
 		},
 		{
-			"path": "pages/auth/auth", 
-			"style": {
-				"navigationStyle": "custom"
+			"path":"pages/auth/auth",
+			"style":{
+				"navigationStyle":"custom"
 			}
 		}
 	],
@@ -165,6 +178,23 @@
 			]
 		},
 		{
+			"root": "attention",
+			"pages": [
+				{
+					"path":"index",
+					"style": {
+						"navigationBarTitleText": "我的关注"
+					}
+				},
+				{
+					"path":"expertorDetail",
+					"style": {
+						"navigationBarTitleText": "专家介绍"
+					}
+				}
+			]
+		},
+		{
 			"root": "mine",
 			"pages": [
 				{
@@ -196,7 +226,7 @@
 	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "hospital",
+		"navigationBarTitleText": "毕节市第一人民医院",
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8"
 	},
