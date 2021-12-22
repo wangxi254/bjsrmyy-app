@@ -79,6 +79,9 @@
 		onLoad() {
 
 		},
+		onShow() {
+			this.requestList();
+		},
 		methods: {
 			addDisagnoseMan(){
 				uni.navigateTo({
@@ -113,7 +116,18 @@
 				uni.navigateTo({
 					url:`./addDisagnoser?item=${JSON.stringify(item)}`
 				})
+			},
+			requestList(){
+				this.$request({
+					path:"/patient/mobile/getPatientByUserId",
+					query:{
+						userId:uni.getStorageSync("userId"),
+					}
+				}).then(res=>{
+					console.log("res",JSON.stringify(res));
+				})
 			}
+			
 			
 		}
 	}

@@ -26,7 +26,7 @@
 						{id:4,img:'/static/tabbar/home.png',title:'科室介绍',detail:'appointment',navigation:'../../hospitalIntro/roomIntro'},
 						{id:5,img:'/static/tabbar/home.png',title:'专家介绍',detail:'appointment',navigation:'../../hospitalIntro/expertIntro'},
 						{id:6,img:'/static/tabbar/home.png',title:'楼层导航',detail:'appointment',navigation:'../../hospitalIntro/FloorList'},
-						{id:7,img:'/static/tabbar/home.png',title:'健康百科',detail:''},
+						{id:7,img:'/static/tabbar/home.png',title:'电子导诊单',detail:'appointment',navigation:'../../hospitalIntro/guideDiag'},
 						{id:8,img:'/static/tabbar/home.png',title:'健康咨询',detail:'appointment'},
 						{id:9,img:'/static/tabbar/home.png',title:'预约挂号',detail:'Appointment',navigation:'/pages/yx/Booking_instructions/index'},
 						{id:10,img:'/static/tabbar/home.png',title:'当日挂号',detail:'Day Registration',navigation:'/pages/yx/Department/index?type=1'},
@@ -59,7 +59,9 @@
 				})
 			},
 			bannerClick(item){
-				
+				uni.navigateTo({
+					url:"../auth/auth"
+				})
 			},
 			hospitalnews(id){
 				let that = this;

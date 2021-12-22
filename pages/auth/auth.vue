@@ -1,7 +1,7 @@
 <template>
-<cover-view class="auth">
-  	<button class='bottom' type='primary' open-type="getPhoneNumber" @getphonenumber="getPhoneNumber" withCredentials="true">手机号授权登录</button>
-  </cover-view>
+<view class="auth">
+  	<button class='bottom' type="primary" open-type="getPhoneNumber" @getphonenumber="onGetPhoneNumber" >手机号授权登录</button>
+  </view>
 </template>
 
 <script>
@@ -16,24 +16,16 @@ export default {
 	/**
 	* 初始
 	*/
-	beforeMount() {
-		this.setData({
-		  authFlag: true,
-		});
-	},
 	onLoad() {
-			
-	},
-	async mounted() {
-		console.log("getAuthOpenId 先获取code");
-		await this.getAuthOpenId();
+		uni.login({
+			provider: 'weixin',
+			success: loginres => {
+			},
+		})
 	},
 	methods: {
 		//关闭弹窗
 		handleCloseModal() {
-		  this.setData({
-			authFlag: true
-		  });
 		  this.$emit('closemodal', {
 			detail: {
 			  flag: false
@@ -103,24 +95,35 @@ export default {
 				title: '加载中'
 			});
 		},
-		getPhoneNumber(PhoneNumber) {
-			let appid = "wxce185cd1da123456" //需替换
-			let secret = "25d0fe7478355910fc143ce6b1234567"  //需替换
+		onGetPhoneNumber(e) {
+			let that = this;
+			console.log("e===>",JSON.stringify(e))
+			let appid = "wxbd1c9abbabdd7333" //需替换
+			let secret = "3dda78ba34520358aade662ae735e1d1"  //需替换
 			//调用 wx.login 接口,获取code
 			uni.login({
 				provider: 'weixin',
-				success: res => {
+				success: loginres => {
+					console.log("loginres>>",JSON.stringify(loginres));
+					
+					
 					let url = 'https://api.weixin.qq.com/sns/jscode2session?appid=' + appid + '&secret=' + secret +
 						'&js_code=' +
-						res.code + '&grant_type=authorization_code';
-					//用 code 换取 session 和 openId
+						loginres.code + '&grant_type=authorization_code';
+					// 用 code 换取 session 和 openId
 					uni.request({
 						url: url, // 请求路径
 						success: res => { //成功res返回openid，session_key
-							// console.log(res)
+							console.log(JSON.stringify(res));	
+							
+							console.log("res.data.session_key===>",res.data.session_key);
+							console.log("appid===>",appid);
+							console.log("e.detail.encryptedData===>",e.detail.encryptedData);
+							console.log("e.detail.iv===>",e.detail.iv);
 							//解密用户信息
-							let pc = new WXBizDataCrypt(appid, res.data.session_key);
-							let data = pc.decryptData(PhoneNumber.detail.encryptedData, PhoneNumber.detail.iv);
+							let pc = new WXBizDataCrypt(appid,res.data.session_key);           //wxXXXXXXX为你的小程序APPID  
+							let data = pc.decryptData(e.detail.encryptedData , e.detail.iv);  
+							
 							// //data就是最终解密的用户信息 
 							// countryCode: "86"  区号
 							// phoneNumber: "15634123456"  用户绑定的手机号（国外手机号会有区号）
@@ -128,7 +131,15 @@ export default {
 							// watermark:
 							//         appid: "wxce185cd1da123456"
 							//         timestamp: 1607906868
-							console.log(data)
+							console.log(JSON.stringify(data))
+							const phone = data.phoneNumber;
+							uni.getUserInfo({
+								success: (info) => {
+									console.log("info===>",JSON.stringify(info));
+									const name = info.userInfo.nickName
+									that.requestAdd(name,name,phone);
+								}
+							})
 						},
 						fail: err => {
 							console.log(err)
@@ -136,6 +147,33 @@ export default {
 					})
 				}
 			})
+		},
+		async requestAdd(name,nickName,phone){
+			const [err,res] = await this.$arequest({
+				path:"/user/mobile/add",
+				method:"POST",
+				query:{
+					name:name,
+					nickName:nickName,
+					phone:phone,
+				}
+			})
+			// 346829058917404672
+			console.log("err:",JSON.stringify(err))
+			console.log("res:",JSON.stringify(res))
+			if(res && res.data && res.data.code == 200){
+				uni.showToast({
+					icon:'none',
+					title:"登录成功",
+					success() {
+						uni.setStorageSync("userId",res.data.data.id);
+						setTimeout(()=>{
+							uni.navigateBack();
+						},2000)
+					}
+				})
+				
+			}
 		}
 
 	}

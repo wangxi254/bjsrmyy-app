@@ -2,6 +2,21 @@
 	<view>
 		<view class="flex-row">
 			<view>
+				就诊人类型
+			</view>
+			<radio-group @change="radioChange">
+				<view class="row-cls">
+					<label class="row-cls left15" v-for="(patint, index) in patints" :key="patint.value">
+						<view>
+							<radio :value="patint.value" :checked="patint.value === patientIndex" />
+						</view>
+						<view>{{patint.name}}</view>
+					</label>
+				</view>
+			</radio-group>
+		</view>
+		<view class="flex-row">
+			<view>
 				姓名
 			</view>
 			<input v-model="name" placeholder="请输入就诊人姓名" />
@@ -14,13 +29,14 @@
 				<view class="row-cls">
 					<label class="row-cls left15" v-for="(sex, index) in sexs" :key="sex.value">
 						<view>
-							<radio :value="sex.value" :checked="index === current" />
+							<radio :value="sex.value" :checked="sex.value === current" />
 						</view>
 						<view>{{sex.name}}</view>
 					</label>
 				</view>
 			</radio-group>
 		</view>
+		
 		<view class="flex-row">
 			<view>
 				身份证号
@@ -33,6 +49,20 @@
 			</view>
 			<input v-model="diagnoseId" placeholder="请输入就诊人ID" />
 		</view>
+		<view class="flex-row">
+			<view>
+				出生日期
+			</view>
+			<picker mode="date" :value="birthday" @change="birthdayChange">
+				<view class="flex-row picker-view height40 hs-border">
+				  <view>
+						{{birthday||'选择出生日期'}}
+				  </view>
+				   <image class="right" src="../../static/common/right.png"></image>
+				</view>
+			</picker>
+		</view>
+		
 		<view class="flex-row">
 			<view>
 				详细地址
@@ -48,7 +78,7 @@
 			</view>
 		</view>
 		
-		<view class="addBtn">
+		<view class="addBtn" @click="addPatient">
 			绑定
 		</view>
 	</view>
@@ -66,17 +96,29 @@
 				identify:'',
 				diagnoseId:'',
 				defaultDisgnose:false,
+				birthday:'',
 				sexs:[
 					{
-						value:'man',
+						value:1,
 						name:'男',
 					},
 					{
-						value:'womam',
+						value:2,
 						name:'女'
 					}
 				],
-				current:0,
+				patints:[
+					{
+						value:0,
+						name:'成人',
+					},
+					{
+						value:1,
+						name:'儿童'
+					}
+				],
+				current:1,
+				patientIndex:0,
 				
 			}
 		},
@@ -107,6 +149,41 @@
 						break;
 					}
 				}
+			},
+			addPatient(){
+				if(this.name.length === 0){
+					return uni.showToast({
+						icon:'none',
+						title:"请输入姓名"
+					})
+				}
+				if(this.idcard.length === 0){
+					return uni.showToast({
+						icon:'none',
+						title:"请输入身份证号"
+					})
+				}
+				
+				this.$request({
+					path:"/patient/mobile/add",
+					method:'POST',
+					query:{
+						userId:uni.getStorageSync("userId"),
+						credentialNo:this.idcard,
+						credentialType:8,
+						name:this.name,
+						sex:this.current,
+						birthday:this.birthday,
+						patientType:this.patientIndex,
+					}
+				}).then(res=>{
+					console.log("res",JSON.stringify(res));
+				})
+				
+			},
+			birthdayChange(e) {
+			  let date = e.detail.value;
+			  this.birthday = date;
 			}
 			
 		}
@@ -133,5 +210,27 @@
 	
 	.left15{
 		margin-left: 15px;
+	}
+	
+	.picker-view{
+		min-width: 80px;
+		padding: 0 10px;
+		
+		align-items: center;
+		display: flex;
+		justify-content: space-between;
+		text-align: center;
+	}
+	
+	.height40{
+		height: 30px;
+		line-height: 30px;
+		margin: 0px 5px;
+		border-radius: 5px;
+	}
+	
+	.right{
+		width: 10px;
+		height: 10px;
 	}
 </style>

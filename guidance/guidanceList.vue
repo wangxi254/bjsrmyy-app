@@ -11,10 +11,12 @@
 		
 			<!-- 右侧二级分类列表 -->
 		<scroll-view scroll-y class="rightBox" scroll-with-animation>
-			<view class="rightNavItem" @click="clickObjectItem(item)" v-for="(item,index) in rightNavData" :key="index">
+			<picker @change="bindPickerChange" :value="type" :range="array" v-for="(item,index) in rightNavData" :key="index">
+			<view class="rightNavItem" @click="clickObjectItem(item)">
 				<span>{{item.name}}</span>
 				<span>></span>
 			</view>
+			</picker>
 		</scroll-view>
 	</view>
 </template>
@@ -23,6 +25,8 @@
 	export default {
 		data() {
 			return {
+				type: 0,
+				array: ['当日挂号','预约挂号'],
 				firstId: '',
 				leftActive: '',
 				navData: [],
@@ -33,6 +37,10 @@
 			this.getData()
 		},
 		methods: {
+			bindPickerChange(e) {
+				this.type = e.target.value
+				console.log(this.type)
+			},
 			getData() {
 				uni.request({
 				    url: 'https://min.his.gzskt.net/bjrmWebApi/smartinquiry/body/listRelData', //仅为示例，并非真实接口地址。

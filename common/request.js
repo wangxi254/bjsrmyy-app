@@ -96,6 +96,7 @@ export default {
 				});
 				return false;
 			}
+			
 			uni.navigateTo({
 				url:"/components/authModel/authModel.vue"
 			})

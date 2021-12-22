@@ -5,7 +5,7 @@
 			<div @click="changeSex('woman')" class="woman" :class="{'activeSex': sex === 'woman'}">女</div>
 		</view>
 		
-		<view class="list">症状列表</view>
+		<view class="list" @click="goDetail">症状列表</view>
 		
 		<!--人体图片-->
 		<div class="picture" :class="{'zm': currentType === 'zm','fm': currentType === 'fm','man': sex === 'man','woman': sex === 'woman'}">
@@ -106,6 +106,11 @@
 						url: './guidanceList?id=' + id,
 					})
 				}
+			},
+			goDetail() {
+				uni.navigateTo({
+					url: './guidanceList',
+				})
 			}
 		}
 	}
@@ -126,6 +131,7 @@
 			font-weight: bold;
 			font-size: 16px;
 			padding: 4px;
+			z-index: 99;
 		}
 		
 		.sex {
