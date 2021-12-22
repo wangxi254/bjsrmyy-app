@@ -166,6 +166,23 @@
 			]
 		},
 		{
+			"root": "attention",
+			"pages": [
+				{
+					"path":"index",
+					"style": {
+						"navigationBarTitleText": "我的关注"
+					}
+				},
+				{
+					"path":"expertorDetail",
+					"style": {
+						"navigationBarTitleText": "专家介绍"
+					}
+				}
+			]
+		},
+		{
 			"root": "mine",
 			"pages": [
 				{
