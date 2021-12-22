@@ -26,7 +26,7 @@
 						<text class="">擅长：</text>{{item.special}}
 					</view>
 				</view>
-				<image class="right-icon" src="../static/tabbar/homed.png">
+				<image class="right-icon" src="../static/common/right.png">
 			</view>
 		</scroll-view>
 	</view>
