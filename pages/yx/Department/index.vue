@@ -39,16 +39,24 @@
 			this.getDepartment();
 		},
 		onShow() {
-			this.leftClick(this.leftNavData[0]);
+			//this.leftClick(this.leftNavData[0]);
 		},
 		components:{
 			hsSubfieldList,uniNoticeBar
 		},
 		methods: {
+			// leftClick(item){
+			// 	console.log("expert:",JSON.stringify(item));
+			// 	let array = [];
+			// 	this.rightNavData = array;
+				
+			// },
 			leftClick(item){
-				console.log("expert:",JSON.stringify(item));
 				let array = [];
 				this.rightNavData = array;
+				uni.navigateTo({
+					url:'/pages/yx/appointment/index?title=' + item.depName +'&&type=' +this.pageType + '&&id='+item.depCode
+				})
 			},
 			searchClick(){
 				this.isNotSearching = false;

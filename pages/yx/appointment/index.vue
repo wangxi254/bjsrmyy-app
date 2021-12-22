@@ -80,6 +80,13 @@
 		onLoad: function (option) { //option为object类型，会序列化上个页面传递的参数
 			option.type == 1?(this.showDate = false): ""
 			option.id?(this.classId = option.id): (this.classId = 'P')
+			if(option.type == 1){
+				var time = new Date()
+				var date = time.getDate()  //这里先获取日期，在按需求设置日期，最后获取需要的
+				var year = time.getFullYear()  //获取年份
+				var month = time.getMonth() + 1 
+				this.currentDate = year+'-'+month + '-' + date;
+			}
 			uni.setNavigationBarTitle({
 			　　title:option.title
 			})
@@ -94,7 +101,6 @@
 					var date = new Date(time.setDate(time.getDate() + num)).getDate()  //这里先获取日期，在按需求设置日期，最后获取需要的
 					var year = time.getFullYear()  //获取年份
 					var month = time.getMonth() + 1 
-					
 					return year+'-'+month + '-' + date
 				}
 				var arr = []
@@ -107,12 +113,8 @@
 
 			},
 			open(row){
-				//this.$refs.popup.open('right')
 				this.currentRow = row;
 				this.$refs.popup.open('right');
-				// uni.navigateTo({
-				// 	url:'/pages/yx/appointment/confirm?row=' + JSON.stringify(row)
-				// })
 			},
 			chooseDate(row){
 				this.currentRow['timePart'] = row;
@@ -126,7 +128,7 @@
 				const topArr = [],
 				bottomArr = [];
 				this.Data.map(item=>{
-					if(item.date == date && item.classId == this.classId && item.timeType == '上午') topArr.push({
+					if(item.date == date && item.depCode == this.classId && item.timeType == '上午') topArr.push({
 						name: item.docInfo.docName,
 						img: '',
 						price: item.etPrice,
@@ -152,8 +154,8 @@
 			},
 			getexpert(){
 				const arr = this.getDateforSearch();
-				const firstDate = arr.shift();
-				const endDate = arr.pop();
+				const firstDate = arr[0];
+				const endDate = arr[arr.length - 1];
 				this.$request({
 					path:`/smartinquiry/schedule/list?ampm=0&beginDate=${firstDate}&endDate=${endDate}`,
 				}).then(res=>{
@@ -161,12 +163,16 @@
 					if(res.data.code == 200){
 						const data = res.data.data || [];
 						this.Data = data;
-						arr.map(item=>{
-							const has = data.find(x=>{
-								return x.date == item
+						if(this.showDate){
+							arr.map(item=>{
+								const has = data.find(x=>{
+									return (x.date == item && x.depCode == this.classId)
+								})
+								this.hasData[item] = has?true: false;
 							})
-							this.hasData[item] = has?true: false;
-						})
+						}else{
+							this.clickDate(this.currentDate)
+						}
 					}
 				})
 			}
