@@ -23,6 +23,12 @@
 		</view>
 		<view class="flex-row">
 			<view>
+				手机号码
+			</view>
+			<input v-model="phone" placeholder="请输入就诊人手机号码" />
+		</view>
+		<view class="flex-row">
+			<view>
 				性别
 			</view>
 			<radio-group @change="radioChange">
@@ -49,23 +55,12 @@
 				</view>
 			</picker>
 		</view>
-		<view class="flex-row">
-			<view>
-				手机号码
-			</view>
-			<input v-model="phone" placeholder="请输入就诊人手机号码" />
-		</view>
+		
 		<view class="flex-row">
 			<view>
 				证件号
 			</view>
 			<input v-model="idcard" placeholder="请输入就诊人证件号" />
-		</view>
-		<view class="flex-row">
-			<view>
-				就诊ID
-			</view>
-			<input v-model="diagnoseId" placeholder="请输入就诊人ID" />
 		</view>
 		<view class="flex-row">
 			<view>
@@ -149,7 +144,7 @@
 		</view>
 		
 		<view class="addBtn" @click="addPatient">
-			绑定
+			确定
 		</view>
 	</view>
 </template>
@@ -360,7 +355,7 @@
 				this.contactName = item.contactName;
 				this.credentialType = item.credentialType;
 				this.sex = item.sex;
-				
+				this.defaultDisgnose = item.defaultPatient ? true : false;
 				for(let i = 0; i < this.contactTypes.length; i ++){
 					const contactTypeItem = this.contactTypes[i];
 					if(contactTypeItem.value == item.contactType){
@@ -431,12 +426,6 @@
 						title:"请输入姓名"
 					})
 				}
-				if(this.idcard.length === 0){
-					return uni.showToast({
-						icon:'none',
-						title:"请输入身份证号"
-					})
-				}
 				
 				if(this.phone.length === 0){
 					return uni.showToast({
@@ -445,27 +434,29 @@
 					})
 				}
 				
+				if(this.idcard.length === 0){
+					return uni.showToast({
+						icon:'none',
+						title:"请输入就诊人证件号"
+					})
+				}
+				
+				
+				
 				if(this.birthday.length === 0){
 					return uni.showToast({
 						icon:'none',
-						title:"请输入就诊人出生日期"
+						title:"请选择出生日期"
 					})
 				}
 				
 				if(this.address.length === 0){
 					return uni.showToast({
 						icon:'none',
-						title:"请输入就诊人居住地"
+						title:"请输入就诊人详细地址"
 					})
 				}
 				
-				if(this.address.length === 0){
-					return uni.showToast({
-						icon:'none',
-						title:"请类型不能为空"
-					})
-				}
-
 				let req = {
 					userId:uni.getStorageSync("userId"),
 					credentialNo:this.idcard,
@@ -493,7 +484,7 @@
 						contactType:this.contactType,
 						nation:this.nation,
 						phone:this.phone,
-						defaultPatient:this.defaultDisgnose,
+						defaultPatient:this.defaultDisgnose ? 1 : 0,
 					}
 				}
 				

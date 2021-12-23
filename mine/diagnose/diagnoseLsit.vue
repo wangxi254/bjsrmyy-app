@@ -12,7 +12,7 @@
 			</view>
 			<view class="space-btw">
 				<view class="btn" @click="openCode(item)">电子就诊码</view>
-				<view class="btn">档案更新</view>
+				<view class="btn" @click="bindCard(item)">绑定就诊卡</view>
 				<view class="btn" @click="edit(item)">编辑</view>
 				<view class="btn" @click="unbindDisagnose(item)">解绑</view>
 			</view>
@@ -115,6 +115,11 @@
 			edit(item){
 				uni.navigateTo({
 					url:`./addDisagnoser?item=${JSON.stringify(item)}`
+				})
+			},
+			bindCard(item){
+				uni.navigateTo({
+					url:`./bindCard?item=${JSON.stringify(item)}`
 				})
 			},
 			requestList(){

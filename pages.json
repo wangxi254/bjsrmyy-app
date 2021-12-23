@@ -168,6 +168,12 @@
 					"style": {
 						"navigationBarTitleText": "化验报告"
 					}
+				},
+				{
+					"path":"diagnose/bindCard",
+					"style": {
+						"navigationBarTitleText": "绑定就诊卡"
+					}
 				}
 			]
 		},
