@@ -340,7 +340,9 @@
 				let item = JSON.parse(options.item);
 				
 				
-			
+				uni.setNavigationBarTitle({
+					title:"编辑就诊人"
+				})
 
 				this.patientId = item.id;
 				this.name = item.name;
@@ -395,6 +397,10 @@
 					}
 				}
 				
+			}else{
+				uni.setNavigationBarTitle({
+					title:"添加就诊人"
+				})
 			}
 		},
 		methods: {
