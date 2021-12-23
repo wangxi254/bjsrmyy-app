@@ -437,6 +437,34 @@
 						title:"请输入身份证号"
 					})
 				}
+				
+				if(this.phone.length === 0){
+					return uni.showToast({
+						icon:'none',
+						title:"请输入就诊人手机号"
+					})
+				}
+				
+				if(this.birthday.length === 0){
+					return uni.showToast({
+						icon:'none',
+						title:"请输入就诊人出生日期"
+					})
+				}
+				
+				if(this.address.length === 0){
+					return uni.showToast({
+						icon:'none',
+						title:"请输入就诊人居住地"
+					})
+				}
+				
+				if(this.address.length === 0){
+					return uni.showToast({
+						icon:'none',
+						title:"请类型不能为空"
+					})
+				}
 
 				let req = {
 					userId:uni.getStorageSync("userId"),
