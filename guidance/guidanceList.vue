@@ -22,7 +22,7 @@
 			<view class="bzlist">
 				<view class="title">选择科室</view>
 				<view class="list">
-					<NoData v-if="current.length === 0" />
+					<NoData style="position:absolute" v-if="current.length === 0" />
 					<picker @change="bindPickerChange" :value="type" :range="array">
 						<view @click="chooseDep(i)" v-for="i in current" :key="i.depCode" class="item">{{i.depName}}</view>
 					</picker>
