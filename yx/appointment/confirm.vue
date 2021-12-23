@@ -72,7 +72,7 @@ export default {
     },
     onLoad: function (option) { //
         option.row && (this.appointmentInfo = JSON.parse(option.row))
-        this.userInfo = getApp().globalData.currentPatientInfo;
+        this.userInfo = getApp().globalData.PatientList.length>0?{}:getApp().globalData.PatientList[0];
         this.$getUserId();
     },
     methods: {

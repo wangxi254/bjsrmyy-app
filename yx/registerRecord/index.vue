@@ -168,7 +168,7 @@ export default {
         }
     },
     onLoad: function (option) {
-        this.PatientInfo = getApp().globalData.currentPatientInfo;
+        this.PatientInfo = getApp().globalData.PatientList[0];
         this.$getUserId();
         this.getList();
     },

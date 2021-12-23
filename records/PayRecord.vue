@@ -32,6 +32,7 @@
         
     </view>
     <userModel ref="userModelref"  @changeUser="changeUser" />
+    <wyb-loading ref="loading"/>
   </view>
 </template>
 
@@ -69,16 +70,28 @@ export default {
         }
     },
     onLoad() {
-        this.PatientInfo = getApp().globalData.currentPatientInfo;
+        this.PatientInfo = getApp().globalData.PatientList[0];
         this.$getUserId();
-        //this.getList();
+        this.getList();
     },
     methods: {
         showUserList() {
             this.$refs.userModelref.show();
         },
         changeUser(row) {
-            
+            this.PatientInfo = row;
+            this.getList();
+        },
+        getList() {
+            this.$refs.loading.showLoading()
+            this.$request({
+                path:`/registration/order/list?phoneNum=${this.PatientInfo.phone}`
+            }).then(res=>{
+                this.$refs.loading.hideLoading()
+                if(res.data.code == 200){
+                    this.list = res.data.data;
+                }
+            })
         }
     }
 }
