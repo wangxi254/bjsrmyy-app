@@ -4,7 +4,7 @@
 			<view>
 				就诊人类型
 			</view>
-			<radio-group @change="radioChange">
+			<radio-group @change="paintChange">
 				<view class="row-cls">
 					<label class="row-cls left15" v-for="(patint, index) in patints" :key="patint.value">
 						<view>
@@ -39,9 +39,9 @@
 		
 		<view class="flex-row">
 			<view>
-				身份证号
+				证件号
 			</view>
-			<input v-model="idcard" placeholder="请输入就诊人身份证号" />
+			<input v-model="idcard" placeholder="请输入就诊人证件号" />
 		</view>
 		<view class="flex-row">
 			<view>
@@ -63,12 +63,65 @@
 			</picker>
 		</view>
 		
+		
+		<view class="flex-row">
+			<view>
+				民族
+			</view>
+			<input v-model="nation" placeholder="请输入民族" />
+			<picker :value="nationIndex" :range="nations" @change="nationChange">
+				<view class="flex-row picker-view height40 hs-border">
+				  <view>
+						{{nations[nationindex]||'选择民族'}}
+				  </view>
+				   <image class="right" src="../../static/common/right.png"></image>
+				</view>
+			</picker>
+		</view>
+		
+		<view class="flex-row" v-if="patientIndex === 1">
+			<view>
+				联系人类型
+			</view>
+			<picker :value="contactTypeIndex" :range="contactTypes" @change="contactTypeChange" range-key="name">
+				<view class="flex-row picker-view height40 hs-border">
+				  <view>
+						{{contactTypes[contactTypeIndex].name||'选择联系人类型'}}
+				  </view>
+				   <image class="right" src="../../static/common/right.png"></image>
+				</view>
+			</picker>
+		</view>
+		
+		   
+		<view class="flex-row" v-if="patientIndex === 1">
+			<view>
+				联系人姓名
+			</view>
+			<input v-model="contactName" placeholder="请输入联系人姓名" />
+		</view>
+		
+		<view class="flex-row" v-if="patientIndex === 1">
+			<view>
+				联系人电话
+			</view>
+			<input v-model="contactPhone" placeholder="请输入联系人电话" />
+		</view>
+		    
+		<view class="flex-row" v-if="patientIndex === 1">
+			<view>
+				联系人身份证号
+			</view>
+			<input v-model="contactIdcard" placeholder="请输入联系人身份证号" />
+		</view>
+		
 		<view class="flex-row">
 			<view>
 				详细地址
 			</view>
 			<input v-model="address" placeholder="请输入就诊人详细地址" />
 		</view>
+		
 		<view class="flex-row">
 			<view>
 				设为默认就诊人
@@ -119,7 +172,109 @@
 				],
 				current:1,
 				patientIndex:0,
-				
+				contactTypes:[
+					// {
+					// 	value:0,
+					// 	name:'未知',
+					// },
+					{
+						value:1,
+						name:'父亲'
+					},
+					{
+						value:2,
+						name:'母亲',
+					},
+					{
+						value:3,
+						name:'爷爷'
+					},
+					{
+						value:4,
+						name:'奶奶',
+					},
+					{
+						value:5,
+						name:'外公'
+					},
+					{
+						value:6,
+						name:'外婆',
+					},
+					{
+						value:7,
+						name:'叔伯/舅舅'
+					},
+					{
+						value:8,
+						name:'姑姑/姨妈'
+					}
+				],
+				contactType:1,
+				contactTypeIndex:0,
+				nations:[
+					"汉族",
+					"壮族",
+					"满族",
+					"回族",
+					"苗族",
+					"维吾尔族",
+					"土家族",
+					"彝族",
+					"蒙古族",
+					"藏族",
+					"布依族",
+					"侗族",
+					"瑶族",
+					"朝鲜族",
+					"白族",
+					"哈尼族",
+					"哈萨克族",
+					"黎族",
+					"傣族",
+					"畲族",
+					"傈僳族",
+					"仡佬族",
+					"东乡族",
+					"高山族",
+					"拉祜族",
+					"水族",
+					"佤族",
+					"纳西族",
+					"羌族",
+					"土族",
+					"仫佬族",
+					"锡伯族",
+					"柯尔克孜族",
+					"达斡尔族",
+					"景颇族",
+					"毛南族",
+					"撒拉族",
+					"布朗族",
+					"塔吉克族",
+					"阿昌族",
+					"普米族",
+					"鄂温克族",
+					"怒族",
+					"京族",
+					"基诺族",
+					"德昂族",
+					"保安族",
+					"俄罗斯族",
+					"裕固族",
+					"乌兹别克族",
+					"门巴族",
+					"鄂伦春族",
+					"独龙族",
+					"塔塔尔族",
+					"赫哲族",
+					"珞巴族",	
+				],
+				nationindex:0,
+				nation:"",
+				contactIdcard:'',
+				contactPhone:'',
+				contactName:'',
 			}
 		},
 		onLoad(options) {
@@ -142,10 +297,19 @@
 			clickSwit(){
 				this.defaultDisgnose = !this.defaultDisgnose;
 			},
-			radioChange: function(evt) {
+			radioChange(evt){
 				for (let i = 0; i < this.sexs.length; i++) {
-					if (this.sexs[i].value === evt.detail.value) {
+					if (this.sexs[i].value == evt.detail.value) {
 						this.current = i;
+						break;
+					}
+				}
+			},
+			paintChange(evt){
+				for (let i = 0; i < this.patints.length; i++) {
+					console.log("this.patints[i].value====>",this.patints[i].value);
+					if (this.patints[i].value == evt.detail.value) {
+						this.patientIndex = i;
 						break;
 					}
 				}
@@ -164,10 +328,19 @@
 					})
 				}
 				
-				this.$request({
-					path:"/patient/mobile/add",
-					method:'POST',
-					query:{
+				let req = {
+					userId:uni.getStorageSync("userId"),
+					credentialNo:this.idcard,
+					credentialType:8,
+					name:this.name,
+					sex:this.current,
+					birthday:this.birthday,
+					patientType:this.patientIndex,
+					nation:this.nation,
+					isdefault:this.defaultDisgnose,
+				}
+				if(this.patientIndex == 1){
+					req = {
 						userId:uni.getStorageSync("userId"),
 						credentialNo:this.idcard,
 						credentialType:8,
@@ -175,7 +348,20 @@
 						sex:this.current,
 						birthday:this.birthday,
 						patientType:this.patientIndex,
+						address:this.address,
+						contactPhone:this.contactPhone,
+						contactIdcard:this.contactIdcard,
+						contactName:this.contactName,
+						contactType:this.contactType,
+						nation:this.nation,
+						isdefault:this.defaultDisgnose,
 					}
+				}
+				
+				this.$request({
+					path:"/patient/mobile/add",
+					method:'POST',
+					query:req,
 				}).then(res=>{
 					console.log("res",JSON.stringify(res));
 				})
@@ -184,6 +370,17 @@
 			birthdayChange(e) {
 			  let date = e.detail.value;
 			  this.birthday = date;
+			},
+			contactTypeChange(e){
+				console.log("e===>",JSON.stringify(e));
+				const index = e.detail.value;
+				this.contactTypeIndex =  index;
+				this.contactType = this.contactTypes[index].value;
+			},
+			nationChange(e){
+				const index = e.detail.value;
+				this.nationindex =  index;
+				this.nation = this.nations[index];
 			}
 			
 		}

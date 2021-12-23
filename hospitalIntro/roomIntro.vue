@@ -35,7 +35,6 @@
 			this.getDepartment();
 		},
 		onShow() {
-			this.leftClick(this.leftNavData[0]);
 		},
 		components:{
 			hsSubfieldList
@@ -43,8 +42,11 @@
 		methods: {
 			leftClick(item){
 				console.log("expert:",JSON.stringify(item));
-				let array = [];
-				this.rightNavData = array;
+				// let array = [];
+				// this.rightNavData = array;
+				uni.navigateTo({
+					url:`./roomDetail?item=${JSON.stringify(item)}`
+				})
 			},
 			searchClick(){
 				this.isNotSearching = false;

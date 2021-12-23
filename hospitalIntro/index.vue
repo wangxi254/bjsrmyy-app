@@ -16,24 +16,24 @@
 		</view>
 		
 		<view v-if="currentindex === 0" class="content1">
-			<view class="hs1-title">贵阳市第一人民医院</view>
+			<view class="hs1-title">{{hospitalInto.name}}</view>
 			<image class="hs1-img" src="http://www.pptbz.com/pptpic/UploadFiles_6909/201203/2012031220134655.jpg"></image>
 			<view class="flex-row item">
 				<view class="hs1-text" @click="totel">咨询电话：<text>{{hospitalInto.contact}}</text></view>
 				<image class="hs1-icon" mode="aspectFill" src="http://www.pptbz.com/pptpic/UploadFiles_6909/201203/2012031220134655.jpg"></image>
 			</view>
 			<view class="flex-row item" @click="navito">
-				<view class="hs1-text">贵阳市第一人民医院</view>
+				<view class="hs1-text">{{hospitalInto.name}}</view>
 				<image class="hs1-icon" mode="aspectFill" src="http://www.pptbz.com/pptpic/UploadFiles_6909/201203/2012031220134655.jpg"></image>
 			</view>
 			<view class="hs1-detail">
-				吾问无为谓我问问我若若日珥我的烦恼我问问呜呜呜呜嗡嗡窝囊废件基金进阶军吾问无为谓我问问我若若日珥我的烦恼我问问呜呜呜呜嗡嗡窝囊废件基金进阶军吾问无为谓我问问我若若日珥我的烦恼我问问呜呜呜呜嗡嗡窝囊废件基金进阶军
+				{{hospitalInto.synopsis}}
 			</view>
 		</view>
 		
 		<view v-if="currentindex === 1">
 			<view class="traffic">
-				公交13路，109路，10路
+				公交{{hospitalInto.busRoute}}
 			</view>
 		</view>
 		
