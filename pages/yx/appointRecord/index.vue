@@ -116,6 +116,7 @@
         </view>
     </uni-popup>
     <userModel ref="userModelref"  @changeUser="changeUser" />
+    <wyb-loading ref="loading"/>
   </view>
 </template>
 
@@ -157,13 +158,32 @@ export default {
                 status: 0
             },
             startDate:getDate('start'),
-			endDate:getDate('end')
+			endDate:getDate('end'),
+            userInfo: {
+
+            }
         }
     },
-    mounted() {
-        //this.$refs.userpopup.open('bottom');
+    onLoad: function (option) {
+        this.getCurrentUser();
     },
     methods: {
+        getCurrentUser() {
+            this.$refs.loading.showLoading() // 显示
+            this.$request({
+                path:`/patient/mobile/getPatientByUserId?userId=${this.$userId}`,
+            }).then(res=>{
+                this.loading = false;
+                this.$refs.loading.hideLoading()
+                if(res.data.code == 200) {
+                    const current = res.data.data.find(item=>{
+                        if(item.defaultPatient!==1) return item
+                    })
+                    current?(this.userInfo=current):(res.data.data[0] || {})
+                }
+            })
+            
+        },
         goDetail(row) {
             console.log(row)
             uni.navigateTo({

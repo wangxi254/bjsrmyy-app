@@ -4,7 +4,7 @@
  * @Author: seven
  * @Date: 2021-12-21 20:38:45
  * @LastEditors: seven
- * @LastEditTime: 2021-12-21 23:10:45
+ * @LastEditTime: 2021-12-23 14:38:01
 -->
 <template>
   <view class="detailPage pageContainer">
@@ -27,16 +27,16 @@
                 <view class="title-model"><text>预约时间</text></view>
             </template>
             <view>时间：<text class="textRed">{{appointmentInfo.currentDate}}</text></view>
-            <view>时段：<text class="textRed">{{appointmentInfo.type == 0?"上午":"下午"}}</text></view>
+            <view>时段：<text class="textRed">{{appointmentInfo.type == 1?"上午":"下午"}}</text></view>
         </hs-card>
         <hs-card class="appointuser-view" @click="showUserList">
             <template v-slot:header>
                 <view class="title-model flex justify-between">
-                    <text>张三(自费)</text>
+                    <text>{{userInfo.name}}(自费)</text>
                 <uni-icons type="arrowright" size="14" /></view>
             </template>
-            <view>身份证号：<text>5201******1211</text></view>
-            <view>手机号码：<text>18******39</text></view>
+            <view>身份证号：<text>{{userInfo.credentialNo | haddenIdCard}}</text></view>
+            <view>手机号码：<text>{{userInfo.contactPhone | haddenPhone}}</text></view>
         </hs-card>
         <hs-card class="nodes">
             <view style="line-height: 2">
@@ -45,6 +45,7 @@
         </hs-card>
         <button class="primary-btn btn" type="primary" @click="submit">提交</button>
         <userModel ref="userModelref"  @changeUser="changeUser" />
+        <wyb-loading ref="loading"/>
   </view>
 </template>
 
@@ -65,24 +66,67 @@ export default {
                 depName:"",
                 type: 0,
                 currentDate: "",
-            }
+            },
+            userInfo: {},
         }
     },
     onLoad: function (option) { //
         option.row && (this.appointmentInfo = JSON.parse(option.row))
-        console.log(this.appointmentInfo)
+        this.getCurrentUser();
     },
     methods: {
+        getCurrentUser() {
+            this.$refs.loading.showLoading() // 显示
+            this.$request({
+                path:`/patient/mobile/getPatientByUserId?userId=${this.$userId}`,
+            }).then(res=>{
+                this.$refs.loading.hideLoading()
+                if(res.data.code == 200) {
+                    const current = res.data.data.find(item=>{
+                        if(item.defaultPatient!==1) return item
+                    })
+                    current?(this.userInfo=current):(res.data.data[0] || {})
+                }
+            })
+            
+        },
         submit() {
-            uni.navigateTo({
-					url:'/pages/yx/appointment/payment'
-			})
+            // 提交订单
+            let query = {
+                codeId: this.appointmentInfo.codeId,
+                seqNum: this.appointmentInfo.seqNum,
+                deptCode: this.appointmentInfo.deptCode,
+                deptName: this.appointmentInfo.depName,
+                pbCode: this.appointmentInfo.pbCode,
+                doctorCode: this.appointmentInfo.docCode,
+                doctorName: this.appointmentInfo.name,
+                appointmentDate: this.appointmentInfo.currentDate,
+                phoneNum: this.userInfo.contactPhone || '18785187439',
+                timeType: this.appointmentInfo.type + 1,
+                timePart: this.appointmentInfo.timePart,
+                payAmount: this.appointmentInfo.price,
+                patientId: this.userInfo.id,
+                patientName: this.userInfo.name,
+                medicalRecordNo: this.userInfo.credentialNo,
+                certificateType: parseInt(this.userInfo.credentialType),
+                certificateNo: this.userInfo.credentialNo || '520123199311031211'
+            }
+            this.$request({
+					path:`/registration/order/post`,
+					method: 'post',
+					query
+				}).then(res=>{
+                    console.log(res)
+                })
+            // uni.navigateTo({
+			// 		url:'/pages/yx/appointment/payment'
+			// })
         },
         showUserList() {
             this.$refs.userModelref.show();
         },
         changeUser(row) {
-            
+            this.userInfo = row;
         }
     }
 }
