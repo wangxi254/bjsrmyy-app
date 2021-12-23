@@ -25,8 +25,9 @@
 	export default {
 		data() {
 			return {
+				current: {},
 				type: 0,
-				array: ['当日挂号','预约挂号'],
+				array: ['预约挂号','当日挂号'],
 				firstId: '',
 				leftActive: '',
 				navData: [],
@@ -39,7 +40,9 @@
 		methods: {
 			bindPickerChange(e) {
 				this.type = e.target.value
-				console.log(this.type)
+				uni.navigateTo({
+					url:'../yx/appointment/index?title=' + this.current.depName +'&&type=' + this.type + '&&id='+ this.current.depCode
+				})
 			},
 			getData() {
 				uni.request({
@@ -77,10 +80,16 @@
 					this.rightNavData = arr[0].symptoms
 				}
 			},
-			clickObjectItem() {
-				// uni.navigateTo({
-				// 	url: './symptomsList',
-				// })
+			clickObjectItem(item) {
+				uni.request({
+				    url: 'https://min.his.gzskt.net/bjrmWebApi/smartinquiry/symptom/listDeps?symptomId=343928124545568768', //仅为示例，并非真实接口地址。
+				    success: (res) => {
+						console.log(res)
+						if (res.data.data.length > 0) {
+							this.current = res.data.data[0]
+						}
+					}
+				})
 			},
 			getParam(path, name) { 
 			    const reg = new RegExp("(^|\\?|&)" + name + "=([^&]*)(\\s|&|$)", "i");   
