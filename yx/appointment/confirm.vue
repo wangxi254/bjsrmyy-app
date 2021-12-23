@@ -103,7 +103,7 @@ export default {
 				}).then(res=>{
                     if(res.data.code == 200) {
                         uni.navigateTo({
-                            url:'/pages/yx/appointment/payment?row=' + JSON.stringify({
+                            url:'../appointment/payment?row=' + JSON.stringify({
                                 ...res.data.data,
                                 currentDate: this.appointmentInfo.currentDate
                             })

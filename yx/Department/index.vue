@@ -60,7 +60,7 @@
 				let array = [];
 				this.rightNavData = array;
 				uni.navigateTo({
-					url:'/pages/yx/appointment/index?title=' + item.depName +'&&type=' +this.pageType + '&&id='+item.depCode
+					url:'../appointment/index?title=' + item.depName +'&&type=' +this.pageType + '&&id='+item.depCode
 				})
 			},
 			searchClick(){

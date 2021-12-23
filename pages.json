@@ -12,71 +12,6 @@
 				"navigationBarTitleText": "个人中心"
 			}
 		},
-		// 挂号 start
-		{
-			"path": "pages/yx/Booking_instructions/index",
-			"style": {
-				"navigationBarTitleText": "预约须知"
-			}
-		},
-		// 科室
-		{
-			"path": "pages/yx/Department/index",
-			"style": {
-				"navigationBarTitleText": "科室"
-			}
-		},
-		// 可预约
-		{
-			"path": "pages/yx/appointment/index"
-			
-		},
-		// 预约确认页
-		{
-			"path": "pages/yx/appointment/confirm"
-		},
-		// 预约支付页
-		{
-			"path": "pages/yx/appointment/payment"
-		},
-		{
-			"path": "pages/yx/Registration/index",
-			"style": {
-				"navigationBarTitleText": "当日挂号"
-			}
-		},
-		// 预约列表
-		{
-			"path": "pages/yx/appointRecord/index",
-			"style": {
-				"navigationBarTitleText": "预约记录"
-			}
-		},
-		// 挂号列表
-		{
-			"path": "pages/yx/registerRecord/index",
-			"style": {
-				"navigationBarTitleText": "挂号记录"
-			}
-		},
-		{
-			"path": "pages/showIcon/index"
-		},
-		// 挂号 end
-		// 缴费记录
-		{
-			"path": "pages/records/PayRecord",
-			"style": {
-				"navigationBarTitleText": "缴费记录"
-			}
-		},
-		// 门诊清单
-		{
-			"path": "pages/records/listRecord",
-			"style": {
-				"navigationBarTitleText": "门诊清单"
-			}
-		},
 		{
 			"path":"pages/auth/auth",
 			"style":{
@@ -232,6 +167,75 @@
 					"path":"report/testreport",
 					"style": {
 						"navigationBarTitleText": "化验报告"
+					}
+				}
+			]
+		},
+		{
+			"root": "records",
+			"pages": [
+				{
+					"path":"listRecord",
+					"style": {
+						"navigationBarTitleText": "门诊清单"
+					}
+				},
+				{
+					"path": "PayRecord",
+					"style": {
+						"navigationBarTitleText": "缴费记录"
+					}
+				}
+			]
+		},
+		{
+			"root": "yx",
+			"pages": [
+				// 挂号 start
+				{
+					"path": "Booking_instructions/index",
+					"style": {
+						"navigationBarTitleText": "预约须知"
+					}
+				},
+				// 科室
+				{
+					"path": "Department/index",
+					"style": {
+						"navigationBarTitleText": "科室"
+					}
+				},
+				// 可预约
+				{
+					"path": "appointment/index"
+					
+				},
+				// 预约确认页
+				{
+					"path": "appointment/confirm"
+				},
+				// 预约支付页
+				{
+					"path": "appointment/payment"
+				},
+				{
+					"path": "Registration/index",
+					"style": {
+						"navigationBarTitleText": "当日挂号"
+					}
+				},
+				// 预约列表
+				{
+					"path": "appointRecord/index",
+					"style": {
+						"navigationBarTitleText": "预约记录"
+					}
+				},
+				// 挂号列表
+				{
+					"path": "registerRecord/index",
+					"style": {
+						"navigationBarTitleText": "挂号记录"
 					}
 				}
 			]

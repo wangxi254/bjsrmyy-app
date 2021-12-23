@@ -61,7 +61,7 @@
 		components: { NoData, uniPopup, chooseDay },
 		data() {
 			return {
-				personImg: require('../../../common/styles/imgs/person.jpg'),
+				personImg: "",
 				hasNum: false,
 				currentDate: '',
 				Data: [],
@@ -124,7 +124,7 @@
 				this.currentRow['currentDate'] = this.currentDate;
 				this.currentRow = {...this.currentRow,...row,deptCode: this.classId}
 				uni.navigateTo({
-					url:'/pages/yx/appointment/confirm?row=' + JSON.stringify(this.currentRow)
+					url:'../appointment/confirm?row=' + JSON.stringify(this.currentRow)
 				})
 			},
 			clickDate(date) {

@@ -68,6 +68,7 @@ export default {
         }
     },
     onLoad() {
+        console.log(11111111)
         this.PatientInfo = getApp().globalData.currentPatientInfo;
     },
     methods: {

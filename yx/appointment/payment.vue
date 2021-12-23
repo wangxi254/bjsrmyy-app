@@ -106,7 +106,7 @@ export default {
             return
             console.log("正在支付中")
             uni.navigateTo({
-					url:'/pages/yx/appointRecord/index'
+					url:'../appointRecord/index'
 			})
         },
         cancel() {
@@ -117,12 +117,12 @@ export default {
         },
         confirmMsg() {
             uni.navigateTo({
-					url:'/pages/yx/appointRecord/index'
+					url:'../appointRecord/index'
 			})
         },
         goList() {
             uni.navigateTo({
-					url:'/pages/yx/appointRecord/index'
+					url:'../appointRecord/index'
 			})
         }
     }
