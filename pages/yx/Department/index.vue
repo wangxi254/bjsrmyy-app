@@ -44,6 +44,11 @@
 		components:{
 			hsSubfieldList,uniNoticeBar
 		},
+		watch: {
+			'searchText': ()=>{
+				alert(1)
+			}
+		},
 		methods: {
 			// leftClick(item){
 			// 	console.log("expert:",JSON.stringify(item));

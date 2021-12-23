@@ -15,6 +15,7 @@
 		<view class="uni-padding-wrap" style="margin: 15rpx 0;">
 			<button class="primary-btn btn" type="primary" @click="toNext">我已了解，继续预约</button>
 		</view>
+		<wyb-loading ref="loading"/>
 	</view>
 </template>
 
@@ -69,9 +70,6 @@
 			}
 		},
 		onLoad() {
-
-		},
-		created(){
 			this.getexpert()
 		},
 		methods: {
@@ -81,9 +79,11 @@
 				})
 			},
 			getexpert(){
+				this.$refs.loading.showLoading()
 				this.$request({
 					path:'/system/notice/10',
 				}).then(res=>{
+					this.$refs.loading.hideLoading() 
 					if(res.data.code == 200){
 						this.contentHtml = res.data.data.noticeContent
 					}

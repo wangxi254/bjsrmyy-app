@@ -52,6 +52,13 @@
 				"navigationBarTitleText": "预约记录"
 			}
 		},
+		// 挂号列表
+		{
+			"path": "pages/yx/registerRecord/index",
+			"style": {
+				"navigationBarTitleText": "挂号记录"
+			}
+		},
 		{
 			"path": "pages/showIcon/index"
 		},

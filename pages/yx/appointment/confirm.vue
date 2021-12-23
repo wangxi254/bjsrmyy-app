@@ -4,7 +4,7 @@
  * @Author: seven
  * @Date: 2021-12-21 20:38:45
  * @LastEditors: seven
- * @LastEditTime: 2021-12-23 14:38:01
+ * @LastEditTime: 2021-12-23 16:39:37
 -->
 <template>
   <view class="detailPage pageContainer">
@@ -104,7 +104,7 @@ export default {
                 phoneNum: this.userInfo.contactPhone || '18785187439',
                 timeType: this.appointmentInfo.type + 1,
                 timePart: this.appointmentInfo.timePart,
-                payAmount: this.appointmentInfo.price,
+                payAmount: this.appointmentInfo.price * 100,
                 patientId: this.userInfo.id,
                 patientName: this.userInfo.name,
                 medicalRecordNo: this.userInfo.credentialNo,
@@ -116,11 +116,16 @@ export default {
 					method: 'post',
 					query
 				}).then(res=>{
-                    console.log(res)
+                    if(res.data.code == 200) {
+                        uni.navigateTo({
+                            url:'/pages/yx/appointment/payment?row=' + JSON.stringify({
+                                ...res.data.data,
+                                currentDate: this.appointmentInfo.currentDate
+                            })
+                        })
+                    }
                 })
-            // uni.navigateTo({
-			// 		url:'/pages/yx/appointment/payment'
-			// })
+            
         },
         showUserList() {
             this.$refs.userModelref.show();
