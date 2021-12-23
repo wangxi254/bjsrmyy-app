@@ -51,6 +51,12 @@
 		</view>
 		<view class="flex-row">
 			<view>
+				手机号码
+			</view>
+			<input v-model="phone" placeholder="请输入就诊人手机号码" />
+		</view>
+		<view class="flex-row">
+			<view>
 				证件号
 			</view>
 			<input v-model="idcard" placeholder="请输入就诊人证件号" />
@@ -348,7 +354,6 @@
 				this.contactName = item.contactName;
 				this.contactType = item.contactType;
 				this.nation = item.nation;
-				this.contactPhone = item.contactPhone;
 				this.contactIdcard = item.contactIdcard;
 				this.contactName = item.contactName;
 				this.credentialType = item.credentialType;
@@ -453,6 +458,7 @@
 						contactName:this.contactName,
 						contactType:this.contactType,
 						nation:this.nation,
+						phone:this.phone,
 						defaultPatient:this.defaultDisgnose,
 					}
 				}
