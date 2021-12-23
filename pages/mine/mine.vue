@@ -19,6 +19,10 @@
 					{
 						name:"就诊人管理",
 						navi:"../../mine/diagnose/diagnoseLsit",
+					},
+					{
+						name:"我的关注",
+						navi:"../../attention/index",
 					}
 				]
 			}
