@@ -9,6 +9,19 @@
 		</view>
 		<view class="flex-row">
 			<view>
+				证件类型
+			</view>
+			<picker :value="ageUnitIndex" :range="ageUnits" @change="ageUnitChange" range-key="name">
+				<view class="flex-row picker-view height40 hs-border">
+				  <view>
+						{{ageUnits[ageUnitIndex].name||'选择证件类型'}}
+				  </view>
+				   <image class="right" src="../../static/common/right.png"></image>
+				</view>
+			</picker>
+		</view>
+		<view class="flex-row">
+			<view>
 				年龄
 			</view>
 			<input type="number" v-model="age" placeholder="请输入年龄" />
@@ -97,6 +110,23 @@
 			return {
 				name:'',
 				age:0,
+				ageUnits:[
+				
+					{
+						value:'Y',
+						name:'岁'
+					},
+					{
+						value:'M',
+						name:'月',
+					},
+					{
+						value:'D',
+						name:'天',
+					},
+				],
+				ageUnit:'Y',
+				ageUnitIndex:0,
 				idcard:'',
 				address:'',
 				phone:'',
@@ -238,6 +268,9 @@
 					style:'A',  // 自费/医保类型(A：自费，B：医保)
 					jzCard:this.jzCard,
 					patientId:this.patientId,
+					ageUnit:this.ageUnit, //年龄单位(Y:岁，M:月，D:天)
+					operType:'I', //账户操作类型（I:新增账户注册，U:补卡）
+					lyInfo:'O', //来源（默认为"O"：门诊）
 				}
 				
 				this.$request({
@@ -271,6 +304,12 @@
 				const index = e.detail.value;
 				this.credentialTypeIndex =  index;
 				this.credentialType = this.credentialTyps[index].value;
+			},
+			ageUnitChange(e){
+				console.log("e===>",JSON.stringify(e));
+				const index = e.detail.value;
+				this.ageUnitIndex =  index;
+				this.ageUnit = this.ageUnits[index].value;
 			}
 			
 		}
