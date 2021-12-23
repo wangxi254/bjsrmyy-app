@@ -73,6 +73,7 @@ export default {
     onLoad: function (option) { //
         option.row && (this.appointmentInfo = JSON.parse(option.row))
         this.userInfo = getApp().globalData.currentPatientInfo;
+        this.$getUserId();
     },
     methods: {
         submit() {

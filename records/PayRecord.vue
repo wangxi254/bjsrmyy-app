@@ -3,8 +3,8 @@
     <hs-card class="user-view">
         <view class="flex justify-between items-center">
             <view class="flex flex-column">
-            <text class="username">张三</text>
-            <text class="idCard">5201******1211</text>
+            <text class="username">{{PatientInfo.name?PatientInfo.name:'请选择就诊人'}}</text>
+            <text class="idCard">{{(PatientInfo.credentialNo?PatientInfo.credentialNo:'') | haddenIdCard}}</text>
         </view>
         <view class="btn">
             <uni-icons @click="showUserList"  type="settings" size="14" color="#fff" />
@@ -64,8 +64,14 @@ export default {
             },
             startDate:getDate('start'),
 			endDate:getDate('end'),
-            list: [{time: '2021-12-01 15:00:00',amount: 15,status: 1},{time: '2021-12-01 15:00:00',amount: 15,status: 2}]
+            list: [{time: '2021-12-01 15:00:00',amount: 15,status: 1},{time: '2021-12-01 15:00:00',amount: 15,status: 2}],
+            PatientInfo:{}
         }
+    },
+    onLoad() {
+        this.PatientInfo = getApp().globalData.currentPatientInfo;
+        this.$getUserId();
+        //this.getList();
     },
     methods: {
         showUserList() {

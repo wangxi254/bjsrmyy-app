@@ -4,7 +4,7 @@
         <view class="flex justify-between items-center">
             <view class="flex flex-column">
             <text class="username">{{PatientInfo.name?PatientInfo.name:'请选择就诊人'}}</text>
-            <text class="idCard">{{PatientInfo.credentialNo?(PatientInfo.credentialNo | haddenIdCard):''}}</text>
+            <text class="idCard">{{(PatientInfo.credentialNo?PatientInfo.credentialNo:'') | haddenIdCard}}</text>
         </view>
         <view class="btn">
             <uni-icons @click="showUserList"  type="settings" size="14" color="#fff" />
@@ -68,8 +68,8 @@ export default {
         }
     },
     onLoad() {
-        console.log(11111111)
         this.PatientInfo = getApp().globalData.currentPatientInfo;
+        this.$getUserId();
     },
     methods: {
         showUserList() {

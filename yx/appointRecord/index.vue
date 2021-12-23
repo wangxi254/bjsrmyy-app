@@ -3,8 +3,8 @@
       <hs-card class="user-view">
           <view class="flex justify-between items-center">
               <view class="flex flex-column">
-                <text class="username">{{userInfo.name}}</text>
-                <text class="idCard">{{userInfo.credentialNo | haddenIdCard}}</text>
+                <text class="username">{{PatientInfo.name?PatientInfo.name:'请选择就诊人'}}</text>
+                <text class="idCard">{{(PatientInfo.credentialNo?PatientInfo.credentialNo:'') | haddenIdCard}}</text>
             </view>
             <view class="btn">
                 <uni-icons @click="showUserList"  type="settings" size="14" color="#fff" />
@@ -161,38 +161,24 @@ export default {
             },
             startDate:getDate('start'),
 			endDate:getDate('end'),
-            userInfo: {
+            PatientInfo: {
 
             },
             list: []
         }
     },
-    onLoad: function (option) {
-        this.getCurrentUser();
+    onLoad() {
+        this.PatientInfo = getApp().globalData.currentPatientInfo;
+        this.$getUserId();
+        this.getList();
     },
     methods: {
-        getCurrentUser() {
-            this.$refs.loading.showLoading() // 显示
-            this.$request({
-                path:`/patient/mobile/getPatientByUserId?userId=${this.$userId}`,
-            }).then(res=>{
-                this.$refs.loading.hideLoading()
-                if(res.data.code == 200) {
-                    const current = res.data.data.find(item=>{
-                        if(item.defaultPatient!==1) return item
-                    })
-                    current?(this.userInfo=current):(res.data.data[0] || {})
-                    this.getList()
-                }
-            })
-            
-        },
         getList() {
             this.$refs.loading.showLoading()
             this.$request({
                 path:`/registration/order/get-appointment-record-list`,
                 method: 'post',
-                query: this.userInfo
+                query: this.PatientInfo
             }).then(res=>{
                 this.$refs.loading.hideLoading()
                 if(res.data.code == 200){
@@ -216,7 +202,7 @@ export default {
             this.searchForm[key] = val;
         },
         changeUser(row) {
-            this.userInfo = row;
+            this.PatientInfo = row;
             this.getList();
         },
         submit() {

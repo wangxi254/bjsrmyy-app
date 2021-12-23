@@ -4,7 +4,7 @@
           <view class="flex justify-between items-center">
               <view class="flex flex-column">
                 <text class="username">{{PatientInfo.name?PatientInfo.name:'请选择就诊人'}}</text>
-                <text class="idCard">{{PatientInfo.credentialNo?(PatientInfo.credentialNo | haddenIdCard):''}}</text>
+                <text class="idCard">{{(PatientInfo.credentialNo?PatientInfo.credentialNo:'') | haddenIdCard}}</text>
             </view>
             <view class="btn">
                 <uni-icons @click="showUserList"  type="settings" size="14" color="#fff" />
@@ -13,7 +13,7 @@
       </hs-card>
       <view class="pageContainer flex-1 flex flex-column">
             <view class="text-view flex justify-between">
-                <text>预约列表</text>
+                <text>挂号列表</text>
                 <uni-icons @click="showSearch"  type="settings" size="16" />
             </view>
             <scroll-view class="flex-1" scroll-y="true"  style="height: calc(100% - 50px)">
@@ -169,6 +169,7 @@ export default {
     },
     onLoad: function (option) {
         this.PatientInfo = getApp().globalData.currentPatientInfo;
+        this.$getUserId();
         this.getList();
     },
     methods: {
