@@ -1,3 +1,11 @@
+/*
+ * @Descripttion: 
+ * @version: 
+ * @Author: seven
+ * @Date: 2021-12-23 18:26:27
+ * @LastEditors: seven
+ * @LastEditTime: 2021-12-23 18:30:22
+ */
 import Vue from 'vue'
 import App from './App'
 import './common/styles/main.scss';
@@ -5,7 +13,6 @@ import * as filters from './utils/filter'
 import hsCard from '@/components/hs-card/index.vue'
 import uniTitle from '@/components/uni-title.vue'
 import uniIcons from '@/components/uni-icons/uni-icons.vue'
-import fullLoading from '@/components/loading/fullloading.vue'
 import wybLoading from '@/components/loading/wyb-loading/wyb-loading.vue'
 
 
@@ -13,7 +20,6 @@ Vue.config.productionTip = false
 Vue.component('uni-title',uniTitle)
 Vue.component('uni-icon',uniIcons)
 Vue.component('hs-card',hsCard)
-Vue.component('full-loading',fullLoading)
 Vue.component('wybLoading',wybLoading)
 
 import request from 'common/request.js';

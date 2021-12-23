@@ -188,7 +188,7 @@ export default {
         goDetail(row) {
             console.log(row)
             uni.navigateTo({
-				url:'/pages/yx/appointment/payment'
+				url:'../appointment/payment'
 			})
         },
         showSearch() {

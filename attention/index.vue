@@ -10,7 +10,7 @@
 							<text class="name">{{item.docName}}</text>
 							<view class="flex items-center">
 								<picker @change="bindPickerChange" :value="type" :range="array">
-									<view class="surplus">去预约</view>
+									<!-- <view class="surplus">去预约</view> -->
 								</picker>
 							</view>
 						</view>

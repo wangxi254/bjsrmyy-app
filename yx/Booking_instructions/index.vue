@@ -75,7 +75,7 @@
 		methods: {
 			toNext() {
 				uni.navigateTo({
-					url:'/pages/yx/Department/index'
+					url:'../Department/index'
 				})
 			},
 			getexpert(){

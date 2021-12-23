@@ -67,7 +67,8 @@ export default {
     components: { uniPopup, uniPopupDialog },
     data(){
         return {
-            info: {}
+            info: {},
+            openId: 'o_yk35dyNs3y4hJJxtYpwCYqlfHY'
         }
     },
     onLoad(options) {
@@ -89,13 +90,23 @@ export default {
             currentDate: "2021-12-26"
         })
     },
+    onUnload() {
+        uni.navigateBack({  
+            delta: 2  
+        }); 
+    },
     methods:{
         payfor(){
+            this.$request({
+					path:`/registration/order/xl-wx-applet-pay?openId=${this.openId}&orderId=${this.info.id}`
+				}).then(res=>{
+                    console.log(res)
+            })
             console.log(uni.getStorageSync('openid'))
             return
             console.log("正在支付中")
             uni.navigateTo({
-					url:'/pages/yx/appointRecord/index'
+					url:'../appointRecord/index'
 			})
         },
         cancel() {
@@ -106,12 +117,12 @@ export default {
         },
         confirmMsg() {
             uni.navigateTo({
-					url:'/pages/yx/appointRecord/index'
+					url:'../appointRecord/index'
 			})
         },
         goList() {
             uni.navigateTo({
-					url:'/pages/yx/appointRecord/index'
+					url:'../appointRecord/index'
 			})
         }
     }
