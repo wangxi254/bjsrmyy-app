@@ -6,11 +6,11 @@
 			</view>
 			<radio-group @change="paintChange">
 				<view class="row-cls">
-					<label class="row-cls left15" v-for="(patint, index) in patints" :key="patint.value">
+					<label class="row-cls left15" v-for="(patintIem, index) in patints" :key="patintIem.value">
 						<view>
-							<radio :value="patint.value" :checked="patint.value === patientIndex" />
+							<radio :value="patintIem.value" :checked="patintIem.value == patientIndex" />
 						</view>
-						<view>{{patint.name}}</view>
+						<view>{{patintIem.name}}</view>
 					</label>
 				</view>
 			</radio-group>
@@ -27,16 +27,28 @@
 			</view>
 			<radio-group @change="radioChange">
 				<view class="row-cls">
-					<label class="row-cls left15" v-for="(sex, index) in sexs" :key="sex.value">
+					<label class="row-cls left15" v-for="(sexitem, index) in sexs" :key="sexitem.value">
 						<view>
-							<radio :value="sex.value" :checked="sex.value === current" />
+							<radio :value="sexitem.value" :checked="sexitem.value == sex" />
 						</view>
-						<view>{{sex.name}}</view>
+						<view>{{sexitem.name}}</view>
 					</label>
 				</view>
 			</radio-group>
 		</view>
-		
+		<view class="flex-row">
+			<view>
+				证件类型
+			</view>
+			<picker :value="credentialTypeIndex" :range="credentialTyps" @change="credentialTypeChange" range-key="name">
+				<view class="flex-row picker-view height40 hs-border">
+				  <view>
+						{{credentialTyps[credentialTypeIndex].name||'选择联系人类型'}}
+				  </view>
+				   <image class="right" src="../../static/common/right.png"></image>
+				</view>
+			</picker>
+		</view>
 		<view class="flex-row">
 			<view>
 				证件号
@@ -68,7 +80,6 @@
 			<view>
 				民族
 			</view>
-			<input v-model="nation" placeholder="请输入民族" />
 			<picker :value="nationIndex" :range="nations" @change="nationChange">
 				<view class="flex-row picker-view height40 hs-border">
 				  <view>
@@ -143,7 +154,6 @@
 			return {
 				name:'',
 				idcard:'',
-				sex:'',
 				address:'',
 				phone:'',
 				identify:'',
@@ -160,6 +170,7 @@
 						name:'女'
 					}
 				],
+				sex:1,
 				patints:[
 					{
 						value:0,
@@ -170,7 +181,6 @@
 						name:'儿童'
 					}
 				],
-				current:1,
 				patientIndex:0,
 				contactTypes:[
 					// {
@@ -275,20 +285,109 @@
 				contactIdcard:'',
 				contactPhone:'',
 				contactName:'',
+				credentialTyps:[
+					// {
+					// 	value:0,
+					// 	name:'未知',
+					// },
+					{
+						value:1,
+						name:'身份证'
+					},
+					{
+						value:2,
+						name:'军官证',
+					},
+					{
+						value:3,
+						name:'户口本'
+					},
+					{
+						value:4,
+						name:'护照',
+					},
+					{
+						value:5,
+						name:'外国人永久居住证'
+					},
+					{
+						value:6,
+						name:'就诊卡号',
+					},
+					{
+						value:7,
+						name:'住院号'
+					},
+					{
+						value:8,
+						name:'病历号'
+					}
+				],
+				credentialTypeIndex:0,
+				credentialType:1,
+				patientId:'',
 			}
 		},
 		onLoad(options) {
 			console.log("options==>",options.item);
 			if(options.item){
 				let item = JSON.parse(options.item);
+				
+				
+			
+
+				this.patientId = item.id;
 				this.name = item.name;
 				this.idcard = item.idnumber;
 				this.phone = item.phone;
-				if(item.sex == 'woman'){
-					this.current = 1;
-					console.log("woman")
-				}else{
-					this.current = 0;
+				this.birthday = item.birthday;
+				this.idcard = item.credentialNo;
+				this.address = item.address
+				this.contactPhone = item.contactPhone;
+				this.contactIdcard = item.contactIdcard;
+				this.contactName = item.contactName;
+				this.contactType = item.contactType;
+				this.nation = item.nation;
+				this.contactPhone = item.contactPhone;
+				this.contactIdcard = item.contactIdcard;
+				this.contactName = item.contactName;
+				this.credentialType = item.credentialType;
+				this.sex = item.sex;
+				
+				for(let i = 0; i < this.contactTypes.length; i ++){
+					const contactTypeItem = this.contactTypes[i];
+					if(contactTypeItem.value == item.contactType){
+						this.contactTypeIndex =  i;
+						break;
+					}
+				}
+				for(let i = 0; i < this.credentialTyps.length; i ++){
+					const contactTypeItem = this.credentialTyps[i];
+					if(contactTypeItem.value == item.credentialType){
+						this.credentialTypeIndex =  i;
+						break;
+					}
+				}
+				for(let i = 0; i < this.patints.length; i ++){
+					const patintItem = this.patints[i];
+					if(patintItem.value == item.patientType){
+						this.patientIndex =  i;
+						break;
+					}
+				}
+				// for(let i = 0; i < this.sexs.length; i ++){
+				// 	const patintItem = this.sexs[i];
+				// 	if(patintItem.value == item.sex){
+				// 		this.sex = item.sex;
+				// 		break;
+				// 	}
+				// }
+				for(let i = 0; i < this.nations.length; i ++){
+					const nation = this.nations[i];
+					if(nation == item.nation){
+						this.nationindex =  i;
+						break;
+					}
 				}
 				
 			}
@@ -300,7 +399,7 @@
 			radioChange(evt){
 				for (let i = 0; i < this.sexs.length; i++) {
 					if (this.sexs[i].value == evt.detail.value) {
-						this.current = i;
+						this.sex = this.sexs[i].value;
 						break;
 					}
 				}
@@ -327,17 +426,17 @@
 						title:"请输入身份证号"
 					})
 				}
-				
+
 				let req = {
 					userId:uni.getStorageSync("userId"),
 					credentialNo:this.idcard,
 					credentialType:8,
 					name:this.name,
-					sex:this.current,
+					sex:this.sex,
 					birthday:this.birthday,
 					patientType:this.patientIndex,
 					nation:this.nation,
-					isdefault:this.defaultDisgnose,
+					defaultPatient:this.defaultDisgnose ? 1 : 0,
 				}
 				if(this.patientIndex == 1){
 					req = {
@@ -345,7 +444,7 @@
 						credentialNo:this.idcard,
 						credentialType:8,
 						name:this.name,
-						sex:this.current,
+						sex:this.sex,
 						birthday:this.birthday,
 						patientType:this.patientIndex,
 						address:this.address,
@@ -354,17 +453,52 @@
 						contactName:this.contactName,
 						contactType:this.contactType,
 						nation:this.nation,
-						isdefault:this.defaultDisgnose,
+						defaultPatient:this.defaultDisgnose,
 					}
 				}
 				
-				this.$request({
-					path:"/patient/mobile/add",
-					method:'POST',
-					query:req,
-				}).then(res=>{
-					console.log("res",JSON.stringify(res));
-				})
+				if(this.patientId && this.patientId.length > 0){
+					req["id"] = this.patientId;
+					this.$request({
+						path:"/patient/mobile/edit",
+						method:'PUT',
+						query:req,
+					}).then(res=>{
+						console.log("res",JSON.stringify(res));
+						if(res.data.code == 200){
+							uni.showToast({
+								icon:'none',
+								title:res.data.msg,
+								success() {
+									setTimeout(()=>{
+										uni.navigateBack();
+									},1000)
+								}
+							})
+						}
+					})
+				}else{
+					this.$request({
+						path:"/patient/mobile/add",
+						method:'POST',
+						query:req,
+					}).then(res=>{
+						console.log("res",JSON.stringify(res));
+						if(res.data.code == 200){
+							uni.showToast({
+								icon:'none',
+								title:res.data.msg,
+								success() {
+									setTimeout(()=>{
+										uni.navigateBack();
+									},1000)
+								}
+							})
+						}
+					})
+				}
+				
+				
 				
 			},
 			birthdayChange(e) {
@@ -376,6 +510,12 @@
 				const index = e.detail.value;
 				this.contactTypeIndex =  index;
 				this.contactType = this.contactTypes[index].value;
+			},
+			credentialTypeChange(e){
+				console.log("e===>",JSON.stringify(e));
+				const index = e.detail.value;
+				this.credentialTypeIndex =  index;
+				this.credentialType = this.credentialTyps[index].value;
 			},
 			nationChange(e){
 				const index = e.detail.value;

@@ -70,7 +70,15 @@
 					},
 				}).then(res=>{
 					if(res.data.code == 200){
-						that.banners = res.data.data;
+						let list = res.data.data;
+						let array = [];
+						for(let i = 0; i < list.length; i++){
+							const banner =  list[i];
+							if(banner.isShow){
+								array.push(banner);
+							}
+						}
+						that.banners = array;
 					}
 				})
 			},
