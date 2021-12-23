@@ -89,7 +89,7 @@
 				//调取消接口
 				let that = this;
 				this.$request({
-					path:"/patient/mobile/disable",
+					path:`/patient/mobile/disable?id=${item.id}`,
 					query:{
 						id:item.id,
 					},
