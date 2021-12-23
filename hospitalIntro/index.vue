@@ -17,7 +17,7 @@
 		
 		<view v-if="currentindex === 0" class="content1">
 			<view class="hs1-title">{{hospitalInto.name}}</view>
-			<image class="hs1-img" src="http://www.pptbz.com/pptpic/UploadFiles_6909/201203/2012031220134655.jpg"></image>
+			<image class="hs1-img" :src="hospitalInto.picture"></image>
 			<view class="flex-row item">
 				<view class="hs1-text" @click="totel">咨询电话：<text>{{hospitalInto.contact}}</text></view>
 				<image class="hs1-icon" mode="aspectFill" src="http://www.pptbz.com/pptpic/UploadFiles_6909/201203/2012031220134655.jpg"></image>
@@ -50,6 +50,8 @@
 		data() {
 			return {
 				currentindex:0,
+				hospitalInto:{},
+				
 			}
 		},
 		onLoad(options) {
@@ -67,6 +69,7 @@
 				console.log("getHospital==>",JSON.stringify(result.data.code));
 				if(result.data.code == 200){
 					this.hospitalInto = result.data.data;
+					console.log("this.hospitalInto--->",JSON.stringify(this.hospitalInto))
 				}
 			},
 			totel(){
