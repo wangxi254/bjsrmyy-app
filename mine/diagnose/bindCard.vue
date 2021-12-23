@@ -9,7 +9,7 @@
 		</view>
 		<view class="flex-row">
 			<view>
-				证件类型
+				年龄类型
 			</view>
 			<picker :value="ageUnitIndex" :range="ageUnits" @change="ageUnitChange" range-key="name">
 				<view class="flex-row picker-view height40 hs-border">
@@ -123,7 +123,7 @@
 					{
 						value:'D',
 						name:'天',
-					},
+					}
 				],
 				ageUnit:'Y',
 				ageUnitIndex:0,
