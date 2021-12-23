@@ -5,7 +5,7 @@
 			<view class="flex-row info">
 				<view class="flex1">
 					<view>证件号：{{item.credentialNo}}</view>
-					<view>联系电话：{{item.contactPhone}}</view>
+					<view>联系电话：{{item.phone}}</view>
 					<view>出生日期：{{item.birthday}}</view>
 				</view>
 				<image class="right-img" src="../../static/common/right.png"></image>

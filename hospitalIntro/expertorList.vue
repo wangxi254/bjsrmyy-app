@@ -93,6 +93,7 @@
 						docCode:item.docCode,
 						docTitle:item.docTitle,
 						special:item.special,
+						docInfo:item.docInfo,
 					},
 					method:'POST',
 				}).then(res=>{

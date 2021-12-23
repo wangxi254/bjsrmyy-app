@@ -465,7 +465,9 @@
 					sex:this.sex,
 					birthday:this.birthday,
 					patientType:this.patientIndex,
+					phone:this.phone,
 					nation:this.nation,
+					address:this.address,
 					defaultPatient:this.defaultDisgnose ? 1 : 0,
 				}
 				if(this.patientIndex == 1){
