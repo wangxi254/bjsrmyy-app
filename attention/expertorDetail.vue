@@ -4,10 +4,10 @@
 			<image class="img" :src="exportInfo.icon"></image>
 			<view>
 				<view class="name">
-					{{exportInfo.name}}
+					{{info.docName}}
 				</view>
 				<view class="profical">
-					{{exportInfo.profical}}
+					{{info.docTitle}}
 				</view>
 			</view>
 		</view>
@@ -17,7 +17,7 @@
 				简介
 			</view>
 			<view class="item-detail">
-				{{exportInfo.intro}}
+				{{info.docInfo}}
 			</view>
 		</view>
 		
@@ -26,12 +26,12 @@
 				擅长
 			</view>
 			<view class="item-detail">
-				{{exportInfo.goodat}}
+				{{info.special}}
 			</view>
 		</view>
 		
 		
-		<view class="item">
+		<!-- <view class="item">
 			<view class="item-title">
 				门诊地点
 			</view>
@@ -57,10 +57,10 @@
 			<view class="item-detail">
 				{{exportInfo.fee}}
 			</view>
-		</view>
+		</view> -->
 		
-		<view style="height: 30px;background: #F1F1F1;">
-		</view>
+		<!-- <view style="height: 30px;background: #F1F1F1;">
+		</view> -->
 	</view>
 </template>
 
@@ -68,8 +68,9 @@
 	export default {
 		data() {
 			return {
+				info: {},
 				exportInfo:{
-					icon:"http://www.pptbz.com/pptpic/UploadFiles_6909/201203/2012031220134655.jpg",
+					icon:"../static/common/person.jpg",
 					name:"zty",
 					profical:"主任医生",
 					intro:"贵州医科大学博士导师。贵州省专家，擅长打通任督二脉，开天眼，擒拿手，龙爪手，大乘功法，呼风唤雨，要啥都可以，天下武功，自创武林绝学，数据对接圣诞节时间段数据对接圣诞节数据对接圣诞节就SDK看SDKSDK思考的考试的嗯哦哦问哦沃尔沃二欧文",
@@ -82,7 +83,7 @@
 		},
 		onLoad(options) {
 			if(options.item){
-				let item = JSON.parse(options.item);
+				this.info = JSON.parse(options.item);
 			}
 		},
 		methods: {
@@ -95,6 +96,7 @@
 	
 	.content{
 		background: #F1F1F1;
+		height: 100%;
 	}
 	
 	.doctor-header{
@@ -102,8 +104,8 @@
 		padding: 15px;
 		align-items: center;
 		.img{
-			width: 50px;
-			height: 70px;
+			width: 80px;
+			height: 100px;
 			margin-right: 10px;
 		}
 		

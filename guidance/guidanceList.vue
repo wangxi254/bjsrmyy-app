@@ -11,57 +11,75 @@
 		
 			<!-- 右侧二级分类列表 -->
 		<scroll-view scroll-y class="rightBox" scroll-with-animation>
-			<picker @change="bindPickerChange" :value="type" :range="array" v-for="(item,index) in rightNavData" :key="index">
-			<view class="rightNavItem" @click="clickObjectItem(item)">
+			<!-- <picker @change="bindPickerChange" :value="type" :range="array"> -->
+			<view v-for="(item,index) in rightNavData" :key="index" class="rightNavItem" @click="clickObjectItem(item)">
 				<span>{{item.name}}</span>
 				<span>></span>
 			</view>
-			</picker>
+			<!-- </picker> -->
 		</scroll-view>
+		<uni-popup ref="popup" type="right" :animation="true">
+			<view class="bzlist">
+				<view class="title">选择科室</view>
+				<view class="list">
+					<NoData v-if="current.length === 0" />
+					<picker @change="bindPickerChange" :value="type" :range="array">
+						<view @click="chooseDep(i)" v-for="i in current" :key="i.depCode" class="item">{{i.depName}}</view>
+					</picker>
+				</view>
+			</view>
+		</uni-popup>
 	</view>
 </template>
 
 <script>
+	import NoData from '@/components/nodata/index.vue' 
 	export default {
+		components: { NoData },
 		data() {
 			return {
+				dep: {},
+				current: [],
 				type: 0,
-				array: ['当日挂号','预约挂号'],
+				array: ['预约挂号','当日挂号'],
 				firstId: '',
 				leftActive: '',
 				navData: [],
 				rightNavData: []
 			}
 		},
-		created() {
-			this.getData()
+		onLoad(options) {
+			this.getData(options.id)
 		},
 		methods: {
+			chooseDep(item) {
+				this.dep = item
+			},
 			bindPickerChange(e) {
 				this.type = e.target.value
-				console.log(this.type)
+				uni.navigateTo({
+					url:'../yx/appointment/index?title=' + this.dep.depName +'&&type=' + this.type + '&&id='+ this.dep.depCode
+				})
 			},
-			getData() {
+			getData(id) {
 				uni.request({
 				    url: 'https://min.his.gzskt.net/bjrmWebApi/smartinquiry/body/listRelData', //仅为示例，并非真实接口地址。
 				    success: (res) => {
 						this.navData = res.data.data
-						if (!this.leftActive) {
-							this.leftActive = 'nav' + this.navData[0].id
-							this.rightNavData = this.navData[0]
-						}
 						this.$nextTick(function(){
-							if (this.getParam(location.href, 'id')) {
-								this.firstId = 'nav' + this.getParam(location.href, 'id')
-								this.leftActive = 'nav' + this.getParam(location.href, 'id')
-							}
-							if (this.leftActive) {
+							if (id) {
+								this.firstId = 'nav' + id
+								this.leftActive = 'nav' + id
 								const arr = this.navData.filter((item) => {
 									return ('nav' + item.id) === this.leftActive
 								})
 								if (arr && arr.length > 0) {
 									this.rightNavData = arr[0].symptoms
 								}
+								console.log(this.rightNavData)
+							} else {
+								this.leftActive = 'nav' + this.navData[0].id
+								this.rightNavData = this.navData[0].symptoms
 							}
 						})
 				    }
@@ -77,22 +95,44 @@
 					this.rightNavData = arr[0].symptoms
 				}
 			},
-			clickObjectItem() {
-				// uni.navigateTo({
-				// 	url: './symptomsList',
-				// })
-			},
-			getParam(path, name) { 
-			    const reg = new RegExp("(^|\\?|&)" + name + "=([^&]*)(\\s|&|$)", "i");   
-			    if (reg.test(path))  
-					return unescape(RegExp.$2.replace(/\+/g, " ")); 
-			    return "";    
+			clickObjectItem(item) {
+				uni.request({
+				    url: 'https://min.his.gzskt.net/bjrmWebApi/smartinquiry/symptom/listDeps?symptomId=' + item.id, //仅为示例，并非真实接口地址。
+				    success: (res) => {
+						this.current = res.data.data
+						this.$refs.popup.open()
+					}
+				})
 			}
 		}
 	}
 </script>
 
 <style lang="scss" scoped>
+	.bzlist {
+		width: 200px;
+		height: 100%;
+		background: #ffffff;
+		.title {
+			text-align: center;
+			height: 40px;
+			line-height: 40px;
+		}
+		.list {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: space-around;
+			.item {
+				color:white;
+				padding: 4px 7px;
+				border-radius: 3px;
+				background-color: #18bc37;
+				border-color: #18bc37;
+				margin-left: 20px;
+				margin-bottom: 20px;
+			}
+		}
+	}
 	.navBox {
 		border-top: 1px solid $uni-bg-color-hover;
 		height: 100%;

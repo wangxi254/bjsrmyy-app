@@ -2,6 +2,10 @@
 	<view class="content">
 		<uni-search-bar v-model="searchValue" @confirm="getData" placeholder="搜索" ></uni-search-bar>
 		<view class="list">
+			<view class="box" v-if="persons.length === 0">
+				<icon type="info" color="#007aff" size="26"/>
+				<view>暂无数据</view>
+			</view>
 			<scroll-view scroll-y scroll-with-animation>
 				<view class="person-item flex" v-for="item in persons" :key="item.docCode">
 					<image class="avater" mode="aspectFit" src="../static/common/person.jpg"></image>
@@ -10,7 +14,7 @@
 							<text class="name">{{item.docName}}</text>
 							<view class="flex items-center">
 								<picker @change="bindPickerChange" :value="type" :range="array">
-									<view class="surplus">去预约</view>
+									<!-- <view class="surplus">去预约</view> -->
 								</picker>
 							</view>
 						</view>
@@ -29,26 +33,29 @@
 </template>
 
 <script>
+	import NoData from '@/components/nodata/index.vue' 
 	export default {
+		components: { NoData },
 		data() {
 			return {
+				userId: '',
 				array: ['当日挂号','预约挂号'],
 				type: 0,
 				searchValue: '',
 				persons: []
 			}
 		},
-		created() {
+		onLoad() {
+			this.userId = this.$getUserId()
 			this.getData()
 		},
 		methods: {
 			bindPickerChange(e) {
 				this.type = e.target.value
-				console.log(this.type)
 			},
 			getData() {
 				uni.request({
-				    url: 'https://min.his.gzskt.net/bjrmWebApi/userfav/list/1?docName=' + this.searchValue, //仅为示例，并非真实接口地址。
+				    url: 'https://min.his.gzskt.net/bjrmWebApi/userfav/list/' + this.userId +'?docName=' + this.searchValue, //仅为示例，并非真实接口地址。
 				    success: (res) => {
 						this.persons = res.data.data
 					}
@@ -64,6 +71,23 @@
 </script>
 
 <style lang="scss" scoped>
+		.box{
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			margin-left: -40px;
+			margin-top: -100px;
+		    height: 80px;
+		    width: 80px;
+		    display: flex;
+		    flex-flow: column;
+		    align-items: center;
+		    justify-content: center;
+		    view{
+		        line-height: 2;
+		        color: $uni-color-primary;
+		    }
+		}
 	.content {
 		width: 100%;
 		height: 100%;
