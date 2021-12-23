@@ -118,6 +118,7 @@
 		.list {
 			display: flex;
 			flex-wrap: wrap;
+			justify-content: space-around;
 			.item {
 				color:white;
 				padding: 4px 7px;
