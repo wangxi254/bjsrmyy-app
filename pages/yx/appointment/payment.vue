@@ -90,6 +90,11 @@ export default {
             currentDate: "2021-12-26"
         })
     },
+    onUnload() {
+        uni.navigateBack({  
+            delta: 2  
+        }); 
+    },
     methods:{
         payfor(){
             this.$request({

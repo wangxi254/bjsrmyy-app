@@ -32,11 +32,11 @@
         <hs-card class="appointuser-view" @click="showUserList">
             <template v-slot:header>
                 <view class="title-model flex justify-between">
-                    <text>{{userInfo.name}}(自费)</text>
+                    <text>{{userInfo.name?userInfo.name:'请选择就诊人'}}</text>
                 <uni-icons type="arrowright" size="14" /></view>
             </template>
-            <view>身份证号：<text>{{userInfo.credentialNo | haddenIdCard}}</text></view>
-            <view>手机号码：<text>{{userInfo.contactPhone | haddenPhone}}</text></view>
+            <view v-if="userInfo.name">身份证号：<text>{{userInfo.credentialNo | haddenIdCard}}</text></view>
+            <view v-if="userInfo.name">手机号码：<text>{{userInfo.contactPhone | haddenPhone}}</text></view>
         </hs-card>
         <hs-card class="nodes">
             <view style="line-height: 2">
@@ -72,24 +72,9 @@ export default {
     },
     onLoad: function (option) { //
         option.row && (this.appointmentInfo = JSON.parse(option.row))
-        this.getCurrentUser();
+        this.userInfo = getApp().globalData.currentPatientInfo;
     },
     methods: {
-        getCurrentUser() {
-            this.$refs.loading.showLoading() // 显示
-            this.$request({
-                path:`/patient/mobile/getPatientByUserId?userId=${this.$userId}`,
-            }).then(res=>{
-                this.$refs.loading.hideLoading()
-                if(res.data.code == 200) {
-                    const current = res.data.data.find(item=>{
-                        if(item.defaultPatient!==1) return item
-                    })
-                    current?(this.userInfo=current):(res.data.data[0] || {})
-                }
-            })
-            
-        },
         submit() {
             // 提交订单
             let query = {
