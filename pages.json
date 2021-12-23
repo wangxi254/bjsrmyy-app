@@ -87,7 +87,7 @@
 	"mine": [
 		//就诊人管理
 		{
-			"path": "mine/diagnose/diagnoseLsit"
+			"path": "mine/diagnose/diagnoseLsit" 
 		}
 	],
 	"subPackages": [

@@ -4,7 +4,7 @@
  * @Author: seven
  * @Date: 2021-12-21 20:38:45
  * @LastEditors: seven
- * @LastEditTime: 2021-12-23 15:43:58
+ * @LastEditTime: 2021-12-23 17:27:02
 -->
 <template>
 	<view>
@@ -32,8 +32,8 @@
 						{id:12,img:'/static/tabbar/home.png',title:'出诊信息',detail:'scheduling',navigation:'../../scheduling/index'},
 						{id:13,img:'/static/tabbar/home.png',title:'检查报告',detail:'appointment',navigation:'../../mine/report/checkreport'},
 						{id:14,img:'/static/tabbar/home.png',title:'检验报告',detail:'appointment',navigation:'../../mine/report/testreport'},
-						{id:15,img:'/static/tabbar/home.png',title:'缴费记录',detail:'records',navigation:'/pages/records/PayRecord'},
-						{id:16,img:'/static/tabbar/home.png',title:'门诊清单',detail:'records',navigation:'/pages/records/listRecord'},
+						// {id:15,img:'/static/tabbar/home.png',title:'缴费记录',detail:'records',navigation:'/pages/records/PayRecord'},
+						// {id:16,img:'/static/tabbar/home.png',title:'门诊清单',detail:'records',navigation:'/pages/records/listRecord'},
 						{id:17,img:'/static/tabbar/home.png',title:'预约记录',detail:'Appointment',navigation:'/pages/yx/appointRecord/index'},
 						{id:18,img:'/static/tabbar/home.png',title:'挂号记录',detail:'Appointment',navigation:'/pages/yx/registerRecord/index'},
 				   ],
