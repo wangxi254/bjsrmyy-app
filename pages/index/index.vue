@@ -4,7 +4,7 @@
  * @Author: seven
  * @Date: 2021-12-21 20:38:45
  * @LastEditors: seven
- * @LastEditTime: 2021-12-21 23:18:15
+ * @LastEditTime: 2021-12-23 15:43:58
 -->
 <template>
 	<view>
@@ -35,6 +35,7 @@
 						{id:15,img:'/static/tabbar/home.png',title:'缴费记录',detail:'records',navigation:'/pages/records/PayRecord'},
 						{id:16,img:'/static/tabbar/home.png',title:'门诊清单',detail:'records',navigation:'/pages/records/listRecord'},
 						{id:17,img:'/static/tabbar/home.png',title:'预约记录',detail:'Appointment',navigation:'/pages/yx/appointRecord/index'},
+						{id:18,img:'/static/tabbar/home.png',title:'挂号记录',detail:'Appointment',navigation:'/pages/yx/registerRecord/index'},
 				   ],
 				banners:[],
 				props:{

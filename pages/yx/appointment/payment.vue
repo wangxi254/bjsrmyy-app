@@ -6,7 +6,7 @@
                 <uni-icons  class="right" type="checkbox" size="20" color="#fff" />
                 <text>已锁号</text>
             </view>
-            <view>剩余: 9分48秒</view>
+            <!-- <view>剩余: 9分48秒</view> -->
             <view>超时未支付将会自动取消挂号哦!</view>
         </view>
         <hs-card class="appointInfo-view">
@@ -15,20 +15,20 @@
                     <text>预约信息</text>
                 </view>
             </template>
-            <view>就诊科室：<text>心血管内科门诊</text></view>
-            <view>就诊医生：<text>王洪浩</text></view>
-            <view>就诊日期： <text>2021-12-20</text></view>
-            <view>就诊时间：<text>上午</text></view>
-            <view>挂号费用：<text>￥10.50</text></view>
+            <view>就诊科室：<text>{{info.deptName}}</text></view>
+            <view>就诊医生：<text>{{info.doctorName}}</text></view>
+            <view>就诊日期： <text>{{info.currentDate}}</text></view>
+            <view>就诊时间：<text>{{info.timeType==1?'上午':'下午'}}</text></view>
+            <view>挂号费用：<text>￥{{(info.payAmount/100).toFixed(2)}}</text></view>
         </hs-card>
         <hs-card class="appointuser-view">
             <template v-slot:header>
                 <view class="title-model flex justify-between">
-                    <text>张三(自费)</text>
+                    <text>{{info.patientName}}(自费)</text>
                 </view>
             </template>
-            <view>身份证号：<text>5201******1211</text></view>
-            <view>手机号码：<text>18******39</text></view>
+            <view>身份证号：<text>{{info.patientIdCardNo | haddenIdCard}}</text></view>
+            <view>手机号码：<text>{{info.phoneNum | haddenPhone}}</text></view>
         </hs-card>
         <hs-card class="tips-view">
             <uni-title type="h4" title="温馨提示" align="left"></uni-title>
@@ -46,7 +46,7 @@
         <view class="pay-view flex">
             <view class="pay-info flex flex-1 justify-between">
                 <view>
-                    总费用：<text class="textRed amount">￥10.50</text>
+                    总费用：<text class="textRed amount">￥{{(info.payAmount/100).toFixed(2)}}</text>
                 </view>
                 <text @click="cancel">取消预约</text>
             </view>
@@ -67,11 +67,32 @@ export default {
     components: { uniPopup, uniPopupDialog },
     data(){
         return {
-            
+            info: {}
         }
+    },
+    onLoad(options) {
+        options.row? (this.info = JSON.parse(options.row)): (this.info = {
+            appointmentDate: "2021-12-24",
+            codeId: "283871",
+            deptName: "妇科专家门诊",
+            doctorName: "邹睿",
+            id: "347115835121078272",
+            orderName: "预约挂号缴费",
+            orderState: null,
+            patientIdCardNo: null,
+            patientName: "11122",
+            payAmount: "450",
+            phoneNum: "18785187439",
+            seqNum: "1",
+            timePart: "1",
+            timeType: "1",
+            currentDate: "2021-12-26"
+        })
     },
     methods:{
         payfor(){
+            console.log(uni.getStorageSync('openid'))
+            return
             console.log("正在支付中")
             uni.navigateTo({
 					url:'/pages/yx/appointRecord/index'

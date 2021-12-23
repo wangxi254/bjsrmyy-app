@@ -4,7 +4,7 @@
  * @Author: seven
  * @Date: 2021-12-21 22:41:26
  * @LastEditors: seven
- * @LastEditTime: 2021-12-21 23:03:55
+ * @LastEditTime: 2021-12-23 13:50:04
 -->
 <template>
     <uni-popup ref="userpopup">
@@ -17,7 +17,7 @@
                 <view v-for="(item,index) in userList" :key="index"
                     class="user-item flex justify-between" @click="changeUser(item)">
                     <text>{{item.name}}</text>
-                    <text>{{item.idCard}}</text>
+                    <text>{{item.credentialNo | haddenIdCard}}</text>
                 </view>
             </scroll-view>
             
@@ -31,23 +31,12 @@ export default {
     components: { uniPopup },
     data() {
         return {
-            userList: [{
-                name: "张三",
-                idCard: "5201******1211"
-            },{
-                name: "张三",
-                idCard: "5201******1211"
-            },{
-                name: "张三",
-                idCard: "5201******1211"
-            },{
-                name: "张三",
-                idCard: "5201******1211"
-            }]
+            userList: []
         }
     },
     methods: {
         show() {
+            this.getexpert()
             this.$refs.userpopup.open('bottom');
         },
         close() {
@@ -61,6 +50,15 @@ export default {
             uni.navigateTo({
 				url:'/mine/diagnose/diagnoseLsit'
 			})
+        },
+        getexpert(){
+            this.$request({
+					path:`/patient/mobile/getPatientByUserId?userId=${this.$userId}`,
+			}).then(res=>{
+                if(res.data.code == 200) {
+                    this.userList = res.data.data || [];
+                }
+            })
         }
     }
 }

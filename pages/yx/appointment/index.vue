@@ -3,10 +3,10 @@
 		<chooseDay v-if="showDate && !loading" :hasData="hasData" @clickDate="clickDate" />
 		<view class="sel-condition">
 			<text>{{currentDate}}</text>
-			<view class="v-switch">
+			<!-- <view class="v-switch">
 				<text>只看有号</text>
 				<switch :checked="hasNum" @change="changeHasNum" color="#007aff" style="transform:scale(0.5)" />
-			</view>
+			</view> -->
 		</view>
 		<view class="person-list">
 			<view class="t-part" v-for="(item,index) in list" :key="index">
@@ -14,7 +14,8 @@
 					<view class="icon"></view>
 					<text class="text">{{index == 0?"上午":"下午"}}号源</text>
 				</view>
-				<view class="person-item flex" v-for="x in item" :key="x">
+				<NoData v-if="item.length == 0" />
+				<view v-else class="person-item flex" v-for="x in item" :key="x">
 					<image class="avater" mode="aspectFit" :src="x.img?x.img:personImg"></image>
 					<view class="person-item-info flex-1">
 						<view class="flex justify-between items-center">
@@ -43,13 +44,12 @@
 				<view class="nodes">选择想要预约的时间段</view>
 				<view class="selList flex flex1 flex-wrap ">
 					<view class="sel-item justify-center" v-for="(item,index) in selList[currentRow.type]" :key="index" @click="chooseDate(item)">
-						{{item}}
+						号源{{item.seqNum}}
 					</view>
 				</view>
 			</view>
 		</uni-popup>
-		<full-loading :loadshow="loading" text="加载中"></full-loading>
-		<!-- <NoData /> -->
+		<wyb-loading ref="loading"/>
 	</view>
 </template>
 
@@ -67,8 +67,10 @@
 				Data: [],
 				list: [],
 				selList: [
-					['08:00-08:30','08:30-9:00','09:00-09:30','09:30-10:00','10:00-10:30','10:30-11:00','11:00-11:30','11:30-12:00',],
-					['14:00-14:30','14:30-15:00','15:00-15:30','15:30-16:00','16:00-16:30','16:30-17:00','17:00-17:30'],
+					[],
+					[]
+					// ['08:00-08:30','08:30-9:00','09:00-09:30','09:30-10:00','10:00-10:30','10:30-11:00','11:00-11:30','11:30-12:00',],
+					// ['14:00-14:30','14:30-15:00','15:00-15:30','15:30-16:00','16:00-16:30','16:30-17:00','17:00-17:30'],
 				],
 				hasData: {},
 				showDate: true,
@@ -114,11 +116,13 @@
 			},
 			open(row){
 				this.currentRow = row;
+				this.getCodeList(row);
 				this.$refs.popup.open('right');
 			},
 			chooseDate(row){
-				this.currentRow['timePart'] = row;
+				// this.currentRow['timePart'] = row.timePart;
 				this.currentRow['currentDate'] = this.currentDate;
+				this.currentRow = {...this.currentRow,...row,deptCode: this.classId}
 				uni.navigateTo({
 					url:'/pages/yx/appointment/confirm?row=' + JSON.stringify(this.currentRow)
 				})
@@ -136,6 +140,8 @@
 						describe: item.docInfo.special,
 						surplus: item.docInfo.total1,
 						depName:item.depName,
+						pbCode: item.pbCode,
+						docCode: item.docInfo.docCode,
 						type: 0
 					})
 					if(item.date == date && item.classId == this.classId && item.timeType == '下午') bottomArr.push({
@@ -146,13 +152,36 @@
 						describe: item.docInfo.special,
 						surplus: item.docInfo.total2,
 						depName:item.depName,
+						pbCode: item.pbCode,
+						docCode: item.docInfo.docCode,
 						type: 1
 					})
 				})
 				this.list = [topArr,bottomArr]
 				this.currentDate = date;
 			},
+			getCodeList(row) {
+				this.selList = [[],[]];
+				this.$refs.loading.showLoading()
+				this.$request({
+					path:`/registration/numOrigin/get-num-origin-detail`,
+					method: 'post',
+					query: {
+						pbCode: row.pbCode,
+						pbDate: this.currentDate,
+						timeType: row.type + 1
+					}
+				}).then(res=>{
+					this.$refs.loading.hideLoading() // 隐藏
+					if(res.data.code == 200) {
+						res.data.data.map(item=>{
+							if(item.timeType == row.type + 1) this.selList[row.type].push(item);
+						})
+					}
+				})
+			},
 			getexpert(){
+				this.$refs.loading.showLoading() // 显示
 				const arr = this.getDateforSearch();
 				const firstDate = arr[0];
 				const endDate = arr[arr.length - 1];
@@ -160,6 +189,7 @@
 					path:`/smartinquiry/schedule/list?ampm=0&beginDate=${firstDate}&endDate=${endDate}`,
 				}).then(res=>{
 					this.loading = false;
+					this.$refs.loading.hideLoading() // 隐藏
 					if(res.data.code == 200){
 						const data = res.data.data || [];
 						this.Data = data;
