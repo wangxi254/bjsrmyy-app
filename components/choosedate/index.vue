@@ -15,7 +15,7 @@
         <scroll-view class="day-vew flex-1" scroll-x="true" :scroll-left="LeftWid" scroll-with-animation>
             <view class="day-item" v-for="(item,index) in weekInfo" :key="index" @click="chooseDay(index)">
                     <view class="week">{{item.week}}</view>
-                    <view :class="['hasflag',index%2==1?'active':'']">{{index%2==1?'有号':'无号'}}</view>
+                    <view :class="['hasflag',hasData[item.date]?'active':'']">{{hasData[item.date]?'有号':'无号'}}</view>
                     <view :class="['day',current == index?'active':'']"> {{item.day}}</view>
             </view>
         </scroll-view>
@@ -28,6 +28,14 @@
 
 <script>
 export default {
+    props: {
+        hasData:{
+            type: Object,
+            default: ()=> {
+                return {}
+            }
+        }
+    },
     data() {
         return {
             weekInfo: [],
@@ -74,16 +82,16 @@ export default {
         },
         setCurrent() {
             var arr = []
-            for (let i = 0; i < 8; i++) {
+            for (let i = 0; i < 7; i++) {
                 arr.push(this.dealTime(i))
             }
             this.weekInfo = arr;
         },
         clickLast() {
-            this.current > 1 && (this.LeftWid -= 50) && (this.current-=1)
+            this.current >= 1  && (this.current-=1,this.LeftWid -= 50)
         },
         clickNext() {
-            this.current < 7 && (this.LeftWid += 50) && (this.current+=1)
+            this.current < 6  && (this.current+=1,this.LeftWid += 50)
         },
         chooseDay(index) {
             this.current = index;

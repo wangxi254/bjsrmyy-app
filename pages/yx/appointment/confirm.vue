@@ -18,16 +18,16 @@
             <template v-slot:header>
                 <view class="title-model"><text>预约信息</text></view>
             </template>
-            <view>就诊科室：<text>普通外科门诊</text><uni-icons class="right" type="arrowright" size="14" /></view>
-            <view>就诊医生：<text>蔡涛</text><uni-icons class="right" type="arrowright" size="14" /></view>
-            <view>挂号费用：<text>￥20.50</text></view>
+            <view>就诊科室：<text>{{appointmentInfo.depName}}</text><uni-icons class="right" type="arrowright" size="14" /></view>
+            <view>就诊医生：<text>{{appointmentInfo.name}}</text><uni-icons class="right" type="arrowright" size="14" /></view>
+            <view>挂号费用：<text>￥{{appointmentInfo.price}}</text></view>
         </hs-card>
         <hs-card class="appointdate-view">
             <template v-slot:header>
                 <view class="title-model"><text>预约时间</text></view>
             </template>
-            <view>时间：<text class="textRed">2021-12-19</text></view>
-            <view>时段：<text class="textRed">上午</text></view>
+            <view>时间：<text class="textRed">{{appointmentInfo.currentDate}}</text></view>
+            <view>时段：<text class="textRed">{{appointmentInfo.type == 0?"上午":"下午"}}</text></view>
         </hs-card>
         <hs-card class="appointuser-view" @click="showUserList">
             <template v-slot:header>
@@ -52,6 +52,26 @@
 import userModel from '@/components/userList/index.vue'
 export default {
     components: { userModel },
+    data(){
+        return {
+            appointmentInfo: {
+                describe: "",
+                img: "",
+                name: "",
+                postion: "",
+                price: 0,
+                surplus: 0,
+                timePart: "",
+                depName:"",
+                type: 0,
+                currentDate: "",
+            }
+        }
+    },
+    onLoad: function (option) { //
+        option.row && (this.appointmentInfo = JSON.parse(option.row))
+        console.log(this.appointmentInfo)
+    },
     methods: {
         submit() {
             uni.navigateTo({

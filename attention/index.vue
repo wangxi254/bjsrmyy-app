@@ -3,20 +3,22 @@
 		<uni-search-bar v-model="searchValue" @confirm="getData" placeholder="搜索" ></uni-search-bar>
 		<view class="list">
 			<scroll-view scroll-y scroll-with-animation>
-				<view class="item" v-for="item in 10">
-					<view class="avator">
-						<img src="../static/tabbar/home.png" >
-					</view>
-					<view class="info">
-						<view class="top">
-							<view class="name">
-								<span>张麻子</span>
-								<span>副主任医师</span>
+				<view class="person-item flex" v-for="item in persons" :key="item.docCode">
+					<image class="avater" mode="aspectFit" src="../static/common/person.jpg"></image>
+					<view class="person-item-info flex-1">
+						<view class="flex justify-between items-center">
+							<text class="name">{{item.docName}}</text>
+							<view class="flex items-center">
+								<picker @change="bindPickerChange" :value="type" :range="array">
+									<view class="surplus">去预约</view>
+								</picker>
 							</view>
-							<span class="btn">去预约</span>
 						</view>
-						<view class="bottom" @click="getDetail(item)">
-							<span>擅长：治疗肾虚治疗肾虚治疗肾虚治疗肾虚治疗肾虚治疗肾虚治疗肾虚治疗肾虚治疗肾虚</span>
+						<view class="tex">
+							职称：{{item.docTitle}}
+						</view>
+						<view class="tex" @click="getDetail(item)">
+							<span>擅长：{{item.special}}</span>
 							<span class="jt">></span>
 						</view>
 					</view>
@@ -30,16 +32,33 @@
 	export default {
 		data() {
 			return {
-				searchValue: ''
+				array: ['当日挂号','预约挂号'],
+				type: 0,
+				searchValue: '',
+				persons: []
 			}
 		},
+		created() {
+			this.getData()
+		},
 		methods: {
-			getData() {},
+			bindPickerChange(e) {
+				this.type = e.target.value
+				console.log(this.type)
+			},
+			getData() {
+				uni.request({
+				    url: 'https://min.his.gzskt.net/bjrmWebApi/userfav/list/1?docName=' + this.searchValue, //仅为示例，并非真实接口地址。
+				    success: (res) => {
+						this.persons = res.data.data
+					}
+				})
+			},
 			getDetail(item) {
 				uni.navigateTo({
 					url:`expertorDetail?item=${JSON.stringify(item)}`
 				})
-			}
+			},
 		}
 	}
 </script>
@@ -58,6 +77,51 @@
 		background: #f8f8f8;
 		display: flex;
 		overflow: auto;
+		
+		.person-item{
+			background: #fff;
+			margin-bottom: 20rpx;
+			box-shadow: 0 10rpx 20rpx 0 rgba(0,0,0,.1);
+			padding: 20rpx;
+			.avater{
+				height: 200rpx;
+				width: 160rpx;
+				border-radius: 10rpx;
+				background: #eee;
+				margin-right: 20rpx;
+			}
+			.person-item-info{
+				.name{
+					font-size: $uni-font-size-lg;
+				}
+				.price{
+					color: red;
+				}
+				.surplus{
+					background: $uni-color-primary;
+					color: #fff;
+					width: 160rpx;
+					height: 50rpx;
+					line-height: 50rpx;
+					border-radius: 10rpx;
+					text-align: center;
+					margin-left: 10rpx;
+				}
+				.tex{
+					color: $uni-text-color-grey;
+					margin: 10rpx 0;
+					display: flex;
+					justify-content: space-between;
+					align-items: center;
+					
+					.jt {
+						display: inline-block;
+						width: 50px;
+						text-align: center;
+					}
+				}
+			}
+		}
 		
 		.item {
 			display: flex;
