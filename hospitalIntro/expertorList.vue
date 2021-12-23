@@ -94,6 +94,7 @@
 						docTitle:item.docTitle,
 						special:item.special,
 						docInfo:item.docInfo,
+						docName:item.docName,
 					},
 					method:'POST',
 				}).then(res=>{
