@@ -140,6 +140,12 @@
 					"style": {
 						"navigationBarTitleText": "电子导诊单"
 					}
+				},
+				{
+					"path":"neednkow",
+					"style": {
+						"navigationBarTitleText": "就诊须知"
+					}
 				}
 			]
 		},

@@ -48,7 +48,6 @@
 		methods: {
 			leftClick(item){
 				let array = [];
-				this.rightNavData = array;
 				uni.navigateTo({
 					url:`./expertorList?item=${JSON.stringify(item)}`
 				})

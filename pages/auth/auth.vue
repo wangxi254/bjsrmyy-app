@@ -169,7 +169,7 @@ export default {
 						uni.setStorageSync("userId",res.data.data.id);
 						setTimeout(()=>{
 							uni.navigateBack();
-						},2000)
+						},1000)
 					}
 				})
 				

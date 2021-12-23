@@ -4,14 +4,14 @@
 			<view class="name">{{item.name}}</view>
 			<view class="flex-row info">
 				<view class="flex1">
-					<view>身份证：{{item.idnumber}}</view>
-					<view>联系电话：{{item.phone}}</view>
-					<view>档案状态：{{item.phone}}</view>
+					<view>证件号：{{item.credentialNo}}</view>
+					<view>联系电话：{{item.contactPhone}}</view>
+					<view>出生日期：{{item.birthday}}</view>
 				</view>
 				<image class="right-img" src="../../static/common/right.png"></image>
 			</view>
 			<view class="space-btw">
-				<view class="btn" @click="openCode">电子就诊码</view>
+				<view class="btn" @click="openCode(item)">电子就诊码</view>
 				<view class="btn">档案更新</view>
 				<view class="btn" @click="edit(item)">编辑</view>
 				<view class="btn" @click="unbindDisagnose(item)">解绑</view>
@@ -47,33 +47,15 @@
 	export default {
 		data() {
 			return {
-				list:[
-					{
-						name:"张xx",
-						idnumber:"522122199xxxxxxxxxx",
-						phone:"1851000xxxx",
-						sex:'woman',
-					},
-					{
-						name:"张xx",
-						idnumber:"522122199xxxxxxxxxx",
-						phone:"1851000xxxx",
-						sex:'man',
-					},
-					{
-						name:"张xx",
-						idnumber:"522122199xxxxxxxxxx",
-						phone:"1851000xxxx",
-						sex:'man',
-					}
-				],
+				list:[],
 				openlayer:false,
-				disagnoseCode:{
-					scode:'http://www.pptbz.com/pptpic/UploadFiles_6909/201203/2012031220134655.jpg',
-					tcode:'http://www.pptbz.com/pptpic/UploadFiles_6909/201203/2012031220134655.jpg',
-					name:'张先生',
-					code:'0010101010101'
-				}
+				disagnoseCode:{},
+				// disagnoseCode:{
+				// 	scode:'http://www.pptbz.com/pptpic/UploadFiles_6909/201203/2012031220134655.jpg',
+				// 	tcode:'http://www.pptbz.com/pptpic/UploadFiles_6909/201203/2012031220134655.jpg',
+				// 	name:'张先生',
+				// 	code:'0010101010101'
+				// }
 			}
 		},
 		onLoad() {
@@ -105,8 +87,26 @@
 			},
 			unbind(item){
 				//调取消接口
+				let that = this;
+				this.$request({
+					path:`/patient/mobile/disable?id=${item.id}`,
+					query:{
+						id:item.id,
+					},
+					method:'DELETE',
+				}).then(res=>{
+					console.log("res",JSON.stringify(res));
+					if(res.data.code == 200){
+						uni.showToast({
+							icon:'none',
+							title:res.data.msg,
+						})
+						this.requestList();
+					}
+				})
 			},
-			openCode(){
+			openCode(item){
+				this.disagnoseCode = item;
 				this.openlayer = true;
 			},
 			coselayer(){
@@ -118,6 +118,7 @@
 				})
 			},
 			requestList(){
+				let that = this;
 				this.$request({
 					path:"/patient/mobile/getPatientByUserId",
 					query:{
@@ -125,6 +126,9 @@
 					}
 				}).then(res=>{
 					console.log("res",JSON.stringify(res));
+					if(res.data.code == 200){
+						that.list = res.data.data;
+					}
 				})
 			}
 			

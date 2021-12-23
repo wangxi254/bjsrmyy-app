@@ -19,18 +19,14 @@
 					{
 						name:"就诊人管理",
 						navi:"../../mine/diagnose/diagnoseLsit",
-					},
-					{
-						name:"我的关注",
-						navi:"../../attention/index",
 					}
 				]
 			}
 		},
 		onLoad() {
-			if(!uni.getStorageSync("userId")){
+			if(uni.getStorageSync("userId") === null || uni.getStorageSync("userId").length === 0){
 				uni.navigateTo({
-					url:"../pages/auth/auth"
+					url:"../auth/auth"
 				})
 			}
 		},

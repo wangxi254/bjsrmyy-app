@@ -1,7 +1,7 @@
 <template>
 	<view class="row navBox" :style="scrollHeiht" >
 		<!-- 左侧一级分类列表 -->
-		<scroll-view scroll-y class="leftNavBox col20-5">
+		<scroll-view scroll-y class="leftNavBox col20-5" :class="hasRight ? 'col20-5':'col100'">
 			<view class="leftNavItem py-20 text-center" v-for="(item,index) in leftNavData" :key="index" @tap="leftTap(item,index)" >
 				<view :class="leftActiveIndex===index?'leftActive':'leftUnActive'" class="leftNavContent py-10">
 					{{item.depName}}
@@ -9,7 +9,7 @@
 			</view>
 		</scroll-view>
 			<!-- 右侧二级分类列表 -->
-		<scroll-view scroll-y class="col20-15" scroll-with-animation>
+		<scroll-view scroll-y class="col20-15" v-if="hasRight" scroll-with-animation>
 			<view class="rightNavItem" @click="clickObjectItem(oitem)" v-for="(oitem,index) in rightNavData" :key="index">
 				{{oitem}}
 			</view>
@@ -39,6 +39,10 @@
 			},
 			leftProps:{
 				type:Object,
+			},
+			hasRight:{
+				type:Boolean,
+				default:false
 			}
 		},
 		data() {
@@ -124,6 +128,9 @@
 		width: 65%;
 	}
 	
+	.col100{
+		width: 100%;
+	}
 </style>
 		
 		

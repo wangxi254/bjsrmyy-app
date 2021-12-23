@@ -4,10 +4,10 @@
 			<image class="img" :src="exportInfo.icon"></image>
 			<view>
 				<view class="name">
-					{{exportInfo.name}}
+					{{exportInfo.docName}}
 				</view>
 				<view class="profical">
-					{{exportInfo.profical}}
+					{{exportInfo.docTitle}}
 				</view>
 			</view>
 		</view>
@@ -17,7 +17,7 @@
 				简介
 			</view>
 			<view class="item-detail">
-				{{exportInfo.intro}}
+				{{exportInfo.docInfo}}
 			</view>
 		</view>
 		
@@ -26,7 +26,7 @@
 				擅长
 			</view>
 			<view class="item-detail">
-				{{exportInfo.goodat}}
+				{{exportInfo.docDes}}
 			</view>
 		</view>
 		
@@ -43,10 +43,10 @@
 		
 		<view class="item">
 			<view class="item-title">
-				门诊时间
+				号源
 			</view>
 			<view class="item-detail">
-				{{exportInfo.time}}
+				上午剩余号源：{{exportInfo.total1}}        下午剩余号源：{{exportInfo.total2}}
 			</view>
 		</view>
 		
@@ -68,21 +68,13 @@
 	export default {
 		data() {
 			return {
-				exportInfo:{
-					icon:"http://www.pptbz.com/pptpic/UploadFiles_6909/201203/2012031220134655.jpg",
-					name:"zty",
-					profical:"主任医生",
-					intro:"贵州医科大学博士导师。贵州省专家，擅长打通任督二脉，开天眼，擒拿手，龙爪手，大乘功法，呼风唤雨，要啥都可以，天下武功，自创武林绝学，数据对接圣诞节时间段数据对接圣诞节数据对接圣诞节就SDK看SDKSDK思考的考试的嗯哦哦问哦沃尔沃二欧文",
-					goodat:"擅长：打家劫舍，来来来，啦啦啦啦，订货会合法化发挥发挥，牛牛牛牛牛，啛啛喳喳，啊啊啊啊啊啊啊啊，点点滴滴的点点滴滴，坎坎坷坷扩，将军金甲夜不脱",
-					address:"外科室",
-					time:"每周一上午，每周三下午",
-					fee:"12.5",
-				},
+				exportInfo:{},
 			}
 		},
 		onLoad(options) {
 			if(options.item){
 				let item = JSON.parse(options.item);
+				this.exportInfo = item;
 			}
 		},
 		methods: {
