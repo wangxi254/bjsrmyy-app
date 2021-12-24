@@ -169,10 +169,22 @@ export default {
 						uni.setStorageSync("userId",res.data.data.id);
 						setTimeout(()=>{
 							uni.navigateBack();
-						},1000)
+						},500)
 					}
 				})
 				
+			}else{
+				if(err){
+					uni.showToast({
+						icon:'none',
+						title:JSON.stringify(err),
+					})
+				}else{
+					uni.showToast({
+						icon:'none',
+						title:res.data.msg,
+					})
+				}
 			}
 		}
 

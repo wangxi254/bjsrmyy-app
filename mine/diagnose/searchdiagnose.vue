@@ -68,6 +68,16 @@
 				{{patientInfo.zyh}}
 			</view>
 		</view>
+		
+		<view class="flex-row" v-if="patientInfo">
+			<view class="addBtn" @click="check">
+				检查报告
+			</view>
+			<view class="addBtn" @click="test">
+				检验报告
+			</view>
+		</view>
+		
 	</view>
 </template>
 
@@ -143,6 +153,16 @@
 				this.credentialTypeIndex =  index;
 				this.credentialType = this.credentialTyps[index].value;
 			},
+			check(){
+				uni.navigateTo({
+					url:`../report/checkreport?item=${JSON.stringify(this.patientInfo)}`
+				})
+			},
+			test(){
+				uni.navigateTo({
+					url:`../report/testreport?item=${JSON.stringify(this.patientInfo)}`
+				})
+			}
 		}
 	}
 </script>
