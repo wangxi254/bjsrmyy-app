@@ -1,106 +1,139 @@
 <template>
 	<view>
-		
-		<view class="flex-row">
-			<view>
-				姓名
-			</view>
-			<input v-model="name" placeholder="请输入就诊人姓名" />
-		</view>
-		<view class="flex-row">
-			<view>
-				年龄类型
-			</view>
-			<picker :value="ageUnitIndex" :range="ageUnits" @change="ageUnitChange" range-key="name">
-				<view class="flex-row picker-view height40 hs-border">
-				  <view>
-						{{ageUnits[ageUnitIndex].name||'选择证件类型'}}
-				  </view>
-				   <image class="right" src="../../static/common/right.png"></image>
+		<view v-if="isSmart">
+			<view class="flex-row">
+				<view>
+					就诊卡号
 				</view>
-			</picker>
-		</view>
-		<view class="flex-row">
-			<view>
-				年龄
+				<input type="number" v-model="jzCard" placeholder="请输入就诊卡号" />
 			</view>
-			<input type="number" v-model="age" placeholder="请输入年龄" />
-		</view>
-		<view class="flex-row">
-			<view>
-				就诊卡号
-			</view>
-			<input type="number" v-model="jzCard" placeholder="请输入就诊卡号" />
-		</view>
-		<view class="flex-row">
-			<view>
-				性别
-			</view>
-			<radio-group @change="radioChange">
-				<view class="row-cls">
-					<label class="row-cls left15" v-for="(sexitem, index) in sexs" :key="sexitem.value">
-						<view>
-							<radio :value="sexitem.value" :checked="sexitem.value == sex" />
-						</view>
-						<view>{{sexitem.name}}</view>
-					</label>
+			<!-- <view class="flex-row">
+				<view>
+					证件类型
 				</view>
-			</radio-group>
-		</view>
-		<view class="flex-row">
-			<view>
-				手机号码
-			</view>
-			<input v-model="phone" placeholder="请输入就诊人手机号码" />
-		</view>
-		<view class="flex-row">
-			<view>
-				证件类型
-			</view>
-			<picker :value="credentialTypeIndex" :range="credentialTyps" @change="credentialTypeChange" range-key="name">
-				<view class="flex-row picker-view height40 hs-border">
-				  <view>
-						{{credentialTyps[credentialTypeIndex].name||'选择证件类型'}}
-				  </view>
-				   <image class="right" src="../../static/common/right.png"></image>
+				<picker :value="credentialTypeIndex" :range="credentialTyps" @change="credentialTypeChange" range-key="name">
+					<view class="flex-row picker-view height40 hs-border">
+					  <view>
+							{{credentialTyps[credentialTypeIndex].name||'选择证件类型'}}
+					  </view>
+					   <image class="right" src="../../static/common/right.png"></image>
+					</view>
+				</picker>
+			</view> -->
+			<view class="flex-row">
+				<view>
+					证件号
 				</view>
-			</picker>
-		</view>
-		
-		<view class="flex-row">
-			<view>
-				证件号
+				<input v-model="idcard" placeholder="请输入就诊人证件号" />
 			</view>
-			<input v-model="idcard" placeholder="请输入就诊人证件号" />
-		</view>
-	
-		<view class="flex-row">
-			<view>
-				出生日期
+			<view class="addBtn" @click="smartbind">
+				绑定
 			</view>
-			<picker mode="date" :value="birthday" @change="birthdayChange">
-				<view class="flex-row picker-view height40 hs-border">
-				  <view>
-						{{birthday||'选择出生日期'}}
-				  </view>
-				   <image class="right" src="../../static/common/right.png"></image>
+		</view>
+		<view v-else>
+			<view class="flex-row">
+				<view>
+					姓名
 				</view>
-			</picker>
-		</view>
-		
-		
-		
-		<view class="flex-row">
-			<view>
-				详细地址
+				<input v-model="name" placeholder="请输入就诊人姓名" />
 			</view>
-			<input v-model="address" placeholder="请输入就诊人详细地址" />
+			<view class="flex-row">
+				<view>
+					年龄类型
+				</view>
+				<picker :value="ageUnitIndex" :range="ageUnits" @change="ageUnitChange" range-key="name">
+					<view class="flex-row picker-view height40 hs-border">
+					  <view>
+							{{ageUnits[ageUnitIndex].name||'选择证件类型'}}
+					  </view>
+					   <image class="right" src="../../static/common/right.png"></image>
+					</view>
+				</picker>
+			</view>
+			<view class="flex-row">
+				<view>
+					年龄
+				</view>
+				<input type="number" v-model="age" placeholder="请输入年龄" />
+			</view>
+			<view class="flex-row">
+				<view>
+					就诊卡号
+				</view>
+				<input type="number" v-model="jzCard" placeholder="请输入就诊卡号" />
+			</view>
+			<view class="flex-row">
+				<view>
+					性别
+				</view>
+				<radio-group @change="radioChange">
+					<view class="row-cls">
+						<label class="row-cls left15" v-for="(sexitem, index) in sexs" :key="sexitem.value">
+							<view>
+								<radio :value="sexitem.value" :checked="sexitem.value == sex" />
+							</view>
+							<view>{{sexitem.name}}</view>
+						</label>
+					</view>
+				</radio-group>
+			</view>
+			<view class="flex-row">
+				<view>
+					手机号码
+				</view>
+				<input v-model="phone" placeholder="请输入就诊人手机号码" />
+			</view>
+			<view class="flex-row">
+				<view>
+					证件类型
+				</view>
+				<picker :value="credentialTypeIndex" :range="credentialTyps" @change="credentialTypeChange" range-key="name">
+					<view class="flex-row picker-view height40 hs-border">
+					  <view>
+							{{credentialTyps[credentialTypeIndex].name||'选择证件类型'}}
+					  </view>
+					   <image class="right" src="../../static/common/right.png"></image>
+					</view>
+				</picker>
+			</view>
+			
+			<view class="flex-row">
+				<view>
+					证件号
+				</view>
+				<input v-model="idcard" placeholder="请输入就诊人证件号" />
+			</view>
+				
+			<view class="flex-row">
+				<view>
+					出生日期
+				</view>
+				<picker mode="date" :value="birthday" @change="birthdayChange">
+					<view class="flex-row picker-view height40 hs-border">
+					  <view>
+							{{birthday||'选择出生日期'}}
+					  </view>
+					   <image class="right" src="../../static/common/right.png"></image>
+					</view>
+				</picker>
+			</view>
+			
+			
+			
+			<view class="flex-row">
+				<view>
+					详细地址
+				</view>
+				<input v-model="address" placeholder="请输入就诊人详细地址" />
+			</view>
+			
+			
+			<view class="addBtn" @click="addPatient">
+				绑定
+			</view>
 		</view>
 		
 		
-		<view class="addBtn" @click="addPatient">
-			绑定
-		</view>
 	</view>
 </template>
 
@@ -186,6 +219,7 @@
 				credentialType:1,
 				patientId:'',
 				jzCard:'',
+				isSmart:false,
 			}
 		},
 		onLoad(options) {
@@ -193,7 +227,17 @@
 			if(options.item){
 				let item = JSON.parse(options.item);
 				this.patientId = item.id;
+				this.isSmart = false;
+				uni.setNavigationBarTitle({
+					title:"智能快捷绑卡"
+				})
+			}else{
+				uni.setNavigationBarTitle({
+					title:"智能快捷绑卡"
+				})
+				this.isSmart = true;
 			}
+			
 		},
 		methods: {
 			radioChange(evt){
@@ -277,6 +321,7 @@
 					path:"/patientCard/mobile/patientCardDinding",
 					method:'POST',
 					query:req,
+					hastoast:true,
 				}).then(res=>{
 					console.log("res",JSON.stringify(res));
 					if(res.data.code == 200){
@@ -310,6 +355,48 @@
 				const index = e.detail.value;
 				this.ageUnitIndex =  index;
 				this.ageUnit = this.ageUnits[index].value;
+			},
+			smartbind(){
+				if(this.jzCard.length === 0){
+					return uni.showToast({
+						icon:'none',
+						title:"请输入就诊卡号"
+					})
+				}
+				
+				
+				if(this.idcard.length === 0){
+					return uni.showToast({
+						icon:'none',
+						title:"请输入就诊人证件号码"
+					})
+				}
+				
+				let req = {
+					userId:uni.getStorageSync("userId"),
+					sfz:this.idcard,
+					jzCard:this.jzCard,
+				}
+				
+				this.$request({
+					path:"/patientCard/mobile/patientCardDindingBySfz",
+					query:req,
+					hastoast:true,
+				}).then(res=>{
+					console.log("res",JSON.stringify(res));
+					if(res.data.code == 200){
+						uni.showToast({
+							icon:'none',
+							title:res.data.msg,
+							success() {
+								setTimeout(()=>{
+									uni.navigateBack();
+								},1000)
+							}
+						})
+					}
+				})
+				
 			}
 			
 		}
