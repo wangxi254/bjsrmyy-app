@@ -57,6 +57,7 @@
             <uni-popup-dialog mode="base" title="提示" content="是否确定取消当前预约" @close="closeMsg"
             @confirm="confirmMsg" message="成功消息" :duration="2000"></uni-popup-dialog>
         </uni-popup>
+        <wyb-loading ref="loading"/>
   </view>
 </template>
 
@@ -97,6 +98,7 @@ export default {
     },
     methods:{
         payfor(){
+            this.$refs.loading.showLoading()
             this.$request({
 					path:`/registration/order/xl-wx-applet-pay?openId=${this.openId}&orderId=${this.info.id}`
 				}).then(res=>{
