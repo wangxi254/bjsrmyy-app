@@ -101,8 +101,24 @@ export default {
 					path:`/registration/order/xl-wx-applet-pay?openId=${this.openId}&orderId=${this.info.id}`
 				}).then(res=>{
                     console.log(res)
+					const payinfo = res.data.data;
+					uni.requestPayment({
+						timeStamp: payinfo.timeStamp,
+						nonceStr: payinfo.nonceStr,
+						package: payinfo.packages,
+						signType: payinfo.signType,
+						paySign: payinfo.paySign,
+						success: payFlag => {
+
+						},
+						fail: err => {
+
+						}
+					});
             })
             console.log(uni.getStorageSync('openid'))
+			
+			
             return
             console.log("正在支付中")
             uni.navigateTo({

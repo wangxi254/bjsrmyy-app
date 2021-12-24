@@ -81,8 +81,8 @@
 			},
 			navito(){
 				uni.openLocation({
-				  latitude: this.hospitalInto.latitude,
-				  longitude: this.hospitalInto.longitude,
+				  latitude: Number(this.hospitalInto.latitude),
+				  longitude: Number(this.hospitalInto.latitude),
 				  name: this.hospitalInto.name
 				});
 			}

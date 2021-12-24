@@ -460,7 +460,7 @@
 				let req = {
 					userId:uni.getStorageSync("userId"),
 					credentialNo:this.idcard,
-					credentialType:8,
+					credentialType:this.credentialType,
 					name:this.name,
 					sex:this.sex,
 					birthday:this.birthday,
@@ -474,7 +474,7 @@
 					req = {
 						userId:uni.getStorageSync("userId"),
 						credentialNo:this.idcard,
-						credentialType:8,
+						credentialType:this.credentialType,
 						name:this.name,
 						sex:this.sex,
 						birthday:this.birthday,
