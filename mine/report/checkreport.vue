@@ -24,12 +24,12 @@
 		<view v-for="item in reportlist">
 			<view class="cell hs-border">
 				<view class="space-between">
-					<view>科室名称：{{item.expert}}</view>
-					<view>检查时间：{{item.date}}</view>
+					<view>科室名称：{{item.depName}}</view>
+					<view>检查医生：{{item.sqDoc}}</view>
 				</view>
 				<view>
-					<view>检验名称：{{item.name}}</view>
-					<view>检验编号：{{item.number}}</view>
+					<view>检验名称：{{item.reportName}}</view>
+					<view>检验编号：{{item.reportCode}}</view>
 				</view>
 			</view>
 		</view>
@@ -59,28 +59,43 @@
 						name:'常规检查',
 						number:'00003283434834',
 					}
-				]
+				],
+				mrn:'',
 			}
 		},
-		onLoad() {
+		onLoad(options) {
+			console.log("options.item",options.item);
+			if(options.item){
+				let item = JSON.parse(options.item);
+				this.mrn = item.mrn;
+			}
 			this.getCheckreport();
 		},
 		methods: {
 			bindSDateChange(e) {
 			  let date = e.detail.value;
 			  this.startDate = date;
-			  this.list = [];
+			  this.reportlist = [];
 			},
 			bindEDateChange(e) {
 			  let date = e.detail.value;
 			  this.endDate = date;
-			  this.list = [];
+			  this.reportlist = [];
 			},
 			getCheckreport(){
+				let that = this;
+				let date = new Date().toISOString().slice(0, 10);
 				this.$request({
-					path:'/checkReport/mobile/getInfo'
+					path:'/checkReport/mobile/getInfo',
+					query:{
+						beginDate:date,
+						endDate:date,
+						mrn:this.mrn,
+					}
 				}).then(res=>{
-					
+					if(res.data.code == 200){
+						that.reportlist = res.data.data;
+					}
 				})
 			},
 			getDetailInfo(){
