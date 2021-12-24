@@ -124,7 +124,7 @@
 				this.currentRow['currentDate'] = this.currentDate;
 				this.currentRow = {...this.currentRow,...row,deptCode: this.classId}
 				uni.navigateTo({
-					url:'../appointment/confirm?row=' + JSON.stringify(this.currentRow)
+					url:'./confirm?row=' + JSON.stringify(this.currentRow)
 				})
 			},
 			clickDate(date) {
@@ -184,7 +184,7 @@
 				this.$refs.loading.showLoading() // 显示
 				const arr = this.getDateforSearch();
 				const firstDate = arr[0];
-				const endDate = arr[arr.length - 1];
+				const endDate = this.showDate?arr[arr.length - 1]:arr[0];
 				this.$request({
 					path:`/smartinquiry/schedule/list?ampm=0&beginDate=${firstDate}&endDate=${endDate}`,
 				}).then(res=>{

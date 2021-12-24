@@ -14,19 +14,19 @@
     <view class="search-view">
         <view class="date-view flex justify-between items-center">
             <view class="dateInput">
-                <picker mode="date" :value="startDate" :start="startDate" :end="endDate">
+                <picker mode="date" :value="searchForm.startDate" :start="startDate" :end="endDate">
                     <view class="uni-input">{{startDate}}</view>
                 </picker>
             </view>
             <text>至</text>
             <view class="dateInput">
-                <picker mode="date" :value="endDate" :start="startDate" :end="endDate">
+                <picker mode="date" :value="searchForm.endDate" :start="startDate" :end="endDate">
                     <view class="uni-input">{{endDate}}</view>
                 </picker>
             </view>
             
         </view>
-        <button class="primary-btn" style="margin-top: 10rpx">查询</button>
+        <button class="primary-btn" style="margin-top: 10rpx" @click="getList">查询</button>
     </view>
     <view class="pageContainer">
         
@@ -68,7 +68,7 @@ export default {
         }
     },
     onLoad() {
-        this.PatientInfo = getApp().globalData.currentPatientInfo;
+        this.PatientInfo = getApp().globalData.PatientList[0];
         this.$getUserId();
     },
     methods: {
@@ -76,13 +76,22 @@ export default {
             this.$refs.userModelref.show();
         },
         changeUser(row) {
-            
+            this.PatientInfo = row;
+            this.getList();
         },
         getList() {
+            console.log(this.PatientInfo)
             this.$request({
                 path:`/listing/outpatient/list`,
+                method: 'post',
+                query: {
+                    certificateType:this.PatientInfo.credentialType,
+                    certificateNo : this.PatientInfo.credentialNo,
+                    beginDate: this.searchForm.startDate,
+                    endDate: this.searchForm.endDate
+                }
             }).then(res=>{
-
+               console.log(res)
             })
         }
     }

@@ -6,16 +6,13 @@
 			const res = await this.$request({
 				path:`/patient/mobile/getPatientByUserId?userId=${this.$userId}`,
 			})
-			
 			if(res.data.code == 200) {
-				const current = res.data.data.find(item=>{
-					if(item.defaultPatient!==1) return item
-				})
-				getApp().globalData.currentPatientInfo = current? current: res.data.data[0] || {}
-			}else getApp().globalData.currentPatientInfo = {};
+				const current = res.data.data || [{}];
+				getApp().globalData.PatientList = current;
+			}else getApp().globalData.PatientList = [{}];
 		},
 		globalData: {
-			currentPatientInfo: {}
+			PatientList: []
 		},
 		onShow: function() {
 			console.log('App Show')
