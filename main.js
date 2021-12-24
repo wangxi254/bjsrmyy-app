@@ -1,11 +1,3 @@
-/*
- * @Descripttion: 
- * @version: 
- * @Author: seven
- * @Date: 2021-12-23 18:26:27
- * @LastEditors: seven
- * @LastEditTime: 2021-12-24 12:29:21
- */
 import Vue from 'vue'
 import App from './App'
 import './common/styles/main.scss';

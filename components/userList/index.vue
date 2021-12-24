@@ -1,11 +1,3 @@
-<!--
- * @Descripttion: 
- * @version: 
- * @Author: seven
- * @Date: 2021-12-21 22:41:26
- * @LastEditors: seven
- * @LastEditTime: 2021-12-23 13:50:04
--->
 <template>
     <uni-popup ref="userpopup">
         <view class="userlist-view">

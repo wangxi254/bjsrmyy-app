@@ -1,11 +1,3 @@
-<!--
- * @Descripttion: 
- * @version: 
- * @Author: seven
- * @Date: 2021-12-21 20:38:45
- * @LastEditors: seven
- * @LastEditTime: 2021-12-24 12:19:08
--->
 <template>
   <view class="detailPage pageContainer">
         <hs-card class="tips-view">

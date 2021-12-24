@@ -1,12 +1,3 @@
-<!--
- * @Author: seven
- * @Date: 2021-12-24 11:01:11
- * @LastEditTime: 2021-12-24 11:23:59
- * @LastEditors: seven
- * @Description: 
- * @FilePath: \my-project\src\pages\pay\success.vue
- * 博虹出品，抄袭必究😄
--->
 <template>
   <view class="page flex flex-column items-center">
       <uni-icons class="icon" type="checkbox-filled" size="80" color="#06bb07" style="margin-top: 20px"  />

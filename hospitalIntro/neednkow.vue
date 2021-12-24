@@ -1,12 +1,3 @@
-<!--
- * @Author: seven
- * @Date: 2021-12-23 14:40:34
- * @LastEditTime: 2021-12-24 12:23:00
- * @LastEditors: seven
- * @Description: 
- * @FilePath: \my-project\src\hospitalIntro\neednkow.vue
- * 博虹出品，抄袭必究😄
--->
 <template>
 	<view class="page">
 		<uni-title class="title" type="h2" title="预约须知" align="center"></uni-title>
