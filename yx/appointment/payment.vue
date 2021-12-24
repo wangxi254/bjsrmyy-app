@@ -101,19 +101,31 @@ export default {
             this.$refs.loading.showLoading()
             this.$request({
 					path:`/registration/order/xl-wx-applet-pay?openId=${this.openId}&orderId=${this.info.id}`
-			}).then(res=>{
-                  uni.requestPayment({
-                      provider: 'wxpay',
-                      orderInfo: res.data,
-                      success:()=>{
-                          console.log('成功')
-                      },
-                      fail:(err)=>{
-                          console.log(err)
-                      }
-                  }) 
-            })
+				}).then(res=>{
+                    console.log(res)
+					const payinfo = res.data.data;
+					uni.requestPayment({
+						timeStamp: payinfo.timeStamp,
+						nonceStr: payinfo.nonceStr,
+						package: payinfo.packages,
+						signType: payinfo.signType,
+						paySign: payinfo.paySign,
+						success: payFlag => {
 
+						},
+						fail: err => {
+
+						}
+					});
+            })
+            console.log(uni.getStorageSync('openid'))
+			
+			
+            return
+            console.log("正在支付中")
+            uni.navigateTo({
+					url:'../appointRecord/index'
+			})
         },
         cancel() {
             this.$refs.popup.open()

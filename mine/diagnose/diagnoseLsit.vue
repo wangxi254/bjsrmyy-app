@@ -135,7 +135,21 @@
 						that.list = res.data.data;
 					}
 				})
-			}
+			},
+			getPainInfo(item){
+				let that = this;
+				this.$request({
+					path:"/tpatientCard/mobile/getPatientCardByPatientInfo",
+					query:{
+						conditionType:item.credentialType,
+						condition:item.credentialNo,
+					}
+				}).then(res=>{
+					console.log("res",JSON.stringify(res));
+					if(res.data.code == 200){
+					}
+				})
+			},
 			
 			
 		}

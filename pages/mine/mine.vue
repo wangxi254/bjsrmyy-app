@@ -23,6 +23,10 @@
 					{
 						name:"我的关注",
 						navi:"../../attention/index",
+					},
+					{
+						name:"查询病例信息",
+						navi:"../../mine/diagnose/searchdiagnose",
 					}
 				]
 			}
