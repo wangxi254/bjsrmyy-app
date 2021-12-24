@@ -117,7 +117,6 @@
             </view>
         </uni-popup>
         <userModel ref="userModelref"  @changeUser="changeUser" />
-        <wyb-loading ref="loading"/>
   </view>
 </template>
 
@@ -174,13 +173,15 @@ export default {
     },
     methods: {
         getList() {
-            this.$refs.loading.showLoading()
+            uni.showLoading({
+                title: '加载中...'
+            })
             this.$request({
                 path:`/registration/order/get-appointment-record-list`,
                 method: 'post',
                 query: this.PatientInfo
             }).then(res=>{
-                this.$refs.loading.hideLoading()
+                uni.hideLoading()
                 if(res.data.code == 200){
                     this.list = res.data.data;
                 }

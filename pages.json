@@ -17,6 +17,24 @@
 			"style":{
 				"navigationStyle":"custom"
 			}
+		},
+		{
+			"path":"pages/pay/success",
+			"style":{
+				"navigationBarTitleText": "支付成功"
+			}
+		},
+		{
+			"path":"pages/pay/fail",
+			"style":{
+				"navigationBarTitleText": "支付失败"
+			}
+		},
+		{
+			"path":"pages/showIcon/index",
+			"style":{
+				"navigationBarTitleText": "图标"
+			}
 		}
 	],
 	"mine": [

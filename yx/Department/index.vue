@@ -79,7 +79,9 @@
 				})
 			},
 			getDepartment(){
-				
+				uni.showLoading({
+					title: "加载中..."
+				})
 				let date = new Date().toISOString().slice(0, 10);
 				this.$request({
 					path:'/department/mobile/listNoPage',
@@ -89,6 +91,7 @@
 						regtype:1
 					}
 				}).then(res=>{
+					uni.hideLoading();
 					if(res.data.code == 200){
 						this.leftNavData = res.data.data;
 					}

@@ -1,3 +1,12 @@
+<!--
+ * @Author: seven
+ * @Date: 2021-12-23 14:40:34
+ * @LastEditTime: 2021-12-24 12:23:00
+ * @LastEditors: seven
+ * @Description: 
+ * @FilePath: \my-project\src\hospitalIntro\neednkow.vue
+ * 博虹出品，抄袭必究😄
+-->
 <template>
 	<view class="page">
 		<uni-title class="title" type="h2" title="预约须知" align="center"></uni-title>
@@ -10,62 +19,22 @@
 				{{item1.con}}
 			</view>
 		</view> -->
-		<u-parse :content="contentHtml" noData="正在加载中..." />
-		<!-- <view v-html="noticeContent"></view> -->
+		<!-- <u-parse :content="contentHtml" noData="正在加载中..." /> -->
+		<view v-html="contentHtml"></view>
 		<view class="uni-padding-wrap" style="margin: 15rpx 0;">
 			<button class="primary-btn btn" type="primary" @click="toNext">我已了解，继续预约</button>
 		</view>
-		<wyb-loading ref="loading"/>
 	</view>
 </template>
 
 <script>
 	import uniTitle from "@/components/uni-title.vue";
-	import uParse from '@/components/gaoyia-parse/parse.vue'
 	export default {
 		components:{
-			uniTitle,uParse
+			uniTitle
 		},
 		data() {
 			return {
-				content: [
-					{
-						id: 11,
-						title: '一.预约须知',
-						con: [
-							{
-								id: 1,
-								con: '1.为方便您早日康复，请您认真阅读预约就诊须知；'
-							},
-							{
-								id: 2,
-								con: '2.为方便您早日康复，请您认真阅读预约就诊须知；'
-							},
-							{
-								id: 3,
-								con: '3.为方便您早日康复，请您认真阅读预约就诊须知；'
-							}
-						]
-					},
-					{
-						id: 12,
-						title: '一.预约须知',
-						con: [
-							{
-								id: 1,
-								con: '1.为方便您早日康复，请您认真阅读预约就诊须知；'
-							},
-							{
-								id: 2,
-								con: '2.为方便您早日康复，请您认真阅读预约就诊须知；'
-							},
-							{
-								id: 3,
-								con: '3.为方便您早日康复，请您认真阅读预约就诊须知3.为方便您早日康复，请您认真阅读预约就诊须知3.为方便您早日康复，请您认真阅读预约就诊须知3.为方便您早日康复，请您认真阅读预约就诊须知3.为方便您早日康复，请您认真阅读预约就诊须知；'
-							}
-						]
-					}
-				],
 				contentHtml: ''
 			}
 		},
@@ -79,11 +48,13 @@
 				})
 			},
 			getexpert(){
-				this.$refs.loading.showLoading()
+				uni.showLoading({
+					title: '加载中...'
+				})
 				this.$request({
 					path:'/system/notice/10',
 				}).then(res=>{
-					this.$refs.loading.hideLoading() 
+					uni.hideLoading()
 					if(res.data.code == 200){
 						this.contentHtml = res.data.data.noticeContent
 					}
@@ -94,7 +65,6 @@
 </script>
 
 <style lang="scss" scoped>
-	@import url("/components/gaoyia-parse/parse.css");
 	view {
 		// line-height: 50rpx;
 		//font-family: fangsong;

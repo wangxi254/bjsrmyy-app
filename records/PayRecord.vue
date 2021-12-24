@@ -32,7 +32,6 @@
         
     </view>
     <userModel ref="userModelref"  @changeUser="changeUser" />
-    <wyb-loading ref="loading"/>
   </view>
 </template>
 
@@ -40,7 +39,6 @@
 import userModel from '@/components/userList/index.vue'
 function getDate(type) {
 		const date = new Date();
-
 		let year = date.getFullYear();
 		let month = date.getMonth() + 1;
 		let day = date.getDate();
@@ -83,11 +81,13 @@ export default {
             this.getList();
         },
         getList() {
-            this.$refs.loading.showLoading()
+            uni.showLoading({
+                title: '加载中...'
+            })
             this.$request({
                 path:`/registration/order/list?phoneNum=${this.PatientInfo.phone}`
             }).then(res=>{
-                this.$refs.loading.hideLoading()
+                uni.hideLoading()
                 if(res.data.code == 200){
                     this.list = res.data.data;
                 }

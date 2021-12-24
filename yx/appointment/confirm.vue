@@ -4,7 +4,7 @@
  * @Author: seven
  * @Date: 2021-12-21 20:38:45
  * @LastEditors: seven
- * @LastEditTime: 2021-12-23 16:39:37
+ * @LastEditTime: 2021-12-24 12:19:08
 -->
 <template>
   <view class="detailPage pageContainer">
@@ -45,7 +45,6 @@
         </hs-card>
         <button class="primary-btn btn" type="primary" @click="submit">提交</button>
         <userModel ref="userModelref"  @changeUser="changeUser" />
-        <wyb-loading ref="loading"/>
   </view>
 </template>
 
@@ -73,10 +72,20 @@ export default {
     onLoad: function (option) { //
         option.row && (this.appointmentInfo = JSON.parse(option.row))
         this.userInfo = getApp().globalData.PatientList.length>0?{}:getApp().globalData.PatientList[0];
-        this.$getUserId();
+         this.$getUserId();
     },
     methods: {
         submit() {
+            //验证
+            if(!this.userInfo.name){
+                return uni.showToast({
+                    icon:'none',
+                    title:"请选择就诊人",
+                })
+            }
+            uni.showLoading({
+                title: "加载中..."
+            })
             // 提交订单
             let query = {
                 codeId: this.appointmentInfo.codeId,
@@ -102,6 +111,7 @@ export default {
 					method: 'post',
 					query
 				}).then(res=>{
+                    uni.hideLoading()
                     if(res.data.code == 200) {
                         uni.navigateTo({
                             url:'../appointment/payment?row=' + JSON.stringify({

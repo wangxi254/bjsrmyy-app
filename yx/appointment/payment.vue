@@ -57,7 +57,6 @@
             <uni-popup-dialog mode="base" title="提示" content="是否确定取消当前预约" @close="closeMsg"
             @confirm="confirmMsg" message="成功消息" :duration="2000"></uni-popup-dialog>
         </uni-popup>
-        <wyb-loading ref="loading"/>
   </view>
 </template>
 
@@ -98,34 +97,33 @@ export default {
     },
     methods:{
         payfor(){
-            this.$refs.loading.showLoading()
+            uni.showLoading({
+                title:"加载中..."
+            })
             this.$request({
 					path:`/registration/order/xl-wx-applet-pay?openId=${this.openId}&orderId=${this.info.id}`
 				}).then(res=>{
-                    console.log(res)
+                    uni.hideLoading()
 					const payinfo = res.data.data;
 					uni.requestPayment({
 						timeStamp: payinfo.timeStamp,
 						nonceStr: payinfo.nonceStr,
-						package: payinfo.packages,
+						package: 'prepay_id' + payinfo.packages,
 						signType: payinfo.signType,
 						paySign: payinfo.paySign,
 						success: payFlag => {
-
+                            uni.navigateTo({
+                                url:'../appointRecord/index'
+                            })
 						},
 						fail: err => {
-
+                            uni.showToast({
+                                title: JSON.stringify(err),
+                                duration: 2000
+                            })
 						}
 					});
             })
-            console.log(uni.getStorageSync('openid'))
-			
-			
-            return
-            console.log("正在支付中")
-            uni.navigateTo({
-					url:'../appointRecord/index'
-			})
         },
         cancel() {
             this.$refs.popup.open()

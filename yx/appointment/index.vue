@@ -49,7 +49,6 @@
 				</view>
 			</view>
 		</uni-popup>
-		<wyb-loading ref="loading"/>
 	</view>
 </template>
 
@@ -120,7 +119,6 @@
 				this.$refs.popup.open('right');
 			},
 			chooseDate(row){
-				// this.currentRow['timePart'] = row.timePart;
 				this.currentRow['currentDate'] = this.currentDate;
 				this.currentRow = {...this.currentRow,...row,deptCode: this.classId}
 				uni.navigateTo({
@@ -161,8 +159,10 @@
 				this.currentDate = date;
 			},
 			getCodeList(row) {
+				uni.showLoading({
+					title: "加载中..."
+				})
 				this.selList = [[],[]];
-				this.$refs.loading.showLoading()
 				this.$request({
 					path:`/registration/numOrigin/get-num-origin-detail`,
 					method: 'post',
@@ -172,7 +172,7 @@
 						timeType: row.type + 1
 					}
 				}).then(res=>{
-					this.$refs.loading.hideLoading() // 隐藏
+					uni.hideLoading();
 					if(res.data.code == 200) {
 						res.data.data.map(item=>{
 							if(item.timeType == row.type + 1) this.selList[row.type].push(item);
@@ -181,7 +181,9 @@
 				})
 			},
 			getexpert(){
-				this.$refs.loading.showLoading() // 显示
+				uni.showLoading({
+					title: "加载中..."
+				})
 				const arr = this.getDateforSearch();
 				const firstDate = arr[0];
 				const endDate = this.showDate?arr[arr.length - 1]:arr[0];
@@ -189,7 +191,7 @@
 					path:`/smartinquiry/schedule/list?ampm=0&beginDate=${firstDate}&endDate=${endDate}`,
 				}).then(res=>{
 					this.loading = false;
-					this.$refs.loading.hideLoading() // 隐藏
+					uni.hideLoading();
 					if(res.data.code == 200){
 						const data = res.data.data || [];
 						this.Data = data;
