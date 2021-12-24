@@ -7,6 +7,11 @@
                 <text>已锁号</text>
             </view>
             <!-- <view>剩余: 9分48秒</view> -->
+            <view class="flex justify-center items-center">
+                <view style="margin-right: 10rpx">剩余: </view>
+                <uni-countdown color="#FFFFFF" :show-day="false" :hour="0" :minute="8" :second="0" @timeup="timeup"></uni-countdown>
+            </view>
+            
             <view>超时未支付将会自动取消挂号哦!</view>
         </view>
         <hs-card class="appointInfo-view">
@@ -63,8 +68,9 @@
 <script>
 import uniPopup from '@/components/uni-popup/components/uni-popup/uni-popup.vue'
 import uniPopupDialog from '@/components/uni-popup/components/uni-popup-dialog/uni-popup-dialog.vue'
+import uniCountdown from '@/components/uni-countdown/uni-countdown.vue'
 export default {
-    components: { uniPopup, uniPopupDialog },
+    components: { uniPopup, uniPopupDialog,uniCountdown },
     data(){
         return {
             info: {},
@@ -140,6 +146,9 @@ export default {
             uni.navigateTo({
 					url:'../appointRecord/index'
 			})
+        },
+        timeup() {
+            
         }
     }
 }
@@ -217,5 +226,13 @@ export default {
             text-align: center;
             font-size: $uni-font-size-lg;
         }
+    }
+    ::v-deep .uni-countdown__number,.uni-countdown__splitor{
+        color: #fff !important;
+        font-size: $uni-font-size-sm !important;
+    }
+    ::v-deep .uni-countdown__splitor{
+        color: #fff !important;
+        font-size: $uni-font-size-sm !important;
     }
 </style>

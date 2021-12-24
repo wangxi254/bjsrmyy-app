@@ -96,15 +96,16 @@ export default {
                 doctorCode: this.appointmentInfo.docCode,
                 doctorName: this.appointmentInfo.name,
                 appointmentDate: this.appointmentInfo.currentDate,
-                phoneNum: this.userInfo.contactPhone || '18785187439',
+                phoneNum: this.userInfo.contactPhone,
                 timeType: this.appointmentInfo.type + 1,
                 timePart: this.appointmentInfo.timePart,
-                payAmount: this.appointmentInfo.price * 100,
+                payAmount: 1,//this.appointmentInfo.price * 100,
                 patientId: this.userInfo.id,
                 patientName: this.userInfo.name,
                 medicalRecordNo: this.PaientCard.mrn,
                 certificateType: parseInt(this.userInfo.credentialType),
-                certificateNo: this.userInfo.credentialNo || '520123199311031211'
+                certificateNo: this.userInfo.credentialNo,
+                registerType: this.appointmentInfo.registerType
             }
             this.$request({
 					path:`/registration/order/post`,
