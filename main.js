@@ -15,19 +15,32 @@ Vue.component('hs-card',hsCard)
 import request from 'common/request.js';
 Vue.prototype.$request = request.apprequst;
 Vue.prototype.$arequest = request.arequest;
+
+// 调试
 Vue.prototype.$getUserId = ()=>{
-    const userId = uni.getStorageSync("userId") || 123;
+    const userId = uni.getStorageSync("userId") || "346829058917404672";
     if(userId) return userId;
     else  uni.navigateTo({
         url:"/pages/auth/auth"
     })
 }
-// 设置用户id 
-Vue.prototype.$userId = '346829058917404672'
+// Vue.prototype.$userId = '346829058917404672'
+// 调试
+
+//测试
+// Vue.prototype.$getUserId = ()=>{
+//     const userId = uni.getStorageSync("userId");
+//     if(userId) return userId;
+//     else  uni.navigateTo({
+//         url:"/pages/auth/auth"
+//     })
+// }
+//测试
 
 Object.keys(filters).forEach(key=>{
     Vue.filter(key,filters[key])
 })
+
 
 App.mpType = 'app' 
 

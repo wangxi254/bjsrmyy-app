@@ -19,16 +19,18 @@
 		},
 		data() {
 			return {
-				contentHtml: ''
+				contentHtml: '',
+				pageType: 1
 			}
 		},
-		onLoad() {
+		onLoad(options) {
+			options.type && (this.pageType = options.type)
 			this.getexpert()
 		},
 		methods: {
 			toNext() {
 				uni.navigateTo({
-					url:'../Department/index'
+					url:'../Department/index?type=' + this.pageType
 				})
 			},
 			getexpert(){

@@ -44,8 +44,9 @@ export default {
 			})
         },
         getexpert(){
+            const userId = this.$getUserId();
             this.$request({
-					path:`/patient/mobile/getPatientByUserId?userId=${this.$userId}`,
+					path:`/patient/mobile/getPatientByUserId?userId=${userId}`,
 			}).then(res=>{
                 if(res.data.code == 200) {
                     this.userList = res.data.data || [];
@@ -61,7 +62,7 @@ export default {
         width: calc(100% - 40rpx);
         background:#fff;
         margin: 0 auto;
-        margin-bottom: 20rpx;
+        margin-bottom: 40rpx;
         border-radius: $uni-border-radius-lg;
         .title-model{
             border-bottom: none !important;
@@ -69,6 +70,7 @@ export default {
         .usermanage{
             color: $uni-color-primary;
             font-size: $uni-font-size-sm;
+            font-weight: bold;
         }
         .list-view{
             max-height: 400rpx;

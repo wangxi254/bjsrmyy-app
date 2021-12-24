@@ -59,12 +59,14 @@ export default {
                 currentDate: "",
             },
             userInfo: {},
+            PaientCard: {}
         }
     },
     onLoad: function (option) { //
         option.row && (this.appointmentInfo = JSON.parse(option.row))
-        this.userInfo = getApp().globalData.PatientList.length>0?{}:getApp().globalData.PatientList[0];
-         this.$getUserId();
+        this.userInfo = getApp().globalData.PatientList.length>1?{}:getApp().globalData.PatientList[0];
+        this.$getUserId();
+        if(this.userInfo.name)  this.getPaientCard(this.userInfo)
     },
     methods: {
         submit() {
@@ -73,6 +75,12 @@ export default {
                 return uni.showToast({
                     icon:'none',
                     title:"请选择就诊人",
+                })
+            }
+            if(!this.PaientCard.mrn){
+                return uni.showToast({
+                    icon:'none',
+                    title:"暂无病历号",
                 })
             }
             uni.showLoading({
@@ -94,7 +102,7 @@ export default {
                 payAmount: this.appointmentInfo.price * 100,
                 patientId: this.userInfo.id,
                 patientName: this.userInfo.name,
-                medicalRecordNo: this.userInfo.credentialNo,
+                medicalRecordNo: this.PaientCard.mrn,
                 certificateType: parseInt(this.userInfo.credentialType),
                 certificateNo: this.userInfo.credentialNo || '520123199311031211'
             }
@@ -120,6 +128,20 @@ export default {
         },
         changeUser(row) {
             this.userInfo = row;
+            this.getPaientCard(this.userInfo)
+        },
+        getPaientCard(PaientInfo) {
+            uni.showLoading({
+                title: '加载中...'
+            })
+            this.$request({
+                path:`/tpatientCard/mobile/getPatientCardByPatientInfo?condition=${PaientInfo.credentialNo}&conditionType=${PaientInfo.credentialType}`,
+            }).then(res=>{
+                uni.hideLoading();
+                if(res.data.code == 200) {
+                    this.PaientCard = res.data.data;
+                }
+            })
         }
     }
 }

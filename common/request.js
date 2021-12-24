@@ -48,7 +48,6 @@ export default {
 				},
 				fail: err => {
 					uni.hideLoading();
-				  
 					if(hastoast){
 						uni.showToast({
 							title: JSON.stringify(err),

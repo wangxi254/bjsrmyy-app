@@ -3,8 +3,9 @@
 		onLaunch: async function() {
 			//var globalData = getApp().globalData;
 			//获取默认就诊人
+			const userId = this.$getUserId();
 			const res = await this.$request({
-				path:`/patient/mobile/getPatientByUserId?userId=${this.$userId}`,
+				path:`/patient/mobile/getPatientByUserId?userId=${userId}`,
 			})
 			if(res.data.code == 200) {
 				const current = res.data.data || [{}];

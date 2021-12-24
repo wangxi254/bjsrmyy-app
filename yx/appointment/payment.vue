@@ -68,7 +68,7 @@ export default {
     data(){
         return {
             info: {},
-            openId: 'o_yk35dyNs3y4hJJxtYpwCYqlfHY'
+            openId: uni.getStorageSync("openId")||""
         }
     },
     onLoad(options) {

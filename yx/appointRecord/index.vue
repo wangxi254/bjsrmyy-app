@@ -171,6 +171,15 @@ export default {
         this.$getUserId();
         this.getList();
     },
+    onUnload() {
+        const pages = getCurrentPages();
+        if(pages[pages.length - 2].route == 'yx/appointment/payment') {
+            uni.navigateBack({  
+                delta: 1  
+            }); 
+        }
+        
+    },
     methods: {
         getList() {
             uni.showLoading({

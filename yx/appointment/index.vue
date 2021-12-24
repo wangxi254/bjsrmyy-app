@@ -42,11 +42,15 @@
 					<text>上午</text>
 				</view>
 				<view class="nodes">选择想要预约的时间段</view>
-				<view class="selList flex flex1 flex-wrap ">
-					<view class="sel-item justify-center" v-for="(item,index) in selList[currentRow.type]" :key="index" @click="chooseDate(item)">
-						号源{{item.seqNum}}
+				<scroll-view scroll-y="true" style="height: calc(100% - 20px)">
+					<view class="selList flex flex1 flex-wrap ">
+						
+							<view class="sel-item justify-center" v-for="(item,index) in selList[currentRow.type]" :key="index" @click="chooseDate(item)">
+								号源{{item.seqNum}}
+							</view>
+						
 					</view>
-				</view>
+				</scroll-view>
 			</view>
 		</uni-popup>
 	</view>
