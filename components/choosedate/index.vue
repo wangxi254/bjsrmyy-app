@@ -1,11 +1,3 @@
-<!--
- * @Descripttion: 
- * @version: 
- * @Author: seven
- * @Date: 2021-12-21 20:59:26
- * @LastEditors: seven
- * @LastEditTime: 2021-12-21 22:27:53
--->
 <template>
     <view class="date-view flex items-center">
         <view class="optBtn">

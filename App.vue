@@ -1,12 +1,3 @@
-<!--
- * @Author: seven
- * @Date: 2021-12-23 09:47:01
- * @LastEditTime: 2021-12-24 10:19:07
- * @LastEditors: seven
- * @Description: 
- * @FilePath: \my-project\src\App.vue
- * 博虹出品，抄袭必究😄
--->
 <script>
 	export default {
 		onLaunch: async function() {

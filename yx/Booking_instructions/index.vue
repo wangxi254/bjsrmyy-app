@@ -1,12 +1,3 @@
-<!--
- * @Author: seven
- * @Date: 2021-12-24 09:47:06
- * @LastEditTime: 2021-12-24 12:24:26
- * @LastEditors: seven
- * @Description: 
- * @FilePath: \my-project\src\yx\Booking_instructions\index.vue
- * 博虹出品，抄袭必究😄
--->
 <template>
 	<view class="page">
 		<uni-title class="title" type="h2" title="预约须知" align="center"></uni-title>

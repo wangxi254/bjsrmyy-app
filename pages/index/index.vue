@@ -1,11 +1,3 @@
-<!--
- * @Descripttion: 
- * @version: 
- * @Author: seven
- * @Date: 2021-12-21 20:38:45
- * @LastEditors: seven
- * @LastEditTime: 2021-12-24 11:10:48
--->
 <template>
 	<view>
 		<hsBannerView :banners="banners" :props="props" @bannerClick="bannerClick" />
@@ -37,6 +29,8 @@
 						{id:16,img:'/static/tabbar/home.png',title:'门诊清单',detail:'records',navigation:'../../records/listRecord'},
 						{id:17,img:'/static/tabbar/home.png',title:'预约记录',detail:'Appointment',navigation:'../../yx/appointRecord/index'},
 						{id:18,img:'/static/tabbar/home.png',title:'挂号记录',detail:'Appointment',navigation:'../../yx/registerRecord/index'},
+						{id:19,img:'/static/tabbar/home.png',title:'住院预交金',detail:'Appointment',navigation:'../../records/roomPay'},
+						{id:20,img:'/static/tabbar/home.png',title:'诊间支付',detail:'Appointment',navigation:'../../records/listPay'},
 				   ],
 				banners:[],
 				props:{

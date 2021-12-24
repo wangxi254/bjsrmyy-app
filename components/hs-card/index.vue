@@ -1,11 +1,3 @@
-<!--
- * @Descripttion: 
- * @version: 
- * @Author: seven
- * @Date: 2021-12-21 20:38:45
- * @LastEditors: seven
- * @LastEditTime: 2021-12-21 20:52:55
--->
 <template>
     <view class="card" @click="_onClick">
         <slot name="header" />

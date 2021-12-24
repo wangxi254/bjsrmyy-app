@@ -215,6 +215,18 @@
 					"style": {
 						"navigationBarTitleText": "缴费记录"
 					}
+				},
+				{
+					"path": "listPay",
+					"style": {
+						"navigationBarTitleText": "诊间支付"
+					}
+				},
+				{
+					"path": "roomPay",
+					"style": {
+						"navigationBarTitleText": "住院预交金"
+					}
 				}
 			]
 		},
