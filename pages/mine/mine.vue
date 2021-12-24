@@ -27,6 +27,10 @@
 					{
 						name:"查询病例信息",
 						navi:"../../mine/diagnose/searchdiagnose",
+					},
+					{
+						name:"智能快捷绑卡",
+						navi:"../../mine/diagnose/bindCard",
 					}
 				]
 			}

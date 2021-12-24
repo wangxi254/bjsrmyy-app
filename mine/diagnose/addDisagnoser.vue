@@ -496,6 +496,7 @@
 						path:"/patient/mobile/edit",
 						method:'PUT',
 						query:req,
+						hastoast:true,
 					}).then(res=>{
 						console.log("res",JSON.stringify(res));
 						if(res.data.code == 200){
@@ -515,6 +516,7 @@
 						path:"/patient/mobile/add",
 						method:'POST',
 						query:req,
+						hastoast:true,
 					}).then(res=>{
 						console.log("res",JSON.stringify(res));
 						if(res.data.code == 200){
