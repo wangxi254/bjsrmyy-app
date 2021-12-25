@@ -32,7 +32,7 @@
                     <text>{{info.patientName}}(自费)</text>
                 </view>
             </template>
-            <view>身份证号：<text>{{info.patientIdCardNo | haddenIdCard}}</text></view>
+            <view>身份证号：<text>{{info.certificateNo | haddenIdCard}}</text></view>
             <view>手机号码：<text>{{info.phoneNum | haddenPhone}}</text></view>
         </hs-card>
         <hs-card class="tips-view">
@@ -125,9 +125,14 @@ export default {
 						},
 						fail: err => {
                             uni.showToast({
-                                title: JSON.stringify(err),
+                                title: "支付失败",
                                 duration: 2000
                             })
+                            setTimeout(()=>{
+                                uni.navigateTo({
+                                    url:'../appointRecord/index'
+                                })
+                            },2000)
 						}
 					});
             })
