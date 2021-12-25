@@ -28,7 +28,7 @@
                 <uni-icons type="arrowright" size="14" /></view>
             </template>
             <view v-if="userInfo.name">身份证号：<text>{{userInfo.credentialNo | haddenIdCard}}</text></view>
-            <view v-if="userInfo.name">手机号码：<text>{{userInfo.contactPhone | haddenPhone}}</text></view>
+            <view v-if="userInfo.name">手机号码：<text>{{userInfo.phone | haddenPhone}}</text></view>
         </hs-card>
         <hs-card class="nodes">
             <view style="line-height: 2">
@@ -96,7 +96,7 @@ export default {
                 doctorCode: this.appointmentInfo.docCode,
                 doctorName: this.appointmentInfo.name,
                 appointmentDate: this.appointmentInfo.currentDate,
-                phoneNum: this.userInfo.contactPhone,
+                phoneNum: this.userInfo.phone,
                 timeType: this.appointmentInfo.type + 1,
                 timePart: this.appointmentInfo.timePart,
                 payAmount: 1,//this.appointmentInfo.price * 100,

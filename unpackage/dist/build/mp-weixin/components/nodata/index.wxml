@@ -1,0 +1,1 @@
+<view class="box" style="{{('height:'+height)}}"><icon type="info" color="#007aff" size="26"></icon><view>暂无数据 ...</view></view>

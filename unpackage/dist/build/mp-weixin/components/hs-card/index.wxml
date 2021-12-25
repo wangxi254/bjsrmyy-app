@@ -1,0 +1,1 @@
+<view data-event-opts="{{[['tap',[['_onClick',['$event']]]]]}}" class="card" bindtap="__e"><slot name="header"></slot><view class="card-body"><slot></slot></view></view>
