@@ -78,6 +78,7 @@ export default {
         }
     },
     onLoad(options) {
+        console.log(JSON.parse(options.row))
         options.row? (this.info = JSON.parse(options.row)): (this.info = {
             appointmentDate: "2021-12-24",
             codeId: "283871",

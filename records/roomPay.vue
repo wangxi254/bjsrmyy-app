@@ -156,7 +156,7 @@ export default {
             })
         },
         openNums() {
-            if(Object.keys(this.currentInfo).length == 0){
+            if(!this.currentInfo){
                 return uni.showToast({
                     icon: 'none',
                     title: '暂无住院信息,不可充值',
