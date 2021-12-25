@@ -13,7 +13,7 @@ const envObject = {
 let ENV = ''
 if(process.env.NODE_ENV === 'development') {
 	// 开发环境、
-  ENV='test'
+  ENV='pro'
 } else {
   ENV='pro'
 }

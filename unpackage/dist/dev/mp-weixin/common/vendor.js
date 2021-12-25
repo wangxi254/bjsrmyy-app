@@ -9758,7 +9758,7 @@ var envObject = {
 var ENV = '';
 if (true) {
   // 开发环境、
-  ENV = 'test';
+  ENV = 'pro';
 } else {}var _default =
 {
   ENV: ENV,
