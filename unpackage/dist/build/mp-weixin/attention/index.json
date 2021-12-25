@@ -1,7 +1,0 @@
-{
-  "navigationBarTitleText": "我的关注",
-  "usingComponents": {
-    "uni-search-bar": "/uni_modules/uni-search-bar/components/uni-search-bar/uni-search-bar",
-    "no-data": "/components/nodata/index"
-  }
-}

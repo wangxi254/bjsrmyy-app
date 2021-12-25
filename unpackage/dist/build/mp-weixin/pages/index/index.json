@@ -1,7 +1,0 @@
-{
-  "navigationBarTitleText": "首页",
-  "usingComponents": {
-    "hs-menu-list": "/components/hs-menu-list",
-    "hs-banner-view": "/components/hs-banner-view"
-  }
-}
