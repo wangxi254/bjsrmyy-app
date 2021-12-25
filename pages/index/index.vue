@@ -60,13 +60,13 @@
 			<view class="cell paading15">
 				<view class="cont">
 					<view class="title">
-						{{item.title}}
+						{{item.contentTitle}}
 					</view>
 					<view class="date">
-						{{item.date}}
+						{{item.createTime && item.createTime.length > 10 ? item.createTime.substr(0,11) : item.createTime }}
 					</view>
 				</view>
-				<image class="img" :src="item.img" mode=""></image>
+				<image class="img" :src="item.carouselImageUrl" mode=""></image>
 			</view>
 		</view>
 		<!-- <hsMenuList :List="dataList" @menuClick="menuClick" /> -->
@@ -150,7 +150,7 @@
 					},
 					{
 						img:'../../static/index/menu-item2.png',
-						title:'分诊叫号',
+						title:'诊间支付',
 						no:2,
 						navigation:'../../records/listPay',
 						hashospitalInto:false,
@@ -239,21 +239,21 @@
 					
 				],
 				news:[
-					{
-						img:'http://www.pptbz.com/pptpic/UploadFiles_6909/201203/2012031220134655.jpg',
-						title:'心电图、心脏彩超、心脏冠心脉照影三者的区别',
-						date:'2021-09-10',
-					},
-					{
-						img:'http://www.pptbz.com/pptpic/UploadFiles_6909/201203/2012031220134655.jpg',
-						title:'心电图、心脏彩超、心脏冠心脉照影三者的区别',
-						date:'2021-09-10',
-					},
-					{
-						img:'http://www.pptbz.com/pptpic/UploadFiles_6909/201203/2012031220134655.jpg',
-						title:'心电图、心脏彩超、心脏冠心脉照影三者的区别',
-						date:'2021-09-10',
-					}
+					// {
+					// 	img:'http://www.pptbz.com/pptpic/UploadFiles_6909/201203/2012031220134655.jpg',
+					// 	title:'心电图、心脏彩超、心脏冠心脉照影三者的区别',
+					// 	date:'2021-09-10',
+					// },
+					// {
+					// 	img:'http://www.pptbz.com/pptpic/UploadFiles_6909/201203/2012031220134655.jpg',
+					// 	title:'心电图、心脏彩超、心脏冠心脉照影三者的区别',
+					// 	date:'2021-09-10',
+					// },
+					// {
+					// 	img:'http://www.pptbz.com/pptpic/UploadFiles_6909/201203/2012031220134655.jpg',
+					// 	title:'心电图、心脏彩超、心脏冠心脉照影三者的区别',
+					// 	date:'2021-09-10',
+					// }
 				]
 				
 			}
@@ -290,13 +290,18 @@
 					if(res.data.code == 200){
 						let list = res.data.data;
 						let array = [];
+						let news = [];
 						for(let i = 0; i < list.length; i++){
 							const banner =  list[i];
 							if(banner.isShow){
 								array.push(banner);
 							}
+							if(i <= 3){
+								news.push(banner);
+							}
 						}
 						that.banners = array;
+						that.news = news;
 					}
 				})
 			},
