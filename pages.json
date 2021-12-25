@@ -1,4 +1,7 @@
 {
+	"easycom": {
+	"^w-(.*)": "@/uni_modules/wmf-code/components/w-$1/index.vue"//二维码条形码的配置 如果是uni_modules
+	},
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
 			"path": "pages/index/index",
