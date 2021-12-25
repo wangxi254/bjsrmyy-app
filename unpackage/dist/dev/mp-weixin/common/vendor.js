@@ -941,7 +941,7 @@ function initData(vueOptions, context) {
     try {
       data = data.call(context); // 支持 Vue.prototype 上挂的数据
     } catch (e) {
-      if (Object({"VUE_APP_NAME":"hospital-mini-app-client","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"NODE_ENV":"development","VUE_APP_NAME":"hospital-mini-app-client","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.warn('根据 Vue 的 data 函数初始化小程序 data 失败，请尽量确保 data 函数中不访问 vm 对象，否则可能影响首次数据渲染速度。', data);
       }
     }
@@ -7606,7 +7606,7 @@ function type(obj) {
 
 function flushCallbacks$1(vm) {
     if (vm.__next_tick_callbacks && vm.__next_tick_callbacks.length) {
-        if (Object({"VUE_APP_NAME":"hospital-mini-app-client","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+        if (Object({"NODE_ENV":"development","VUE_APP_NAME":"hospital-mini-app-client","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:flushCallbacks[' + vm.__next_tick_callbacks.length + ']');
@@ -7627,14 +7627,14 @@ function nextTick$1(vm, cb) {
     //1.nextTick 之前 已 setData 且 setData 还未回调完成
     //2.nextTick 之前存在 render watcher
     if (!vm.__next_tick_pending && !hasRenderWatcher(vm)) {
-        if(Object({"VUE_APP_NAME":"hospital-mini-app-client","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"NODE_ENV":"development","VUE_APP_NAME":"hospital-mini-app-client","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:nextVueTick');
         }
         return nextTick(cb, vm)
     }else{
-        if(Object({"VUE_APP_NAME":"hospital-mini-app-client","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"NODE_ENV":"development","VUE_APP_NAME":"hospital-mini-app-client","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance$1 = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance$1.is || mpInstance$1.route) + '][' + vm._uid +
                 ']:nextMPTick');
@@ -7720,7 +7720,7 @@ var patch = function(oldVnode, vnode) {
     });
     var diffData = this.$shouldDiffData === false ? data : diff(data, mpData);
     if (Object.keys(diffData).length) {
-      if (Object({"VUE_APP_NAME":"hospital-mini-app-client","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"NODE_ENV":"development","VUE_APP_NAME":"hospital-mini-app-client","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + this._uid +
           ']差量更新',
           JSON.stringify(diffData));
@@ -8591,9 +8591,9 @@ function resolveLocaleChain(locale) {
 
 /***/ }),
 /* 5 */
-/*!******************************************************!*\
-  !*** F:/贵州医院小程序/hospital-mini-app-client/pages.json ***!
-  \******************************************************/
+/*!*****************************************************************************!*\
+  !*** /Users/wanmeizty/Desktop/mine/git/hospital-mini-app-client/pages.json ***!
+  \*****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -9522,9 +9522,9 @@ function normalizeComponent (
 
 /***/ }),
 /* 15 */
-/*!*******************************************************************!*\
-  !*** F:/贵州医院小程序/hospital-mini-app-client/common/styles/main.scss ***!
-  \*******************************************************************/
+/*!******************************************************************************************!*\
+  !*** /Users/wanmeizty/Desktop/mine/git/hospital-mini-app-client/common/styles/main.scss ***!
+  \******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9534,9 +9534,9 @@ function normalizeComponent (
 
 /***/ }),
 /* 16 */
-/*!***********************************************************!*\
-  !*** F:/贵州医院小程序/hospital-mini-app-client/utils/filter.js ***!
-  \***********************************************************/
+/*!**********************************************************************************!*\
+  !*** /Users/wanmeizty/Desktop/mine/git/hospital-mini-app-client/utils/filter.js ***!
+  \**********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9550,15 +9550,14 @@ function haddenPhone(phone) {
 
 /***/ }),
 /* 17 */
-/*!*************************************************************!*\
-  !*** F:/贵州医院小程序/hospital-mini-app-client/common/request.js ***!
-  \*************************************************************/
+/*!************************************************************************************!*\
+  !*** /Users/wanmeizty/Desktop/mine/git/hospital-mini-app-client/common/request.js ***!
+  \************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
-var _config = _interopRequireDefault(__webpack_require__(/*! ../config.js */ 18));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _config = _interopRequireDefault(__webpack_require__(/*! ../config.js */ 18));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var _default =
 
 {
   apprequst: function apprequst(params) {
@@ -9699,14 +9698,47 @@ var _config = _interopRequireDefault(__webpack_require__(/*! ../config.js */ 18)
       return false;
     }
     return true;
+  },
+
+  // 业务常用接口处理
+  //获取用户病例信息
+  getUserCard: function getUserCard(PaientInfo) {var _this = this;
+    return new Promise(function (resolve, reject) {
+      _this.$request({
+        path: "/tpatientCard/mobile/getPatientCardByPatientInfo?condition=".concat(PaientInfo.credentialNo, "&conditionType=").concat(PaientInfo.credentialType) }).
+      then(function (res) {
+        if (res.data.code == 200) resolve(res.data.data);else
+        reject();
+      }).catch(function (err) {return reject();});
+    });
+  },
+  //获取用户就诊人列表
+  getPatientList: function getPatientList() {var _this2 = this;
+    return new Promise(function (resolve, reject) {
+      var userId = _this2.$getUserId();
+      if (userId) {
+        _this2.$request({
+          path: "/patient/mobile/getPatientByUserId?userId=".concat(userId) }).
+        then(function (res) {
+          if (res.data.code == 200) {
+            resolve(res.data.data || []);
+          } else {
+            resolve([]);
+          }
+        }).catch(function (err) {return resolve([]);});
+      } else {
+        resolve([]);
+      }
+
+    });
   } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 /* 18 */
-/*!*****************************************************!*\
-  !*** F:/贵州医院小程序/hospital-mini-app-client/config.js ***!
-  \*****************************************************/
+/*!****************************************************************************!*\
+  !*** /Users/wanmeizty/Desktop/mine/git/hospital-mini-app-client/config.js ***!
+  \****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9756,9 +9788,9 @@ if (true) {
 /* 39 */,
 /* 40 */,
 /* 41 */
-/*!************************************************************************!*\
-  !*** F:/贵州医院小程序/hospital-mini-app-client/pages/auth/WXBizDataCrypt.js ***!
-  \************************************************************************/
+/*!***********************************************************************************************!*\
+  !*** /Users/wanmeizty/Desktop/mine/git/hospital-mini-app-client/pages/auth/WXBizDataCrypt.js ***!
+  \***********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9797,7 +9829,7 @@ WXBizDataCrypt.prototype.decryptData = function (encryptedData, iv) {
 };
 
 module.exports = WXBizDataCrypt;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/buffer/index.js */ 42).Buffer))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/buffer/index.js */ 42).Buffer))
 
 /***/ }),
 /* 42 */
@@ -33195,9 +33227,9 @@ function randomFillSync (buf, offset, size) {
 /* 237 */,
 /* 238 */,
 /* 239 */
-/*!*************************************************************************!*\
-  !*** F:/贵州医院小程序/hospital-mini-app-client/components/uni-icons/icons.js ***!
-  \*************************************************************************/
+/*!************************************************************************************************!*\
+  !*** /Users/wanmeizty/Desktop/mine/git/hospital-mini-app-client/components/uni-icons/icons.js ***!
+  \************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -33724,60 +33756,60 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /* 626 */,
 /* 627 */,
 /* 628 */,
-/* 629 */,
-/* 630 */,
-/* 631 */,
-/* 632 */,
-/* 633 */,
-/* 634 */,
-/* 635 */,
-/* 636 */
-/*!**************************************************************************************************************!*\
-  !*** F:/贵州医院小程序/hospital-mini-app-client/uni_modules/uni-search-bar/components/uni-search-bar/i18n/index.js ***!
-  \**************************************************************************************************************/
+/* 629 */
+/*!*************************************************************************************************************************************!*\
+  !*** /Users/wanmeizty/Desktop/mine/git/hospital-mini-app-client/uni_modules/uni-search-bar/components/uni-search-bar/i18n/index.js ***!
+  \*************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _en = _interopRequireDefault(__webpack_require__(/*! ./en.json */ 637));
-var _zhHans = _interopRequireDefault(__webpack_require__(/*! ./zh-Hans.json */ 638));
-var _zhHant = _interopRequireDefault(__webpack_require__(/*! ./zh-Hant.json */ 639));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var _default =
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _en = _interopRequireDefault(__webpack_require__(/*! ./en.json */ 630));
+var _zhHans = _interopRequireDefault(__webpack_require__(/*! ./zh-Hans.json */ 631));
+var _zhHant = _interopRequireDefault(__webpack_require__(/*! ./zh-Hant.json */ 632));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var _default =
 {
   en: _en.default,
   'zh-Hans': _zhHans.default,
   'zh-Hant': _zhHant.default };exports.default = _default;
 
 /***/ }),
-/* 637 */
-/*!*************************************************************************************************************!*\
-  !*** F:/贵州医院小程序/hospital-mini-app-client/uni_modules/uni-search-bar/components/uni-search-bar/i18n/en.json ***!
-  \*************************************************************************************************************/
+/* 630 */
+/*!************************************************************************************************************************************!*\
+  !*** /Users/wanmeizty/Desktop/mine/git/hospital-mini-app-client/uni_modules/uni-search-bar/components/uni-search-bar/i18n/en.json ***!
+  \************************************************************************************************************************************/
 /*! exports provided: uni-search-bar.cancel, uni-search-bar.placeholder, default */
 /***/ (function(module) {
 
 module.exports = JSON.parse("{\"uni-search-bar.cancel\":\"cancel\",\"uni-search-bar.placeholder\":\"Search enter content\"}");
 
 /***/ }),
-/* 638 */
-/*!******************************************************************************************************************!*\
-  !*** F:/贵州医院小程序/hospital-mini-app-client/uni_modules/uni-search-bar/components/uni-search-bar/i18n/zh-Hans.json ***!
-  \******************************************************************************************************************/
+/* 631 */
+/*!*****************************************************************************************************************************************!*\
+  !*** /Users/wanmeizty/Desktop/mine/git/hospital-mini-app-client/uni_modules/uni-search-bar/components/uni-search-bar/i18n/zh-Hans.json ***!
+  \*****************************************************************************************************************************************/
 /*! exports provided: uni-search-bar.cancel, uni-search-bar.placeholder, default */
 /***/ (function(module) {
 
 module.exports = JSON.parse("{\"uni-search-bar.cancel\":\"cancel\",\"uni-search-bar.placeholder\":\"请输入搜索内容\"}");
 
 /***/ }),
-/* 639 */
-/*!******************************************************************************************************************!*\
-  !*** F:/贵州医院小程序/hospital-mini-app-client/uni_modules/uni-search-bar/components/uni-search-bar/i18n/zh-Hant.json ***!
-  \******************************************************************************************************************/
+/* 632 */
+/*!*****************************************************************************************************************************************!*\
+  !*** /Users/wanmeizty/Desktop/mine/git/hospital-mini-app-client/uni_modules/uni-search-bar/components/uni-search-bar/i18n/zh-Hant.json ***!
+  \*****************************************************************************************************************************************/
 /*! exports provided: uni-search-bar.cancel, uni-search-bar.placeholder, default */
 /***/ (function(module) {
 
 module.exports = JSON.parse("{\"uni-search-bar.cancel\":\"cancel\",\"uni-search-bar.placeholder\":\"請輸入搜索內容\"}");
 
 /***/ }),
+/* 633 */,
+/* 634 */,
+/* 635 */,
+/* 636 */,
+/* 637 */,
+/* 638 */,
+/* 639 */,
 /* 640 */,
 /* 641 */,
 /* 642 */,
@@ -33786,9 +33818,9 @@ module.exports = JSON.parse("{\"uni-search-bar.cancel\":\"cancel\",\"uni-search-
 /* 645 */,
 /* 646 */,
 /* 647 */
-/*!***********************************************************************************************!*\
-  !*** F:/贵州医院小程序/hospital-mini-app-client/uni_modules/uni-popup/components/uni-popup/popup.js ***!
-  \***********************************************************************************************/
+/*!*********************************************************************************************************************!*\
+  !*** /Users/wanmeizty/Desktop/mine/git/hospital-mini-app-client/components/uni-popup/components/uni-popup/popup.js ***!
+  \*********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -33820,9 +33852,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 648 */
-/*!****************************************************************************************************!*\
-  !*** F:/贵州医院小程序/hospital-mini-app-client/uni_modules/uni-popup/components/uni-popup/i18n/index.js ***!
-  \****************************************************************************************************/
+/*!**************************************************************************************************************************!*\
+  !*** /Users/wanmeizty/Desktop/mine/git/hospital-mini-app-client/components/uni-popup/components/uni-popup/i18n/index.js ***!
+  \**************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -33837,9 +33869,9 @@ var _zhHant = _interopRequireDefault(__webpack_require__(/*! ./zh-Hant.json */ 6
 
 /***/ }),
 /* 649 */
-/*!***************************************************************************************************!*\
-  !*** F:/贵州医院小程序/hospital-mini-app-client/uni_modules/uni-popup/components/uni-popup/i18n/en.json ***!
-  \***************************************************************************************************/
+/*!*************************************************************************************************************************!*\
+  !*** /Users/wanmeizty/Desktop/mine/git/hospital-mini-app-client/components/uni-popup/components/uni-popup/i18n/en.json ***!
+  \*************************************************************************************************************************/
 /*! exports provided: uni-popup.cancel, uni-popup.ok, uni-popup.placeholder, uni-popup.title, uni-popup.shareTitle, default */
 /***/ (function(module) {
 
@@ -33847,9 +33879,9 @@ module.exports = JSON.parse("{\"uni-popup.cancel\":\"cancel\",\"uni-popup.ok\":\
 
 /***/ }),
 /* 650 */
-/*!********************************************************************************************************!*\
-  !*** F:/贵州医院小程序/hospital-mini-app-client/uni_modules/uni-popup/components/uni-popup/i18n/zh-Hans.json ***!
-  \********************************************************************************************************/
+/*!******************************************************************************************************************************!*\
+  !*** /Users/wanmeizty/Desktop/mine/git/hospital-mini-app-client/components/uni-popup/components/uni-popup/i18n/zh-Hans.json ***!
+  \******************************************************************************************************************************/
 /*! exports provided: uni-popup.cancel, uni-popup.ok, uni-popup.placeholder, uni-popup.title, uni-popup.shareTitle, default */
 /***/ (function(module) {
 
@@ -33857,9 +33889,9 @@ module.exports = JSON.parse("{\"uni-popup.cancel\":\"取消\",\"uni-popup.ok\":\
 
 /***/ }),
 /* 651 */
-/*!********************************************************************************************************!*\
-  !*** F:/贵州医院小程序/hospital-mini-app-client/uni_modules/uni-popup/components/uni-popup/i18n/zh-Hant.json ***!
-  \********************************************************************************************************/
+/*!******************************************************************************************************************************!*\
+  !*** /Users/wanmeizty/Desktop/mine/git/hospital-mini-app-client/components/uni-popup/components/uni-popup/i18n/zh-Hant.json ***!
+  \******************************************************************************************************************************/
 /*! exports provided: uni-popup.cancel, uni-popup.ok, uni-popup.placeholder, uni-popup.title, uni-popup.shareTitle, default */
 /***/ (function(module) {
 
@@ -33880,93 +33912,60 @@ module.exports = JSON.parse("{\"uni-popup.cancel\":\"取消\",\"uni-popup.ok\":\
 /* 663 */,
 /* 664 */,
 /* 665 */,
-/* 666 */
-/*!**********************************************************************************************!*\
-  !*** F:/贵州医院小程序/hospital-mini-app-client/components/uni-popup/components/uni-popup/popup.js ***!
-  \**********************************************************************************************/
+/* 666 */,
+/* 667 */,
+/* 668 */,
+/* 669 */,
+/* 670 */,
+/* 671 */,
+/* 672 */,
+/* 673 */
+/*!*********************************************************************************************************!*\
+  !*** /Users/wanmeizty/Desktop/mine/git/hospital-mini-app-client/components/uni-countdown/i18n/index.js ***!
+  \*********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default =
-{
-  data: function data() {
-    return {};
-
-
-  },
-  created: function created() {
-    this.popup = this.getParent();
-  },
-  methods: {
-    /**
-              * 获取父元素实例
-              */
-    getParent: function getParent() {var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'uniPopup';
-      var parent = this.$parent;
-      var parentName = parent.$options.name;
-      while (parentName !== name) {
-        parent = parent.$parent;
-        if (!parent) return false;
-        parentName = parent.$options.name;
-      }
-      return parent;
-    } } };exports.default = _default;
-
-/***/ }),
-/* 667 */
-/*!***************************************************************************************************!*\
-  !*** F:/贵州医院小程序/hospital-mini-app-client/components/uni-popup/components/uni-popup/i18n/index.js ***!
-  \***************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _en = _interopRequireDefault(__webpack_require__(/*! ./en.json */ 668));
-var _zhHans = _interopRequireDefault(__webpack_require__(/*! ./zh-Hans.json */ 669));
-var _zhHant = _interopRequireDefault(__webpack_require__(/*! ./zh-Hant.json */ 670));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var _default =
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _en = _interopRequireDefault(__webpack_require__(/*! ./en.json */ 674));
+var _zhHans = _interopRequireDefault(__webpack_require__(/*! ./zh-Hans.json */ 675));
+var _zhHant = _interopRequireDefault(__webpack_require__(/*! ./zh-Hant.json */ 676));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var _default =
 {
   en: _en.default,
   'zh-Hans': _zhHans.default,
   'zh-Hant': _zhHant.default };exports.default = _default;
 
 /***/ }),
-/* 668 */
-/*!**************************************************************************************************!*\
-  !*** F:/贵州医院小程序/hospital-mini-app-client/components/uni-popup/components/uni-popup/i18n/en.json ***!
-  \**************************************************************************************************/
-/*! exports provided: uni-popup.cancel, uni-popup.ok, uni-popup.placeholder, uni-popup.title, uni-popup.shareTitle, default */
+/* 674 */
+/*!********************************************************************************************************!*\
+  !*** /Users/wanmeizty/Desktop/mine/git/hospital-mini-app-client/components/uni-countdown/i18n/en.json ***!
+  \********************************************************************************************************/
+/*! exports provided: uni-countdown.day, uni-countdown.h, uni-countdown.m, uni-countdown.s, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"uni-popup.cancel\":\"cancel\",\"uni-popup.ok\":\"ok\",\"uni-popup.placeholder\":\"pleace enter\",\"uni-popup.title\":\"Hint\",\"uni-popup.shareTitle\":\"Share to\"}");
+module.exports = JSON.parse("{\"uni-countdown.day\":\"day\",\"uni-countdown.h\":\"h\",\"uni-countdown.m\":\"m\",\"uni-countdown.s\":\"s\"}");
 
 /***/ }),
-/* 669 */
-/*!*******************************************************************************************************!*\
-  !*** F:/贵州医院小程序/hospital-mini-app-client/components/uni-popup/components/uni-popup/i18n/zh-Hans.json ***!
-  \*******************************************************************************************************/
-/*! exports provided: uni-popup.cancel, uni-popup.ok, uni-popup.placeholder, uni-popup.title, uni-popup.shareTitle, default */
+/* 675 */
+/*!*************************************************************************************************************!*\
+  !*** /Users/wanmeizty/Desktop/mine/git/hospital-mini-app-client/components/uni-countdown/i18n/zh-Hans.json ***!
+  \*************************************************************************************************************/
+/*! exports provided: uni-countdown.day, uni-countdown.h, uni-countdown.m, uni-countdown.s, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"uni-popup.cancel\":\"取消\",\"uni-popup.ok\":\"确定\",\"uni-popup.placeholder\":\"请输入\",\"uni-popup.title\":\"提示\",\"uni-popup.shareTitle\":\"分享到\"}");
+module.exports = JSON.parse("{\"uni-countdown.day\":\"天\",\"uni-countdown.h\":\"时\",\"uni-countdown.m\":\"分\",\"uni-countdown.s\":\"秒\"}");
 
 /***/ }),
-/* 670 */
-/*!*******************************************************************************************************!*\
-  !*** F:/贵州医院小程序/hospital-mini-app-client/components/uni-popup/components/uni-popup/i18n/zh-Hant.json ***!
-  \*******************************************************************************************************/
-/*! exports provided: uni-popup.cancel, uni-popup.ok, uni-popup.placeholder, uni-popup.title, uni-popup.shareTitle, default */
+/* 676 */
+/*!*************************************************************************************************************!*\
+  !*** /Users/wanmeizty/Desktop/mine/git/hospital-mini-app-client/components/uni-countdown/i18n/zh-Hant.json ***!
+  \*************************************************************************************************************/
+/*! exports provided: uni-countdown.day, uni-countdown.h, uni-countdown.m, uni-countdown.s, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"uni-popup.cancel\":\"取消\",\"uni-popup.ok\":\"確定\",\"uni-popup.placeholder\":\"請輸入\",\"uni-popup.title\":\"提示\",\"uni-popup.shareTitle\":\"分享到\"}");
+module.exports = JSON.parse("{\"uni-countdown.day\":\"天\",\"uni-countdown.h\":\"時\",\"uni-countdown.m\":\"分\",\"uni-countdown.s\":\"秒\"}");
 
 /***/ }),
-/* 671 */,
-/* 672 */,
-/* 673 */,
-/* 674 */,
-/* 675 */,
-/* 676 */,
 /* 677 */,
 /* 678 */,
 /* 679 */,
@@ -33982,78 +33981,16 @@ module.exports = JSON.parse("{\"uni-popup.cancel\":\"取消\",\"uni-popup.ok\":\
 /* 689 */,
 /* 690 */,
 /* 691 */,
-/* 692 */
-/*!**********************************************************************************!*\
-  !*** F:/贵州医院小程序/hospital-mini-app-client/components/uni-countdown/i18n/index.js ***!
-  \**********************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _en = _interopRequireDefault(__webpack_require__(/*! ./en.json */ 693));
-var _zhHans = _interopRequireDefault(__webpack_require__(/*! ./zh-Hans.json */ 694));
-var _zhHant = _interopRequireDefault(__webpack_require__(/*! ./zh-Hant.json */ 695));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var _default =
-{
-  en: _en.default,
-  'zh-Hans': _zhHans.default,
-  'zh-Hant': _zhHant.default };exports.default = _default;
-
-/***/ }),
-/* 693 */
-/*!*********************************************************************************!*\
-  !*** F:/贵州医院小程序/hospital-mini-app-client/components/uni-countdown/i18n/en.json ***!
-  \*********************************************************************************/
-/*! exports provided: uni-countdown.day, uni-countdown.h, uni-countdown.m, uni-countdown.s, default */
-/***/ (function(module) {
-
-module.exports = JSON.parse("{\"uni-countdown.day\":\"day\",\"uni-countdown.h\":\"h\",\"uni-countdown.m\":\"m\",\"uni-countdown.s\":\"s\"}");
-
-/***/ }),
-/* 694 */
-/*!**************************************************************************************!*\
-  !*** F:/贵州医院小程序/hospital-mini-app-client/components/uni-countdown/i18n/zh-Hans.json ***!
-  \**************************************************************************************/
-/*! exports provided: uni-countdown.day, uni-countdown.h, uni-countdown.m, uni-countdown.s, default */
-/***/ (function(module) {
-
-module.exports = JSON.parse("{\"uni-countdown.day\":\"天\",\"uni-countdown.h\":\"时\",\"uni-countdown.m\":\"分\",\"uni-countdown.s\":\"秒\"}");
-
-/***/ }),
-/* 695 */
-/*!**************************************************************************************!*\
-  !*** F:/贵州医院小程序/hospital-mini-app-client/components/uni-countdown/i18n/zh-Hant.json ***!
-  \**************************************************************************************/
-/*! exports provided: uni-countdown.day, uni-countdown.h, uni-countdown.m, uni-countdown.s, default */
-/***/ (function(module) {
-
-module.exports = JSON.parse("{\"uni-countdown.day\":\"天\",\"uni-countdown.h\":\"時\",\"uni-countdown.m\":\"分\",\"uni-countdown.s\":\"秒\"}");
-
-/***/ }),
+/* 692 */,
+/* 693 */,
+/* 694 */,
+/* 695 */,
 /* 696 */,
 /* 697 */,
-/* 698 */,
-/* 699 */,
-/* 700 */,
-/* 701 */,
-/* 702 */,
-/* 703 */,
-/* 704 */,
-/* 705 */,
-/* 706 */,
-/* 707 */,
-/* 708 */,
-/* 709 */,
-/* 710 */,
-/* 711 */,
-/* 712 */,
-/* 713 */,
-/* 714 */,
-/* 715 */,
-/* 716 */,
-/* 717 */
-/*!*******************************************************************************************************************!*\
-  !*** F:/贵州医院小程序/hospital-mini-app-client/uni_modules/uni-transition/components/uni-transition/createAnimation.js ***!
-  \*******************************************************************************************************************/
+/* 698 */
+/*!******************************************************************************************************************************************!*\
+  !*** /Users/wanmeizty/Desktop/mine/git/hospital-mini-app-client/uni_modules/uni-transition/components/uni-transition/createAnimation.js ***!
+  \******************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -34189,15 +34126,15 @@ function createAnimation(option, _this) {
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
-/* 718 */,
-/* 719 */,
-/* 720 */,
-/* 721 */,
-/* 722 */,
-/* 723 */
-/*!**************************************************************************************************!*\
-  !*** F:/贵州医院小程序/hospital-mini-app-client/components/uni-popup/uni-transition/createAnimation.js ***!
-  \**************************************************************************************************/
+/* 699 */,
+/* 700 */,
+/* 701 */,
+/* 702 */,
+/* 703 */,
+/* 704 */
+/*!*************************************************************************************************************************!*\
+  !*** /Users/wanmeizty/Desktop/mine/git/hospital-mini-app-client/components/uni-popup/uni-transition/createAnimation.js ***!
+  \*************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 

@@ -1,1 +1,0 @@
-<view class="auth data-v-7ea503f4"><button class="bottom data-v-7ea503f4" type="primary" open-type="getPhoneNumber" data-event-opts="{{[['getphonenumber',[['onGetPhoneNumber',['$event']]]]]}}" bindgetphonenumber="__e">手机号授权登录</button></view>

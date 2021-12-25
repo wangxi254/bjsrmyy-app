@@ -1,9 +1,0 @@
-{
-  "navigationBarTitleText": "预约记录",
-  "usingComponents": {
-    "uni-icons": "/components/uni-icons/uni-icons",
-    "uni-popup": "/components/uni-popup/components/uni-popup/uni-popup",
-    "user-model": "/components/userList/index",
-    "no-data": "/components/nodata/index"
-  }
-}

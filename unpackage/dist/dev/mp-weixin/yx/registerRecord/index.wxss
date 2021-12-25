@@ -59,18 +59,6 @@
   border-radius: 30rpx;
   font-size: 24rpx;
 }
-.title-model .status .error.data-v-f1f143ae {
-  background: #dd524d;
-}
-.title-model .status .waring.data-v-f1f143ae {
-  background: #f0ad4e;
-}
-.title-model .status .success.data-v-f1f143ae {
-  background: #4cd964;
-}
-.title-model .status .default.data-v-f1f143ae {
-  background: #ccc;
-}
 .search-view.data-v-f1f143ae {
   width: 70vw;
   padding: 20rpx;

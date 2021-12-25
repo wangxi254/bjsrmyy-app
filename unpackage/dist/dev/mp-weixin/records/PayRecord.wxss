@@ -48,4 +48,22 @@
   box-sizing: border-box;
   text-align: center;
 }
+.list-item view.data-v-1fdc49ce {
+  margin-bottom: 20rpx;
+  color: #999;
+}
+.title-model.data-v-1fdc49ce {
+  width: 100%;
+  border-bottom: 1px solid #eee;
+  padding: 20rpx;
+  box-sizing: border-box;
+}
+.title-model .status text.data-v-1fdc49ce {
+  color: #fff;
+  display: inline-block;
+  margin: 0 10rpx;
+  padding: 6rpx 10rpx;
+  border-radius: 30rpx;
+  font-size: 24rpx;
+}
 
