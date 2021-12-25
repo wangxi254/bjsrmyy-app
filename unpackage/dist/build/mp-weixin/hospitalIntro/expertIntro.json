@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "专家介绍",
+  "usingComponents": {
+    "hs-subfield-list": "/components/hs-subfield-list"
+  }
+}

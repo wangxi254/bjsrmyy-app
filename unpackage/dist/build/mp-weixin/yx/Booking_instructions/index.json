@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "预约须知",
+  "usingComponents": {
+    "uni-title": "/components/uni-title",
+    "u-parse": "/components/gaoyia-parse/parse"
+  }
+}
