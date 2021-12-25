@@ -148,7 +148,7 @@ export default {
             }).then(res=>{
                 uni.hideLoading()
                 if(res.data.code == 200) {
-                    this.list = res.data.data;
+                    this.list = res.data.data || [];
                     this.currentInfo = this.list.find(item=>{
                         return item.status == 1
                     })
