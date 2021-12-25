@@ -64,12 +64,14 @@ export default {
             },
             startDate:getDate('start'),
 			endDate:getDate('end'),
-            PatientInfo: {}
+            PatientInfo: {},
+            PatientCard:{}
         }
     },
     onLoad() {
-        this.PatientInfo = getApp().globalData.PatientList[0];
-        this.$getUserId();
+        const { PatientList, PatientCard }  = getApp().globalData;
+        this.PatientInfo = PatientList[0];
+        this.PatientCard = PatientCard;
     },
     methods: {
         showUserList() {
@@ -77,6 +79,7 @@ export default {
         },
         changeUser(row) {
             this.PatientInfo = row;
+            this.$getUserCard(row).then(res=>this.PatientCard = res);
             this.getList();
         },
         getList() {
@@ -85,6 +88,7 @@ export default {
                 path:`/listing/outpatient/list`,
                 method: 'post',
                 query: {
+                    medicalRecordNo: this.PatientCard.mrn,
                     certificateType:this.PatientInfo.credentialType,
                     certificateNo : this.PatientInfo.credentialNo,
                     beginDate: this.searchForm.startDate,

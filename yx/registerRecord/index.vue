@@ -22,59 +22,18 @@
                     <hs-card v-else v-for="(item,index) in list" :key="index" class="list-item" @click="goDetail({})">
                         <template v-slot:header>
                             <view class="title-model flex justify-between items-center">
-                                <text>心血管内科门诊</text>
+                                <text>{{item.preid}}</text>
                                 <view class="status">
-                                    <text class="error">待支付</text>
-                                    <text class="waring">已锁号</text>
-                                    <!-- <text class="success">已支付</text>
-                                    <text class="default">已完成</text>
-                                    <text class="default">已取消</text> -->
+                                    {{item.active==1?"挂号":"退号"}}
                                 </view>
                             </view>
                         </template>
-                        <view>就诊医生：<text>蔡涛</text></view>
-                        <view>就诊时间：<text>2021-12-19 下午</text></view>
-                        <view>就诊人：<text>张三</text></view>
+                        <view>挂号编号<text>{{item.preid}}</text></view>
+                        <view>预约时间：<text>{{item.visitDate}} {{item.timePart}}</text></view>
+                        <view>预约医生：<text>{{item.docTitle}}</text></view>
+                        <view>导诊信息：<text>{{item.dzInfo}}</text></view>
+                        <view>预约费用：<text>{{item.fee}}</text></view>
                     </hs-card>
-                    <!-- <hs-card class="list-item" @click="goDetail({})">
-                        <template v-slot:header>
-                            <view class="title-model flex justify-between items-center">
-                                <text>心血管内科门诊</text>
-                                <view class="status">
-                                    <text class="success">已支付</text>
-                                </view>
-                            </view>
-                        </template>
-                        <view>就诊医生：<text>蔡涛</text></view>
-                        <view>就诊时间：<text>2021-12-19 下午</text></view>
-                        <view>就诊人：<text>张三</text></view>
-                    </hs-card>
-                    <hs-card class="list-item" @click="goDetail({})">
-                        <template v-slot:header>
-                            <view class="title-model flex justify-between items-center">
-                                <text>心血管内科门诊</text>
-                                <view class="status">
-                                <text class="default">已完成</text>
-                                </view>
-                            </view>
-                        </template>
-                        <view>就诊医生：<text>蔡涛</text></view>
-                        <view>就诊时间：<text>2021-12-19 下午</text></view>
-                        <view>就诊人：<text>张三</text></view>
-                    </hs-card>
-                    <hs-card class="list-item" @click="goDetail({})">
-                        <template v-slot:header>
-                            <view class="title-model flex justify-between items-center">
-                                <text>心血管内科门诊</text>
-                                <view class="status">
-                                    <text class="default">已取消</text>
-                                </view>
-                            </view>
-                        </template>
-                        <view>就诊医生：<text>蔡涛</text></view>
-                        <view>就诊时间：<text>2021-12-19 下午</text></view>
-                        <view>就诊人：<text>张三</text></view>
-                    </hs-card> -->
                 </view>
             </scroll-view>
             
@@ -160,15 +119,15 @@ export default {
             },
             startDate:getDate('start'),
 			endDate:getDate('end'),
-            PatientInfo: {
-
-            },
+            PatientInfo: {},
+            PatientCard:{},
             list: []
         }
     },
     onLoad: function (option) {
-        this.PatientInfo = getApp().globalData.PatientList[0];
-        this.$getUserId();
+        const { PatientList, PatientCard }  = getApp().globalData;
+        this.PatientInfo = PatientList[0];
+        this.PatientCard = PatientCard;
         this.getList();
     },
     methods: {
@@ -179,7 +138,13 @@ export default {
             this.$request({
                 path:`/registration/order/get-register-record-list`,
                 method: 'post',
-                query: this.PatientInfo
+                query: {
+                    medicalRecordNo: this.PatientCard.mrn,
+                    name:this.PatientInfo.name,
+                    certificateType: this.PatientInfo.credentialType,
+                    certificateNo: this.PatientInfo.credentialNo,
+                    phoneNum: this.PatientInfo.phone
+                }
             }).then(res=>{
                 uni.hideLoading()
                 if(res.data.code == 200){
@@ -204,6 +169,7 @@ export default {
         },
         changeUser(row) {
             this.PatientInfo = row;
+            this.$getUserCard(row).then(res=>this.PatientCard = res);
             this.getList();
         },
         submit() {
@@ -265,12 +231,7 @@ export default {
                 border-radius: 30rpx;
                 font-size: $uni-font-size-sm;
             }
-            .error{background: $uni-color-error;}
-            .waring{ background: $uni-color-warning;}
-            .success{ background: $uni-color-success;}
-            .default{ background: #ccc;}
-        }
-    }
+    }}
     .search-view{
         width: 70vw;
         padding: 20rpx;
@@ -308,5 +269,4 @@ export default {
         border-radius: $uni-border-radius-base;
         padding: 10rpx 20rpx;
     }
-    
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <view class="detailPage">
+  <view class="detailPage flex flex-column">
     <hs-card class="user-view">
         <view class="flex justify-between items-center">
             <view class="flex flex-column">
@@ -28,8 +28,24 @@
         </view>
         <button class="primary-btn" style="margin-top: 10rpx">查询</button>
     </view>
-    <view class="pageContainer">
-        
+    <view class="pageContainer flex-1" style="overflow: auto">
+        <scroll-view class="flex-1" scroll-y="true"  style="height: calc(100% - 20rpx)">
+                <NoData v-if="list.length == 0" />
+                    <hs-card v-else v-for="(item,index) in list" :key="index" class="list-item" @click="goDetail({})">
+                        <template v-slot:header>
+                            <view class="title-model flex justify-between items-center">
+                                <text>{{item.orderName}}</text>
+                                <view class="status">
+                                    <text>{{item.appointmentDate}}</text>
+                                </view>
+                            </view>
+                        </template>
+                        <view>订单iD：<text>{{item.id}}</text></view>
+                        <view>就诊人：<text>{{item.patientName}}</text></view>
+                        <view>挂号状态：<text>{{statusEnam[item.orderState]}}</text></view>
+                        <view>支付金额:<text>{{item.payAmount}}</text></view>
+                    </hs-card>
+        </scroll-view>
     </view>
     <userModel ref="userModelref"  @changeUser="changeUser" />
   </view>
@@ -64,7 +80,10 @@ export default {
             startDate:getDate('start'),
 			endDate:getDate('end'),
             list: [{time: '2021-12-01 15:00:00',amount: 15,status: 1},{time: '2021-12-01 15:00:00',amount: 15,status: 2}],
-            PatientInfo:{}
+            PatientInfo:{},
+            statusEnam: {
+                0:'未支付',  1:'已支付' ,2:'已取消'
+            }
         }
     },
     onLoad() {
@@ -123,6 +142,28 @@ export default {
             width: calc(50% - 50rpx);
             box-sizing: border-box;
             text-align: center;
+        }
+    }
+    .list-item{
+            view{
+                margin-bottom: 20rpx;
+                color: $uni-text-color-grey;
+            }
+        }
+    .title-model{
+        width: 100%;
+        border-bottom: 1px solid #eee;
+        padding: 20rpx;
+        box-sizing: border-box;
+        .status{
+            text{
+                color: #fff;
+                display: inline-block;
+                margin: 0 10rpx;
+                padding: 6rpx 10rpx;
+                border-radius: 30rpx;
+                font-size: $uni-font-size-sm;
+            }
         }
     }
 </style>
