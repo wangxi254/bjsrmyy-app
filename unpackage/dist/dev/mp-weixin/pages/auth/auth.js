@@ -344,7 +344,6 @@ var _WXBizDataCrypt = _interopRequireDefault(__webpack_require__(/*! ./WXBizData
                     icon: 'none',
                     title: "登录成功",
                     success: function success() {
-                      debugger;
                       uni.setStorageSync("userId", res.data.data.id);
                       uni.$emit('Login', { msg: "登录更新" });
                       setTimeout(function () {

@@ -346,10 +346,15 @@ function getDate(type) {
       });
     },
     goDetail: function goDetail(row) {
-      console.log(row);
       var rows = _objectSpread(_objectSpread({},
-      row),
-      this.PatientInfo);
+      row), {}, {
+        patientName: this.PatientInfo.name,
+        certificateNo: this.PatientInfo.credentialNo,
+        phoneNum: this.PatientInfo.phone,
+        currentDate: row.visitDate,
+        timeType: row.timePart,
+        payAmount: row.fee ? row.fee : 0 });
+
 
       uni.navigateTo({
         url: '../appointment/payment?row=' + JSON.stringify(rows) });

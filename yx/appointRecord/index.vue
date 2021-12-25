@@ -164,11 +164,16 @@ export default {
             })
         },
         goDetail(row) {
-            console.log(row)
             const rows = {
                 ...row,
-                ...this.PatientInfo
+                patientName: this.PatientInfo.name,
+                certificateNo: this.PatientInfo.credentialNo,
+                phoneNum: this.PatientInfo.phone,
+                currentDate: row.visitDate,
+                timeType: row.timePart,
+                payAmount: row.fee?row.fee:0
             }
+            
             uni.navigateTo({
 				url:'../appointment/payment?row=' + JSON.stringify(rows)
 			})
