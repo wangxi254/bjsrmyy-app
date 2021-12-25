@@ -22,7 +22,7 @@
 		</view>
 
 		<view v-for="item in list">
-			<view class="cell hs-border">
+			<view class="cell hs-border" @click="getDetailInfo(item)">
 				<view class="space-between">
 					<view>科室名称：{{item.depName}}</view>
 					<view>检验名称：{{item.reportName}}</view>

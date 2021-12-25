@@ -21,8 +21,8 @@
 			<view class="height40 hs-border" @click="search">查询</view>
 		</view>
 		
-		<view v-for="item in reportlist" @click="getDetailInfo(item)">
-			<view class="cell hs-border">
+		<view v-for="item in reportlist">
+			<view class="cell hs-border" @click="getDetailInfo(item)">
 				<view class="space-between">
 					<view>科室名称：{{item.depName}}</view>
 					<view>检验名称：{{item.reportName}}</view>
