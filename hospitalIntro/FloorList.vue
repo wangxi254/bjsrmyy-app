@@ -3,8 +3,8 @@
     	<view class="Grid">
     		<view class="Grid-Item" v-for="(item,index) in list" :key="item.id" @click="onClick(item)" >
     			<view :style="index % 2 == 0 ? 'padding-left: 30rpx;padding-right: 15rpx;':'padding-right: 30rpx;padding-left: 15rpx;'" >
-					<image class="Image" mode="aspectFill" :src="item.img"></image>
-					<view class="GStitle">{{ item.title }}</view>
+					<image class="Image" mode="aspectFill" :src="item.picture"></image>
+					<view class="GStitle">{{ item.name }}</view>
 				</view>
     		</view>
     	</view>

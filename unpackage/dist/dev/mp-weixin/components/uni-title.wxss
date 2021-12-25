@@ -120,13 +120,24 @@
 } */
 .uni-title__box.data-v-37b51710 {
 
+	display: -webkit-box;
+	display: -webkit-flex;
 	display: flex;
 
-	flex-direction: column;
-	align-items: flex-start;
-	justify-content: center;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: column;
+	        flex-direction: column;
+	-webkit-box-align: start;
+	-webkit-align-items: flex-start;
+	        align-items: flex-start;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
 	padding: 8px 0;
-	flex: 1;
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	        flex: 1;
 }
 .uni-title__base.data-v-37b51710 {
 	font-size: 30rpx;

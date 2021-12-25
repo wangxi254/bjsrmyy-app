@@ -40,15 +40,23 @@
   color: #333;
 }
 .cell .info.data-v-40f94953 {
-  justify-content: center;
-  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
   border-bottom: 0.5px solid #c8c7cc;
   padding: 10px 15px;
   font-size: 13px;
   color: #333;
 }
 .cell .space-btw.data-v-40f94953 {
-  justify-content: space-between;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+          justify-content: space-between;
+  display: -webkit-box;
+  display: -webkit-flex;
   display: flex;
   padding: 10px 15px;
 }
@@ -69,11 +77,16 @@
   overflow: hidden;
   padding: 30rpx;
   box-sizing: border-box;
-  justify-content: center;
-  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+  -webkit-box-align: center;
+          align-items: center;
   -webkit-align-items: center;
   /* Safari 7.0+ */
   vertical-align: middle;
+  display: -webkit-box;
+  display: -webkit-flex;
   display: flex;
 }
 .parkbox.data-v-40f94953 {
@@ -95,8 +108,14 @@
   margin-bottom: 10px;
 }
 .center.data-v-40f94953 {
-  align-items: center;
-  justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+  display: -webkit-box;
+  display: -webkit-flex;
   display: flex;
   text-align: center;
   padding-left: 15px;

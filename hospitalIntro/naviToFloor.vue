@@ -56,12 +56,17 @@ export default {
 			pageCurrent: 1,
 			// 数据总量
 			total: 0,
-			loading: false
+			loading: false,
+			buildInfo:{},
 		}
 	},
-	onLoad() {
+	onLoad(opions) {
 		this.selectedIndexs = []
-		this.getData(1)
+		if(opions.item){
+			let buildInfo = JSON.parse(opions.item);
+			this.buildInfo = buildInfo;
+			this.getData(1);
+		}
 	},
 	methods: {
 		// 多选处理
@@ -92,17 +97,15 @@ export default {
 			this.loading = true
 			this.pageCurrent = pageCurrent
 			this.loading = false
-			// this.request({
-			// 	pageSize: this.pageSize,
-			// 	pageCurrent: pageCurrent,
-			// 	value: value,
-			// 	success: res => {
-			// 		// console.log('data', res);
-			// 		this.tableData = res.data
-			// 		this.total = res.total
-			// 		this.loading = false
-			// 	}
-			// })
+			this.$request({
+				path:'/buildingFloor/mobile/selectUsableBuildingFloorByBuildingId',
+				query:{
+					buildingId:this.buildInfo.id,
+				},
+			}).then(res=>{
+				if(res.data.code == 200){
+				}
+			})
 			
 		}
 		

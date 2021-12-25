@@ -25,11 +25,11 @@
 			<view class="cell hs-border">
 				<view class="space-between">
 					<view>科室名称：{{item.depName}}</view>
-					<view>检查医生：{{item.sqDoc}}</view>
-				</view>
-				<view>
 					<view>检验名称：{{item.reportName}}</view>
+				</view>
+				<view class="space-between">
 					<view>检验编号：{{item.reportCode}}</view>
+					<!-- <view>检查医生：{{item.sqDoc}}</view> -->
 				</view>
 			</view>
 		</view>
@@ -44,8 +44,8 @@
 					name:"张某某",
 					idcard:'522122xxxxxxxxx0011'
 				},
-				startDate:'',
-				endDate:'',
+				startDate:new Date().toISOString().slice(0, 10),
+				endDate:new Date().toISOString().slice(0, 10),
 				reportlist:[
 					// {
 					// 	expert:'外科检查',
@@ -70,7 +70,8 @@
 				this.mrn = item.mrn;
 			}
 			// this.getCheckreport();
-			this.requestList();
+			// this.requestList();
+			this.getCheckreportbyUserId();
 		},
 		methods: {
 			async requestList(){
@@ -136,12 +137,45 @@
 					}
 				})
 			},
-			search(){
-				if(this.mrn.length > 0){
-					this.getCheckreport(this.mrn);
-				}else{
-					this.requestList();
+			getCheckreportbyUserId(){
+				
+				if(this.startDate.length == 0){
+					return uni.showToast({
+						icon:"none",
+						title:"请选择开始时间"
+					})
 				}
+				
+				if(this.endDate.length == 0){
+					return uni.showToast({
+						icon:"none",
+						title:"请选择结束时间"
+					})
+				}
+				
+				let that = this;  
+				let date = new Date().toISOString().slice(0, 10);
+				this.$request({
+					path:'/checkReport/mobile/getInfoByPatient',
+					query:{
+						beginDate:this.startDate,
+						endDate:this.endDate,
+						userId:uni.getStorageSync("userId"),
+					}
+				}).then(res=>{
+					if(res.data.code == 200){
+						that.reportlist = res.data.data;
+					}
+				})
+			},
+			
+			search(){
+				// if(this.mrn.length > 0){
+				// 	this.getCheckreport(this.mrn);
+				// }else{
+				// 	this.requestList();
+				// }
+				this.getCheckreportbyUserId();
 			},
 			getDetailInfo(){
 				this.$request({

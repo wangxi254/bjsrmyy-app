@@ -25,11 +25,18 @@
 /* 透明度 */
 /* 文章场景相关 */
 .flex-row.data-v-af564324 {
+  display: -webkit-box;
+  display: -webkit-flex;
   display: flex;
-  flex-direction: row;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+          flex-direction: row;
 }
 .flex1.data-v-af564324 {
-  flex: 1;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+          flex: 1;
 }
 .head .head-view.data-v-af564324 {
   height: 50px;
@@ -63,11 +70,18 @@
   margin-top: 5px;
 }
 .content1 .item.data-v-af564324 {
+  display: -webkit-box;
+  display: -webkit-flex;
   display: flex;
-  flex-direction: row;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+          flex-direction: row;
   height: 40px;
   line-height: 40px;
-  justify-content: space-between;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+          justify-content: space-between;
   padding: 0px 15px;
   border-bottom: 0.5px solid #c8c7cc;
 }
