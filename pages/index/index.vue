@@ -199,7 +199,13 @@
 						navigation:'../../yx/appointRecord/index',
 						hashospitalInto:false,
 					},
-					
+					{
+						img:'../../static/index/menu-item7.png',
+						title:'核酸检测',
+						no:8,
+						navigation:'../../yx/hsTest/index',
+						hashospitalInto:false,
+					}
 					
 				],
 				naviMesus:[

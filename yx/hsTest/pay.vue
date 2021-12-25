@@ -4,7 +4,7 @@
  * @Author: seven
  * @Date: 2021-12-24 21:18:23
  * @LastEditors: seven
- * @LastEditTime: 2021-12-25 02:44:39
+ * @LastEditTime: 2021-12-25 21:58:02
 -->
 <template>
     <view class="detailPage">
@@ -170,9 +170,12 @@ export default {
             const row = JSON.parse(options.row);
             this.amount = row.money;this.quesionId  = row.id
         }
-        this.userInfo = getApp().globalData.PatientList[0];
-        if(Object.keys(this.userInfo).length>0) {
-            this.getPaientCard(this.userInfo);
+        
+        const { PatientList, PatientCard }  = getApp().globalData;
+        this.userInfo = PatientList[0];
+        this.PaientCard = PatientCard;
+        if(this.userInfo && Object.keys(this.userInfo).length>0){
+
         }else{
             uni.showModal({
                 title: '提示',
@@ -190,7 +193,6 @@ export default {
                 }
             });
         }
-        this.$getUserId();
     },
     methods: {
         type1Change(val) {
@@ -204,9 +206,9 @@ export default {
         },
         changeUser(row) {
             this.userInfo = row;
-            this.getPaientCard(row);
+            this.$getUserCard(row).then(res=> this.PaientCard = res);
         },
-        chooseUser() {
+        chooseUser(row) {
             this.$refs.userModelref.show();
         },
         submit() {
@@ -226,19 +228,6 @@ export default {
             })
             
         },
-        getPaientCard(PaientInfo) {
-            uni.showLoading({
-                title: '加载中...'
-            })
-            this.$request({
-                path:`/tpatientCard/mobile/getPatientCardByPatientInfo?condition=${PaientInfo.credentialNo}&conditionType=${PaientInfo.credentialType}`,
-            }).then(res=>{
-                uni.hideLoading();
-                if(res.data.code == 200) {
-                    this.PaientCard = res.data.data;
-                }
-            })
-        },
         weixinPay(payinfo) {
             uni.requestPayment({
                 timeStamp: payinfo.timeStamp,
@@ -253,7 +242,7 @@ export default {
                 },
                 fail: err => {
                     uni.showToast({
-                        title: JSON.stringify(err),
+                        title: '支付失败',
                         duration: 2000
                     })
                 }

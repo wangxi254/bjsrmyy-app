@@ -64,9 +64,9 @@ export default {
     },
     onLoad: function (option) { //
         option.row && (this.appointmentInfo = JSON.parse(option.row))
-        this.userInfo = getApp().globalData.PatientList.length>1?{}:getApp().globalData.PatientList[0];
-        this.$getUserId();
-        if(this.userInfo.name)  this.getPaientCard(this.userInfo)
+        const { PatientList, PatientCard }  = getApp().globalData;
+        this.userInfo = PatientList[0];
+        this.PaientCard = PatientCard;
     },
     methods: {
         submit() {
@@ -129,20 +129,7 @@ export default {
         },
         changeUser(row) {
             this.userInfo = row;
-            this.getPaientCard(this.userInfo)
-        },
-        getPaientCard(PaientInfo) {
-            uni.showLoading({
-                title: '加载中...'
-            })
-            this.$request({
-                path:`/tpatientCard/mobile/getPatientCardByPatientInfo?condition=${PaientInfo.credentialNo}&conditionType=${PaientInfo.credentialType}`,
-            }).then(res=>{
-                uni.hideLoading();
-                if(res.data.code == 200) {
-                    this.PaientCard = res.data.data;
-                }
-            })
+            this.$getUserCard(row).then(res=> this.PaientCard = res);
         }
     }
 }
