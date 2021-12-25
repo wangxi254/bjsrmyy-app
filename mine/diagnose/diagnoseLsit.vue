@@ -27,13 +27,19 @@
 			<view class="parkbox">
 				<view class="center height40 bottomborder">姓名：{{disagnoseCode.name}}</view>
 				<view class="center">
-					<image class="tcode" mode="aspectFill" :src="disagnoseCode.tcode"></image>
+					<view class="tcode">
+						<w-barcode :options="barcode"></w-barcode>
+					</view>
+					<!-- <image class="tcode" mode="aspectFill" :src="disagnoseCode.tcode"></image> -->
 				</view>
 				<view class="center height40">
-					{{disagnoseCode.code}}
+					{{mrn}}
 				</view>
 				<view class="center bottomborder">
-					<image class="scode" mode="aspectFill" :src="disagnoseCode.tcode"></image>
+					<view class="scode">
+						<w-qrcode @press="longtap" style="margin-top: 1rem;" :options="scancode" ref="qrcode" @generate="hello"></w-qrcode>
+					</view>
+					<!-- <image class="scode" mode="aspectFill" :src="disagnoseCode.tcode"></image> -->
 				</view>
 				<view class="center height40">
 					<view class="footer-box footer-box-w share-next" @tap="coselayer">关闭</view>
@@ -50,6 +56,18 @@
 				list:[],
 				openlayer:false,
 				disagnoseCode:{},
+				scancode:{
+					code: 'https://qm.qq.com/cgi-bin/qm/qr?k=LKqML292dD2WvwQfAJXBUmvgbiB_TZWF&noverify=0',
+					size: 260, // 二维码大小
+				},
+				barcode:{
+					code: '1111',
+					color:['#333333','#333333'], // 条形码的颜色
+					bgColor: '#FFFFFF', // 背景色
+					width: 300, // 宽度
+					height: 50 // 高度
+				},
+				mrn:'',
 				// disagnoseCode:{
 				// 	scode:'http://www.pptbz.com/pptpic/UploadFiles_6909/201203/2012031220134655.jpg',
 				// 	tcode:'http://www.pptbz.com/pptpic/UploadFiles_6909/201203/2012031220134655.jpg',
@@ -107,7 +125,7 @@
 			},
 			openCode(item){
 				this.disagnoseCode = item;
-				this.openlayer = true;
+				this.getPainInfo(item);
 			},
 			coselayer(){
 				this.openlayer = false;
@@ -143,14 +161,36 @@
 					query:{
 						conditionType:item.credentialType,
 						condition:item.credentialNo,
-					}
+					},
 				}).then(res=>{
 					console.log("res",JSON.stringify(res));
 					if(res.data.code == 200){
+						const mrn = res.data.data.mrn;
+						that.barcode["code"] = mrn;
+						that.scancode['code'] = mrn;
+						that.mrn = mrn;
+						that.openlayer = true;
+					}else{
+						uni.showToast({
+							icon:'none',
+							title:res.data.msg
+						})
 					}
 				})
 			},
+			longtap (e){
+				console.log(e)
+			},
 			
+			hello(res) {
+				try {
+					// console.log(321, res)
+				} catch (e) {}
+			},
+			async saveCode(){//手动触发获取图片
+				const res = await this.$refs.qrcode.GetCodeImg();
+				// console.log(res)
+			}
 			
 		}
 	}

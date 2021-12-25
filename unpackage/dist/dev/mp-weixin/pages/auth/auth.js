@@ -270,52 +270,54 @@ var _WXBizDataCrypt = _interopRequireDefault(__webpack_require__(/*! ./WXBizData
           var encryptedData = e.detail.encryptedData;
           var iv = e.detail.iv;
           var code = loginres.code;
-          that.requestByCode(code, encryptedData, iv);
-          // let url = 'https://api.weixin.qq.com/sns/jscode2session?appid=' + appid + '&secret=' + secret +
-          // 	'&js_code=' +
-          // 	loginres.code + '&grant_type=authorization_code';
-          // // 用 code 换取 session 和 openId
-          // uni.request({
-          // 	url: url, // 请求路径
-          // 	success: res => { //成功res返回openid，session_key
-          // 		res.data.openid && uni.setStorageSync("openId",res.data.openid)
-          // 		console.log(JSON.stringify(res));	
-
-          // 		console.log("res.data.session_key===>",res.data.session_key);
-          // 		console.log("appid===>",appid);
-          // 		console.log("e.detail.encryptedData===>",e.detail.encryptedData);
-          // 		console.log("e.detail.iv===>",e.detail.iv);
-          // 		//解密用户信息
-          // 		let pc = new WXBizDataCrypt(appid,res.data.session_key);           //wxXXXXXXX为你的小程序APPID  
-          // 		let data = pc.decryptData(e.detail.encryptedData , e.detail.iv);  
+          // that.requestByCode(code,encryptedData,iv);
 
 
-          // 		// //data就是最终解密的用户信息 
-          // 		// countryCode: "86"  区号
-          // 		// phoneNumber: "15634123456"  用户绑定的手机号（国外手机号会有区号）
-          // 		// purePhoneNumber: "15634123456"  没有区号的手机号
-          // 		// watermark:
-          // 		//         appid: "wxce185cd1da123456"
-          // 		//         timestamp: 1607906868
-          // 		console.log(JSON.stringify(data))
-          // 		const phone = data.phoneNumber;
+          var url = 'https://api.weixin.qq.com/sns/jscode2session?appid=' + appid + '&secret=' + secret +
+          '&js_code=' +
+          loginres.code + '&grant_type=authorization_code';
+          // 用 code 换取 session 和 openId
+          uni.request({
+            url: url, // 请求路径
+            success: function success(res) {//成功res返回openid，session_key
+              res.data.openid && uni.setStorageSync("openId", res.data.openid);
+              console.log(JSON.stringify(res));
 
-          // 		uni.getUserInfo({    
-          //                    		withCredentials:false,
-          // 			success: (info) => {
-          // 				console.log("info===>",JSON.stringify(info));
-          // 				const name = info.userInfo.nickName
-          // 				that.requestAdd(name,name,phone);
-          // 			},
-          // 			fail: (err) => {
-          // 				console.log(err)
-          // 			}
-          // 		})
-          // 	},
-          // 	fail: err => {
-          // 		console.log(err)
-          // 	}
-          // })
+              console.log("res.data.session_key===>", res.data.session_key);
+              console.log("appid===>", appid);
+              console.log("e.detail.encryptedData===>", e.detail.encryptedData);
+              console.log("e.detail.iv===>", e.detail.iv);
+              //解密用户信息
+              var pc = new _WXBizDataCrypt.default(appid, res.data.session_key); //wxXXXXXXX为你的小程序APPID  
+              var data = pc.decryptData(e.detail.encryptedData, e.detail.iv);
+
+
+              // //data就是最终解密的用户信息 
+              // countryCode: "86"  区号
+              // phoneNumber: "15634123456"  用户绑定的手机号（国外手机号会有区号）
+              // purePhoneNumber: "15634123456"  没有区号的手机号
+              // watermark:
+              //         appid: "wxce185cd1da123456"
+              //         timestamp: 1607906868
+              console.log(JSON.stringify(data));
+              var phone = data.phoneNumber;
+
+              uni.getUserInfo({
+                withCredentials: false,
+                success: function success(info) {
+                  console.log("info===>", JSON.stringify(info));
+                  var name = info.userInfo.nickName;
+                  that.requestAdd(name, name, phone);
+                },
+                fail: function fail(err) {
+                  console.log(err);
+                } });
+
+            },
+            fail: function fail(err) {
+              console.log(err);
+            } });
+
         } });
 
     },
@@ -360,19 +362,21 @@ var _WXBizDataCrypt = _interopRequireDefault(__webpack_require__(/*! ./WXBizData
                   }
                 }case 9:case "end":return _context2.stop();}}}, _callee2);}))();
     },
-    requestByCode: function requestByCode(code, encryptedData, iv) {var _this2 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee3() {var _yield$_this2$$areque, _yield$_this2$$areque2, err, res;return _regenerator.default.wrap(function _callee3$(_context3) {while (1) {switch (_context3.prev = _context3.next) {case 0:_context3.next = 2;return (
+    requestByCode: function requestByCode(code, encryptedData, iv) {var _this2 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee3() {var req, _yield$_this2$$areque, _yield$_this2$$areque2, err, res;return _regenerator.default.wrap(function _callee3$(_context3) {while (1) {switch (_context3.prev = _context3.next) {case 0:
+                req = {
+                  code: code,
+                  encryptedData: encryptedData,
+                  iv: iv };
+
+                console.log("res===>", JSON.stringify(req));_context3.next = 4;return (
                   _this2.$arequest({
                     path: "/user/mobile/postAuth",
                     method: "POST",
-                    query: {
-                      code: code,
-                      encryptedData: encryptedData,
-                      iv: iv } }));case 2:_yield$_this2$$areque = _context3.sent;_yield$_this2$$areque2 = _slicedToArray(_yield$_this2$$areque, 2);err = _yield$_this2$$areque2[0];res = _yield$_this2$$areque2[1];
-
+                    query: req }));case 4:_yield$_this2$$areque = _context3.sent;_yield$_this2$$areque2 = _slicedToArray(_yield$_this2$$areque, 2);err = _yield$_this2$$areque2[0];res = _yield$_this2$$areque2[1];
 
                 // 346829058917404672
                 console.log("err:", JSON.stringify(err));
-                console.log("res:", JSON.stringify(res));case 8:case "end":return _context3.stop();}}}, _callee3);}))();
+                console.log("res:", JSON.stringify(res));case 10:case "end":return _context3.stop();}}}, _callee3);}))();
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
