@@ -18,7 +18,7 @@
 				  <image class="right" src="../../static/common/right.png"></image>
 				</view>
 			</picker>
-			<view class="height40 hs-border">查询</view>
+			<view class="height40 hs-border" @click="search">查询</view>
 		</view>
 		
 		<view v-for="item in reportlist">
@@ -47,18 +47,18 @@
 				startDate:'',
 				endDate:'',
 				reportlist:[
-					{
-						expert:'外科检查',
-						date:'2021-12-20',
-						name:'常规检查',
-						number:'00003283434834',
-					},
-					{
-						expert:'外科检查',
-						date:'2021-12-20',
-						name:'常规检查',
-						number:'00003283434834',
-					}
+					// {
+					// 	expert:'外科检查',
+					// 	date:'2021-12-20',
+					// 	name:'常规检查',
+					// 	number:'00003283434834',
+					// },
+					// {
+					// 	expert:'外科检查',
+					// 	date:'2021-12-20',
+					// 	name:'常规检查',
+					// 	number:'00003283434834',
+					// }
 				],
 				mrn:'',
 			}
@@ -69,9 +69,47 @@
 				let item = JSON.parse(options.item);
 				this.mrn = item.mrn;
 			}
-			this.getCheckreport();
+			// this.getCheckreport();
+			this.requestList();
 		},
 		methods: {
+			async requestList(){
+				const [err,res] = await this.$arequest({
+					path:"/patient/mobile/getPatientByUserId",
+					query:{
+						userId:uni.getStorageSync("userId"),
+					}
+				});
+				let defaultPatientItem = {};
+				if(res.data.code == 200){
+					const list = res.data.data;
+					console.log("list===>",JSON.stringify(list));
+					for(let i = 0; i < list.length; i ++){
+						const item = list[i];
+						if(item.defaultPatient == 1){
+							defaultPatientItem = item;
+							break;
+						}
+					}
+				}
+				
+				let req = {
+					condition:defaultPatientItem.credentialNo,
+					conditionType:defaultPatientItem.credentialType,
+				}
+				let that = this;
+				const [perr,pres] = await this.$arequest({
+					path:"/tpatientCard/mobile/getPatientCardByPatientInfo",
+					query:req,
+				})
+				console.log("res",JSON.stringify(pres));
+				if(pres.data.code == 200){
+					const data = pres.data.data;
+					const mrn = data.mrn
+					this.mrn = mrn;
+					this.getCheckreport(mrn);
+				}
+			},
 			bindSDateChange(e) {
 			  let date = e.detail.value;
 			  this.startDate = date;
@@ -82,7 +120,7 @@
 			  this.endDate = date;
 			  this.reportlist = [];
 			},
-			getCheckreport(){
+			getCheckreport(mrn){
 				let that = this;
 				let date = new Date().toISOString().slice(0, 10);
 				this.$request({
@@ -90,13 +128,20 @@
 					query:{
 						beginDate:date,
 						endDate:date,
-						mrn:this.mrn,
+						mrn:mrn,
 					}
 				}).then(res=>{
 					if(res.data.code == 200){
 						that.reportlist = res.data.data;
 					}
 				})
+			},
+			search(){
+				if(this.mrn.length > 0){
+					this.getCheckreport(this.mrn);
+				}else{
+					this.requestList();
+				}
 			},
 			getDetailInfo(){
 				this.$request({

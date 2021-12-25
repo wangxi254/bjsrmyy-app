@@ -196,7 +196,7 @@
 				{
 					"path":"report/testreport",
 					"style": {
-						"navigationBarTitleText": "化验报告"
+						"navigationBarTitleText": "检验报告"
 					}
 				},
 				{

@@ -26,13 +26,29 @@
 				]
             }
         },
-		onLoad() {
-
+		onLoad(options) {
+			if(options.item){
+				let item = JSON.parse(options.item);
+				this.reqHospitalBuilding(item.id);
+			}
 		},
         methods: {
 			onClick(item){
 				uni.navigateTo({
 					url:`./naviToFloor?item=${JSON.stringify(item)}`,
+				})
+			},
+			reqHospitalBuilding(id){
+				
+				this.$request({
+					path:'/hospitalBuilding/mobile/selectUsableHospitalBuildingByHospitalId',
+					query:{
+						hospitalId:id,
+					},
+				}).then(res=>{
+					if(res.data.code == 200){
+						this.list = res.data.data;
+					}
 				})
 			}
         }
