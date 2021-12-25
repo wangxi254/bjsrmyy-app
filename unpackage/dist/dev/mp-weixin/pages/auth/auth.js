@@ -178,89 +178,14 @@ var _WXBizDataCrypt = _interopRequireDefault(__webpack_require__(/*! ./WXBizData
      * 初始
      */
   onLoad: function onLoad() {
-    console.log("onLoadonLoadonLoad");
     uni.login({
-      provider: 'weixin',
       success: function success(res) {
-        console.log("weixinres==>", JSON.stringify(res));
-      },
-      fail: function fail(err) {
 
       } });
 
   },
   methods: {
-    //关闭弹窗
-    handleCloseModal: function handleCloseModal() {
-      this.$emit('closemodal', {
-        detail: {
-          flag: false } });
 
-
-    },
-    tapchoose: function tapchoose() {
-      this.choose = !this.choose;
-    },
-    handleuser: function handleuser() {
-      uni.showLoading({
-        title: "加载中..." });
-
-      uni.downloadFile({
-        url: 'https://cmcp3-prod-i.oss-cn-hangzhou.aliyuncs.com/base/userAgreement/userAgreement.pdf',
-        success: function success(res) {
-          uni.hideLoading();
-          var filePath = res.tempFilePath;
-          uni.openDocument({
-            filePath: filePath,
-            success: function success(res) {
-              console.log('打开文档成功' + JSON.stringify(res));
-            },
-            fail: function fail(err) {
-              console.log('打开文档失败' + JSON.stringify(err));
-            } });
-
-
-
-        },
-        fail: function fail(err) {
-          uni.hideLoading();
-        },
-        complete: function complete(rr) {
-          uni.hideLoading();
-        } });
-
-    },
-    handleprotocol: function handleprotocol() {
-      uni.showLoading({
-        title: "加载中..." });
-
-      uni.downloadFile({
-        url: 'https://cmcp3-prod-i.oss-cn-hangzhou.aliyuncs.com/base/userAgreement/privacyAgreement.pdf',
-        success: function success(res) {
-          uni.hideLoading();
-          var filePath = res.tempFilePath;
-          uni.openDocument({
-            filePath: filePath,
-            success: function success(res) {
-              console.log('打开文档成功');
-            } });
-
-
-        },
-        fail: function fail(err) {
-          uni.hideLoading();
-        },
-        complete: function complete(rr) {
-          uni.hideLoading();
-        } });
-
-    },
-    //点击微信授权
-    handleWxAuth: function handleWxAuth(e) {return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
-                uni.showLoading({
-                  title: '加载中' });case 1:case "end":return _context.stop();}}}, _callee);}))();
-
-    },
     onGetPhoneNumber: function onGetPhoneNumber(e) {
       var that = this;
       console.log("e===>", JSON.stringify(e));
@@ -275,112 +200,140 @@ var _WXBizDataCrypt = _interopRequireDefault(__webpack_require__(/*! ./WXBizData
           var encryptedData = e.detail.encryptedData;
           var iv = e.detail.iv;
           var code = loginres.code;
-          that.requestByCode(code, encryptedData, iv);
+          // that.requestByCode(code,encryptedData,iv);
+
+          // that.getOpenIdSessionKey(code,e);
+          var url = 'https://api.weixin.qq.com/sns/jscode2session?appid=' + appid + '&secret=' + secret +
+          '&js_code=' +
+          loginres.code + '&grant_type=authorization_code';
+          // 用 code 换取 session 和 openId
+          uni.request({
+            url: url, // 请求路径
+            success: function success(res) {//成功res返回openid，session_key
+
+              res.data.openid && uni.setStorageSync("openId", res.data.openid);
+              console.log(JSON.stringify(res));
+              var openId = res.data.openid;
+              console.log("res.data.session_key===>", res.data.session_key);
+              console.log("appid===>", appid);
+              console.log("e.detail.encryptedData===>", e.detail.encryptedData);
+              console.log("e.detail.iv===>", e.detail.iv);
+              //解密用户信息
+              var pc = new _WXBizDataCrypt.default(appid, res.data.session_key); //wxXXXXXXX为你的小程序APPID  
+              var data = pc.decryptData(e.detail.encryptedData, e.detail.iv);
 
 
-          // let url = 'https://api.weixin.qq.com/sns/jscode2session?appid=' + appid + '&secret=' + secret +
-          // 	'&js_code=' +
-          // 	loginres.code + '&grant_type=authorization_code';
-          // // 用 code 换取 session 和 openId
-          // uni.request({
-          // 	url: url, // 请求路径
-          // 	success: res => { //成功res返回openid，session_key
-          // 		res.data.openid && uni.setStorageSync("openId",res.data.openid)
-          // 		console.log(JSON.stringify(res));	
+              // //data就是最终解密的用户信息 
+              // countryCode: "86"  区号
+              // phoneNumber: "15634123456"  用户绑定的手机号（国外手机号会有区号）
+              // purePhoneNumber: "15634123456"  没有区号的手机号
+              // watermark:
+              //         appid: "wxce185cd1da123456"
+              //         timestamp: 1607906868
+              console.log(JSON.stringify(data));
+              var phone = data.phoneNumber;
 
-          // 		console.log("res.data.session_key===>",res.data.session_key);
-          // 		console.log("appid===>",appid);
-          // 		console.log("e.detail.encryptedData===>",e.detail.encryptedData);
-          // 		console.log("e.detail.iv===>",e.detail.iv);
-          // 		//解密用户信息
-          // 		let pc = new WXBizDataCrypt(appid,res.data.session_key);           //wxXXXXXXX为你的小程序APPID  
-          // 		let data = pc.decryptData(e.detail.encryptedData , e.detail.iv);  
+              uni.getUserInfo({
+                withCredentials: true,
+                success: function success(info) {
+                  console.log("info===>", JSON.stringify(info));
+                  var name = info.userInfo.nickName;
+                  that.requestAdd(openId, name, name, phone);
+                },
+                fail: function fail(err) {
+                  console.log(err);
+                } });
 
+            },
+            fail: function fail(err) {
+              console.log(err);
+            } });
 
-          // 		// //data就是最终解密的用户信息 
-          // 		// countryCode: "86"  区号
-          // 		// phoneNumber: "15634123456"  用户绑定的手机号（国外手机号会有区号）
-          // 		// purePhoneNumber: "15634123456"  没有区号的手机号
-          // 		// watermark:
-          // 		//         appid: "wxce185cd1da123456"
-          // 		//         timestamp: 1607906868
-          // 		console.log(JSON.stringify(data))
-          // 		const phone = data.phoneNumber;
-
-          // 		uni.getUserInfo({    
-          //               		withCredentials:false,
-          // 			success: (info) => {
-          // 				console.log("info===>",JSON.stringify(info));
-          // 				const name = info.userInfo.nickName
-          // 				that.requestAdd(name,name,phone);
-          // 			},
-          // 			fail: (err) => {
-          // 				console.log(err)
-          // 			}
-          // 		})
-          // 	},
-          // 	fail: err => {
-          // 		console.log(err)
-          // 	}
-          // })
         } });
 
     },
-    requestAdd: function requestAdd(name, nickName, phone) {var _this = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {var _yield$_this$$areques, _yield$_this$$areques2, err, res;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:_context2.next = 2;return (
-                  _this.$arequest({
-                    path: "/user/mobile/add",
-                    method: "POST",
-                    query: {
-                      name: name,
-                      nickName: nickName,
-                      phone: phone } }));case 2:_yield$_this$$areques = _context2.sent;_yield$_this$$areques2 = _slicedToArray(_yield$_this$$areques, 2);err = _yield$_this$$areques2[0];res = _yield$_this$$areques2[1];
 
+    postAuth: function postAuth(phone, openId) {
+      var that = this;
+      this.$request({
+        path: "/user/mobile/postAuth",
+        method: "POST",
+        query: {
+          phone: phone,
+          openId: openId } }).
 
-                // 346829058917404672
-                console.log("err:", JSON.stringify(err));
-                console.log("res:", JSON.stringify(res));
-                if (res && res.data && res.data.code == 200) {
-                  uni.showToast({
-                    icon: 'none',
-                    title: "登录成功",
-                    success: function success() {
-                      uni.setStorageSync("userId", res.data.data.id);
-                      uni.$emit('Login', { msg: "登录更新" });
-                      setTimeout(function () {
-                        uni.navigateBack();
-                      }, 500);
-                    } });
+      then(function (res) {
+        if (res && res.data.code == 200) {
 
+          var encryptedData = e.detail.encryptedData;
+          var iv = e.detail.iv;
+          // const code = loginres.code;
+          var _openId = res.data.data.openId;
+          var sessionKey = res.data.data.sessionKey;
+          console.log("openId===>", JSON.stringify(res));
+          that.requestByCode(sessionKey, _openId, encryptedData, iv);
+        } else {
+          uni.showToast({
+            icon: "none",
+            title: err ? JSON.stringify(err) : JSON.stringify(res.data.msg) });
 
-                } else {
-                  if (err) {
-                    uni.showToast({
-                      icon: 'none',
-                      title: JSON.stringify(err) });
+        }
+      });
 
-                  } else {
-                    uni.showToast({
-                      icon: 'none',
-                      title: res.data.msg });
-
-                  }
-                }case 9:case "end":return _context2.stop();}}}, _callee2);}))();
     },
-    requestByCode: function requestByCode(code, encryptedData, iv) {var _this2 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee3() {var req, _yield$_this2$$areque, _yield$_this2$$areque2, err, res;return _regenerator.default.wrap(function _callee3$(_context3) {while (1) {switch (_context3.prev = _context3.next) {case 0:
-                req = {
-                  code: code,
-                  encryptedData: encryptedData,
-                  iv: iv };
+    requestAdd: function requestAdd(openId, name, nickName, phone) {
+      this.postAuth(openId, phone);
+      this.$request({
+        path: "/user/mobile/add",
+        method: "POST",
+        query: {
+          name: name,
+          nickName: nickName,
+          phone: phone } }).
 
-                console.log("res===>", JSON.stringify(req));_context3.next = 4;return (
-                  _this2.$arequest({
+      then(function (res) {
+        // 346829058917404672
+        console.log("res:", JSON.stringify(res));
+        if (res && res.data && res.data.code == 200) {
+          uni.showToast({
+            icon: 'none',
+            title: "登录成功",
+            success: function success() {
+              uni.setStorageSync("userId", res.data.data.id);
+              uni.$emit('Login', { msg: "登录更新" });
+              setTimeout(function () {
+                uni.navigateBack();
+              }, 500);
+            } });
+
+
+        } else {
+          uni.showToast({
+            icon: 'none',
+            title: res.data.msg });
+
+        }
+      });
+
+    },
+
+    requestByCode: function requestByCode(sessionKey, openId, encryptedData, iv) {var _this = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var req, _yield$_this$$areques, _yield$_this$$areques2, err, res;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
+                req = {
+                  sessionKey: sessionKey,
+                  encryptedData: encryptedData,
+                  iv: iv,
+                  openId: openId };
+
+                console.log("res===>", JSON.stringify(req));_context.next = 4;return (
+                  _this.$arequest({
                     path: "/user/mobile/postAuth",
                     method: "POST",
-                    query: req }));case 4:_yield$_this2$$areque = _context3.sent;_yield$_this2$$areque2 = _slicedToArray(_yield$_this2$$areque, 2);err = _yield$_this2$$areque2[0];res = _yield$_this2$$areque2[1];
+                    query: req }));case 4:_yield$_this$$areques = _context.sent;_yield$_this$$areques2 = _slicedToArray(_yield$_this$$areques, 2);err = _yield$_this$$areques2[0];res = _yield$_this$$areques2[1];
+
 
                 // 346829058917404672
                 console.log("err:", JSON.stringify(err));
-                console.log("res:", JSON.stringify(res));case 10:case "end":return _context3.stop();}}}, _callee3);}))();
+                console.log("res:", JSON.stringify(res));case 10:case "end":return _context.stop();}}}, _callee);}))();
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
