@@ -4,7 +4,7 @@
  * @Author: seven
  * @Date: 2021-12-24 18:14:07
  * @LastEditors: seven
- * @LastEditTime: 2021-12-24 18:16:18
+ * @LastEditTime: 2021-12-25 17:37:53
  */
 import Vue from 'vue'
 import App from './App'
@@ -23,17 +23,8 @@ Vue.component('hs-card',hsCard)
 import request from 'common/request.js';
 Vue.prototype.$request = request.apprequst;
 Vue.prototype.$arequest = request.arequest;
-
-// 调试
-// Vue.prototype.$getUserId = ()=>{
-//     const userId = uni.getStorageSync("userId") || "346829058917404672";
-//     if(userId) return userId;
-//     else  uni.navigateTo({
-//         url:"/pages/auth/auth"
-//     })
-// }
-// Vue.prototype.$userId = '346829058917404672'
-// 调试
+Vue.prototype.$getUserCard = request.getUserCard;
+Vue.prototype.$getPatientList = request.getPatientList;
 
 //测试
 Vue.prototype.$getUserId = ()=>{
@@ -43,6 +34,8 @@ Vue.prototype.$getUserId = ()=>{
         url:"/pages/auth/auth"
     })
 }
+
+
 //测试
 
 Object.keys(filters).forEach(key=>{

@@ -19,62 +19,23 @@
             <scroll-view class="flex-1" scroll-y="true"  style="height: calc(100% - 50px)">
                 <view class="list">
                     <NoData v-if="list.length == 0" />
-                    <hs-card v-else v-for="(item,index) in list" :key="index" class="list-item" @click="goDetail({})">
+                    <hs-card v-else v-for="(item,index) in list" :key="index" class="list-item" @click="goDetail(item)">
                         <template v-slot:header>
                             <view class="title-model flex justify-between items-center">
-                                <text>心血管内科门诊</text>
+                                <text>{{item.deptName}}</text>
                                 <view class="status">
-                                    <text class="error">待支付</text>
-                                    <text class="waring">已锁号</text>
-                                    <!-- <text class="success">已支付</text>
-                                    <text class="default">已完成</text>
-                                    <text class="default">已取消</text> -->
+                                    <text v-if="item.active == 1" class="error">预约中</text>
+                                    <text v-if="item.active == 1" class="waring">已锁号</text>
+                                    <text v-else-if="item.active == 0" class="success">已支付</text>
+                                    <text v-else-if="item.active == 'N'" class="default">已取消</text>
                                 </view>
                             </view>
                         </template>
-                        <view>就诊医生：<text>蔡涛</text></view>
-                        <view>就诊时间：<text>2021-12-19 下午</text></view>
-                        <view>就诊人：<text>张三</text></view>
+                        <view>就诊医生：<text>{{item.docTitle}}</text></view>
+                        <view>就诊时间：<text>{{item.visitDate}} {{item.timePart}}</text></view>
+                        <view>导诊信息:<text>{{item.dzInfo}}</text></view>
+                        <view>挂号金额：<text>{{item.fee}}</text></view>
                     </hs-card>
-                    <!-- <hs-card class="list-item" @click="goDetail({})">
-                        <template v-slot:header>
-                            <view class="title-model flex justify-between items-center">
-                                <text>心血管内科门诊</text>
-                                <view class="status">
-                                    <text class="success">已支付</text>
-                                </view>
-                            </view>
-                        </template>
-                        <view>就诊医生：<text>蔡涛</text></view>
-                        <view>就诊时间：<text>2021-12-19 下午</text></view>
-                        <view>就诊人：<text>张三</text></view>
-                    </hs-card>
-                    <hs-card class="list-item" @click="goDetail({})">
-                        <template v-slot:header>
-                            <view class="title-model flex justify-between items-center">
-                                <text>心血管内科门诊</text>
-                                <view class="status">
-                                <text class="default">已完成</text>
-                                </view>
-                            </view>
-                        </template>
-                        <view>就诊医生：<text>蔡涛</text></view>
-                        <view>就诊时间：<text>2021-12-19 下午</text></view>
-                        <view>就诊人：<text>张三</text></view>
-                    </hs-card>
-                    <hs-card class="list-item" @click="goDetail({})">
-                        <template v-slot:header>
-                            <view class="title-model flex justify-between items-center">
-                                <text>心血管内科门诊</text>
-                                <view class="status">
-                                    <text class="default">已取消</text>
-                                </view>
-                            </view>
-                        </template>
-                        <view>就诊医生：<text>蔡涛</text></view>
-                        <view>就诊时间：<text>2021-12-19 下午</text></view>
-                        <view>就诊人：<text>张三</text></view>
-                    </hs-card> -->
                 </view>
             </scroll-view>
             
@@ -160,15 +121,15 @@ export default {
             },
             startDate:getDate('start'),
 			endDate:getDate('end'),
-            PatientInfo: {
-
-            },
+            PatientInfo: {},
+            PatientCard: {},
             list: []
         }
     },
     onLoad() {
-        this.PatientInfo = getApp().globalData.PatientList[0];
-        this.$getUserId();
+        const { PatientList, PatientCard }  = getApp().globalData;
+        this.PatientInfo = PatientList[0];
+        this.PatientCard = PatientCard;
         this.getList();
     },
     onUnload() {
@@ -188,7 +149,13 @@ export default {
             this.$request({
                 path:`/registration/order/get-appointment-record-list`,
                 method: 'post',
-                query: this.PatientInfo
+                query: {
+                    medicalRecordNo: this.PatientCard.mrn,
+                    name:this.PatientInfo.name,
+                    certificateType: this.PatientInfo.credentialType,
+                    certificateNo: this.PatientInfo.credentialNo,
+                    phoneNum: this.PatientInfo.phone
+                }
             }).then(res=>{
                 uni.hideLoading()
                 if(res.data.code == 200){
@@ -198,8 +165,12 @@ export default {
         },
         goDetail(row) {
             console.log(row)
+            const rows = {
+                ...row,
+                ...this.PatientInfo
+            }
             uni.navigateTo({
-				url:'/pages/yx/appointment/payment'
+				url:'../appointment/payment?row=' + JSON.stringify(rows)
 			})
         },
         showSearch() {
@@ -213,6 +184,7 @@ export default {
         },
         changeUser(row) {
             this.PatientInfo = row;
+            this.$getUserCard(row).then(res=>this.PatientCard = res);
             this.getList();
         },
         submit() {

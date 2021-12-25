@@ -1,0 +1,239 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*每个页面公共css */
+.addBtn{
+	margin: 20px 15px;
+	text-align: center;
+	color: #FFFFFF;
+	font-size: 15px;
+	background: #007aff;
+	padding: 10px;
+	border-radius: 5px;
+}
+.flex-row{
+	display: flex;
+	flex-direction: row;
+}
+.space-between{
+	display: flex;
+	justify-content: space-between;
+}
+.flex1{
+	flex: 1;
+}
+.bottomborder{
+	border-bottom: 0.5px solid #c8c7cc;
+}
+.hs-border{
+	border: 0.5px solid #c8c7cc;
+}
+.margin15{
+	margin: 15px;
+}
+.marginlr15{
+	margin-left: 15px;
+	margin-right: 15px;
+}
+.marginl15{
+	margin-left: 15px;
+}
+.marginr15{
+	margin-right: 15px;
+}
+.paadinglr15{
+	padding-left: 15px;
+	padding-right: 15px;
+}
+.paddingr15{
+	padding-right: 15px;
+}
+.paddingl15{
+	padding-left: 15px;
+}
+.paading15{
+	padding: 15px;
+}
+
+@charset "UTF-8";
+/**
+ * 这里是uni-app内置的常用样式变量
+ *
+ * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量
+ * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App
+ *
+ */
+/**
+ * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能
+ *
+ * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件
+ */
+/* 颜色变量 */
+/* 行为相关颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+@charset "UTF-8";
+.pointer{ cursor: pointer;}
+.left-align{ text-align:left }
+.center{ text-align:center }
+.right-align{ text-align:right }
+.justify{ text-align:justify }
+.nowrap{ white-space:nowrap }
+.break-word{ word-wrap:break-word }
+.inline{ display:inline }
+.block{ display:block }
+.inline-block{ display:inline-block }
+.table{ display:table }
+.table-cell{ display:table-cell }
+.bold{font-weight:700}
+.overflow-hidden{ overflow:hidden }
+.overflow-scroll{ overflow:scroll }
+.overflow-auto{ overflow:auto }
+.left{ float:left }
+.right{ float:right }
+.border-box{ box-sizing:border-box }
+.align-baseline{ vertical-align:baseline }
+.align-top{ vertical-align:top }
+.align-middle{ vertical-align:middle }
+.align-bottom{ vertical-align:bottom }
+.flex{ display:flex }
+.flex-column{ flex-direction:column }
+.flex-row{ flex-direction:row }
+.flex-wrap{ flex-wrap:wrap }
+.flex-1{ flex: 1}
+.flex-0{ flex: 0}
+.flex-shrink-0{ flex-shrink: 0}
+.flex-shrink-1{ flex-shrink: 1}
+.flex-grow-1{ flex-grow: 1}
+.flex-grow-0{ flex-grow: 0}
+.items-start{ align-items:flex-start }
+.items-end{ align-items:flex-end }
+.items-center{ align-items:center }
+.items-baseline{ align-items:baseline }
+.items-stretch{ align-items:stretch }
+.self-start{ align-self:flex-start }
+.self-end{ align-self:flex-end }
+.self-center{ align-self:center }
+.self-baseline{ align-self:baseline }
+.self-stretch{ align-self:stretch }
+.justify-start{ justify-content:flex-start }
+.justify-end{ justify-content:flex-end }
+.justify-center{ justify-content:center }
+.justify-between{ justify-content:space-between }
+.justify-around{ justify-content:space-around }
+.justify-evenly{ justify-content:space-evenly }
+.page {padding: 5px 15px;height: 100%;}
+.content-start{ align-content:flex-start }
+.content-end{ align-content:flex-end }
+.content-center{ align-content:center }
+.content-between{ align-content:space-between }
+.content-around{ align-content:space-around }
+.content-stretch{ align-content:stretch }
+.flex-auto{
+  flex:1 1 auto;
+  min-width:0;
+  min-height:0;
+}
+.flex-none{ flex:none }
+.order-0{ order:0 }
+.order-1{ order:1 }
+.order-2{ order:2 }
+.order-3{ order:3 }
+.order-last{ order:99999 }
+.relative{ position:relative }
+.absolute{ position:absolute }
+.fixed{ position:fixed }
+.display-none{ display:none !important }
+.ellipsis {overflow: hidden;text-overflow:ellipsis;white-space:nowrap;-o-text-overflow: ellipsis;}
+.scroll-h-0::-webkit-scrollbar { height:0!important;}
+.f-width{width:100%;}
+.f-height{height:100%;}
+.radiu-10 {
+	border-radius: 10rpx;
+}
+.border-bottom {
+	border-bottom: 0.5px solid lightgray;
+}
+text, view {
+  font-size: 28rpx;
+  color: #333;
+}
+.textRed {
+  color: red;
+}
+.detailPage {
+  position: relative;
+  height: 100%;
+  z-index: 1;
+  background-color: #f8f8f8;
+}
+.pageContainer {
+  padding: 20rpx;
+  box-sizing: border-box;
+}
+.primary-btn {
+  font-size: 32rpx;
+  background: #53B7C7 !important;
+  color: #fff;
+}
+page {
+  height: 100%;
+}
+

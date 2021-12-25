@@ -48,6 +48,8 @@ export default {
             var year = time.getFullYear()  //获取年份
             var month = time.getMonth() + 1   // 获取月份
             var day = time.getDay()   //  获取星期
+            if(date<10) date = `0${date}`
+            if(month<10) month = `0${month}`
             switch (day) {             //  格式化
             case 0: day = "日"
                 break

@@ -1,4 +1,3 @@
-
 import config from '../config.js';
 
 export default {
@@ -140,6 +139,38 @@ export default {
 			return false;
 		}
 		return true;
+	},
+
+	// 业务常用接口处理
+	//获取用户病例信息
+	getUserCard(PaientInfo) {
+		return new Promise((resolve,reject)=>{
+			this.$request({
+				path:`/tpatientCard/mobile/getPatientCardByPatientInfo?condition=${PaientInfo.credentialNo}&conditionType=${PaientInfo.credentialType}`,
+			}).then(res=>{
+				if(res.data.code == 200) resolve(res.data.data)
+				else reject()
+			}).catch(err=> reject())
+		})
+	},
+	//获取用户就诊人列表
+	getPatientList() {
+		return new Promise((resolve,reject)=>{
+			const userId = this.$getUserId();
+			if(userId){
+				this.$request({
+					path:`/patient/mobile/getPatientByUserId?userId=${userId}`,
+				}).then(res=>{
+					if(res.data.code == 200) {
+						resolve(res.data.data || [])
+					}else{
+						resolve([])
+					}
+				}).catch(err=>resolve([]))
+			}else{
+				resolve([])
+			}
+			
+		})
 	}
-	
 }

@@ -176,7 +176,9 @@ export default {
 					icon:'none',
 					title:"登录成功",
 					success() {
+						debugger
 						uni.setStorageSync("userId",res.data.data.id);
+						uni.$emit('Login',{msg: "登录更新"})
 						setTimeout(()=>{
 							uni.navigateBack();
 						},500)

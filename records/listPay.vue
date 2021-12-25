@@ -1,5 +1,5 @@
 <template>
-  <view class="detailPage">
+  <view class="detailPage flex flex-column">
     <hs-card class="user-view">
         <view class="flex justify-between items-center">
             <view class="flex flex-column">
@@ -14,23 +14,40 @@
     <view class="search-view">
         <view class="date-view flex justify-between items-center">
             <view class="dateInput">
-                <picker mode="date" :value="searchForm.startDate" :start="startDate" :end="endDate">
-                    <view class="uni-input">{{startDate}}</view>
+                <picker mode="date" :value="searchForm.startDate" :start="startDate" :end="endDate" @change="change1">
+                    <view class="uni-input">{{searchForm.startDate}}</view>
                 </picker>
             </view>
             <text>至</text>
             <view class="dateInput">
-                <picker mode="date" :value="searchForm.endDate" :start="startDate" :end="endDate">
-                    <view class="uni-input">{{endDate}}</view>
+                <picker mode="date" :value="searchForm.endDate" :start="startDate" :end="endDate" @change="change2">
+                    <view class="uni-input">{{searchForm.endDate}}</view>
                 </picker>
             </view>
             
         </view>
         <button class="primary-btn" style="margin-top: 10rpx" @click="getList">查询</button>
     </view>
-    <view class="pageContainer">
-        
+    <view class="pageContainer flex-1" style="overflow:auto">
+        <scroll-view class="flex-1" scroll-y="true"  style="height: calc(100% - 50px)">
+            <view class="list">
+                <NoData v-if="list.length == 0" />
+                <hs-card v-else v-for="(item,index) in list" :key="index" class="list-item" @click="goDetail({})">
+                    <template v-slot:header>
+                        <view class="title-model flex justify-between items-center">
+                            <text>{{item.depName}}</text>
+                            <view class="status">
+                                {{item.settlementState==1?"已结算":"未结算"}}
+                            </view>
+                        </view>
+                    </template>
+                    <view>处方号<text>{{item.recipeCode}}</text></view>
+                    <view>金额<text>{{item.total}}</text></view>
+                </hs-card>
+            </view>
+        </scroll-view>
     </view>
+    <!-- <button class="btns" @click="submit">支付</button> -->
     <userModel ref="userModelref"  @changeUser="changeUser" />
   </view>
 </template>
@@ -59,17 +76,18 @@ export default {
     data(){
         return {
             searchForm: {
-                startDate: "",
-                endDate: ""
+                startDate: new Date().toISOString().slice(0, 10),
+                endDate: new Date().toISOString().slice(0, 10),
             },
-            startDate:getDate('start'),
-			endDate:getDate('end'),
-            PatientInfo: {}
+            PatientInfo: {},
+            PatientCard: {}
         }
     },
     onLoad() {
-        this.PatientInfo = getApp().globalData.PatientList[0];
-        this.$getUserId();
+        const { PatientList, PatientCard }  = getApp().globalData;
+        this.PatientInfo = PatientList[0];
+        this.PatientCard = PatientCard;
+        this.getList();
     },
     methods: {
         showUserList() {
@@ -77,22 +95,33 @@ export default {
         },
         changeUser(row) {
             this.PatientInfo = row;
+            this.$getUserCard().then(res=>this.PatientCard = res);
             this.getList();
         },
         getList() {
-            console.log(this.PatientInfo)
+            uni.showLoading({
+                text: "加载中..."
+            })
             this.$request({
-                path:`/listing/outpatient/list`,
+                path:`/registration/settlement/list`,
                 method: 'post',
                 query: {
-                    certificateType:this.PatientInfo.credentialType,
-                    certificateNo : this.PatientInfo.credentialNo,
+                    mrn:this.PatientCard.mrn,
                     beginDate: this.searchForm.startDate,
                     endDate: this.searchForm.endDate
                 }
             }).then(res=>{
-               console.log(res)
+                uni.hideLoading();
+                console.log(res)
             })
+        },
+        change1(e) {
+            let date = e.detail.value;
+			this.searchForm.startDate = date;
+        },
+        change2(e) {
+            let date = e.detail.value;
+			this.searchForm.endDate = date;
         }
     }
 }
@@ -125,5 +154,13 @@ export default {
             box-sizing: border-box;
             text-align: center;
         }
+    }
+    .btns{
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        font-size: $uni-font-size-lg;
+        background: $uni-color-primary;
+        color: #fff;
     }
 </style>

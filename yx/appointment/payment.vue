@@ -4,12 +4,12 @@
         <view class="keeptime-view">
             <view class="icon flex justify-center items-center">
                 <uni-icons  class="right" type="checkbox" size="20" color="#fff" />
-                <text>已锁号</text>
+                <text v-if="!onlyShow">已锁号</text>
             </view>
             <!-- <view>剩余: 9分48秒</view> -->
-            <view class="flex justify-center items-center">
+            <view v-if="!onlyShow" class="flex justify-center items-center">
                 <view style="margin-right: 10rpx">剩余: </view>
-                <uni-countdown color="#FFFFFF" :show-day="false" :hour="0" :minute="8" :second="0" @timeup="timeup"></uni-countdown>
+                <uni-countdown  color="#FFFFFF" :show-day="false" :hour="0" :minute="8" :second="0" @timeup="timeup"></uni-countdown>
             </view>
             
             <view>超时未支付将会自动取消挂号哦!</view>
@@ -48,7 +48,7 @@
             </view>
             
         </view>
-        <view class="pay-view flex">
+        <view v-if="!onlyShow" class="pay-view flex">
             <view class="pay-info flex flex-1 justify-between">
                 <view>
                     总费用：<text class="textRed amount">￥{{(info.payAmount/100).toFixed(2)}}</text>
@@ -74,7 +74,8 @@ export default {
     data(){
         return {
             info: {},
-            openId: uni.getStorageSync("openId")||""
+            openId: uni.getStorageSync("openId")||"",
+            onlyShow: false
         }
     },
     onLoad(options) {
@@ -96,6 +97,9 @@ export default {
             timeType: "1",
             currentDate: "2021-12-26"
         })
+        if(this.info.active){
+            this.onlyShow = true
+        }
     },
     onUnload() {
         uni.navigateBack({  
@@ -144,9 +148,23 @@ export default {
             this.$refs.popup.close()
         },
         confirmMsg() {
-            uni.navigateTo({
-					url:'../appointRecord/index'
-			})
+            this.$request({
+                path:`/registration/order/cancel?orderId=${this.info.id}`
+            }).then(res=>{
+                if(res.data.code == 200){
+                    uni.showToast({
+                        icon: 'none',
+                        text: "取消成功",
+                        duration: 2000
+                    })
+                    setTimeout(()=>{
+                        uni.navigateTo({
+                                url:'../appointRecord/index'
+                        })
+                    })
+                }
+            })
+            
         },
         goList() {
             uni.navigateTo({

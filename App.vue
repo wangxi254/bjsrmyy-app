@@ -1,19 +1,36 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: seven
+ * @Date: 2021-12-24 18:14:07
+ * @LastEditors: seven
+ * @LastEditTime: 2021-12-25 21:16:33
+-->
 <script>
 	export default {
 		onLaunch: async function() {
+			uni.$once('Login',function(data){
+				this.$getPatientList().then(res=>{
+					getApp().globalData.PatientList = res.length>0?res: [{}];
+					if(res.length>0) return this.$getUserCard(res[0]);
+					else return {};
+				}).then(info=>{
+					getApp().globalData.PatientCard = info;
+				})
+			})
 			//var globalData = getApp().globalData;
 			//获取默认就诊人
-			const userId = this.$getUserId();
-			const res = await this.$request({
-				path:`/patient/mobile/getPatientByUserId?userId=${userId}`,
+			this.$getPatientList().then(res=>{
+				getApp().globalData.PatientList = res.length>0?res: [{}];
+				if(res.length>0) return this.$getUserCard(res[0]);
+				else return {};
+			}).then(info=>{
+				getApp().globalData.PatientCard = info;
 			})
-			if(res.data.code == 200) {
-				const current = res.data.data || [{}];
-				getApp().globalData.PatientList = current;
-			}else getApp().globalData.PatientList = [{}];
 		},
 		globalData: {
-			PatientList: []
+			PatientList: [],
+			PatientCard: {}
 		},
 		onShow: function() {
 			console.log('App Show')
