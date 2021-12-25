@@ -357,13 +357,6 @@
 				this.ageUnit = this.ageUnits[index].value;
 			},
 			smartbind(){
-				if(this.jzCard.length === 0){
-					return uni.showToast({
-						icon:'none',
-						title:"请输入就诊卡号"
-					})
-				}
-				
 				
 				if(this.idcard.length === 0){
 					return uni.showToast({

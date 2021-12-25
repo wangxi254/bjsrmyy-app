@@ -199,7 +199,7 @@ var _default =
     console.log("options.item", options.item);
     if (options.item) {
       var item = JSON.parse(options.item);
-      this.mrn = item.mrn;
+      // this.mrn = item.mrn;
     }
     // this.getCheckreport();
     // this.requestList();
@@ -309,9 +309,15 @@ var _default =
       // }
       this.getCheckreportbyUserId();
     },
-    getDetailInfo: function getDetailInfo() {
+    getDetailInfo: function getDetailInfo(item) {
       this.$request({
-        path: '/checkReport/mobile/getDetailInfo' }).
+        path: '/checkReport/mobile/getDetailInfo',
+        query: {
+          reportCode: item.reportCode,
+          beginDate: this.startDate,
+          endDate: this.endDate } }).
+
+
       then(function (res) {
 
       });

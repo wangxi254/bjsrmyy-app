@@ -67,9 +67,10 @@
 			console.log("options.item",options.item);
 			if(options.item){
 				let item = JSON.parse(options.item);
-				this.mrn = item.mrn;
+				
 			}
-			this.requestList();
+			// this.requestList();
+			this.getCheckreportbyUserId();
 		},
 		methods: {
 			async requestList(){
@@ -126,15 +127,15 @@
 					this.requestList();
 				}
 			},
-			getDetailInfo(mrn){
-				
+			getDetailInfo(item){
+				// mrn=522428198907190614&reportCode=123 reportSeq=
 				let date = new Date().toISOString().slice(0, 10);		
 				this.$request({
 					path:'/testReport/mobile/getDetailInfo',
 					query:{
-						beginDate:this.startDate,
-						endDate:this.endDate,
-						reportCode:mrn,
+						// mrn:mrn,
+						reportSeq:item.reportSeq,
+						reportCode:item.reportCode
 					}
 				}).then(res=>{
 					
@@ -182,7 +183,8 @@
 					}
 				}).then(res=>{
 					if(res.data.code == 200){
-						that.reportlist = res.data.data;
+						that.list = res.data.data;
+						
 					}
 				})
 			},

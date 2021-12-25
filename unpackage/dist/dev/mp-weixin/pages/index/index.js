@@ -373,8 +373,14 @@ __webpack_require__.r(__webpack_exports__);
         title: '预约记录',
         no: 7,
         navigation: '../../yx/appointRecord/index',
-        hashospitalInto: false }],
+        hashospitalInto: false },
 
+      {
+        img: '../../static/index/menu-item7.png',
+        title: '核酸检测',
+        no: 8,
+        navigation: '../../yx/hsTest/index',
+        hashospitalInto: false }],
 
 
 

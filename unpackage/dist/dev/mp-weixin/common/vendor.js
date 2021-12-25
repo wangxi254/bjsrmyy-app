@@ -9748,7 +9748,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 var baseUrl = '';
 var envObject = {
   test: {
-    baseUrl: 'https://min.his.gzskt.net/bjrmWebApi' },
+    baseUrl: 'http://cmstz.vicp.io' },
 
   pro: {
     baseUrl: 'https://min.his.gzskt.net/bjrmWebApi' } };

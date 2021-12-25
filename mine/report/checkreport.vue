@@ -21,7 +21,7 @@
 			<view class="height40 hs-border" @click="search">查询</view>
 		</view>
 		
-		<view v-for="item in reportlist">
+		<view v-for="item in reportlist" @click="getDetailInfo(item)">
 			<view class="cell hs-border">
 				<view class="space-between">
 					<view>科室名称：{{item.depName}}</view>
@@ -67,7 +67,7 @@
 			console.log("options.item",options.item);
 			if(options.item){
 				let item = JSON.parse(options.item);
-				this.mrn = item.mrn;
+				// this.mrn = item.mrn;
 			}
 			// this.getCheckreport();
 			// this.requestList();
@@ -177,9 +177,15 @@
 				// }
 				this.getCheckreportbyUserId();
 			},
-			getDetailInfo(){
+			getDetailInfo(item){
 				this.$request({
-					path:'/checkReport/mobile/getDetailInfo'
+					path:'/checkReport/mobile/getDetailInfo',
+					query:{
+						reportCode:item.reportCode,
+						beginDate:this.startDate,
+						endDate:this.endDate,
+					}
+					
 				}).then(res=>{
 					
 				})

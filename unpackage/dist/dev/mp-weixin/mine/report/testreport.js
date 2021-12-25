@@ -199,9 +199,10 @@ var _default =
     console.log("options.item", options.item);
     if (options.item) {
       var item = JSON.parse(options.item);
-      this.mrn = item.mrn;
+
     }
-    this.requestList();
+    // this.requestList();
+    this.getCheckreportbyUserId();
   },
   methods: {
     requestList: function requestList() {var _this = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var _yield$_this$$areques, _yield$_this$$areques2, err, res, defaultPatientItem, list, i, item, req, that, _yield$_this$$areques3, _yield$_this$$areques4, perr, pres, data, mrn;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:_context.next = 2;return (
@@ -258,15 +259,15 @@ var _default =
         this.requestList();
       }
     },
-    getDetailInfo: function getDetailInfo(mrn) {
-
+    getDetailInfo: function getDetailInfo(item) {
+      // mrn=522428198907190614&reportCode=123 reportSeq=
       var date = new Date().toISOString().slice(0, 10);
       this.$request({
         path: '/testReport/mobile/getDetailInfo',
         query: {
-          beginDate: this.startDate,
-          endDate: this.endDate,
-          reportCode: mrn } }).
+          // mrn:mrn,
+          reportSeq: item.reportSeq,
+          reportCode: item.reportCode } }).
 
       then(function (res) {
 
@@ -314,7 +315,8 @@ var _default =
 
       then(function (res) {
         if (res.data.code == 200) {
-          that.reportlist = res.data.data;
+          that.list = res.data.data;
+
         }
       });
     } } };exports.default = _default;

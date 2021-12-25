@@ -231,10 +231,10 @@ __webpack_require__.r(__webpack_exports__);
 
   },
   onLoad: function onLoad(option) {//
-    option.row && (this.appointmentInfo = JSON.parse(option.row));
-    this.userInfo = getApp().globalData.PatientList.length > 1 ? {} : getApp().globalData.PatientList[0];
-    this.$getUserId();
-    if (this.userInfo.name) this.getPaientCard(this.userInfo);
+    option.row && (this.appointmentInfo = JSON.parse(option.row));var _getApp$globalData =
+    getApp().globalData,PatientList = _getApp$globalData.PatientList,PatientCard = _getApp$globalData.PatientCard;
+    this.userInfo = PatientList[0];
+    this.PaientCard = PatientCard;
   },
   methods: {
     submit: function submit() {var _this = this;
@@ -295,22 +295,9 @@ __webpack_require__.r(__webpack_exports__);
     showUserList: function showUserList() {
       this.$refs.userModelref.show();
     },
-    changeUser: function changeUser(row) {
+    changeUser: function changeUser(row) {var _this2 = this;
       this.userInfo = row;
-      this.getPaientCard(this.userInfo);
-    },
-    getPaientCard: function getPaientCard(PaientInfo) {var _this2 = this;
-      uni.showLoading({
-        title: '加载中...' });
-
-      this.$request({
-        path: "/tpatientCard/mobile/getPatientCardByPatientInfo?condition=".concat(PaientInfo.credentialNo, "&conditionType=").concat(PaientInfo.credentialType) }).
-      then(function (res) {
-        uni.hideLoading();
-        if (res.data.code == 200) {
-          _this2.PaientCard = res.data.data;
-        }
-      });
+      this.$getUserCard(row).then(function (res) {return _this2.PaientCard = res;});
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

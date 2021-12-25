@@ -3,7 +3,7 @@
 let baseUrl = ''
 const envObject = {
 	test: {
-		baseUrl: 'https://min.his.gzskt.net/bjrmWebApi',
+		baseUrl: 'http://cmstz.vicp.io',
 	},
 	pro: {
 		baseUrl: 'https://min.his.gzskt.net/bjrmWebApi',
