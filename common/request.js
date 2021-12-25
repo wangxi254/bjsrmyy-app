@@ -33,6 +33,9 @@ export default {
 							resolve(res);
 						}
 						else {
+							console.log('----------------------------')
+							console.log(res.data.msg)
+							console.log('----------------------------')
 							uni.showToast({
 								title: JSON.stringify(res),
 								icon: 'none',
