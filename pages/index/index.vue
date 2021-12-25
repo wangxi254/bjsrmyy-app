@@ -166,15 +166,17 @@
 						img:'../../static/index/menu-item4.png',
 						title:'检验报告',
 						no:4,
-						navigation:'../../mine/diagnose/diagnoseLsit',
+						navigation:'../../mine/report/testreport',
 						hashospitalInto:false,
+						needLogin:true,
 					},
 					{
 						img:'../../static/index/menu-item5.png',
 						title:'检查报告',
 						no:5,
-						navigation:'../../mine/diagnose/diagnoseLsit',
+						navigation:'../../mine/report/checkreport',
 						hashospitalInto:false,
+						needLogin:true,
 					},
 					{
 						img:'../../static/index/menu-item6.png',
@@ -234,9 +236,8 @@
 						title:'楼层导航',
 						no:5,
 						navigation:'../../hospitalIntro/FloorList',
-						hashospitalInto:false,
+						hashospitalInto:true,
 					}
-					
 				],
 				news:[
 					// {
@@ -322,6 +323,7 @@
 				uni.navigateTo({
 					url:navigation,
 				})
+				
 			}
 			
 		}
