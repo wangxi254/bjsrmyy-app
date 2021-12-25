@@ -31,7 +31,7 @@
   z-index: -1;
   width: 100%;
   height: 400rpx;
-  background: #007aff;
+  background: #53B7C7;
 }
 .keeptime-view.data-v-00679698 {
   text-align: center;
@@ -68,7 +68,7 @@
   font-size: 24rpx;
 }
 .listText.data-v-00679698 {
-  color: #007aff;
+  color: #53B7C7;
   margin: 10rpx;
 }
 .pay-view.data-v-00679698 {

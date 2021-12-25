@@ -35,7 +35,7 @@
   width: 40rpx;
   height: 40rpx;
   border-radius: 50%;
-  background: #007aff;
+  background: #53B7C7;
   text-align: center;
 }
 .text-view.data-v-f1f143ae {
@@ -88,8 +88,8 @@
   border-radius: 6rpx;
 }
 .search-view .tags.active.data-v-f1f143ae {
-  background: rgba(0, 122, 255, 0.2);
-  color: #007aff;
+  background: rgba(83, 183, 199, 0.2);
+  color: #53B7C7;
 }
 .search-view .btngroup.data-v-f1f143ae {
   margin-top: 20rpx;

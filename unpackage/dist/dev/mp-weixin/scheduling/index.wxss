@@ -28,37 +28,22 @@
   width: 100%;
   height: 100%;
   overflow: hidden;
-  display: -webkit-box;
-  display: -webkit-flex;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -webkit-flex-direction: column;
-          flex-direction: column;
+  flex-direction: column;
 }
 .content .item-con.data-v-050158a5 {
-  display: -webkit-box;
-  display: -webkit-flex;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -webkit-flex-direction: column;
-          flex-direction: column;
+  flex-direction: column;
 }
 .content .time.data-v-050158a5 {
   height: 40px;
   width: 100%;
   margin-top: 10px;
-  display: -webkit-box;
-  display: -webkit-flex;
   display: flex;
 }
 .content .time .timer.data-v-050158a5 {
-  display: -webkit-box;
-  display: -webkit-flex;
   display: flex;
-  -webkit-justify-content: space-around;
-          justify-content: space-around;
+  justify-content: space-around;
 }
 .content .time .timer ._span.data-v-050158a5 {
   border: 1px solid rgba(0, 0, 0, 0.2);
@@ -70,12 +55,8 @@
   background-color: #5db1ff;
 }
 .content .main.data-v-050158a5 {
-  -webkit-box-flex: 1;
-  -webkit-flex: 1;
-          flex: 1;
+  flex: 1;
   background: #f8f8f8;
-  display: -webkit-box;
-  display: -webkit-flex;
   display: flex;
   overflow: auto;
 }
@@ -90,22 +71,14 @@
 }
 .content .main .item .ztime.data-v-050158a5 {
   border-top: 1px solid #f8f8f8;
-  display: -webkit-box;
-  display: -webkit-flex;
   display: flex;
 }
 .content .main .item .ztime .ztime-zw.data-v-050158a5 {
   width: 22%;
   border-right: 1px solid #f8f8f8;
-  display: -webkit-box;
-  display: -webkit-flex;
   display: flex;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-          align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-          justify-content: center;
+  align-items: center;
+  justify-content: center;
 }
 .content .main .item .ztime .persons.data-v-050158a5 {
   width: 78%;
