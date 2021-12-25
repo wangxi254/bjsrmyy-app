@@ -28,10 +28,19 @@
   min-height: 80px;
   width: 100%;
   background: #fff;
+  display: -webkit-box;
+  display: -webkit-flex;
   display: flex;
-  flex-flow: column;
-  align-items: center;
-  justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-flow: column;
+          flex-flow: column;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
 }
 .box view {
   line-height: 2;

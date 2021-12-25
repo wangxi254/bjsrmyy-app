@@ -25,11 +25,11 @@
 			<view class="cell hs-border">
 				<view class="space-between">
 					<view>科室名称：{{item.depName}}</view>
-					<view>检查医生：{{item.sqDoc}}</view>
-				</view>
-				<view>
 					<view>检验名称：{{item.reportName}}</view>
+				</view>
+				<view class="space-between">
 					<view>检验编号：{{item.reportCode}}</view>
+					<!-- <view>检查医生：{{item.sqDoc}}</view> -->
 				</view>
 			</view>
 		</view>
@@ -154,7 +154,38 @@
 						that.list = res.data.data;
 					}
 				})
-			}
+			},
+			getCheckreportbyUserId(){
+				
+				if(this.startDate.length == 0){
+					return uni.showToast({
+						icon:"none",
+						title:"请选择开始时间"
+					})
+				}
+				
+				if(this.endDate.length == 0){
+					return uni.showToast({
+						icon:"none",
+						title:"请选择结束时间"
+					})
+				}
+				
+				let that = this;  
+				let date = new Date().toISOString().slice(0, 10);
+				this.$request({
+					path:'/testReport/mobile/getInfoByPatient',
+					query:{
+						beginDate:this.startDate,
+						endDate:this.endDate,
+						userId:uni.getStorageSync("userId"),
+					}
+				}).then(res=>{
+					if(res.data.code == 200){
+						that.reportlist = res.data.data;
+					}
+				})
+			},
 		}
 	}
 </script>

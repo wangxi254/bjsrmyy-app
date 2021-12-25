@@ -99,7 +99,10 @@
 					method:'POST',
 				}).then(res=>{
 					if(res.data.code == 200){
-						this.expertorList = res.data.data;
+						uni.showToast({
+							icon:'none',
+							title:res.data.msg
+						})
 					}
 				})
 			}

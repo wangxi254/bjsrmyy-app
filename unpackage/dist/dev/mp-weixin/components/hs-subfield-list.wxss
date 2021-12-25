@@ -59,8 +59,13 @@
   display: block;
 }
 .row.data-v-6352bc4a {
+  display: -webkit-box;
+  display: -webkit-flex;
   display: flex;
-  flex-direction: row;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+          flex-direction: row;
 }
 .col20-5.data-v-6352bc4a {
   width: 35%;
