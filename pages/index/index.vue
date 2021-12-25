@@ -105,6 +105,7 @@
 						// {id:18,img:'/static/tabbar/home.png',title:'挂号记录',detail:'Appointment',navigation:'../../yx/registerRecord/index'},
 						// {id:19,img:'/static/tabbar/home.png',title:'住院预交金',detail:'Appointment',navigation:'../../records/roomPay'},
 						{id:20,img:'/static/tabbar/home.png',title:'诊间支付',detail:'Appointment',navigation:'../../records/listPay'},
+						{id:21,img:'/static/tabbar/home.png',title:'核算检测',detail:'Appointment',navigation:'../../yx/hsTest/index'}
 				   ],
 				banners:[
 					{

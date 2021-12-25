@@ -33,6 +33,11 @@ export default {
 							resolve(res);
 						}
 						else {
+							uni.showToast({
+								title: JSON.stringify(res),
+								icon: 'none',
+								duration:3000
+							});
 							resolve(res);
 						}
 					}else{

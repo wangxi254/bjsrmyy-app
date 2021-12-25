@@ -31,6 +31,18 @@
 			}
 		},
 		{
+			"path": "pages/hsTest/index",
+			"style": {
+				"navigationBarTitleText": "核酸检测"
+			}
+		},
+		{
+			"path": "pages/hsTest/pay",
+			"style": {
+				"navigationBarTitleText": "核酸检测"
+			}
+		},
+		{
 			"path":"pages/showIcon/index",
 			"style":{
 				"navigationBarTitleText": "图标"
@@ -278,6 +290,18 @@
 					"path": "registerRecord/index",
 					"style": {
 						"navigationBarTitleText": "挂号记录"
+					}
+				},
+				{
+					"path": "hsTest/index",
+					"style": {
+						"navigationBarTitleText": "核酸检测"
+					}
+				},
+				{
+					"path": "hsTest/pay",
+					"style": {
+						"navigationBarTitleText": "核酸检测"
 					}
 				}
 			]
