@@ -35,13 +35,9 @@
   line-height: 40px;
 }
 .bzlist .list.data-v-a3f7fb62 {
-  display: -webkit-box;
-  display: -webkit-flex;
   display: flex;
-  -webkit-flex-wrap: wrap;
-          flex-wrap: wrap;
-  -webkit-justify-content: space-around;
-          justify-content: space-around;
+  flex-wrap: wrap;
+  justify-content: space-around;
 }
 .bzlist .list .item.data-v-a3f7fb62 {
   color: white;
@@ -64,15 +60,9 @@
 }
 .rightNavItem.data-v-a3f7fb62 {
   height: 45px;
-  display: -webkit-box;
-  display: -webkit-flex;
   display: flex;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-          justify-content: space-between;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-          align-items: center;
+  justify-content: space-between;
+  align-items: center;
   margin-left: 15px;
   border-bottom: 1px solid #d8d8d8;
   padding: 0 10px;
@@ -86,7 +76,7 @@
   text-align: center;
 }
 .leftActive.data-v-a3f7fb62 {
-  border-left: 3px solid #007aff;
+  border-left: 3px solid #53B7C7;
   background: #FFFFFF;
 }
 .leftUnActive.data-v-a3f7fb62 {
@@ -101,13 +91,8 @@
   display: block;
 }
 .row.data-v-a3f7fb62 {
-  display: -webkit-box;
-  display: -webkit-flex;
   display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -webkit-flex-direction: row;
-          flex-direction: row;
+  flex-direction: row;
 }
 .leftNavBox.data-v-a3f7fb62 {
   width: 16%;

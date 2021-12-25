@@ -44,7 +44,7 @@
   line-height: 50px;
 }
 .leftActive.data-v-6352bc4a {
-  border-left: 3px solid #007aff;
+  border-left: 3px solid #53B7C7;
   background: #FFFFFF;
 }
 .leftUnActive.data-v-6352bc4a {
@@ -59,13 +59,8 @@
   display: block;
 }
 .row.data-v-6352bc4a {
-  display: -webkit-box;
-  display: -webkit-flex;
   display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -webkit-flex-direction: row;
-          flex-direction: row;
+  flex-direction: row;
 }
 .col20-5.data-v-6352bc4a {
   width: 35%;

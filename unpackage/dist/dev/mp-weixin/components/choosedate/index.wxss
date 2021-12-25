@@ -52,7 +52,7 @@
   color: #808080;
 }
 .date-view .day-item .hasflag.active.data-v-7c07f47a {
-  color: #007aff;
+  color: #53B7C7;
 }
 .date-view .day-item .day.data-v-7c07f47a {
   font-size: 24rpx;
@@ -63,7 +63,7 @@
   margin: 0 auto;
 }
 .date-view .day-item .day.active.data-v-7c07f47a {
-  background: #007aff;
+  background: #53B7C7;
   border-radius: 50%;
   color: #fff;
 }

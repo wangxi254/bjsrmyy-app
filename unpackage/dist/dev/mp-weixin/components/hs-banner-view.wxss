@@ -25,13 +25,8 @@
 /* 透明度 */
 /* 文章场景相关 */
 .flex-row.data-v-04523adf {
-  display: -webkit-box;
-  display: -webkit-flex;
   display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -webkit-flex-direction: row;
-          flex-direction: row;
+  flex-direction: row;
 }
 .banner-view.data-v-04523adf {
   width: 100%;

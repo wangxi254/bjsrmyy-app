@@ -26,23 +26,13 @@
 /* 文章场景相关 */
 .sel-condition.data-v-411cb300 {
   padding: 0 20rpx;
-  display: -webkit-box;
-  display: -webkit-flex;
   display: flex;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-          justify-content: space-between;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-          align-items: center;
+  justify-content: space-between;
+  align-items: center;
 }
 .sel-condition .v-switch.data-v-411cb300 {
-  display: -webkit-box;
-  display: -webkit-flex;
   display: flex;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-          align-items: center;
+  align-items: center;
 }
 .person-list .t-part .title.data-v-411cb300 {
   background: #fff;
@@ -52,7 +42,7 @@
 .person-list .t-part .title .icon.data-v-411cb300 {
   width: 10rpx;
   height: 32rpx;
-  background: #007aff;
+  background: #53B7C7;
   border-radius: 8rpx;
   margin-right: 10rpx;
 }
@@ -81,7 +71,7 @@
   color: red;
 }
 .person-list .t-part .person-item .person-item-info .surplus.data-v-411cb300 {
-  background: #007aff;
+  background: #53B7C7;
   color: #fff;
   width: 160rpx;
   height: 50rpx;

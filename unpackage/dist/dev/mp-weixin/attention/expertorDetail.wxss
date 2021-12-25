@@ -31,9 +31,7 @@
 .doctor-header.data-v-ecb55946 {
   background: #FFFFFF;
   padding: 15px;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-          align-items: center;
+  align-items: center;
 }
 .doctor-header .img.data-v-ecb55946 {
   width: 80px;
