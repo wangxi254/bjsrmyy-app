@@ -106,52 +106,55 @@ export default {
 				success: loginres => {
 					console.log("loginres>>",JSON.stringify(loginres));
 					
-					
-					let url = 'https://api.weixin.qq.com/sns/jscode2session?appid=' + appid + '&secret=' + secret +
-						'&js_code=' +
-						loginres.code + '&grant_type=authorization_code';
-					// 用 code 换取 session 和 openId
-					uni.request({
-						url: url, // 请求路径
-						success: res => { //成功res返回openid，session_key
-							res.data.openid && uni.setStorageSync("openId",res.data.openid)
-							console.log(JSON.stringify(res));	
+					const encryptedData = e.detail.encryptedData;
+					const iv = e.detail.iv;
+					const code = loginres.code;
+					that.requestByCode(code,encryptedData,iv);
+					// let url = 'https://api.weixin.qq.com/sns/jscode2session?appid=' + appid + '&secret=' + secret +
+					// 	'&js_code=' +
+					// 	loginres.code + '&grant_type=authorization_code';
+					// // 用 code 换取 session 和 openId
+					// uni.request({
+					// 	url: url, // 请求路径
+					// 	success: res => { //成功res返回openid，session_key
+					// 		res.data.openid && uni.setStorageSync("openId",res.data.openid)
+					// 		console.log(JSON.stringify(res));	
 							
-							console.log("res.data.session_key===>",res.data.session_key);
-							console.log("appid===>",appid);
-							console.log("e.detail.encryptedData===>",e.detail.encryptedData);
-							console.log("e.detail.iv===>",e.detail.iv);
-							//解密用户信息
-							let pc = new WXBizDataCrypt(appid,res.data.session_key);           //wxXXXXXXX为你的小程序APPID  
-							let data = pc.decryptData(e.detail.encryptedData , e.detail.iv);  
+					// 		console.log("res.data.session_key===>",res.data.session_key);
+					// 		console.log("appid===>",appid);
+					// 		console.log("e.detail.encryptedData===>",e.detail.encryptedData);
+					// 		console.log("e.detail.iv===>",e.detail.iv);
+					// 		//解密用户信息
+					// 		let pc = new WXBizDataCrypt(appid,res.data.session_key);           //wxXXXXXXX为你的小程序APPID  
+					// 		let data = pc.decryptData(e.detail.encryptedData , e.detail.iv);  
 							
 							
-							// //data就是最终解密的用户信息 
-							// countryCode: "86"  区号
-							// phoneNumber: "15634123456"  用户绑定的手机号（国外手机号会有区号）
-							// purePhoneNumber: "15634123456"  没有区号的手机号
-							// watermark:
-							//         appid: "wxce185cd1da123456"
-							//         timestamp: 1607906868
-							console.log(JSON.stringify(data))
-							const phone = data.phoneNumber;
+					// 		// //data就是最终解密的用户信息 
+					// 		// countryCode: "86"  区号
+					// 		// phoneNumber: "15634123456"  用户绑定的手机号（国外手机号会有区号）
+					// 		// purePhoneNumber: "15634123456"  没有区号的手机号
+					// 		// watermark:
+					// 		//         appid: "wxce185cd1da123456"
+					// 		//         timestamp: 1607906868
+					// 		console.log(JSON.stringify(data))
+					// 		const phone = data.phoneNumber;
 
-							uni.getUserInfo({    
-                        		withCredentials:false,
-								success: (info) => {
-									console.log("info===>",JSON.stringify(info));
-									const name = info.userInfo.nickName
-									that.requestAdd(name,name,phone);
-								},
-								fail: (err) => {
-									console.log(err)
-								}
-							})
-						},
-						fail: err => {
-							console.log(err)
-						}
-					})
+					// 		uni.getUserInfo({    
+     //                    		withCredentials:false,
+					// 			success: (info) => {
+					// 				console.log("info===>",JSON.stringify(info));
+					// 				const name = info.userInfo.nickName
+					// 				that.requestAdd(name,name,phone);
+					// 			},
+					// 			fail: (err) => {
+					// 				console.log(err)
+					// 			}
+					// 		})
+					// 	},
+					// 	fail: err => {
+					// 		console.log(err)
+					// 	}
+					// })
 				}
 			})
 		},
@@ -193,6 +196,20 @@ export default {
 					})
 				}
 			}
+		},
+		async requestByCode(code,encryptedData,iv){
+			const [err,res] = await this.$arequest({
+				path:"/user/mobile/postAuth",
+				method:"POST",
+				query:{
+					code:code,
+					encryptedData:encryptedData,
+					iv:iv,
+				}
+			})
+			// 346829058917404672
+			console.log("err:",JSON.stringify(err))
+			console.log("res:",JSON.stringify(res))
 		}
 
 	}

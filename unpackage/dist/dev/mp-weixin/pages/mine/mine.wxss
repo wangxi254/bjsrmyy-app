@@ -25,14 +25,10 @@
 /* 透明度 */
 /* 文章场景相关 */
 .cell .info.data-v-dcbcfe34 {
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-          align-items: center;
+  align-items: center;
   margin-left: 15px;
   margin-right: 15px;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-          justify-content: space-between;
+  justify-content: space-between;
 }
 .cell .info .name.data-v-dcbcfe34 {
   line-height: 40px;

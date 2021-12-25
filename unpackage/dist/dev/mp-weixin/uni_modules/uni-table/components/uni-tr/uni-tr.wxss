@@ -26,7 +26,6 @@
 /* 文章场景相关 */
 .uni-table-tr {
   display: table-row;
-  -webkit-transition: all 0.3s;
   transition: all 0.3s;
   box-sizing: border-box;
 }

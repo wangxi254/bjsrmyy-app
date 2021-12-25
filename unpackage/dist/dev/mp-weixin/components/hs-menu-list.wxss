@@ -25,31 +25,19 @@
 /* 透明度 */
 /* 文章场景相关 */
 .Grid.data-v-b07a1876 {
-  display: -webkit-box;
-  display: -webkit-flex;
   display: flex;
-  -webkit-flex-wrap: wrap;
-          flex-wrap: wrap;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-          justify-content: space-between;
-  -webkit-align-content: space-between;
-          align-content: space-between;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-content: space-between;
   background: #FFFFFF;
   padding: 20px 0;
 }
 .Grid .Grid-Item.data-v-b07a1876 {
   width: 50%;
   height: 70px;
-  display: -webkit-box;
-  display: -webkit-flex;
   display: flex;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-          align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-          justify-content: center;
+  align-items: center;
+  justify-content: center;
   border: 1rpx solid #ccc;
   box-sizing: border-box;
 }
