@@ -55,6 +55,7 @@
 	
 	.banner-view{
 		width: 100%;
+		height: 150px;
 	}
 	
 	// .banner-img{

@@ -55,7 +55,11 @@
 			}
 		},
 		onLoad(options) {
-			this.requestHospitalInto();
+			if(options.item){
+				this.hospitalInto = JSON.parse(options.item);
+			}else{
+				this.requestHospitalInto();
+			}	
 		},
 		methods: {
 			clickTab(index){

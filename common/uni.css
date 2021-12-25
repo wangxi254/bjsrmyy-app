@@ -30,3 +30,37 @@
 .hs-border{
 	border: 0.5px solid #c8c7cc;
 }
+
+.margin15{
+	margin: 15px;
+}
+
+.marginlr15{
+	margin-left: 15px;
+	margin-right: 15px;
+}
+
+.marginl15{
+	margin-left: 15px;	
+}
+
+.marginr15{
+	margin-right: 15px;	
+}
+
+.paadinglr15{
+	padding-left: 15px;
+	padding-right: 15px;
+}
+
+.paddingr15{
+	padding-right: 15px;	
+}
+	
+.paddingl15{
+	padding-left: 15px;	
+}
+
+.paading15{
+	padding: 15px;
+}
