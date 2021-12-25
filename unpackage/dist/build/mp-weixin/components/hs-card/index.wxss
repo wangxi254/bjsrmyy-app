@@ -1,0 +1,1 @@
+.card{width:100%;background:#fff;border-radius:6rpx;box-sizing:border-box;margin-bottom:20rpx}.card .card-body{padding:20rpx;min-height:80rpx}
