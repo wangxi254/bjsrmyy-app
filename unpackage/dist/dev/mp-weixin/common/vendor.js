@@ -8948,6 +8948,9 @@ var _config = _interopRequireDefault(__webpack_require__(/*! ../config.js */ 17)
               resolve(res);
             } else
             {
+              console.log('----------------------------');
+              console.log(res.data.msg);
+              console.log('----------------------------');
               uni.showToast({
                 title: JSON.stringify(res),
                 icon: 'none',
