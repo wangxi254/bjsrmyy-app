@@ -303,7 +303,7 @@ var _WXBizDataCrypt = _interopRequireDefault(__webpack_require__(/*! ./WXBizData
               uni.$emit('Login', { msg: "登录更新" });
               setTimeout(function () {
                 uni.navigateBack();
-              }, 500);
+              }, 100);
             } });
 
 

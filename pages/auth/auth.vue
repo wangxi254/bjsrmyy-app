@@ -142,7 +142,7 @@ export default {
 							uni.$emit('Login',{msg: "登录更新"})
 							setTimeout(()=>{
 								uni.navigateBack();
-							},500)
+							},100)
 						}
 					})
 					
