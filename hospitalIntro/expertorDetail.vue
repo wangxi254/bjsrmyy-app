@@ -1,7 +1,7 @@
 <template>
 	<view class="content">
 		<view class="doctor-header flex-row">
-			<image class="img" :src="exportInfo.icon"></image>
+			<image class="img" mode="" :src="exportInfo.icon ? exportInfo.icon : '../static/common/person.jpg'"></image>
 			<view>
 				<view class="name">
 					{{exportInfo.docName || emptyText}}

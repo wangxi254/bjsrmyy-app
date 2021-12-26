@@ -3,7 +3,7 @@
 		<view>{{detailInfo.contentTitle}}</view>
 		<view>{{detailInfo.content}}</view>
 		<view>{{detailInfo.createTime}}</view>
-		<image class="img" :src="detailInfo.carouselImageUrl"></image>
+		<image class="img" mode="" :src="detailInfo.carouselImageUrl"></image>
 	</view>
 </template>
 
