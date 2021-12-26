@@ -205,13 +205,6 @@
 						no:8,
 						navigation:'../../yx/hsTest/index',
 						hashospitalInto:false,
-					},
-					{
-						img:'../../static/index/menu-item7.png',
-						title:'电子导诊单',
-						no:8,
-						navigation:'../../hospitalIntro/guideDiag',
-						hashospitalInto:false,
 					}
 					
 				],
