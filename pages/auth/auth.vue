@@ -121,7 +121,7 @@ export default {
 			
 		},
 		requestAdd(openId,name,nickName,phone){
-			this.postAuth(openId,phone);
+			this.postAuth(phone,openId);
 			this.$request({
 				path:"/user/mobile/add",
 				method:"POST",
