@@ -55,10 +55,10 @@
 			</view>
 		</view>
 			
-		<image class="hs-banner" mode="" src="http://www.pptbz.com/pptpic/UploadFiles_6909/201203/2012031220134655.jpg"></image>
+		<image class="hs-banner" mode="" src="https://second-vedio.oss-cn-shenzhen.aliyuncs.com/image/d4860fdbe172f0285deb8a2cc4a58c64.jpeg"></image>
 		
 		<view v-for="item in news">
-			<view class="cell paading15">
+			<view class="cell paading15" @click="goDetail(item)">
 				<view class="cont">
 					<view class="title">
 						{{item.contentTitle}}
@@ -389,7 +389,13 @@
 				uni.navigateTo({
 					url:navigation,
 				})
+			},
+			goDetail(item){
+				uni.navigateTo({
+					url:`../../hospitalIntro/newdetail?item=${JSON.stringify(item)}`
+				})
 			}
+			
 			
 		}
 	}

@@ -104,6 +104,12 @@
 					"style": {
 						"navigationBarTitleText": "就诊须知"
 					}
+				},
+				{
+					"path":"newdetail",
+					"style": {
+						"navigationBarTitleText": "咨询详情"
+					}
 				}
 			]
 		},

@@ -2,7 +2,20 @@
 	<view>
 		<view class="checklayer" v-if="openlayer">
 			<view class="parkbox">
-				<view class="center height40 bottomborder">姓名：{{disagnoseCode.name}}</view>
+				<!-- <view class="center height40 bottomborder">姓名：{{disagnoseCode.name}}</view> -->
+				<view class="center bottomborder flex-row">
+					<view>姓名：</view>
+					<view>
+						<picker :value="credentialTypeIndex" :range="patientList" @change="credentialTypeChange" range-key="name">
+							<view class="flex-row picker-view height40">
+							  <view>
+									{{patientList[credentialTypeIndex].name||'选择联系人类型'}}
+							  </view>
+							   <image class="right" src="../../static/common/right.png"></image>
+							</view>
+						</picker>
+					</view>
+				</view>
 				<view class="center">
 					<view class="tcode">
 						<w-barcode :options="barcode"></w-barcode>
@@ -32,7 +45,6 @@
 			return {
 				list:[],
 				openlayer:false,
-				disagnoseCode:{},
 				scancode:{
 					code: 'https://qm.qq.com/cgi-bin/qm/qr?k=LKqML292dD2WvwQfAJXBUmvgbiB_TZWF&noverify=0',
 					size: 260, // 二维码大小
@@ -45,6 +57,10 @@
 					height: 50 // 高度
 				},
 				mrn:'',
+				patientList:[],
+				credentialTypeIndex:0,
+				credentialType:'',
+				credentialNo:'',
 				// disagnoseCode:{
 				// 	scode:'http://www.pptbz.com/pptpic/UploadFiles_6909/201203/2012031220134655.jpg',
 				// 	tcode:'http://www.pptbz.com/pptpic/UploadFiles_6909/201203/2012031220134655.jpg',
@@ -100,12 +116,14 @@
 					}
 				})
 			},
-			openCode(item){
-				this.disagnoseCode = item;
-				this.getPainInfo(item);
+			openCode(){
+				this.getPainInfo();
 			},
 			coselayer(){
 				this.openlayer = false;
+				uni.switchTab({
+					url:"../index/index"
+				})
 			},
 			edit(item){
 				uni.navigateTo({
@@ -127,25 +145,30 @@
 				let defaultPatientItem = {};
 				if(res.data.code == 200){
 					const list = res.data.data;
+					this.patientList = list;
 					console.log("list===>",JSON.stringify(list));
 					for(let i = 0; i < list.length; i ++){
 						const item = list[i];
 						if(item.defaultPatient == 1){
 							defaultPatientItem = item;
+							this.credentialNo = item.credentialNo;
+							this.credentialType = item.credentialType;
+							this.credentialTypeIndex = i;
 							break;
 						}
 					}
 				}
-				this.openCode(defaultPatientItem)
+				this.openCode()
 			},
-			getPainInfo(item){
+			getPainInfo(){
 				let that = this;
 				this.$request({
 					path:"/tpatientCard/mobile/getPatientCardByPatientInfo",
 					query:{
-						conditionType:item.credentialType,
-						condition:item.credentialNo,
+						conditionType:this.credentialType,
+						condition:this.credentialNo,
 					},
+					hastoast:true,
 				}).then(res=>{
 					console.log("res",JSON.stringify(res));
 					if(res.data.code == 200){
@@ -188,6 +211,15 @@
 				}).then(res=>{
 					console.log("res",JSON.stringify(res));
 				})
+			},
+			credentialTypeChange(e){
+				console.log("e===>",JSON.stringify(e));
+				const index = e.detail.value;
+				this.credentialTypeIndex =  index;
+				this.credentialType = this.patientList[index].credentialType;
+				this.credentialNo = this.patientList[index].credentialNo;
+				
+				this.openCode();
 			}
 			
 		}
@@ -287,5 +319,27 @@
 	.height40{
 		line-height: 40px;
 		height: 40px;
+	}
+	
+	.right{
+		height: 10px;
+		width: 10px;
+	}
+	
+	.picker-view{
+		min-width: 80px;
+		padding: 0 10px;
+		
+		align-items: center;
+		display: flex;
+		justify-content: space-between;
+		text-align: center;
+	}
+	
+	.height40{
+		height: 30px;
+		line-height: 30px;
+		margin: 0px 5px;
+		border-radius: 5px;
 	}
 </style>
