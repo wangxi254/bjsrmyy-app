@@ -14,14 +14,14 @@
     <view class="search-view">
         <view class="date-view flex justify-between items-center">
             <view class="dateInput">
-                <picker mode="date" :value="searchForm.startDate" :start="startDate" :end="endDate">
-                    <view class="uni-input">{{startDate}}</view>
+                <picker mode="date" :value="searchForm.startDate" :start="startDate" :end="endDate" @change="change1">
+                    <view class="uni-input">{{searchForm.startDate}}</view>
                 </picker>
             </view>
             <text>至</text>
             <view class="dateInput">
-                <picker mode="date" :value="searchForm.endDate" :start="startDate" :end="endDate">
-                    <view class="uni-input">{{endDate}}</view>
+                <picker mode="date" :value="searchForm.endDate" :start="startDate" :end="endDate" @change="change2">
+                    <view class="uni-input">{{searchForm.endDate}}</view>
                 </picker>
             </view>
             
@@ -72,8 +72,8 @@ export default {
     data(){
         return {
             searchForm: {
-                startDate: "",
-                endDate: ""
+                startDate: new Date().toISOString().slice(0, 10),
+                endDate: new Date().toISOString().slice(0, 10),
             },
             startDate:getDate('start'),
 			endDate:getDate('end'),
@@ -108,8 +108,18 @@ export default {
                     endDate: this.searchForm.endDate
                 }
             }).then(res=>{
-               console.log(res)
+                if(res.data.code == 200){
+                    this.list = res.data.data
+                }
             })
+        },
+        change1(e) {
+            let date = e.detail.value;
+			this.searchForm.startDate = date;
+        },
+        change2(e) {
+            let date = e.detail.value;
+			this.searchForm.endDate = date;
         }
     }
 }

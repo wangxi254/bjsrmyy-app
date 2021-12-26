@@ -4,7 +4,7 @@
  * @Author: seven
  * @Date: 2021-12-24 21:18:23
  * @LastEditors: seven
- * @LastEditTime: 2021-12-25 21:58:02
+ * @LastEditTime: 2021-12-27 00:22:01
 -->
 <template>
     <view class="detailPage">
@@ -172,6 +172,7 @@ export default {
         }
         
         const { PatientList, PatientCard }  = getApp().globalData;
+        console.log(getApp().globalData)
         this.userInfo = PatientList[0];
         this.PaientCard = PatientCard;
         if(this.userInfo && Object.keys(this.userInfo).length>0){
@@ -210,8 +211,19 @@ export default {
         },
         chooseUser(row) {
             this.$refs.userModelref.show();
+            //this.$getUserCard(row);
         },
         submit() {
+            if(!this.PaientCard) {
+                console.log(getApp().globalData.PatientCard)
+                return uni.showToast({
+                    icon: 'none',
+                    text: '暂无病历号'
+                })
+            }
+            uni.showLoading({
+                text: "加载中..."
+            })
             this.$request({
                 path:`/nucleicPatientInfo `,
                 method:'post',
@@ -221,10 +233,14 @@ export default {
                     occupationClassify: this.selForm.sel2,
                     purpose: this.selForm.sel3,
                     openId: this.openId,
-                    questionId: this.quesionId
+                    questionId: this.quesionId,
+					patientId: this.userInfo.id
                 }  
             }).then(res=>{
+                uni.hideLoading();
                 if(res.data.code == 200) this.weixinPay(res.data.data)
+            }).catch(err=>{
+                uni.hideLoading();
             })
             
         },

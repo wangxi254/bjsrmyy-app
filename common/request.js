@@ -178,5 +178,16 @@ export default {
 			}
 			
 		})
+	},
+	//初始化操作
+	userInit() {
+		this.$getPatientList().then(res=>{
+			getApp().globalData.PatientList = res.length>0?res: [{}];
+			if(res.length>0) return this.$getUserCard(res[0]);
+			else return {};
+		}).then(info=>{
+			getApp().globalData.PatientCard = info;
+			console.log('----------------------初始化完成----------------------')
+		})
 	}
 }

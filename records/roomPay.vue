@@ -14,14 +14,14 @@
     <view class="search-view">
         <view class="date-view flex justify-between items-center">
             <view class="dateInput">
-                <picker mode="date" :value="searchForm.startDate" :start="startDate" :end="endDate">
-                    <view class="uni-input">{{startDate}}</view>
+                <picker mode="date" :value="searchForm.startDate" :start="startDate" :end="endDate" @change="change1">
+                    <view class="uni-input">{{searchForm.startDate}}</view>
                 </picker>
             </view>
             <text>至</text>
             <view class="dateInput">
-                <picker mode="date" :value="searchForm.endDate" :start="startDate" :end="endDate">
-                    <view class="uni-input">{{endDate}}</view>
+                <picker mode="date" :value="searchForm.endDate" :start="startDate" :end="endDate" @change="change2">
+                    <view class="uni-input">{{searchForm.endDate}}</view>
                 </picker>
             </view>
             
@@ -29,9 +29,6 @@
          <button class="primary-btn" style="margin-top: 10rpx" @click="getList">查询</button>
     </view>
     <view class="pageContainer">
-        <!-- <view class="hisView" >
-
-        </view> -->
         <hs-card class="appointInfo-view" v-for="(item,index) in list" :key="index">
             <template v-slot:header>
                 <view class="title-model flex items-center justify-between">
@@ -102,8 +99,8 @@ export default {
     data(){
         return {
             searchForm: {
-                startDate: "",
-                endDate: ""
+                startDate: new Date().toISOString().slice(0, 10),
+                endDate: new Date().toISOString().slice(0, 10),
             },
             startDate:getDate('start'),
 			endDate:getDate('end'),
@@ -189,7 +186,7 @@ export default {
                     method: 'post',
                     query: {
                         openId: this.openId,
-                        payAmount: parseInt(val), //*100,
+                        payAmountStr: parseInt(val), //*100,
                         patientMedicalRecordNo: this.PaientCard.mrn,
                         depCode: this.currentInfo.depCode,
                         docCode: this.currentInfo.docCode,
@@ -227,11 +224,19 @@ export default {
                 },
                 fail: err => {
                     uni.showToast({
-                        title: JSON.stringify(err),
+                        title: "支付失败",
                         duration: 2000
                     })
                 }
             });
+        },
+        change1(e) {
+            let date = e.detail.value;
+			this.searchForm.startDate = date;
+        },
+        change2(e) {
+            let date = e.detail.value;
+			this.searchForm.endDate = date;
         }
     }
 }
@@ -290,5 +295,8 @@ export default {
         display: flex;
         justify-content: space-between;
         margin: 10px 0;
+    }
+    .pageContainer{
+        margin-bottom: 50px;
     }
 </style>
