@@ -17,6 +17,9 @@ export default {
 				},
 				success: res => {
 					uni.hideLoading();
+					console.log('---------调用地址---------')
+					console.log(requrl)
+					console.log('--------------------')
 					console.log('---------传入参数---------')
 					console.log(data)
 					console.log('--------------------')
