@@ -17,6 +17,9 @@ export default {
 				},
 				success: res => {
 					uni.hideLoading();
+					console.log('---------传入参数---------')
+					console.log(data)
+					console.log('--------------------')
 					if(res.data){
 						if(hastoast){
 							uni.showToast({
