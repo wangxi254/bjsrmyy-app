@@ -148,7 +148,7 @@
 						docCode: item.docInfo.docCode,
 						type: 0
 					})
-					if(item.date == date && item.classId == this.classId && item.timeType == '下午' && (new Date().getTime()< new Date(`${item.date} ${item.deadLine}`).getTime())) bottomArr.push({
+					if(item.date == date && item.depCode == this.classId && item.timeType == '下午' && (new Date().getTime()< new Date(`${item.date} ${item.deadLine}`).getTime())) bottomArr.push({
 						name: item.docInfo.docName,
 						img: '',
 						price: item.etPrice,
@@ -207,6 +207,7 @@
 								const has = data.find(x=>{
 									return (x.date == item && x.depCode == this.classId && (new Date().getTime()< new Date(`${x.date} ${x.deadLine}`).getTime()))
 								})
+								console.log(has)
 								this.hasData[item] = has?true:false;
 							})
 							

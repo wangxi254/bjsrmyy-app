@@ -186,7 +186,7 @@ export default {
                     method: 'post',
                     query: {
                         openId: this.openId,
-                        payAmount: parseInt(val), //*100,
+                        payAmountStr: parseInt(val), //*100,
                         patientMedicalRecordNo: this.PaientCard.mrn,
                         depCode: this.currentInfo.depCode,
                         docCode: this.currentInfo.docCode,

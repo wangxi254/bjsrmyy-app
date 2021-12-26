@@ -11,7 +11,7 @@
 				最新通知｜
 			</view>
 			<view class="notifacationdetail">
-				XXXXXXXXXXX通知标题
+				疫情期间就诊请网上预约
 			</view>
 		</view>
 		<view class="flex-row">
@@ -138,7 +138,7 @@
 					title:'门诊缴费',
 					detail:'在线快捷缴费',
 					no:'3',
-					navigation:'../../records/PayRecord',
+					navigation:'../../records/listPay',
 					hashospitalInto:false,
 					noti:2,
 				},
@@ -150,13 +150,13 @@
 						navigation:'../../guidance/index',
 						hashospitalInto:false,
 					},
-					{
-						img:'../../static/index/menu-item2.png',
-						title:'诊间支付',
-						no:2,
-						navigation:'../../records/listPay',
-						hashospitalInto:false,
-					},
+					// {
+					// 	img:'../../static/index/menu-item2.png',
+					// 	title:'诊间支付',
+					// 	no:2,
+					// 	navigation:'../../records/listPay',
+					// 	hashospitalInto:false,
+					// },
 					{
 						img:'../../static/index/menu-item3.png',
 						title:'住院缴费',
@@ -284,9 +284,9 @@
 				})
 			},
 			bannerClick(item){
-				uni.navigateTo({
-					url:"../auth/auth"
-				})
+				// uni.navigateTo({
+				// 	url:"../auth/auth"
+				// })
 			},
 			hospitalnews(id){
 				let that = this;

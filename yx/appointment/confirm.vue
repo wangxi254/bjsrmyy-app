@@ -99,7 +99,7 @@ export default {
                 phoneNum: this.userInfo.phone,
                 timeType: this.appointmentInfo.type + 1,
                 timePart: this.appointmentInfo.timePart,
-                payAmount: 1,//this.appointmentInfo.price * 100,
+                payAmountStr: this.appointmentInfo.price,//this.appointmentInfo.price * 100,
                 patientId: this.userInfo.id,
                 patientName: this.userInfo.name,
                 medicalRecordNo: this.PaientCard.mrn,

@@ -4,20 +4,21 @@
 			<image class="img" :src="exportInfo.icon"></image>
 			<view>
 				<view class="name">
-					{{exportInfo.docName}}
+					{{exportInfo.docName || emptyText}}
 				</view>
 				<view class="profical">
-					{{exportInfo.docTitle}}
+					{{exportInfo.docTitle || emptyText}}
 				</view>
 			</view>
 		</view>
 		
 		<view class="item">
 			<view class="item-title">
+				
 				简介
 			</view>
 			<view class="item-detail">
-				{{exportInfo.docInfo}}
+				{{exportInfo.docInfo || emptyText}}
 			</view>
 		</view>
 		
@@ -26,7 +27,7 @@
 				擅长
 			</view>
 			<view class="item-detail">
-				{{exportInfo.docDes}}
+				{{exportInfo.docDes || emptyText}}
 			</view>
 		</view>
 		
@@ -36,7 +37,7 @@
 				门诊地点
 			</view>
 			<view class="item-detail">
-				{{exportInfo.address}}
+				{{exportInfo.address || emptyText}}
 			</view>
 		</view>
 		
@@ -46,7 +47,7 @@
 				号源
 			</view>
 			<view class="item-detail">
-				上午剩余号源：{{exportInfo.total1}}        下午剩余号源：{{exportInfo.total2}}
+				上午剩余号源：{{exportInfo.total1 || emptyText}}        下午剩余号源：{{exportInfo.total2 || emptyText}}
 			</view>
 		</view>
 		
@@ -55,7 +56,7 @@
 				挂号费
 			</view>
 			<view class="item-detail">
-				{{exportInfo.fee}}
+				{{exportInfo.fee || emptyText}}
 			</view>
 		</view>
 		
@@ -69,6 +70,7 @@
 		data() {
 			return {
 				exportInfo:{},
+				emptyText: '暂无'
 			}
 		},
 		onLoad(options) {
