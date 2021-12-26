@@ -42,7 +42,7 @@ export default {
 							console.log(res.data.msg)
 							console.log('----------------------------')
 							uni.showToast({
-								title: JSON.stringify(res),
+								title:res.data.msg,
 								icon: 'none',
 								duration:3000
 							});
@@ -51,7 +51,7 @@ export default {
 					}else{
 						if(hastoast){
 							uni.showToast({
-							  title: JSON.stringify(res),
+							  title:res.data.msg,
 							  icon: 'none',
 							  duration:3000
 							});
