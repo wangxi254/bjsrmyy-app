@@ -35,14 +35,16 @@
                 <hs-card v-else v-for="(item,index) in list" :key="index" class="list-item" @click="goDetail({})">
                     <template v-slot:header>
                         <view class="title-model flex justify-between items-center">
-                            <text>{{item.depName}}</text>
+                            <text>{{item.visitTime}}</text>
                             <view class="status">
                                 {{item.settlementState==1?"已结算":"未结算"}}
                             </view>
                         </view>
                     </template>
-                    <view>处方号<text>{{item.recipeCode}}</text></view>
-                    <view>金额<text>{{item.total}}</text></view>
+                    <view>处方号:<text>{{item.recipeCode}}</text></view>
+                    <view>处方信息：<text>{{item.zdInfo}}</text></view>
+                    <view>金额:<text>{{item.total}}</text></view>
+                    
                 </hs-card>
             </view>
         </scroll-view>
@@ -96,8 +98,11 @@ export default {
         },
         changeUser(row) {
             this.PatientInfo = row;
-            this.$getUserCard(row).then(res=>this.PatientCard = res);
-            this.getList();
+            this.$getUserCard(row).then(res=>{
+                this.PatientCard = res
+                this.getList();
+            });
+            
         },
         getList() {
             uni.showLoading({
@@ -165,5 +170,21 @@ export default {
         font-size: $uni-font-size-lg;
         background: $uni-color-primary;
         color: #fff;
+    }
+    .title-model{
+        width: 100%;
+        border-bottom: 1px solid #eee;
+        padding: 20rpx;
+        box-sizing: border-box;
+        .status{
+            text{
+                color: #fff;
+                display: inline-block;
+                margin: 0 10rpx;
+                padding: 6rpx 10rpx;
+                border-radius: 30rpx;
+                font-size: $uni-font-size-sm;
+            }
+        }
     }
 </style>
