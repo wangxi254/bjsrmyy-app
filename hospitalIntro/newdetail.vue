@@ -1,5 +1,5 @@
 <template>
-	<view>
+	<view class="paading15">
 		<view>{{detailInfo.contentTitle}}</view>
 		<view>{{detailInfo.content}}</view>
 		<view>{{detailInfo.createTime}}</view>
