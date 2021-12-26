@@ -15,15 +15,17 @@
 		</view>
 		<scroll-view scroll-y>
 			<view class="expert" v-for="item in expertorList" @click="onClick(item)">
-				<image class="expert-icon" src="../static/tabbar/homed.png">
+				<image class="expert-icon" mode="" src="../static/common/person.jpg"></image>
 				<view class="content">
 					<view class="flex-row">
 						<view>{{item.docName}}</view>
 						<view style="margin-left: 10px;">{{item.docTitle}}</view>
-						<view class="flex1" style="text-align: right;"  @click.stop="usrfav(item)">关注</view>
 					</view>
-					<view class="expertor-pro">
-						<text class="">擅长：</text>{{item.special}}
+					<view class="space-beteewn">
+						<view class="expertor-pro">
+							<text class="">擅长：</text>{{item.special}}
+						</view>
+						<view class="fav addBtn" style="text-align: right;"  @click.stop="usrfav(item)">关注</view>
 					</view>
 				</view>
 				<image class="right-icon" src="../static/common/right.png">
@@ -121,7 +123,7 @@
 		justify-content: center;
 		align-items: center;
 		.expert-icon{
-			width: 40px;
+			width: 60px;
 			height: 75px;
 		}
 		.content{
@@ -214,5 +216,12 @@
 		font-size: $uni-font-detail-title;
 		color: $uni-text-color;
 		margin-right: 8px;
+	}
+	
+	.fav{
+		width: 30px;
+		height: 10px;
+		line-height: 10px;
+		text-align: center;
 	}
 </style>
