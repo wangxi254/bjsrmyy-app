@@ -27,6 +27,12 @@
 			"style":{
 				"navigationBarTitleText": "图标"
 			}
+		},
+		{
+			"path":"pages/eleguide/eleguide",
+			"style":{
+				"navigationBarTitleText": "电子就诊码"
+			}
 		}
 	],
 	"mine": [
@@ -325,7 +331,7 @@
 		{
 			"selectedIconPath":"static/tabbar/elecode.png",
 			"iconPath": "static/tabbar/elecode.png",
-			"pagePath":"pages/showIcon/index"
+			"pagePath":"pages/eleguide/eleguide"
 		},
 		{
 			"pagePath": "pages/mine/mine",

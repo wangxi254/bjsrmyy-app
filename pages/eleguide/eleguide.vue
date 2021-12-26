@@ -1,28 +1,5 @@
 <template>
 	<view>
-		<view v-for="item in list" class="cell" @click="eleguide(item)">
-			<view class="name">{{item.name}}</view>
-			<view class="flex-row info">
-				<view class="flex1">
-					<view>证件号：{{item.credentialNo}}</view>
-					<view>联系电话：{{item.phone}}</view>
-					<view>出生日期：{{item.birthday}}</view>
-				</view>
-				<image class="right-img" src="../../static/common/right.png"></image>
-			</view>
-			<view class="space-btw">
-				<view class="btn" @click.stop="openCode(item)">电子就诊码</view>
-				<view class="btn" @click.stop="bindCard(item)">绑定就诊卡</view>
-				<view class="btn" @click.stop="edit(item)">编辑</view>
-				<view class="btn" @click.stop="unbindDisagnose(item)">解绑</view>
-			</view>
-		</view>
-		
-		
-		<view class="addBtn" @click="addDisagnoseMan">
-			添加
-		</view>
-		
 		<view class="checklayer" v-if="openlayer">
 			<view class="parkbox">
 				<view class="center height40 bottomborder">姓名：{{disagnoseCode.name}}</view>
@@ -140,13 +117,13 @@
 					url:`./bindCard?item=${JSON.stringify(item)}`
 				})
 			},
-			requestList(){
+			async requestList(){
 				const [err,res] = await this.$arequest({
 					path:"/patient/mobile/getPatientByUserId",
 					query:{
 						userId:uni.getStorageSync("userId"),
 					}
-				});
+				})
 				let defaultPatientItem = {};
 				if(res.data.code == 200){
 					const list = res.data.data;
