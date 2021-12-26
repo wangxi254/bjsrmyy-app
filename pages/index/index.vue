@@ -138,7 +138,7 @@
 					title:'门诊缴费',
 					detail:'在线快捷缴费',
 					no:'3',
-					navigation:'../../records/listPay',
+					navigation:'../../records/PayRecord',
 					hashospitalInto:false,
 					noti:2,
 				},

@@ -79,7 +79,7 @@ export default {
             },
             startDate:getDate('start'),
 			endDate:getDate('end'),
-            list: [{time: '2021-12-01 15:00:00',amount: 15,status: 1},{time: '2021-12-01 15:00:00',amount: 15,status: 2}],
+            list: [],
             PatientInfo:{},
             statusEnam: {
                 0:'未支付',  1:'已支付' ,2:'已取消'

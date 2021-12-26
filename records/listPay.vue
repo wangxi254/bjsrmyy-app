@@ -80,7 +80,8 @@ export default {
                 endDate: new Date().toISOString().slice(0, 10),
             },
             PatientInfo: {},
-            PatientCard: {}
+            PatientCard: {},
+            list: []
         }
     },
     onLoad() {
@@ -112,7 +113,9 @@ export default {
                 }
             }).then(res=>{
                 uni.hideLoading();
-                console.log(res)
+                if(res.data.code == 200){
+                    this.list = res.data.data;
+                }
             })
         },
         change1(e) {

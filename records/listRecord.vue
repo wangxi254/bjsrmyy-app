@@ -29,7 +29,20 @@
         <button class="primary-btn" style="margin-top: 10rpx" @click="getList">查询</button>
     </view>
     <view class="pageContainer">
-        
+        <NoData v-if="list.length == 0" />
+        <hs-card v-else v-for="(item,index) in list" :key="index" class="list-item" @click="goDetail({})">
+            <!-- <template v-slot:header>
+                <view class="title-model flex justify-between items-center">
+                    <text>{{item.depName}}</text>
+                    <view class="status">
+                        {{item.settlementState==1?"已结算":"未结算"}}
+                    </view>
+                </view>
+            </template>
+            <view>处方号<text>{{item.recipeCode}}</text></view>
+            <view>金额<text>{{item.total}}</text></view> -->
+            <view>待开发内容</view>
+        </hs-card>
     </view>
     <userModel ref="userModelref"  @changeUser="changeUser" />
   </view>
