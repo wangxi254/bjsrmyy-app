@@ -11,24 +11,24 @@
         </view>
         </view>
     </hs-card>
-    <view class="search-view">
+    <!-- <view class="search-view">
         <view class="date-view flex justify-between items-center">
             <view class="dateInput">
-                <picker mode="date" :value="startDate" :start="startDate" :end="endDate">
-                    <view class="uni-input">{{startDate}}</view>
+                <picker mode="date" :value="searchForm.startDate" :start="startDate" :end="endDate" @change="change1">
+                    <view class="uni-input">{{searchForm.startDate}}</view>
                 </picker>
             </view>
             <text>至</text>
             <view class="dateInput">
-                <picker mode="date" :value="endDate" :start="startDate" :end="endDate">
-                    <view class="uni-input">{{endDate}}</view>
+                <picker mode="date" :value="searchForm.endDate" :start="startDate" :end="endDate" @change="change2">
+                    <view class="uni-input">{{searchForm.endDate}}</view>
                 </picker>
             </view>
             
         </view>
-        <button class="primary-btn" style="margin-top: 10rpx">查询</button>
-    </view>
-    <view class="pageContainer flex-1" style="overflow: auto">
+        <button class="primary-btn" style="margin-top: 10rpx" @click="getList">查询</button>
+    </view> -->
+    <view class="flex-1" style="overflow: auto">
         <scroll-view class="flex-1" scroll-y="true"  style="height: calc(100% - 20rpx)">
                 <NoData v-if="list.length == 0" />
                     <hs-card v-else v-for="(item,index) in list" :key="index" class="list-item" @click="goDetail({})">
@@ -74,8 +74,8 @@ export default {
     data(){
         return {
             searchForm: {
-                startDate: "",
-                endDate: ""
+                startDate: new Date().toISOString().slice(0, 10),
+                endDate: new Date().toISOString().slice(0, 10),
             },
             startDate:getDate('start'),
 			endDate:getDate('end'),
@@ -111,6 +111,14 @@ export default {
                     this.list = res.data.data;
                 }
             })
+        },
+        change1(e) {
+            let date = e.detail.value;
+			this.searchForm.startDate = date;
+        },
+        change2(e) {
+            let date = e.detail.value;
+			this.searchForm.endDate = date;
         }
     }
 }
