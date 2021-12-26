@@ -4,7 +4,7 @@
  * @Author: seven
  * @Date: 2021-12-24 21:09:34
  * @LastEditors: seven
- * @LastEditTime: 2021-12-25 02:19:02
+ * @LastEditTime: 2021-12-27 00:16:35
 -->
 <template>
     <view class="container">
@@ -13,7 +13,7 @@
         </view>
         <view class="content">
             <view class="notes">
-                尊 敬 的 患 者 ： 根 据 国 家 卫 生 健 康 委 员 会 、 国 家 中 医 药 
+                尊敬的患者 ： 根据国家卫生健康委员会、国家中医药 
                 管理局颁发的《新型冠状病毒肺炎诊疗方案》的文件，依照 
                 乙类传染病、甲类传染病管理要求，需要全面统计填报新型 
                 冠状病毒感染的肺炎疫情防控信息，请您提供真实、准确的 
@@ -41,12 +41,12 @@ export default {
     data() {
         return {
             list: [
-                {title: "近3天是否发热（体温＞ 37.3℃。",val: ""},
-                {title: "入院前14天内有病例报告社区的旅行史或居住史。或与 来自上述地区人员接触。有 O无3 .入院前14天内曾接触过来自有病例报告社区的发热或 有呼吸道症状的患者",val: ""},
+                {title: "近3天是否发热（体温＞ 37.3℃。)",val: ""},
+                {title: "入院前14天内有病例报告社区的旅行史或居住史。或与 来自上述地区人员接触。入院前14天内曾接触过来自有病例报告社区的发热或有呼吸道症状的患者",val: ""},
                 {title: "入院前14天内曾接触过来自有病例报告社区的发热或有呼吸道症状的患者。",val: ""},
                 {title: "入院前14天内与新型冠状病毒感染的患者或无症状感 染者有接触史。",val: ""},
-                {title: "近3天是否发热（体温＞ 37.3℃。",val: ""},
-                {title: "近3天是否发热（体温＞ 37.3℃。",val: ""},
+                {title: "近3天是否发热（体温＞ 37.3℃。)",val: ""},
+                {title: "近3天是否发热（体温＞ 37.3℃。)",val: ""},
             ],
             keyArr: ['answerOne','answerTwo','answerThree','answerFour','answerFive','answerSix'],
             userId: uni.getStorageSync("userId")

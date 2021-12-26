@@ -2,7 +2,8 @@
 	<view>
 		<view class="navibarbg">
 			<view class="navibartitle">
-				{{hospitalInto.name}}
+				<!-- {{hospitalInto.name}} -->
+				毕节市第一人民医院
 			</view>
 		</view>
 		<hsBannerView :banners="banners" :props="props" @bannerClick="bannerClick" />

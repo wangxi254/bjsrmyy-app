@@ -224,7 +224,7 @@ export default {
                 },
                 fail: err => {
                     uni.showToast({
-                        title: JSON.stringify(err),
+                        title: "支付失败",
                         duration: 2000
                     })
                 }
