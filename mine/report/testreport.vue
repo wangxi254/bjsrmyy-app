@@ -241,6 +241,14 @@
 					}
 				})
 			},
+			credentialTypeChange(e){
+				console.log("e===>",JSON.stringify(e));
+				const index = e.detail.value;
+				this.credentialTypeIndex =  index;
+				this.credentialType = this.credentialTyps[index].credentialType;
+				this.credentialNo = this.credentialTyps[index].credentialNo;
+				this.search(false);
+			}
 		}
 	}
 </script>

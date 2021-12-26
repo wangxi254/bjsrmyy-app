@@ -17,6 +17,7 @@
 	        if(options.item){
 				const item = JSON.parse(options.item);
 				this.getDetailInfoByPatient(item);
+				
 			}
 			
 	    },
