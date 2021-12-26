@@ -12,7 +12,7 @@
                 <uni-countdown  color="#FFFFFF" :show-day="false" :hour="0" :minute="8" :second="0" @timeup="timeup"></uni-countdown>
             </view>
             
-            <view>超时未支付将会自动取消挂号哦!</view>
+            <view v-if="!onlyShow">超时未支付将会自动取消挂号哦!</view>
         </view>
         <hs-card class="appointInfo-view">
             <template v-slot:header>

@@ -10,23 +10,11 @@
 	export default {
 		onLaunch: async function() {
 			uni.$once('Login',function(data){
-				this.$getPatientList().then(res=>{
-					getApp().globalData.PatientList = res.length>0?res: [{}];
-					if(res.length>0) return this.$getUserCard(res[0]);
-					else return {};
-				}).then(info=>{
-					getApp().globalData.PatientCard = info;
-				})
+				this.$userInit();
 			})
 			//var globalData = getApp().globalData;
 			//获取默认就诊人
-			this.$getPatientList().then(res=>{
-				getApp().globalData.PatientList = res.length>0?res: [{}];
-				if(res.length>0) return this.$getUserCard(res[0]);
-				else return {};
-			}).then(info=>{
-				getApp().globalData.PatientCard = info;
-			})
+			this.$userInit();
 		},
 		globalData: {
 			PatientList: [],

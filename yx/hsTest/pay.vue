@@ -173,7 +173,7 @@ export default {
         
         const { PatientList, PatientCard }  = getApp().globalData;
         this.userInfo = PatientList[0];
-        this.PaientCard = PatientCard;
+        this.PaientCard = {}//PatientCard;
         if(this.userInfo && Object.keys(this.userInfo).length>0){
 
         }else{
@@ -210,8 +210,16 @@ export default {
         },
         chooseUser(row) {
             this.$refs.userModelref.show();
+            this.$getUserCard(row);
         },
         submit() {
+            if(!this.PaientCard) {
+                console.log(getApp().globalData.PatientCard)
+                return uni.showToast({
+                    icon: 'none',
+                    text: '暂无病历号'
+                })
+            }
             this.$request({
                 path:`/nucleicPatientInfo `,
                 method:'post',

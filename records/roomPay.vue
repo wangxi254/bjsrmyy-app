@@ -29,9 +29,6 @@
          <button class="primary-btn" style="margin-top: 10rpx" @click="getList">查询</button>
     </view>
     <view class="pageContainer">
-        <!-- <view class="hisView" >
-
-        </view> -->
         <hs-card class="appointInfo-view" v-for="(item,index) in list" :key="index">
             <template v-slot:header>
                 <view class="title-model flex items-center justify-between">
@@ -298,5 +295,8 @@ export default {
         display: flex;
         justify-content: space-between;
         margin: 10px 0;
+    }
+    .pageContainer{
+        margin-bottom: 50px;
     }
 </style>
