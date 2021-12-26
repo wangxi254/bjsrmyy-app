@@ -1,6 +1,6 @@
 <template>
   <view class="box" :style="'height:'+height">
-      <icon type="info" color="#007aff" size="26"/>
+      <icon type="info" color="#53B7C7" size="26"/>
       <view>暂无数据 ...</view>
   </view>
 </template>
