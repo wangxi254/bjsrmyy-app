@@ -13,9 +13,9 @@
 						<view class="flex justify-between items-center">
 							<text class="name">{{item.docName}}</text>
 							<view class="flex items-center">
-								<picker @change="bindPickerChange" :value="type" :range="array">
-									<!-- <view class="surplus">去预约</view> -->
-								</picker>
+								<!-- <picker @change="bindPickerChange" :value="type" :range="array"> -->
+									<view @click="cancelAttention(item)" class="surplus">取消关注</view>
+								<!-- </picker> -->
 							</view>
 						</view>
 						<view class="tex">
@@ -50,6 +50,25 @@
 			this.getData()
 		},
 		methods: {
+			cancelAttention(item) {
+				uni.request({
+				    url: 'https://min.his.gzskt.net/bjrmWebApi/userfav/doctor', //仅为示例，并非真实接口地址。
+					method: 'POST',
+				    data: {
+						userId: this.userId,
+						docCode: item.docCode
+					},
+					success: (res) => {
+						if (res.data.code === 200) {
+							uni.showToast({
+								icon:'none',
+								title:res.data.msg,
+							})
+							this.getData()
+						}
+					}
+				})
+			},
 			bindPickerChange(e) {
 				this.type = e.target.value
 			},
