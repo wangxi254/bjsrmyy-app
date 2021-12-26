@@ -129,16 +129,13 @@
 			},
 			getDetailInfo(item){
 				// mrn=522428198907190614&reportCode=123 reportSeq=
-				let date = new Date().toISOString().slice(0, 10);		
-				this.$request({
-					path:'/testReport/mobile/getDetailInfo',
-					query:{
-						// mrn:mrn,
-						reportSeq:item.reportSeq,
-						reportCode:item.reportCode
-					}
-				}).then(res=>{
-					
+				let req = {
+					beginDate:this.startDate,
+					endDate:this.endDate,
+					...item
+				}
+				uni.navigateTo({
+					url:`testdetail?item=${JSON.stringify(req)}`
 				})
 			},
 			getTestreport(mrn){

@@ -1,6 +1,0 @@
-{
-  "navigationBarTitleText": "导诊列表",
-  "usingComponents": {
-    "no-data": "/components/nodata/index"
-  }
-}

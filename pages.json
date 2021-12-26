@@ -190,6 +190,18 @@
 					"style": {
 						"navigationBarTitleText": "查询病例信息"
 					}
+				},
+				{
+					"path":"report/checkdetail",
+					"style": {
+						"navigationBarTitleText": "检查报告详情"
+					}
+				},
+				{
+					"path":"report/testdetail",
+					"style": {
+						"navigationBarTitleText": "检验报告详情"
+					}
 				}
 			]
 		},

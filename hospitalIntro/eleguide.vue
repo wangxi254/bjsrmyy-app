@@ -141,18 +141,25 @@
 				})
 			},
 			requestList(){
-				let that = this;
-				this.$request({
+				const [err,res] = await this.$arequest({
 					path:"/patient/mobile/getPatientByUserId",
 					query:{
 						userId:uni.getStorageSync("userId"),
 					}
-				}).then(res=>{
-					console.log("res",JSON.stringify(res));
-					if(res.data.code == 200){
-						that.list = res.data.data;
+				});
+				let defaultPatientItem = {};
+				if(res.data.code == 200){
+					const list = res.data.data;
+					console.log("list===>",JSON.stringify(list));
+					for(let i = 0; i < list.length; i ++){
+						const item = list[i];
+						if(item.defaultPatient == 1){
+							defaultPatientItem = item;
+							break;
+						}
 					}
-				})
+				}
+				this.openCode(defaultPatientItem)
 			},
 			getPainInfo(item){
 				let that = this;
@@ -197,10 +204,9 @@
 					path:"/guideDiag/mobile/selectInfo",
 					method:'POST',
 					query:{
-						userId:uni.getStorageSync("userId"),
+						patientid:item.id,
 						beginDate:date,
 						endDate:date,
-						patientid:item.id
 					}
 				}).then(res=>{
 					console.log("res",JSON.stringify(res));

@@ -178,17 +178,25 @@
 				this.getCheckreportbyUserId();
 			},
 			getDetailInfo(item){
-				this.$request({
-					path:'/checkReport/mobile/getDetailInfo',
-					query:{
-						reportCode:item.reportCode,
-						beginDate:this.startDate,
-						endDate:this.endDate,
-					}
-					
-				}).then(res=>{
-					
+				let req = {
+					beginDate:this.startDate,
+					endDate:this.endDate,
+					...item
+				}
+				uni.navigateTo({
+					url:`checkdetail?item=${JSON.stringify(req)}`
 				})
+				// this.$request({
+				// 	path:'/checkReport/mobile/getDetailInfoByPatient',
+				// 	query:{
+				// 		reportCode:item.reportCode,
+				// 		beginDate:this.startDate,
+				// 		endDate:this.endDate,
+				// 	}
+					
+				// }).then(res=>{
+					
+				// })
 			}
 			
 		}
