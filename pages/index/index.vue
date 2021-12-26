@@ -133,6 +133,7 @@
 					no:'2',
 					navigation:'../../yx/Booking_instructions/index?type=1',
 					hashospitalInto:false,
+					noti:1,
 				},
 				item3:{
 					img:'../../static/index/pay.png',
