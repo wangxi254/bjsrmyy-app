@@ -96,7 +96,7 @@ export default {
         },
         changeUser(row) {
             this.PatientInfo = row;
-            this.$getUserCard().then(res=>this.PatientCard = res);
+            this.$getUserCard(row).then(res=>this.PatientCard = res);
             this.getList();
         },
         getList() {
