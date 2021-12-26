@@ -221,7 +221,8 @@ export default {
                     occupationClassify: this.selForm.sel2,
                     purpose: this.selForm.sel3,
                     openId: this.openId,
-                    questionId: this.quesionId
+                    questionId: this.quesionId,
+					patientId: this.userInfo.id
                 }  
             }).then(res=>{
                 if(res.data.code == 200) this.weixinPay(res.data.data)
