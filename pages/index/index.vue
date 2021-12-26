@@ -123,7 +123,7 @@
 					no:'1',
 					navigation:'../../yx/Booking_instructions/index?type=2',
 					hashospitalInto:false,
-					noti:true,
+					noti:1,
 				},
 				item2:{
 					img:'../../static/index/todaypoint.png',
@@ -140,6 +140,7 @@
 					no:'3',
 					navigation:'../../records/listPay',
 					hashospitalInto:false,
+					noti:2,
 				},
 				menus:[
 					{
@@ -327,7 +328,7 @@
 			gridClick(item){
 				let navigation = item.navigation + (item.hashospitalInto ? `?item=${JSON.stringify(this.hospitalInto)}` : '');
 				console.log("navigation===>",navigation);
-				if(item.noti){
+				if(item.noti==1){
 					console.log("noti===>");
 					var thin = this;
 					// uni.requestSubscribeMessage({
@@ -343,7 +344,7 @@
 					// })
 					
 					uni.requestSubscribeMessage({
-						tmplIds: ['MoiTqzChVSM7_DEWK8VHEe0SMngBLN-F9prORB8Eco0','7cILJ8g_K-nfBaWuIDozYW2w9bNUHCcaKlcaPMHh-UI'], //退款成功、退款失败
+						tmplIds: ['MoiTqzChVSM7_DEWK8VHEe0SMngBLN-F9prORB8Eco0','7cILJ8g_K-nfBaWuIDozYW2w9bNUHCcaKlcaPMHh-UI','M8go0PLVzfKT2RXixiZ_YUngqaMjg2sl54x_OFxVcFQ'], //退款成功、退款失败
 						success(res) {
 							console.log(res)
 							thin.gotoNavi(navigation);
@@ -353,7 +354,33 @@
 							thin.gotoNavi(navigation);
 						},
 					})
-				}else{
+				}else if(item.noti==2){
+					var thin = this;
+					// uni.requestSubscribeMessage({
+					// 	tmplIds: ['MoiTqzChVSM7_DEWK8VHEe0SMngBLN-F9prORB8Eco0','WflkJ_8XxvotL-XW6rlstevkOQlmc6zimdrVlsGRMA4','7cILJ8g_K-nfBaWuIDozYW2w9bNUHCcaKlcaPMHh-UI','M8go0PLVzfKT2RXixiZ_YUngqaMjg2sl54x_OFxVcFQ'], //退款成功、退款失败
+					// 	success(res) {
+					// 		console.log(res)
+					// 		thin.gotoNavi(navigation);
+					// 	},
+					// 	fail(err) {
+					// 		console.error(err);
+					// 		thin.gotoNavi(navigation);
+					// 	},
+					// })
+					
+					uni.requestSubscribeMessage({
+						tmplIds: ['WflkJ_8XxvotL-XW6rlstevkOQlmc6zimdrVlsGRMA4','7cILJ8g_K-nfBaWuIDozYW2w9bNUHCcaKlcaPMHh-UI'], //退款成功、退款失败
+						success(res) {
+							console.log(res)
+							thin.gotoNavi(navigation);
+						},
+						fail(err) {
+							console.error(err);
+							thin.gotoNavi(navigation);
+						},
+					})
+				}
+				else{
 					this.gotoNavi(navigation);
 				}
 			},

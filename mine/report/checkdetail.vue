@@ -32,7 +32,8 @@
 	            		// mrn:mrn,
 	            		reportSeq:item.reportSeq,
 	            		reportCode:item.reportCode,
-						userId:uni.getStorageSync("userId"),
+						// userId:uni.getStorageSync("userId"),
+						mrn:item.mrn,
 	            	}
 	            }).then(res=>{
 	            	if(res.data.code == 200){

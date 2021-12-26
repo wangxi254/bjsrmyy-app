@@ -18,8 +18,20 @@
 				  <image class="right" src="../../static/common/right.png"></image>
 				</view>
 			</picker>
+			
+		</view>
+		<view class="flex-row margin">
+			<picker :value="credentialTypeIndex" :range="patientList" @change="credentialTypeChange" range-key="name">
+				<view class="flex-row picker-view height40 hs-border">
+				  <view>
+						{{patientList[credentialTypeIndex].name||'选择联系人类型'}}
+				  </view>
+				   <image class="right" src="../../static/common/right.png"></image>
+				</view>
+			</picker>
 			<view class="height40 hs-border" @click="search">查询</view>
 		</view>
+		
 		
 		<view v-for="item in reportlist">
 			<view class="cell hs-border" @click="getDetailInfo(item)">
@@ -60,6 +72,10 @@
 					// 	number:'00003283434834',
 					// }
 				],
+				patientList:[],
+				credentialTypeIndex:0,
+				credentialType:'',
+				credentialNo:'',
 				mrn:'',
 			}
 		},
@@ -70,8 +86,8 @@
 				// this.mrn = item.mrn;
 			}
 			// this.getCheckreport();
-			// this.requestList();
-			this.getCheckreportbyUserId();
+			this.requestList();
+			// this.getCheckreportbyUserId();
 		},
 		methods: {
 			async requestList(){
@@ -84,9 +100,11 @@
 				let defaultPatientItem = {};
 				if(res.data.code == 200){
 					const list = res.data.data;
+					this.patientList = list;
 					console.log("list===>",JSON.stringify(list));
 					for(let i = 0; i < list.length; i ++){
 						const item = list[i];
+						
 						if(item.defaultPatient == 1){
 							defaultPatientItem = item;
 							break;
@@ -98,18 +116,9 @@
 					condition:defaultPatientItem.credentialNo,
 					conditionType:defaultPatientItem.credentialType,
 				}
-				let that = this;
-				const [perr,pres] = await this.$arequest({
-					path:"/tpatientCard/mobile/getPatientCardByPatientInfo",
-					query:req,
-				})
-				console.log("res",JSON.stringify(pres));
-				if(pres.data.code == 200){
-					const data = pres.data.data;
-					const mrn = data.mrn
-					this.mrn = mrn;
-					this.getCheckreport(mrn);
-				}
+				this.credentialNo = defaultPatientItem.credentialNo;
+				this.credentialType = defaultPatientItem.credentialType;
+				this.getreport();
 			},
 			bindSDateChange(e) {
 			  let date = e.detail.value;
@@ -168,19 +177,59 @@
 					}
 				})
 			},
-			
 			search(){
 				// if(this.mrn.length > 0){
 				// 	this.getCheckreport(this.mrn);
 				// }else{
 				// 	this.requestList();
 				// }
-				this.getCheckreportbyUserId();
+				// this.getCheckreportbyUserId();
+				if(this.startDate.length == 0){
+					return uni.showToast({
+						icon:"none",
+						title:"请选择开始时间"
+					})
+				}
+				
+				if(this.endDate.length == 0){
+					return uni.showToast({
+						icon:"none",
+						title:"请选择结束时间"
+					})
+				}
+				
+				if(this.credentialNo.length == 0){
+					return uni.showToast({
+						icon:"none",
+						title:"选择就诊人"
+					})
+				}
+			
+				this.getreport();
+			},
+			async getreport(){
+				let that = this;
+				let req = {
+					condition:this.credentialNo,
+					conditionType:this.credentialType,
+				}
+				const [perr,pres] = await this.$arequest({
+					path:"/tpatientCard/mobile/getPatientCardByPatientInfo",
+					query:req,
+				})
+				console.log("res",JSON.stringify(pres));
+				if(pres.data.code == 200){
+					const data = pres.data.data;
+					const mrn = data.mrn
+					this.mrn = mrn;
+					that.getCheckreport(mrn);
+				}
 			},
 			getDetailInfo(item){
 				let req = {
 					beginDate:this.startDate,
 					endDate:this.endDate,
+					mrn:this.mrn,
 					...item
 				}
 				uni.navigateTo({
@@ -197,6 +246,13 @@
 				// }).then(res=>{
 					
 				// })
+			},
+			credentialTypeChange(e){
+				console.log("e===>",JSON.stringify(e));
+				const index = e.detail.value;
+				this.credentialTypeIndex =  index;
+				this.credentialType = this.credentialTyps[index].credentialType;
+				this.credentialNo = this.credentialTyps[index].credentialNo;
 			}
 			
 		}
