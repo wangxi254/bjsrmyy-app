@@ -107,6 +107,7 @@
 						
 						if(item.defaultPatient == 1){
 							defaultPatientItem = item;
+							this.credentialTypeIndex = i;
 							break;
 						}
 					}

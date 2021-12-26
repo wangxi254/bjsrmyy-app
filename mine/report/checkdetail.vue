@@ -27,7 +27,7 @@
 				// let that = this;
 	            let date = new Date().toISOString().slice(0, 10);
 	            this.$request({
-	            	path:'/checkReport/mobile/getDetailInfoByPatient',
+	            	path:'/checkReport/mobile/getDetailInfo',
 	            	query:{
 	            		// mrn:mrn,
 	            		reportSeq:item.reportSeq,
