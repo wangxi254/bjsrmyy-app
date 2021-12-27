@@ -32,12 +32,13 @@
         <scroll-view class="flex-1" scroll-y="true"  style="height: calc(100% - 50px)">
             <view class="list">
                 <NoData v-if="list.length == 0" />
-                <hs-card v-else v-for="(item,index) in list" :key="index" class="list-item" @click="goDetail({})">
+                <hs-card v-else v-for="(item,index) in list" :key="index" class="list-item" @click="payMoney(item)">
                     <template v-slot:header>
                         <view class="title-model flex justify-between items-center">
                             <text>{{item.visitTime}}</text>
                             <view class="status">
-                                {{item.settlementState==1?"已结算":"未结算"}}
+                                <text class="success" v-if="item.settlementState==1">已结算</text>
+                                <text class="error" v-else>未结算</text>
                             </view>
                         </view>
                     </template>
@@ -104,6 +105,63 @@ export default {
                 this.getList();
             });
             
+        },
+        payMoney(row) {
+            if(row.settlementState!=1){
+                uni.showModal({
+                    title:'提示',
+                    content: '当前订单未支付，是否现在支付',
+                    success: (res)=>{
+                        if(res.confirm){
+                            uni.showLoading({
+                                text: "加载中..."
+                            })
+                            this.$request({
+                                path: `/registration/settlement/create-order-and-pay`,
+                                method:'post',
+                                query: {
+                                    openId: uni.getStorageSync("openId"),
+                                    payAmountStr: row.total,
+                                    medicalRecordNo: this.PatientCard.mrn,
+                                    depCode: row.depCode,
+                                    docCode: row.docCode,
+                                    certificateType: this.PatientInfo.credentialType,
+                                    certificateNo: this.PatientInfo.credentialNo,
+                                    phoneNum: this.PatientInfo.phone,
+                                    patientId: this.PatientInfo.id,
+                                    patientName: this.PatientInfo.name,
+                                    jsonStr: row.jsonStr
+                                }
+                            }).then(data=>{
+                                uni.hideLoading();
+                                if(data.data.code == 200) this.weixinPay(data.data.data)
+                            })
+                        }
+                    }
+                })
+            }
+        },
+        weixinPay(payinfo) {
+            uni.requestPayment({
+                timeStamp: payinfo.timeStamp,
+                nonceStr: payinfo.nonceStr,
+                package: 'prepay_id' + payinfo.packages,
+                signType: payinfo.signType,
+                paySign: payinfo.paySign,
+                success: payFlag => {
+                    uni.showToast({
+                        title: '支付成功',
+                        duration: 2000
+                    })
+                    this.getList()
+                },
+                fail: err => {
+                    uni.showToast({
+                        title: '支付失败',
+                        duration: 2000
+                    })
+                }
+            });
         },
         getList() {
             uni.showLoading({
@@ -186,6 +244,10 @@ export default {
                 border-radius: 30rpx;
                 font-size: $uni-font-size-sm;
             }
+            .error{background: $uni-color-error;}
+            .waring{ background: $uni-color-warning;}
+            .success{ background: $uni-color-success;}
+            .default{ background: #ccc;}
         }
     }
 </style>
