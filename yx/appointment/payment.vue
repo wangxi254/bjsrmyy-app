@@ -23,7 +23,7 @@
             <view>就诊科室：<text>{{info.deptName}}</text></view>
             <view>就诊医生：<text>{{info.doctorName}}</text></view>
             <view>就诊日期： <text>{{info.currentDate}}</text></view>
-            <view>就诊时间：<text>{{info.timeType==1?'上午':'下午'}}</text></view>
+            <view>就诊时间：<text>{{info.timeType==0?'上午':'下午'}}</text></view>
             <view>挂号费用：<text>￥{{(info.payAmount/100).toFixed(2)}}</text></view>
         </hs-card>
         <hs-card class="appointuser-view">
