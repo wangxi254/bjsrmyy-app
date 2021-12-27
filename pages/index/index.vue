@@ -276,7 +276,7 @@
 					// 	date:'2021-09-10',
 					// }
 				],
-				authShowFlag:false,
+				authShowFlag:true,
 			}
 		},
 		components:{
@@ -288,8 +288,10 @@
 		},
 		onLoad() {
 			this.requestHospitalInto();
-			if(!uni.getStorageSync("userId")){
-				this.authShowFlag = true;
+		},
+		onShow() {
+			if(uni.getStorageSync("userId")){
+				this.authShowFlag = false;
 			}
 		},
 		methods:{
