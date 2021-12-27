@@ -76,7 +76,9 @@
 				this.barcode = {}
 				this.scancode = {}
 				uni.navigateTo({
-					url:"../auth/auth?backindex=eleguide"
+					url:"../auth/auth?backindex=eleguide",
+					animationType: 'pop-in',
+					animationDuration: 10
 				})
 			}else{
 				this.requestList();
