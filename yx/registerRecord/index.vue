@@ -169,8 +169,11 @@ export default {
         },
         changeUser(row) {
             this.PatientInfo = row;
-            this.$getUserCard(row).then(res=>this.PatientCard = res);
-            this.getList();
+            this.$getUserCard(row).then(res=>{
+                this.PatientCard = res
+                this.getList();
+            });
+           
         },
         submit() {
             this.$refs.searchpopup.close();

@@ -51,7 +51,7 @@
         <view v-if="!onlyShow" class="pay-view flex">
             <view class="pay-info flex flex-1 justify-between">
                 <view>
-                    总费用：<text class="textRed amount">￥{{(info.payAmountStr/100).toFixed(2)}}</text>
+                    总费用：<text class="textRed amount">￥{{info.payAmountStr}}</text>
                 </view>
                 <text @click="cancel">取消预约</text>
             </view>
