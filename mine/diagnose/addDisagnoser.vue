@@ -282,7 +282,7 @@
 					"珞巴族",	
 				],
 				nationindex:0,
-				nation:"",
+				nation:"汉族",
 				contactIdcard:'',
 				contactPhone:'',
 				contactName:'',
