@@ -86,9 +86,15 @@ export default {
             }
         }
     },
-    onLoad() {
-        this.PatientInfo = getApp().globalData.PatientList[0];
-        this.$getUserId();
+    // onLoad() {
+    //     this.PatientInfo = getApp().globalData.PatientList[0];
+    //     this.$getUserId();
+    //     this.getList();
+    // },
+    async onLoad() {
+        //const { PatientList, PatientCard }  = getApp().globalData;
+        const { PatientList }  = await this.$getUserInfo();
+        this.PatientInfo = PatientList[0];
         this.getList();
     },
     methods: {
