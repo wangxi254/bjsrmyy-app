@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<view class="checklayer" >
+		<view class="checklayer" v-if="openlayer">
 			<view class="parkbox">
 				<!-- <view class="center height40 bottomborder">姓名：{{disagnoseCode.name}}</view> -->
 				<view class="center bottomborder flex-row">
@@ -66,6 +66,7 @@
 				// 	name:'张先生',
 				// 	code:'0010101010101'
 				// }
+				openlayer:false,
 			}
 		},
 		onLoad() {
@@ -75,12 +76,14 @@
 			if(uni.getStorageSync("userId") === null || uni.getStorageSync("userId").length === 0){
 				this.barcode = {}
 				this.scancode = {}
+				this.openlayer = false;
 				uni.navigateTo({
 					url:"../auth/auth?backindex=eleguide",
 					animationType: 'pop-in',
 					animationDuration: 10
 				})
 			}else{
+				this.openlayer = true;
 				this.requestList();
 			}
 		},
@@ -243,6 +246,12 @@
 </script>
 
 <style lang="scss" scoped>
+	
+	page{
+		background: #FFFFFF;
+		width: 100%;
+		height: 100%;
+	}
 	
 	.right-img{
 		width: 15px;
