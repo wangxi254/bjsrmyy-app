@@ -1,6 +1,18 @@
 <template>
-	<view class="auth">
-		<button class='bottom' type="primary" open-type="getPhoneNumber" @getphonenumber="onGetPhoneNumber" withCredentials="true">手机号授权登录</button>
+	<view>
+		<view class="navibarbg">
+			<view class="header">
+				<uni-icons @click="back" class="icon" type="back" size="26" />
+				<view class="title">
+					登录
+				</view>
+				<uni-icons class="icon" type="" size="20" />
+			</view>
+		</view>
+		
+		<view class="auth">
+			<button class='bottom' type="primary" open-type="getPhoneNumber" @getphonenumber="onGetPhoneNumber" withCredentials="true">手机号授权登录</button>
+		</view>
 	</view>
 </template>
 
@@ -46,9 +58,23 @@ export default {
 		}
 		return true; 
 	},
-	
+	onUnload() {
+		if(this.backindex){
+			uni.switchTab({
+				url:"../index/index"
+			})
+		}
+	},
 	methods: {
-	
+		back(){
+			if(this.backindex){
+				uni.switchTab({
+					url:"../index/index"
+				})
+			}else{
+				uni.navigateBack();
+			}
+		},
 		onGetPhoneNumber(e) {
 			let that = this;
 			console.log("e===>",JSON.stringify(e))
@@ -211,4 +237,30 @@ export default {
 		background: #53B7C7;	
 		color: #FFFFFF;
 	}
+	.header{
+		
+		height: 30px !important;
+		display: flex;
+		justify-content: space-between;
+		padding-top: 65px;
+	}
+	
+	.navibarbg{
+		width: 100%;
+		height: 95px;
+		background: #FFFFFF;
+	}
+	
+	.title{
+		font-size: 17px !important;
+		line-height: 60rpx !important;
+		font-family: PingFang-SC-Semibold, PingFang-SC;
+		font-weight: 400;
+		color: #333333;
+	}
+	.icon{
+		font-size: 30rpx !important;
+		padding-left: 15px;
+	}
+	
 </style>
