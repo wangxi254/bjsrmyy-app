@@ -19,7 +19,7 @@
 		{
 			"path":"pages/auth/auth",
 			"style":{
-				"navigationStyle":"custom"
+				"navigationBarTitleText":"登录"
 			}
 		},
 		{

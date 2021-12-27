@@ -44,6 +44,11 @@
 		},
 		methods: {
 			navitoPage(item){
+				if(uni.getStorageSync("userId") === null || uni.getStorageSync("userId").length === 0){
+					return uni.navigateTo({
+						url:"../auth/auth"
+					})
+				}
 				uni.navigateTo({
 					url:item.navi
 				})

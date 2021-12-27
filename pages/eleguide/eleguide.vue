@@ -70,10 +70,16 @@
 			}
 		},
 		onLoad() {
-
+			
 		},
 		onShow() {
-			this.requestList();
+			if(uni.getStorageSync("userId") === null || uni.getStorageSync("userId").length === 0){
+				uni.navigateTo({
+					url:"../auth/auth?backindex=1"
+				})
+			}else{
+				this.requestList();
+			}
 		},
 		methods: {
 			addDisagnoseMan(){

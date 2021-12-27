@@ -1,7 +1,7 @@
 <template>
-<view class="auth">
-  	<button class='bottom' type="primary" open-type="getPhoneNumber" @getphonenumber="onGetPhoneNumber" withCredentials="true">手机号授权登录</button>
-  </view>
+	<view class="auth">
+		<button class='bottom' type="primary" open-type="getPhoneNumber" @getphonenumber="onGetPhoneNumber" withCredentials="true">手机号授权登录</button>
+	</view>
 </template>
 
 <script>
@@ -11,18 +11,42 @@ export default {
 	data() {
 		return {
 			choose:false,
+			backindex:false
 		};
 	},
 	/**
 	* 初始
 	*/
-	onLoad() {
+	
+	onLoad(options) {
+		console.log("options--->",JSON.stringify(options));
+		if(options.backindex){
+			this.backindex = options.backindex;
+		}
 		uni.login({
 			success: (res) => {
 				
 			}
 		})
 	},
+	onBackPress(options) {  
+		console.log("onBackPress");
+		console.log("options",JSON.stringify(options))
+		console.log("backindex==》",this.backindex);
+		
+		if (options.from === 'navigateBack') {  
+			return false;  
+		}  
+		if(this.backindex){
+			uni.switchTab({
+				url:"../index/index"
+			})
+		}else{
+			uni.navigateBack();
+		}
+		return true; 
+	},
+	
 	methods: {
 	
 		onGetPhoneNumber(e) {
@@ -181,5 +205,10 @@ export default {
 <style scoped>
 	.auth{
 		padding: 350rpx 30rpx 0 30rpx;
+	}
+	
+	.bottom{
+		background: #53B7C7;	
+		color: #FFFFFF;
 	}
 </style>

@@ -1,5 +1,6 @@
 <template>
 	<view>
+		<authDialog :authFlag="authFlag" @closemodal="closemodal" />
 		<view class="navibarbg">
 			<view class="navibartitle">
 				<!-- {{hospitalInto.name}} -->
@@ -83,6 +84,7 @@
 	import hsBannerView from "../../components/hs-banner-view.vue";
 	import indexMenuItem from "../../components/index-menu-item.vue";
 	import zyGrid from '../../components/zy-grid/zy-grid.vue'
+	import authDialog from "../../components/authDialog/authDialog.vue";
 	export default{
 		data(){
 			return {
@@ -125,6 +127,7 @@
 					navigation:'../../yx/Booking_instructions/index?type=2',
 					hashospitalInto:false,
 					noti:1,
+					needLogin:true,
 				},
 				item2:{
 					img:'../../static/index/todaypoint.png',
@@ -134,6 +137,7 @@
 					navigation:'../../yx/Booking_instructions/index?type=1',
 					hashospitalInto:false,
 					noti:1,
+					needLogin:true,
 				},
 				item3:{
 					img:'../../static/index/pay.png',
@@ -143,6 +147,7 @@
 					navigation:'../../records/listPay',
 					hashospitalInto:false,
 					noti:2,
+					needLogin:true,
 				},
 				menus:[
 					{
@@ -165,6 +170,7 @@
 						no:3,
 						navigation:'../../records/roomPay',
 						hashospitalInto:false,
+						needLogin:true,
 					},
 					{
 						img:'../../static/index/menu-item4.png',
@@ -188,6 +194,7 @@
 						no:6,
 						navigation:'../../records/PayRecord',
 						hashospitalInto:false,
+						needLogin:true,
 					},
 					{
 						img:'../../static/index/menu-item7.png',
@@ -195,6 +202,7 @@
 						no:7,
 						navigation:'../../yx/registerRecord/index',
 						hashospitalInto:false,
+						needLogin:true,
 					},
 					{
 						img:'../../static/index/menu-item7.png',
@@ -202,6 +210,7 @@
 						no:7,
 						navigation:'../../yx/appointRecord/index',
 						hashospitalInto:false,
+						needLogin:true,
 					},
 					{
 						img:'../../static/index/menu-item7.png',
@@ -209,6 +218,7 @@
 						no:8,
 						navigation:'../../yx/hsTest/index',
 						hashospitalInto:false,
+						needLogin:true,
 					}
 					
 				],
@@ -265,18 +275,22 @@
 					// 	title:'心电图、心脏彩超、心脏冠心脉照影三者的区别',
 					// 	date:'2021-09-10',
 					// }
-				]
-				
+				],
+				authFlag:false,
 			}
 		},
 		components:{
 			hsMenuList,
 			hsBannerView,
 			indexMenuItem,
-			zyGrid
+			zyGrid,
+			authDialog
 		},
 		onLoad() {
 			this.requestHospitalInto();
+			if(!uni.getStorageSync("userId")){
+				this.authFlag = true;
+			}
 		},
 		methods:{
 			menuClick(item){
@@ -328,6 +342,12 @@
 				}
 			},
 			gridClick(item){
+				
+				if(item.needLogin && !uni.getStorageSync("userId")){
+					return uni.navigateTo({
+						url:"../auth/auth"
+					})
+				}
 				let navigation = item.navigation + (item.hashospitalInto ? `?item=${JSON.stringify(this.hospitalInto)}` : '');
 				console.log("navigation===>",navigation);
 				if(item.noti==1){
@@ -395,9 +415,10 @@
 				uni.navigateTo({
 					url:`../../hospitalIntro/newdetail?item=${JSON.stringify(item)}`
 				})
+			},
+			closemodal(e){
+				this.authFlag = false;
 			}
-			
-			
 		}
 	}
 </script>
