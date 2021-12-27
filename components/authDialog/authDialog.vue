@@ -14,6 +14,8 @@
 
 <script>
 import WXBizDataCrypt from "../../pages/auth/WXBizDataCrypt.js";
+const appid = "wxbd1c9abbabdd7333" //需替换
+const secret = "3dda78ba34520358aade662ae735e1d1"  //需替换
 export default {
 	props:{
 		authFlag:{
@@ -35,14 +37,16 @@ export default {
 		this.authFlag = true;
 	},
 	async mounted() {
-		
+		uni.login({
+			success: (res) => {
+				
+			}
+		})
 	},
 	methods: {
 		onGetPhoneNumber(e) {
 			let that = this;
 			console.log("e===>",JSON.stringify(e))
-			let appid = "wxbd1c9abbabdd7333" //需替换
-			let secret = "3dda78ba34520358aade662ae735e1d1"  //需替换
 			//调用 wx.login 接口,获取code
 			uni.login({
 				provider: 'weixin',
