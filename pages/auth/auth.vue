@@ -37,41 +37,19 @@ export default {
 		}
 		uni.login({
 			success: (res) => {
-				
 			}
 		})
 	},
-	onBackPress(options) {  
-		console.log("onBackPress");
-		console.log("options",JSON.stringify(options))
-		console.log("backindex==》",this.backindex);
-		
-		if (options.from === 'navigateBack') {  
-			return false;  
-		}  
-		if(this.backindex == 'eleguide'){
-			uni.switchTab({
-				url:"../index/index"
-			})
-		}else{
-			uni.navigateBack();
-		}
-		return true; 
-	},
-	onUnload() {
-		if(this.backindex){
-			uni.switchTab({
-				url:"../index/index"
-			})
-		}
-	},
 	methods: {
 		back(){
+			console.log("back click");
 			if(this.backindex == 'eleguide'){
+				console.log("back click1111");
 				uni.switchTab({
 					url:"../index/index"
 				})
 			}else{
+				console.log("back click222");
 				uni.navigateBack();
 			}
 		},
@@ -184,11 +162,14 @@ export default {
 			}).then(res=>{
 				// 346829058917404672
 				console.log("res:",JSON.stringify(res))
+				console.log("back click4444");
 				if(res && res.data && res.data.code == 200){
 					uni.showToast({
 						icon:'none',
 						title:"登录成功",
 						success() {
+							
+							console.log("back click3333");
 							uni.setStorageSync("userId",res.data.data.id);
 							uni.$emit('Login',{msg: "登录更新"})
 							setTimeout(()=>{
