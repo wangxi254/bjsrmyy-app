@@ -105,12 +105,11 @@ export default {
             
         },
         getList() {
-            console.log(this.PatientInfo)
             this.$request({
                 path:`/listing/outpatient/list`,
                 method: 'post',
                 query: {
-                    medicalRecordNo: this.PatientCard.mrn,
+                    //medicalRecordNo: this.PatientCard.mrn,
                     certificateType:this.PatientInfo.credentialType,
                     certificateNo : this.PatientInfo.credentialNo,
                     beginDate: this.searchForm.startDate,

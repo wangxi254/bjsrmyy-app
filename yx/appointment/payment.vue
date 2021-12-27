@@ -53,10 +53,11 @@
                 <view>
                     总费用：<text class="textRed amount">￥{{info.payAmountStr}}</text>
                 </view>
-                <text @click="cancel">取消预约</text>
+                <!-- <text @click="cancel">取消预约</text> -->  
             </view>
             <view class="pay-btn" @click="payfor">立即支付</view>
         </view>
+        <button v-if="cancelBtn" class="cancelbtn" @click="confirmMsgback">取消订单</button>
         <view style="height: 100rpx"></view>
         <uni-popup ref="popup" type="dialog">
             <uni-popup-dialog mode="base" title="提示" content="是否确定取消当前预约" @close="closeMsg"
@@ -75,36 +76,32 @@ export default {
         return {
             info: {},
             openId: uni.getStorageSync("openId")||"",
-            onlyShow: false
+            onlyShow: false,
+            cancelBtn: false
         }
     },
     onLoad(options) {
         console.log(JSON.parse(options.row))
-        options.row? (this.info = JSON.parse(options.row)): (this.info = {
-            // appointmentDate: "2021-12-24",
-            // codeId: "283871",
-            // deptName: "妇科专家门诊",
-            // doctorName: "邹睿",
-            // id: "347115835121078272",
-            // orderName: "预约挂号缴费",
-            // orderState: null,
-            // patientIdCardNo: null,
-            // patientName: "11122",
-            // payAmount: "450",
-            // phoneNum: "18785187439",
-            // seqNum: "1",
-            // timePart: "1",
-            // timeType: "1",
-            // currentDate: "2021-12-26"
-        })
+        options.row? (this.info = JSON.parse(options.row)): (this.info = {})
         if(this.info.active){
             this.onlyShow = true
+            var time = new Date()
+            var year = time.getFullYear()  //获取年份
+			var month = time.getMonth() + 1 
+            var date = new Date(time.setDate(time.getDate() + 1)).getDate() 
+            var nowDate = year+'/'+month + '/' + date
+            if(this.info.currentDate>nowDate){
+                this.cancelBtn = true;
+            }
         }
     },
     onUnload() {
-        uni.navigateBack({  
-            delta: 2  
-        }); 
+        const pages = getCurrentPages();
+        if(pages[pages.length - 2]['route'] == 'yx/appointment/confirm') {
+            uni.navigateBack({  
+                delta: 2  
+            }); 
+        }
     },
     methods:{
         payfor(){
@@ -148,13 +145,20 @@ export default {
             this.$refs.popup.close()
         },
         confirmMsg() {
+            if(!this.info.id) {
+                return uni.showToast({
+                        icon: 'none',
+                        title: "暂无订单id",
+                        duration: 2000
+                })
+            }
             this.$request({
                 path:`/registration/order/cancel?orderId=${this.info.id}`
             }).then(res=>{
                 if(res.data.code == 200){
                     uni.showToast({
                         icon: 'none',
-                        text: "取消成功",
+                        title: "取消成功",
                         duration: 2000
                     })
                     setTimeout(()=>{
@@ -165,6 +169,31 @@ export default {
                 }
             })
             
+        },
+        confirmMsgback() {
+            if(!this.info.preId) {
+                return uni.showToast({
+                        icon: 'none',
+                        title: "暂无订单id",
+                        duration: 2000
+                })
+            }
+            this.$request({
+                path:`/registration/order/cancel?preId=${this.info.preId}`
+            }).then(res=>{
+                if(res.data.code == 200){
+                    uni.showToast({
+                        icon: 'none',
+                        title: "取消成功",
+                        duration: 2000
+                    })
+                    setTimeout(()=>{
+                        uni.navigateTo({
+                                url:'../appointRecord/index'
+                        })
+                    })
+                }
+            })
         },
         goList() {
             uni.navigateTo({
@@ -258,5 +287,11 @@ export default {
     ::v-deep .uni-countdown__splitor{
         color: #fff !important;
         font-size: $uni-font-size-sm !important;
+    }
+    .cancelbtn{
+        width: calc(100% - 40rpx);
+        font-size: $uni-font-size-lg;
+        background: $uni-color-error;
+        color: #fff;
     }
 </style>

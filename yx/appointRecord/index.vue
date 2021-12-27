@@ -31,7 +31,7 @@
                                 </view>
                             </view>
                         </template>
-                        <view>就诊医生：<text>{{item.docTitle}}</text></view>
+                        <view>就诊医生：<text>{{item.docName}}</text></view>
                         <view>就诊时间：<text>{{item.visitDate}} {{item.timePart}}</text></view>
                         <view>导诊信息:<text>{{item.dzInfo}}</text></view>
                         <view>挂号金额：<text>{{item.fee}}</text></view>
@@ -178,7 +178,8 @@ export default {
                 phoneNum: this.PatientInfo.phone,
                 currentDate: row.visitDate,
                 timeType: row.timePart,
-                payAmount: row.fee?row.fee:0
+                payAmountStr: row.fee?row.fee:"暂无",
+                doctorName: row.docName
             }
             
             uni.navigateTo({

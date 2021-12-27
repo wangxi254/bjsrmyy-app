@@ -111,10 +111,17 @@ export default {
             PaientCard: {}
         }
     },
-    onLoad() {
-        this.PatientInfo = getApp().globalData.PatientList[0];
-        if(Object.keys(this.PatientInfo).length>0) this.getPaientCard(this.PatientInfo);
-        this.$getUserId();
+    // onLoad() {
+    //     this.PatientInfo = getApp().globalData.PatientList[0];
+    //     if(Object.keys(this.PatientInfo).length>0) this.getPaientCard(this.PatientInfo);
+    //     this.$getUserId();
+    //     this.getList();
+    // },
+    async onLoad() {
+        //const { PatientList, PatientCard }  = getApp().globalData;
+        const { PatientList, PatientCard }  = await this.$getUserInfo();
+        this.PatientInfo = PatientList[0];
+        this.PaientCard = PatientCard;
         this.getList();
     },
     methods: {
@@ -123,8 +130,10 @@ export default {
         },
         changeUser(row) {
             this.PatientInfo = row;
-            this.getPaientCard(row);
-            this.getList();
+            this.$getUserCard(row).then(res=>{
+                this.PatientCard = res
+                this.getList();
+            });
         },
         getList() {
             uni.showLoading({

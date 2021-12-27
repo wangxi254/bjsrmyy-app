@@ -219,6 +219,14 @@
 						navigation:'../../yx/hsTest/index',
 						hashospitalInto:false,
 						needLogin:true,
+					},
+					{
+						img:'../../static/index/menu-item7.png',
+						title:'门诊清单',
+						no:9,
+						navigation:'../../records/listRecord',
+						hashospitalInto:false,
+						needLogin:true,
 					}
 					
 				],
