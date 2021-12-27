@@ -81,21 +81,21 @@ export default {
     onLoad(options) {
         console.log(JSON.parse(options.row))
         options.row? (this.info = JSON.parse(options.row)): (this.info = {
-            appointmentDate: "2021-12-24",
-            codeId: "283871",
-            deptName: "妇科专家门诊",
-            doctorName: "邹睿",
-            id: "347115835121078272",
-            orderName: "预约挂号缴费",
-            orderState: null,
-            patientIdCardNo: null,
-            patientName: "11122",
-            payAmount: "450",
-            phoneNum: "18785187439",
-            seqNum: "1",
-            timePart: "1",
-            timeType: "1",
-            currentDate: "2021-12-26"
+            // appointmentDate: "2021-12-24",
+            // codeId: "283871",
+            // deptName: "妇科专家门诊",
+            // doctorName: "邹睿",
+            // id: "347115835121078272",
+            // orderName: "预约挂号缴费",
+            // orderState: null,
+            // patientIdCardNo: null,
+            // patientName: "11122",
+            // payAmount: "450",
+            // phoneNum: "18785187439",
+            // seqNum: "1",
+            // timePart: "1",
+            // timeType: "1",
+            // currentDate: "2021-12-26"
         })
         if(this.info.active){
             this.onlyShow = true

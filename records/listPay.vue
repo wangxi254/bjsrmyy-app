@@ -86,8 +86,9 @@ export default {
             list: []
         }
     },
-    onLoad() {
-        const { PatientList, PatientCard }  = getApp().globalData;
+    async onLoad() {
+        //const { PatientList, PatientCard }  = getApp().globalData;
+        const { PatientList, PatientCard }  = await this.$getUserInfo();
         this.PatientInfo = PatientList[0];
         this.PatientCard = PatientCard;
         this.getList();

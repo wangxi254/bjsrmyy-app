@@ -124,8 +124,15 @@ export default {
             list: []
         }
     },
-    onLoad: function (option) {
-        const { PatientList, PatientCard }  = getApp().globalData;
+    // onLoad: function (option) {
+    //     const { PatientList, PatientCard }  = getApp().globalData;
+    //     this.PatientInfo = PatientList[0];
+    //     this.PatientCard = PatientCard;
+    //     this.getList();
+    // },
+    async onLoad() {
+        //const { PatientList, PatientCard }  = getApp().globalData;
+        const { PatientList, PatientCard }  = await this.$getUserInfo();
         this.PatientInfo = PatientList[0];
         this.PatientCard = PatientCard;
         this.getList();

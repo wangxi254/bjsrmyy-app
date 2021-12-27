@@ -62,9 +62,15 @@ export default {
             PaientCard: {}
         }
     },
-    onLoad: function (option) { //
+    // onLoad: function (option) { //
+    //     option.row && (this.appointmentInfo = JSON.parse(option.row))
+    //     const { PatientList, PatientCard }  = getApp().globalData;
+    //     this.userInfo = PatientList[0];
+    //     this.PaientCard = PatientCard;
+    // },
+    async onLoad(option) {
         option.row && (this.appointmentInfo = JSON.parse(option.row))
-        const { PatientList, PatientCard }  = getApp().globalData;
+        const { PatientList, PatientCard }  = await this.$getUserInfo();
         this.userInfo = PatientList[0];
         this.PaientCard = PatientCard;
     },

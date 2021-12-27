@@ -4,7 +4,7 @@
  * @Author: seven
  * @Date: 2021-12-24 18:14:07
  * @LastEditors: seven
- * @LastEditTime: 2021-12-25 21:16:33
+ * @LastEditTime: 2021-12-27 10:43:54
 -->
 <script>
 	export default {
@@ -14,7 +14,7 @@
 			})
 			//var globalData = getApp().globalData;
 			//获取默认就诊人
-			this.$userInit();
+			//this.$userInit();
 		},
 		globalData: {
 			PatientList: [],
