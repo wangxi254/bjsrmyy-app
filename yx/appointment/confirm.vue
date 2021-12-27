@@ -19,7 +19,7 @@
                 <view class="title-model"><text>预约时间</text></view>
             </template>
             <view>时间：<text class="textRed">{{appointmentInfo.currentDate}}</text></view>
-            <view>时段：<text class="textRed">{{appointmentInfo.type == 1?"上午":"下午"}}</text></view>
+            <view>时段：<text class="textRed">{{appointmentInfo.type == 0?"上午":"下午"}}</text></view>
         </hs-card>
         <hs-card class="appointuser-view" @click="showUserList">
             <template v-slot:header>
