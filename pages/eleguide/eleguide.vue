@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<view class="checklayer" v-if="openlayer">
+		<view class="checklayer" >
 			<view class="parkbox">
 				<!-- <view class="center height40 bottomborder">姓名：{{disagnoseCode.name}}</view> -->
 				<view class="center bottomborder flex-row">
@@ -44,7 +44,6 @@
 		data() {
 			return {
 				list:[],
-				openlayer:false,
 				scancode:{
 					code: 'https://qm.qq.com/cgi-bin/qm/qr?k=LKqML292dD2WvwQfAJXBUmvgbiB_TZWF&noverify=0',
 					size: 260, // 二维码大小
@@ -75,7 +74,7 @@
 		onShow() {
 			if(uni.getStorageSync("userId") === null || uni.getStorageSync("userId").length === 0){
 				uni.navigateTo({
-					url:"../auth/auth?backindex=1"
+					url:"../auth/auth?backindex=eleguide"
 				})
 			}else{
 				this.requestList();
@@ -126,7 +125,6 @@
 				this.getPainInfo();
 			},
 			coselayer(){
-				this.openlayer = false;
 				uni.switchTab({
 					url:"../index/index"
 				})
@@ -182,7 +180,6 @@
 						that.barcode["code"] = mrn;
 						that.scancode['code'] = mrn;
 						that.mrn = mrn;
-						that.openlayer = true;
 					}else{
 						uni.showToast({
 							icon:'none',

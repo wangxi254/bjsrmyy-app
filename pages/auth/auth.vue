@@ -23,7 +23,7 @@ export default {
 	data() {
 		return {
 			choose:false,
-			backindex:false
+			backindex:''
 		};
 	},
 	/**
@@ -49,7 +49,7 @@ export default {
 		if (options.from === 'navigateBack') {  
 			return false;  
 		}  
-		if(this.backindex){
+		if(this.backindex == 'eleguide'){
 			uni.switchTab({
 				url:"../index/index"
 			})
@@ -67,7 +67,7 @@ export default {
 	},
 	methods: {
 		back(){
-			if(this.backindex){
+			if(this.backindex == 'eleguide'){
 				uni.switchTab({
 					url:"../index/index"
 				})
@@ -171,6 +171,7 @@ export default {
 			
 		},
 		requestAdd(openId,name,nickName,phone){
+			let that = this;
 			this.postAuth(phone,openId);
 			this.$request({
 				path:"/user/mobile/add",
