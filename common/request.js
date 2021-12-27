@@ -184,8 +184,8 @@ export default {
 		uni.showLoading({
 			text: "加载中..."
 		})
-		let PatientList = await getPatientList();
-		let PatientCard = await getUserCard(PatientList[0]);
+		let PatientList = await this.$getPatientList();
+		let PatientCard = await this.$getUserCard(PatientList[0]);
 		uni.hideLoading();
 		return {
 			PatientList,
