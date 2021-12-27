@@ -4,7 +4,7 @@
  * @Author: seven
  * @Date: 2021-12-24 21:18:23
  * @LastEditors: seven
- * @LastEditTime: 2021-12-27 00:22:01
+ * @LastEditTime: 2021-12-27 10:54:23
 -->
 <template>
     <view class="detailPage">
@@ -165,16 +165,20 @@ export default {
             quesionId: null,
         }
     },
-    onLoad(options) {
+    async onLoad(options) {
         if(options.row){
             const row = JSON.parse(options.row);
             this.amount = row.money;this.quesionId  = row.id
         }
         
-        const { PatientList, PatientCard }  = getApp().globalData;
-        console.log(getApp().globalData)
+        // const { PatientList, PatientCard }  = getApp().globalData;
+        // this.userInfo = PatientList[0];
+        // this.PaientCard = PatientCard;
+        const { PatientList, PatientCard }  = await this.$getUserInfo();
         this.userInfo = PatientList[0];
         this.PaientCard = PatientCard;
+        this.getList();
+
         if(this.userInfo && Object.keys(this.userInfo).length>0){
 
         }else{

@@ -179,6 +179,19 @@ export default {
 			
 		})
 	},
+	//获取用户信息和就诊信息
+	async getUserInfo() {
+		uni.showLoading({
+			text: "加载中..."
+		})
+		let PatientList = await getPatientList();
+		let PatientCard = await getUserCard(PatientList[0]);
+		uni.hideLoading();
+		return {
+			PatientList,
+			PatientCard
+		}
+	},
 	//初始化操作
 	userInit() {
 		this.$getPatientList().then(res=>{
