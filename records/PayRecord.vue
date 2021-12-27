@@ -43,7 +43,7 @@
                         <view>订单iD：<text>{{item.id}}</text></view>
                         <view>就诊人：<text>{{item.patientName}}</text></view>
                         <view>挂号状态：<text>{{statusEnam[item.orderState]}}</text></view>
-                        <view>支付金额:<text>{{item.payAmount}}</text></view>
+                        <view>支付金额:<text>{{item.payAmountStr}}</text></view>
                     </hs-card>
         </scroll-view>
     </view>
