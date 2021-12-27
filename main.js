@@ -26,6 +26,7 @@ Vue.prototype.$arequest = request.arequest;
 Vue.prototype.$getUserCard = request.getUserCard;
 Vue.prototype.$getPatientList = request.getPatientList;
 Vue.prototype.$userInit = request.userInit;
+Vue.prototype.$getUserInfo = request.getUserInfo
 
 //测试
 Vue.prototype.$getUserId = ()=>{
