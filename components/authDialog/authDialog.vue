@@ -14,6 +14,8 @@
 
 <script>
 import WXBizDataCrypt from "../../pages/auth/WXBizDataCrypt.js";
+const appid = "wxbd1c9abbabdd7333" //需替换
+const secret = "3dda78ba34520358aade662ae735e1d1"  //需替换
 export default {
 	props:{
 		authFlag:{
@@ -35,76 +37,80 @@ export default {
 		this.authFlag = true;
 	},
 	async mounted() {
-		
+		uni.login({
+			success: (res) => {
+				
+			}
+		})
 	},
 	methods: {
 		onGetPhoneNumber(e) {
 			let that = this;
 			console.log("e===>",JSON.stringify(e))
-			let appid = "wxbd1c9abbabdd7333" //需替换
-			let secret = "3dda78ba34520358aade662ae735e1d1"  //需替换
 			//调用 wx.login 接口,获取code
 			uni.login({
 				provider: 'weixin',
 				success: loginres => {
 					console.log("loginres>>",JSON.stringify(loginres));
-					
-					const encryptedData = e.detail.encryptedData;
-					const iv = e.detail.iv;
-					const code = loginres.code;
-					// that.requestByCode(code,encryptedData,iv);
-					
-					// that.getOpenIdSessionKey(code,e);
-					let url = 'https://api.weixin.qq.com/sns/jscode2session?appid=' + appid + '&secret=' + secret +
-						'&js_code=' +
-						loginres.code + '&grant_type=authorization_code';
-					// 用 code 换取 session 和 openId
-					uni.request({
-						url: url, // 请求路径
-						success: res => { //成功res返回openid，session_key
-							
-							res.data.openid && uni.setStorageSync("openId",res.data.openid)
-							console.log(JSON.stringify(res));	
-							const openId = res.data.openid;
-							console.log("res.data.session_key===>",res.data.session_key);
-							console.log("appid===>",appid);
-							console.log("e.detail.encryptedData===>",e.detail.encryptedData);
-							console.log("e.detail.iv===>",e.detail.iv);
-							//解密用户信息
-							let pc = new WXBizDataCrypt(appid,res.data.session_key);           //wxXXXXXXX为你的小程序APPID  
-							let data = pc.decryptData(e.detail.encryptedData , e.detail.iv);  
-							
-							
-							// //data就是最终解密的用户信息 
-							// countryCode: "86"  区号
-							// phoneNumber: "15634123456"  用户绑定的手机号（国外手机号会有区号）
-							// purePhoneNumber: "15634123456"  没有区号的手机号
-							// watermark:
-							//         appid: "wxce185cd1da123456"
-							//         timestamp: 1607906868
-							console.log(JSON.stringify(data))
-							const phone = data.phoneNumber;
-		
-							uni.getUserInfo({    
-								withCredentials:true,
-								success: (info) => {
-									console.log("info===>",JSON.stringify(info));
-									const name = info.userInfo.nickName
-									that.requestAdd(openId,name,name,phone);
-								},
-								fail: (err) => {
-									console.log(err)
-								}
-							})
-						},
-						fail: err => {
-							console.log(err)
-						}
-					})
+					that.reqopenId(e,loginres);
 				}
 			})
 		},
-		
+		reqopenId(e,loginres){
+			let that = this;
+			const encryptedData = e.detail.encryptedData;
+			const iv = e.detail.iv;
+			const code = loginres.code;
+			// that.requestByCode(code,encryptedData,iv);
+			
+			// that.getOpenIdSessionKey(code,e);
+			let url = 'https://api.weixin.qq.com/sns/jscode2session?appid=' + appid + '&secret=' + secret +
+				'&js_code=' +
+				loginres.code + '&grant_type=authorization_code';
+			// 用 code 换取 session 和 openId
+			uni.request({
+				url: url, // 请求路径
+				success: res => { //成功res返回openid，session_key
+					
+					res.data.openid && uni.setStorageSync("openId",res.data.openid)
+					console.log(JSON.stringify(res));	
+					const openId = res.data.openid;
+					console.log("res.data.session_key===>",res.data.session_key);
+					console.log("appid===>",appid);
+					console.log("e.detail.encryptedData===>",e.detail.encryptedData);
+					console.log("e.detail.iv===>",e.detail.iv);
+					//解密用户信息
+					let pc = new WXBizDataCrypt(appid,res.data.session_key);           //wxXXXXXXX为你的小程序APPID  
+					let data = pc.decryptData(e.detail.encryptedData , e.detail.iv);  
+					
+					
+					// //data就是最终解密的用户信息 
+					// countryCode: "86"  区号
+					// phoneNumber: "15634123456"  用户绑定的手机号（国外手机号会有区号）
+					// purePhoneNumber: "15634123456"  没有区号的手机号
+					// watermark:
+					//         appid: "wxce185cd1da123456"
+					//         timestamp: 1607906868
+					console.log(JSON.stringify(data))
+					const phone = data.phoneNumber;
+					
+					uni.getUserInfo({    
+						withCredentials:true,
+						success: (info) => {
+							console.log("info===>",JSON.stringify(info));
+							const name = info.userInfo.nickName
+							that.requestAdd(openId,name,name,phone);
+						},
+						fail: (err) => {
+							console.log(err)
+						}
+					})
+				},
+				fail: err => {
+					console.log(err)
+				}
+			})
+		},
 		postAuth(phone,openId){
 			let that = this;
 			this.$request({
@@ -135,6 +141,7 @@ export default {
 		},
 		requestAdd(openId,name,nickName,phone){
 			this.postAuth(phone,openId);
+			let that = this;
 			this.$request({
 				path:"/user/mobile/add",
 				method:"POST",
@@ -154,6 +161,7 @@ export default {
 							uni.setStorageSync("userId",res.data.data.id);
 							uni.$emit('Login',{msg: "登录更新"})
 							setTimeout(()=>{
+								that.handleCloseModal()
 								uni.navigateBack();
 							},100)
 						}

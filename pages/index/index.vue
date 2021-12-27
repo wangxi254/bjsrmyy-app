@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<authDialog :authFlag="authFlag" @closemodal="closemodal" />
+		<authDialog :authFlag="authShowFlag" @closemodal="closemodal" />
 		<view class="navibarbg">
 			<view class="navibartitle">
 				<!-- {{hospitalInto.name}} -->
@@ -276,7 +276,7 @@
 					// 	date:'2021-09-10',
 					// }
 				],
-				authFlag:false,
+				authShowFlag:true,
 			}
 		},
 		components:{
@@ -288,8 +288,10 @@
 		},
 		onLoad() {
 			this.requestHospitalInto();
-			if(!uni.getStorageSync("userId")){
-				this.authFlag = true;
+		},
+		onShow() {
+			if(uni.getStorageSync("userId")){
+				this.authShowFlag = false;
 			}
 		},
 		methods:{
@@ -417,7 +419,7 @@
 				})
 			},
 			closemodal(e){
-				this.authFlag = false;
+				this.authShowFlag = false;
 			}
 		}
 	}
