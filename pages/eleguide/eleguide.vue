@@ -44,17 +44,17 @@
 		data() {
 			return {
 				list:[],
-				scancode:{
-					code: 'https://qm.qq.com/cgi-bin/qm/qr?k=LKqML292dD2WvwQfAJXBUmvgbiB_TZWF&noverify=0',
+				scancode:{},/*{
+					code: '',
 					size: 260, // 二维码大小
-				},
-				barcode:{
-					code: '1111',
+				},*/
+				barcode:{},/*{
+					code: '',
 					color:['#333333','#333333'], // 条形码的颜色
 					bgColor: '#FFFFFF', // 背景色
 					width: 300, // 宽度
 					height: 50 // 高度
-				},
+				},*/
 				mrn:'',
 				patientList:[],
 				credentialTypeIndex:0,
@@ -73,6 +73,8 @@
 		},
 		onShow() {
 			if(uni.getStorageSync("userId") === null || uni.getStorageSync("userId").length === 0){
+				this.barcode = {}
+				this.scancode = {}
 				uni.navigateTo({
 					url:"../auth/auth?backindex=eleguide"
 				})
@@ -177,8 +179,17 @@
 					console.log("res",JSON.stringify(res));
 					if(res.data.code == 200){
 						const mrn = res.data.data.mrn;
-						that.barcode["code"] = mrn;
-						that.scancode['code'] = mrn;
+						that.barcode = {
+										code: mrn,
+										color:['#333333','#333333'], // 条形码的颜色
+										bgColor: '#FFFFFF', // 背景色
+										width: 300, // 宽度
+										height: 50 // 高度
+									};
+						that.scancode = {
+											code: mrn,
+											size: 260, // 二维码大小
+										};
 						that.mrn = mrn;
 					}else{
 						uni.showToast({
