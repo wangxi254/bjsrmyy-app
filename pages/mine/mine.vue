@@ -8,10 +8,12 @@
 				<image class="right-img" src="../../static/common/right.png"></image>
 			</view>
 		</view>
+		<tabbar current="2" @tabClick="tabClick" />
 	</view>
 </template>
 
 <script>
+	import tabbar from "../../components/tabbar.vue";
 	export default {
 		data() {
 			return {
@@ -42,6 +44,9 @@
 				})
 			}
 		},
+		components:{
+			tabbar
+		},
 		methods: {
 			navitoPage(item){
 				if(uni.getStorageSync("userId") === null || uni.getStorageSync("userId").length === 0){
@@ -52,6 +57,21 @@
 				uni.navigateTo({
 					url:item.navi
 				})
+			},
+			tabClick(e){
+				if(e.index == 0){
+					uni.switchTab({
+						url:"../index/index"
+					})
+				}else if(e.index==1){
+					uni.switchTab({
+						url:"../eleguide/eleguide"
+					})
+				}else if(e.index == 2){
+					uni.switchTab({
+						url:"../mine/mine"
+					})
+				}
 			}
 		}
 	}

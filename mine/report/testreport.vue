@@ -135,11 +135,31 @@
 			  let date = e.detail.value;
 			  this.startDate = date;
 			  this.reportlist = [];
+			  if(this.judgeCondition()){
+			  				  this.search();
+			  }
 			},
 			bindEDateChange(e) {
 			  let date = e.detail.value;
 			  this.endDate = date;
 			  this.reportlist = [];
+			  if(this.judgeCondition()){
+				  this.search();
+			  }
+			},
+			judgeCondition(){
+				if(this.startDate.length == 0){
+					return false;
+				}
+				
+				if(this.endDate.length == 0){
+					return false;
+				}
+				
+				if(this.credentialNo.length == 0){
+					return false;
+				}	
+				return true;
 			},
 			search(){
 				if(this.startDate.length == 0){
@@ -247,7 +267,9 @@
 				this.credentialTypeIndex =  index;
 				this.credentialType = this.credentialTyps[index].credentialType;
 				this.credentialNo = this.credentialTyps[index].credentialNo;
-				this.search(false);
+				if(this.judgeCondition()){
+					this.search();
+				}
 			}
 		}
 	}

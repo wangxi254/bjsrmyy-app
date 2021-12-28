@@ -23,6 +23,14 @@ export default {
 					console.log('---------传入参数---------')
 					console.log(data)
 					console.log('--------------------')
+					console.log('res===>',JSON.stringify(res))
+					if(res.statusCode == 502){
+						uni.showToast({
+							title: '服务报错',
+							icon: 'none',
+							duration:3000,
+						});
+					}
 					if(res.data){
 						if(hastoast){
 							uni.showToast({
@@ -60,6 +68,7 @@ export default {
 				 
 				},
 				fail: err => {
+					console.log("err===>",JSON.stringify(err))
 					uni.hideLoading();
 					if(hastoast){
 						uni.showToast({

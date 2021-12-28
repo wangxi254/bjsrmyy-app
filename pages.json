@@ -35,12 +35,6 @@
 			}
 		}
 	],
-	"mine": [
-		//就诊人管理
-		{
-			"path": "mine/diagnose/diagnoseLsit" 
-		}
-	],
 	"subPackages": [
 		{
 			"root": "hospitalIntro",
@@ -335,22 +329,17 @@
 			"selectedIconPath": "/static/tabbar/indexed.png"
 		},
 		{
-			"selectedIconPath":"static/tabbar/elecode.png",
-			"iconPath": "static/tabbar/elecode.png",
-			"pagePath":"pages/eleguide/eleguide"
+			"pagePath":"pages/eleguide/eleguide",
+			// "text":"电子就诊码",
+			"iconPath":"static/tabbar/elecode.png",
+			"selectedIconPath":"static/tabbar/elecode.png"
 		},
 		{
 			"pagePath": "pages/mine/mine",
 			"text": "个人中心",
 			"iconPath": "/static/tabbar/home.png",
 			"selectedIconPath": "/static/tabbar/homed.png"
-		}],
-		"midButton": {
-			"iconPath": "/static/tabbar/elecode.png",
-			"height":"80px",
-			"iconWidth":"60px",
-			"text":"发布"
-		}
+		}]
 	}
 	
 }
