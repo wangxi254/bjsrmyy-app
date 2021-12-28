@@ -146,7 +146,8 @@
 					title:'门诊缴费',
 					detail:'在线快捷缴费',
 					no:'3',
-					navigation:'../../records/listPay',
+					navigation:'../../records/listRecord',
+					//navigation:'../../records/listPay',
 					hashospitalInto:false,
 					noti:2,
 					needLogin:true,
@@ -222,14 +223,14 @@
 						hashospitalInto:false,
 						needLogin:true,
 					},
-					{
-						img:'../../static/index/menu-item7.png',
-						title:'门诊清单',
-						no:9,
-						navigation:'../../records/listRecord',
-						hashospitalInto:false,
-						needLogin:true,
-					}
+					// {
+					// 	img:'../../static/index/menu-item7.png',
+					// 	title:'门诊清单',
+					// 	no:9,
+					// 	navigation:'../../records/listRecord',
+					// 	hashospitalInto:false,
+					// 	needLogin:true,
+					// }
 					
 				],
 				naviMesus:[

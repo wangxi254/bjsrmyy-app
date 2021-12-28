@@ -29,22 +29,36 @@
         <button class="primary-btn" style="margin-top: 10rpx" @click="getList">查询</button>
     </view>
     <view class="pageContainer">
-        <NoData v-if="list.length == 0" />
-        <hs-card v-else v-for="(item,index) in list" :key="index" class="list-item" @click="goDetail({})">
+        <!-- <NoData v-if="list.length == 0" /> -->
+        <hs-card v-for="(item,index) in list1" :key="index" class="list-item" @click="goDetail(0,item)">
             <template v-slot:header>
                 <view class="title-model flex justify-between items-center">
-                    <text>2021-12-20</text>
+                    <text>{{item.visitTime | getdate}}</text>
                     <view class="status">
-                        <text class="success">已支付</text>
-                        <text class="error">待支付</text>
+                        <text class="err">待支付</text>
                     </view>
                 </view>
             </template>
-            <view>院区：<text>贵医</text></view>
-            <view>处方号：<text>123123</text></view>
-            <view>处方类别：<text>兴奋剂</text></view>
-            <view>支付金额：<text>50</text></view>
+            <view>院区：<text>{{item.district}}</text></view>
+            <view>处方号：<text>{{item.recipeCode}}</text></view>
+            <view>处方类别：<text>{{item.recipeType}}</text></view>
+            <view>支付金额：<text>{{item.total}}</text></view>
         </hs-card>
+        <hs-card  v-for="(item,index) in list2" :key="index" class="list-item" @click="goDetail(1,item)">
+            <template v-slot:header>
+                <view class="title-model flex justify-between items-center">
+                    <text>{{registerTime | getdate}}</text>
+                    <view class="status">
+                        <text class="success">已支付</text>
+                    </view>
+                </view>
+            </template>
+            <view>院区：<text>{{item.district}}</text></view>
+            <view>处方号：<text>{{item.drugno}}</text></view>
+            <view>处方类别：<text>{{item.registerFlag}}</text></view>
+            <view>支付金额：<text>{{item.total}}</text></view>
+        </hs-card>
+        <NoData v-if="list1.length == 0 && list2.length == 0" />
     </view>
     <userModel ref="userModelref"  @changeUser="changeUser" />
   </view>
@@ -52,6 +66,7 @@
 
 <script>
 import userModel from '@/components/userList/index.vue'
+import NoData from '@/components/nodata/index.vue'
 function getDate(type) {
 		const date = new Date();
 
@@ -70,7 +85,7 @@ function getDate(type) {
 		return `${year}-${month}-${day}`;
 }
 export default {
-    components: { userModel },
+    components: { userModel,NoData },
     data(){
         return {
             searchForm: {
@@ -81,7 +96,8 @@ export default {
 			endDate:getDate('end'),
             PatientInfo: {},
             PatientCard:{},
-            list: [{},{},{}]
+            list1: [],
+            list2: []
         }
     },
     async onLoad() {
@@ -89,6 +105,7 @@ export default {
         const { PatientList, PatientCard }  = await this.$getUserInfo();
         this.PatientInfo = PatientList[0];
         this.PatientCard = PatientCard;
+        this.getList();
     },
     methods: {
         showUserList() {
@@ -102,12 +119,28 @@ export default {
             });
             
         },
+        goDetail(type,row){
+            if(type == 0) {
+                let data = {
+                    ...row,
+                    PatientInfo: this.PatientInfo,
+                    PatientCard: this.PatientCard
+                }
+                uni.navigateTo({
+                    url:'./listRecord/pageOne?row=' + JSON.stringify(data)
+                })
+            }else{
+                uni.navigateTo({
+                    url:'./listRecord/pageTwo?row=' + JSON.stringify(row)
+                })
+            }
+        },
         getList() {
             this.$request({
-                path:`/listing/outpatient/list`,
+                path:`/registration/settlement/ty-outpatient-list`,
                 method: 'post',
                 query: {
-                    //medicalRecordNo: this.PatientCard.mrn,
+                    mrn: this.PatientCard.mrn,
                     certificateType:this.PatientInfo.credentialType,
                     certificateNo : this.PatientInfo.credentialNo,
                     beginDate: this.searchForm.startDate,
@@ -115,7 +148,8 @@ export default {
                 }
             }).then(res=>{
                 if(res.data.code == 200){
-                    this.list = res.data.data
+                    this.list1 = res.data.data.notPayList;
+                    this.list2 = res.data.data.paidList
                 }
             })
         },
@@ -170,7 +204,7 @@ export default {
                      color: $uni-text-color-disable;
                 }
                 .err{
-                    color: $uni-text-color-disable;
+                    color: $uni-color-error;
                 }
                 text{
                     // color: #fff;
