@@ -11,7 +11,7 @@
 		</view>
 		
 		<view class="auth">
-			<button class='bottom' type="primary" open-type="getPhoneNumber" @getphonenumber="onGetPhoneNumber" withCredentials="true">手机号授权登录</button>
+			<button class='bottom' open-type="getPhoneNumber" @getphonenumber="onGetPhoneNumber" :loading="loading" withCredentials="true">手机号授权登录</button>
 		</view>
 	</view>
 </template>
@@ -23,7 +23,8 @@ export default {
 	data() {
 		return {
 			choose:false,
-			backindex:''
+			backindex:'',
+			loading:false,
 		};
 	},
 	/**
@@ -54,11 +55,13 @@ export default {
 			}
 		},
 		onGetPhoneNumber(e) {
+			
 			let that = this;
 			console.log("e===>",JSON.stringify(e))
 			let appid = "wxbd1c9abbabdd7333" //需替换
 			let secret = "3dda78ba34520358aade662ae735e1d1"  //需替换
 			//调用 wx.login 接口,获取code
+			this.loading = true;
 			uni.login({
 				provider: 'weixin',
 				success: loginres => {
@@ -77,6 +80,7 @@ export default {
 					uni.request({
 						url: url, // 请求路径
 						success: res => { //成功res返回openid，session_key
+							that.loading = false;
 							res.data.openid && uni.setStorageSync("openId",res.data.openid)
 							console.log(JSON.stringify(res));	
 							const openId = res.data.openid;
@@ -96,9 +100,9 @@ export default {
 							// watermark:
 							//         appid: "wxce185cd1da123456"
 							//         timestamp: 1607906868
+							
 							console.log(JSON.stringify(data))
 							const phone = data.phoneNumber;
-
 							uni.getUserInfo({    
 								withCredentials:true,
 								success: (info) => {
@@ -112,6 +116,7 @@ export default {
 							})
 						},
 						fail: err => {
+							that.loading = false;
 							console.log(err)
 						}
 					})
@@ -127,7 +132,7 @@ export default {
 				query:{
 					phone:phone,
 					openId:openId,
-				}
+				},
 			}).then(res=>{
 				if(res && res.data.code == 200){
 					
@@ -149,6 +154,7 @@ export default {
 		},
 		requestAdd(openId,name,nickName,phone){
 			let that = this;
+			that.loading = true;
 			this.postAuth(phone,openId);
 			this.$request({
 				path:"/user/mobile/add",
@@ -157,8 +163,10 @@ export default {
 					name:name,
 					nickName:nickName,
 					phone:phone,
-				}
+				},
+				hastoast:true,
 			}).then(res=>{
+				that.loading = false;
 				// 346829058917404672
 				console.log("res:",JSON.stringify(res))
 				console.log("back click4444");

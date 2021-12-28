@@ -6,7 +6,7 @@
 	<cover-view style="margin-top: 25px;background: #E4E4E4;height: 2rpx;width: 100%;"></cover-view>
 	<cover-view class="footerauth">
 		<button class="bottodef" type='default' @tap="handleCloseModal">取消</button>
-		<button class="bottodef btncolor" type='primary' open-type="getPhoneNumber" @getphonenumber="onGetPhoneNumber" withCredentials="true">授权登录</button>
+		<button class="bottodef btncolor" type='primary' :loading="loading" open-type="getPhoneNumber" @getphonenumber="onGetPhoneNumber" withCredentials="true">授权登录</button>
 	</cover-view>
   </cover-view> 
 </cover-view>
@@ -20,7 +20,8 @@ export default {
 	props:{
 		authFlag:{
 			type:Boolean,
-			default:false
+			default:false,
+			loading:false,
 		}
 	},
 	data() {
@@ -46,14 +47,23 @@ export default {
 	methods: {
 		onGetPhoneNumber(e) {
 			let that = this;
+			that.loading = true;
 			console.log("e===>",JSON.stringify(e))
 			//调用 wx.login 接口,获取code
 			uni.login({
 				provider: 'weixin',
 				success: loginres => {
+					that.loading = true;
 					console.log("loginres>>",JSON.stringify(loginres));
 					that.reqopenId(e,loginres);
+				},
+				fail: (err) => {
+					that.loading = true;
+				},
+				complete: (ee) => {
+					that.loading = true;
 				}
+				
 			})
 		},
 		reqopenId(e,loginres){
@@ -142,6 +152,7 @@ export default {
 		requestAdd(openId,name,nickName,phone){
 			this.postAuth(phone,openId);
 			let that = this;
+			that.loading = true;
 			this.$request({
 				path:"/user/mobile/add",
 				method:"POST",
@@ -149,9 +160,11 @@ export default {
 					name:name,
 					nickName:nickName,
 					phone:phone,
-				}
+				},
+				hastoast:true,
 			}).then(res=>{
 				// 346829058917404672
+				that.loading = false;
 				console.log("res:",JSON.stringify(res))
 				if(res && res.data && res.data.code == 200){
 					uni.showToast({
