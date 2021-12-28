@@ -42,13 +42,12 @@
 					<text>上午</text>
 				</view>
 				<view class="nodes">选择想要预约的时间段</view>
-				<scroll-view scroll-y="true" style="height: calc(100% - 20px)">
-					<view class="selList flex flex1 flex-wrap ">
-						
+				<view class="nodes-txt">注：超过号源时间1小时后不可预约该号源</view>
+				<scroll-view scroll-y="true" style="height: 85vh">
+					<view class="selList flex flex1 flex-wrap "> 
 							<view class="sel-item justify-center" v-for="(item,index) in selList[currentRow.type]" :key="index" @click="chooseDate(item)">
-								号源{{item.seqNum}}
-							</view>
-						
+								{{item.reg_time}} ( {{item.seqNum}} )
+							</view> 
 					</view>
 				</scroll-view>
 			</view>
@@ -125,6 +124,22 @@
 				this.$refs.popup.open('right');
 			},
 			chooseDate(row){
+				if(row.reg_time && row.reg_time.indexOf(':')!=-1){
+					let regtime = new Date(this.currentDate +" "+ row.reg_time)
+					var nowtime = new Date().getTime()
+					var difftime = (nowtime - regtime)/1000; //计算时间差,并把毫秒转换成秒
+					var days = parseInt(difftime/86400); // 天  24*60*60*1000 
+					var hours = parseInt(difftime/3600)-24*days;    // 小时 60*60 总小时数-过去的小时数=现在的小时数 
+					var minutes = parseInt(difftime%3600/60);
+					if(hours >= 1){
+						//号源超过一个小时的不能再预约
+						uni.showToast({
+							title:'该号源已过可预约时段',
+							icon: 'none'
+						})
+						return
+					}  
+				}
 				this.currentRow['currentDate'] = this.currentDate;
 				this.currentRow = {...this.currentRow,...row,deptCode: this.classId,registerType: this.showDate?1:0}
 				uni.navigateTo({
@@ -301,13 +316,20 @@
 		}
 		.nodes{
 			font-weight: bold;
-			font-size: 40rpx;
+			font-size: 30rpx;
 			text-align: center;
 			line-height: 2;
+		}
+		.nodes-txt{
+			font-size: 24rpx;
+			color: #999999;
+			text-align: center;
+			margin-bottom: 10rpx;
 		}
 		.selList{
 			overflow: auto;
 			padding: 10rpx;
+			overflow-y: auto;
 			.sel-item{
 				border: 1rpx solid red;
 				padding: 10rpx;
