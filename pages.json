@@ -330,7 +330,7 @@
 		},
 		{
 			"pagePath":"pages/eleguide/eleguide",
-			"text":"电子就诊码",
+			// "text":"电子就诊码",
 			"iconPath":"static/tabbar/elecode.png",
 			"selectedIconPath":"static/tabbar/elecode.png"
 		},

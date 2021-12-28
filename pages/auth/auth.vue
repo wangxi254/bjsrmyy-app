@@ -179,10 +179,17 @@ export default {
 					})
 					
 				}else{
-					uni.showToast({
-						icon:'none',
-						title:res.data.msg,
-					})
+					if(res.data && res.data.msg){
+						uni.showToast({
+							icon:'none',
+							title:res.data.msg,
+						})
+					}else{
+						// uni.showToast({
+						// 	icon:'none',
+						// 	title:"服务器端出错",
+						// })
+					}
 				}
 			})
 			
