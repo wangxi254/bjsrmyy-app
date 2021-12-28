@@ -1,8 +1,12 @@
 <template>
 	<view>
-		<view>科室名称：{{testReport.depName}}</view>
-		<view>检验名称：{{testReport.reportName}}</view>
-		<view>检验编号：{{testReport.reportCode}}</view>
+		<view>科室名称：{{testReport && testReport.name ? testReport.name : ''}}</view>
+		<view>检验名称：{{testReport && testReport.reportName ? testReport.reportName : ''}}</view>
+		<view>检验编号：{{testReport && testReport.reportCode}}</view>
+		<view>性别：{{testReport && testReport.sex == 'M'? '男':'女'}}</view>
+		<view>{{testReport && testReport.sqDoc ? testReport.sqDoc : ''}}</view>
+		<view>{{testReport && testReport.depName ? testReport.depName : ''}}</view>
+		<view>{{testReport && testReport.diagnosis ? testReport.diagnosis : ''}}</view>
 	</view>
 </template>
 
