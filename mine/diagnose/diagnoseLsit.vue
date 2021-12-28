@@ -80,6 +80,7 @@
 
 		},
 		onShow() {
+			console.log(getCurrentPages())
 			this.requestList();
 		},
 		methods: {
