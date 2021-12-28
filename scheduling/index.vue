@@ -51,6 +51,7 @@
 		methods: {
 			clickTime(index) {
 				this.timeIndex = index
+				this.sourceData = []
 				this.getData()
 			},
 			getData() {
