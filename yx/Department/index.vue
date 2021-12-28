@@ -28,7 +28,8 @@
 				searchText:'',
 				isNotSearching:true,
 				scrollHeiht:'',
-				pageType: 0
+				pageType: 0,
+				searchList: []
 			}
 		},
 		onLoad(options) {
@@ -73,7 +74,6 @@
 				this.isNotSearching = true;
 			},
 			rightClick(item){
-				console.log("expert:",JSON.stringify(item));
 				uni.navigateTo({
 					url:`./roomDetail?item=${JSON.stringify(item)}`
 				})
