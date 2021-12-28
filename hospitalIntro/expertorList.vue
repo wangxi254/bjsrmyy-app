@@ -1,7 +1,7 @@
 <template>
 	<view>
-		<view class="search show-center">
-			<view v-if="isNotSearching" @click="searchClick" class="search-bg show-center">
+		<view class="search">
+			<!-- <view v-if="isNotSearching" @click="searchClick" class="search-bg show-center">
 				<view class="search-input">搜索</view>
 				<image class="search-icon" src="../static/index/search.png">
 			</view>
@@ -11,6 +11,10 @@
 					<input class="search-input" type="text" placeholder="搜索" v-model="searchText" @input="input"  @focus="vauleEmpty" confirm-type="search" />
 				</view>
 				<view @click="cancleEdit" class="cancle">取消</view>
+			</view> -->
+			<view class="show-center flex1 justify-content">
+				<image class="search-icon marginl10r10" src="../static/index/search.png">
+				<input class="search-input" type="text" placeholder="请输入专家名称" v-model="searchText" @input="input"  @focus="vauleEmpty" confirm-type="search" />
 			</view>
 		</view>
 		<scroll-view scroll-y>
@@ -161,7 +165,7 @@
 		height: 44px;
 		line-height: 44px;
 		width: 100%;
-		background: $uni-bg-color-hover;
+		background: #FFFFFF;
 	}
 	
 	.show-center{
@@ -169,6 +173,10 @@
 		justify-content: center;
 		display: flex;
 		flex-direction: row;
+		height: 30px;
+		background: #F5F5F5;
+		border-radius: 15px;
+		margin: 10px 15px;
 	}
 	
 	.justify-content{
@@ -176,8 +184,8 @@
 	}
 	
 	.search-icon{
-		width: 20px;
-		height: 20px;
+		width: 18px;
+		height: 18px;
 	}
 	
 	.search-text{
@@ -216,6 +224,12 @@
 		font-size: $uni-font-detail-title;
 		color: $uni-text-color;
 		margin-right: 8px;
+		font-size: 14px;
+		font-family: PingFang-SC-Regular, PingFang-SC;
+		font-weight: 400;
+		color: #CCCCCC;
+		line-height: 30px;
+		height: 30px;
 	}
 	
 	.fav{
