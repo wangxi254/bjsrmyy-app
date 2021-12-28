@@ -31,17 +31,19 @@
     <view class="pageContainer">
         <NoData v-if="list.length == 0" />
         <hs-card v-else v-for="(item,index) in list" :key="index" class="list-item" @click="goDetail({})">
-            <!-- <template v-slot:header>
+            <template v-slot:header>
                 <view class="title-model flex justify-between items-center">
-                    <text>{{item.depName}}</text>
+                    <text>2021-12-20</text>
                     <view class="status">
-                        {{item.settlementState==1?"已结算":"未结算"}}
+                        <text class="success">已支付</text>
+                        <text class="error">待支付</text>
                     </view>
                 </view>
             </template>
-            <view>处方号<text>{{item.recipeCode}}</text></view>
-            <view>金额<text>{{item.total}}</text></view> -->
-            <view>待开发内容</view>
+            <view>院区：<text>贵医</text></view>
+            <view>处方号：<text>123123</text></view>
+            <view>处方类别：<text>兴奋剂</text></view>
+            <view>支付金额：<text>50</text></view>
         </hs-card>
     </view>
     <userModel ref="userModelref"  @changeUser="changeUser" />
@@ -78,14 +80,10 @@ export default {
             startDate:getDate('start'),
 			endDate:getDate('end'),
             PatientInfo: {},
-            PatientCard:{}
+            PatientCard:{},
+            list: [{},{},{}]
         }
     },
-    // onLoad() {
-    //     const { PatientList, PatientCard }  = getApp().globalData;
-    //     this.PatientInfo = PatientList[0];
-    //     this.PatientCard = PatientCard;
-    // },
     async onLoad() {
         //const { PatientList, PatientCard }  = getApp().globalData;
         const { PatientList, PatientCard }  = await this.$getUserInfo();
@@ -161,4 +159,29 @@ export default {
             text-align: center;
         }
     }
+    .list-item{
+        .title-model{
+            width: 100%;
+            border-bottom: 1px solid #eee;
+            padding: 20rpx;
+            box-sizing: border-box;
+            .status{
+                .success {
+                     color: $uni-text-color-disable;
+                }
+                .err{
+                    color: $uni-text-color-disable;
+                }
+                text{
+                    // color: #fff;
+                    // display: inline-block;
+                    // margin: 0 10rpx;
+                    // padding: 6rpx 10rpx;
+                    // border-radius: 30rpx;
+                    // font-size: $uni-font-size-sm;
+                }
+            }
+        }
+    }
+    
 </style>

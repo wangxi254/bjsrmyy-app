@@ -77,7 +77,6 @@ export default {
 					uni.request({
 						url: url, // 请求路径
 						success: res => { //成功res返回openid，session_key
-							
 							res.data.openid && uni.setStorageSync("openId",res.data.openid)
 							console.log(JSON.stringify(res));	
 							const openId = res.data.openid;
