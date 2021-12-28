@@ -1,3 +1,12 @@
+<!--
+ * @Author: seven
+ * @Date: 2021-12-23 09:47:00
+ * @LastEditTime: 2021-12-28 11:59:19
+ * @LastEditors: seven
+ * @Description: 
+ * @FilePath: \my-project\src\components\hs-card\index.vue
+ * 博虹出品，抄袭必究😄
+-->
 <template>
     <view class="card" @click="_onClick">
         <slot name="header" />
@@ -41,6 +50,9 @@ export default {
         .card-body{
             padding: 20rpx;
             min-height: 80rpx;
+            view{
+                line-height: 2;
+            }
         }
     }
 </style>
