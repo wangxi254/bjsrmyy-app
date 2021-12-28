@@ -304,11 +304,7 @@
 		border-radius: 5px;
 	}
 	
-	.btnsize{
-		width: 50px;
-		height: 20px;
-		line-height: 20px;
-	}
+	
 	
 	.margin{
 		margin: 10px 15px;
