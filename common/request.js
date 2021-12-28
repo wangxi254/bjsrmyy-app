@@ -24,45 +24,65 @@ export default {
 					console.log(data)
 					console.log('--------------------')
 					console.log('res===>',JSON.stringify(res))
-					if(res.statusCode == 502){
-						uni.showToast({
-							title: '服务报错',
-							icon: 'none',
-							duration:3000,
-						});
-					}
 					if(res.data){
-						if(hastoast){
-							uni.showToast({
-								title: res.data.msg,
-								icon: 'none',
-								duration:3000
-							});
-						}
 						if (res.data.code== 200) {
 							resolve(res);
 						}else if(res.data.code== 401){
 							uni.setStorageSync("token", null);
 							resolve(res);
-						}
-						else {
+						}else{
+							
 							console.log('----------------------------')
 							console.log(res.data.msg)
 							console.log('----------------------------')
-							uni.showToast({
-								title:res.data.msg,
-								icon: 'none',
-								duration:3000
-							});
+							if(res.data.msg){
+								uni.showToast({
+									title: res.data.msg,
+									icon: 'none',
+									duration:3000
+								});
+							}else{
+								if(res.statusCode == 502){
+									uni.showToast({
+										title: "服务器端报错",
+										icon: 'none',
+										duration:3000
+									});
+								}else{
+									uni.showToast({
+										title: "未知错误",
+										icon: 'none',
+										duration:3000
+									});
+								}
+								
+							}
 							resolve(res);
 						}
 					}else{
 						if(hastoast){
-							uni.showToast({
-							  title:res.data.msg,
-							  icon: 'none',
-							  duration:3000
-							});
+							if(res.data.msg){
+								uni.showToast({
+									title: res.data.msg,
+									icon: 'none',
+									duration:3000
+								});
+							}else{
+								if(res.statusCode == 502){
+									uni.showToast({
+										title: "服务器端报错",
+										icon: 'none',
+										duration:3000
+									});
+								}else{
+									uni.showToast({
+										title: "未知错误",
+										icon: 'none',
+										duration:3000
+									});
+								}
+								
+							}
 						}
 					}
 				 

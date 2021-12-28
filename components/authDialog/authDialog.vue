@@ -168,10 +168,12 @@ export default {
 					})
 					
 				}else{
-					uni.showToast({
-						icon:'none',
-						title:res.data.msg,
-					})
+					if(res.data && res.data.msg){
+						uni.showToast({
+							icon:'none',
+							title:res.data.msg,
+						})
+					}
 				}
 			})
 			
