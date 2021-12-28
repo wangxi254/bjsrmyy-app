@@ -3,17 +3,17 @@
 		<view class="uni-container">
 			<uni-table ref="table" :loading="loading" border stripe emptyText="暂无更多数据" @selection-change="selectionChange">
 				<uni-tr>
-					<uni-th width="60" align="center">
-						<view class="header">楼层</view>
+					<uni-th width="100" align="center">
+						<view class="header">楼层名称</view>
 					</uni-th>
 					<uni-th align="center">
-						<view class="header">科室</view>
+						<view class="header">楼层详情</view>
 					</uni-th>
 				</uni-tr>
 				<uni-tr v-for="(item, index) in tableData" :key="index">
-					<uni-td>{{ item.floor }}</uni-td>
+					<uni-td>{{ item.name }}</uni-td>
 					<uni-td>
-						<view class="name">{{ item.room }}</view>
+						<view class="name">{{ item.synopsis }}</view>
 					</uni-td>
 				</uni-tr>
 			</uni-table>
@@ -28,28 +28,29 @@ export default {
 	data() {
 		return {
 			searchVal: '',
-			tableData: [
-				{
-					floor:"1F",
-					room:"门诊化验室、收费处、药方、挂号处、急诊室、住院处、抽血室、换药室"
-				},
-				{
-					floor:"2F",
-					room:"门诊化验室、收费处、药方、挂号处、急诊室、住院处、抽血室、换药室"
-				},
-				{
-					floor:"3F",
-					room:"门诊化验室、收费处、药方、挂号处、急诊室、住院处、抽血室、换药室"
-				},
-				{
-					floor:"3F",
-					room:"门诊化验室、收费处、药方、挂号处、急诊室、住院处、抽血室、换药室"
-				},
-				{
-					floor:"3F",
-					room:"门诊化验室、收费处、药方、挂号处、急诊室、住院处、抽血室、换药室"
-				}
-			],
+			tableData:[],
+			// tableData: [
+			// 	{
+			// 		floor:"1F",
+			// 		room:"门诊化验室、收费处、药方、挂号处、急诊室、住院处、抽血室、换药室"
+			// 	},
+			// 	{
+			// 		floor:"2F",
+			// 		room:"门诊化验室、收费处、药方、挂号处、急诊室、住院处、抽血室、换药室"
+			// 	},
+			// 	{
+			// 		floor:"3F",
+			// 		room:"门诊化验室、收费处、药方、挂号处、急诊室、住院处、抽血室、换药室"
+			// 	},
+			// 	{
+			// 		floor:"3F",
+			// 		room:"门诊化验室、收费处、药方、挂号处、急诊室、住院处、抽血室、换药室"
+			// 	},
+			// 	{
+			// 		floor:"3F",
+			// 		room:"门诊化验室、收费处、药方、挂号处、急诊室、住院处、抽血室、换药室"
+			// 	}
+			// ],
 			// 每页数据量
 			pageSize: 10,
 			// 当前页
@@ -94,6 +95,7 @@ export default {
 		},
 		// 获取数据
 		getData(pageCurrent, value = '') {
+			let that = this;
 			this.loading = true
 			this.pageCurrent = pageCurrent
 			this.loading = false
@@ -104,6 +106,9 @@ export default {
 				},
 			}).then(res=>{
 				if(res.data.code == 200){
+					
+					const list = res.data.data;
+					that.tableData = list;
 				}
 			})
 			
