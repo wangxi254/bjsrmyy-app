@@ -7,7 +7,7 @@
 				毕节市第一人民医院
 			</view>
 		</view>
-		<hsBannerView :banners="banners" :props="props" @bannerClick="bannerClick" />
+		<image class="hs-banner" mode="" src="https://second-vedio.oss-cn-shenzhen.aliyuncs.com/image/d4860fdbe172f0285deb8a2cc4a58c64.jpeg"></image>
 		<view class="flex-row paadinglr15">
 			<view class="notifacationtitle">
 				最新通知｜
@@ -55,9 +55,7 @@
 				<!-- <indexMenuItem :grid-list=naviMesus :show-tip="false" :col="5"></indexMenuItem> -->
 			</view>
 		</view>
-			
-		<image class="hs-banner" mode="" src="https://second-vedio.oss-cn-shenzhen.aliyuncs.com/image/d4860fdbe172f0285deb8a2cc4a58c64.jpeg"></image>
-		
+		<hsBannerView :banners="banners" :props="props" @bannerClick="bannerClick" />
 		<view v-for="item in news">
 			<view class="cell paading15" @click="goDetail(item)">
 				<view class="cont">
@@ -581,7 +579,6 @@
 	.hs-banner{
 		width: 100%;
 		height: 120px;
-		margin-top: 65px;
 	}
 	
 	

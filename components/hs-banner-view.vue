@@ -67,6 +67,7 @@
 	.banner-view{
 		width: 100%;
 		height: 150px;
+		margin-top: 30px;
 	}
 	
 	// .banner-img{
