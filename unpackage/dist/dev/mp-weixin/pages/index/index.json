@@ -1,0 +1,12 @@
+{
+  "navigationStyle": "custom",
+  "navigationBarTextStyle": "white",
+  "usingComponents": {
+    "auth-dialog": "/components/authDialog/authDialog",
+    "zy-grid": "/components/zy-grid/zy-grid",
+    "hs-menu-list": "/components/hs-menu-list",
+    "hs-banner-view": "/components/hs-banner-view",
+    "index-menu-item": "/components/index-menu-item",
+    "tabbar": "/components/tabbar"
+  }
+}

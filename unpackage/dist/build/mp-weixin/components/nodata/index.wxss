@@ -1,0 +1,1 @@
+.box{min-height:80px;width:100%;background:#fff;display:flex;flex-flow:column;align-items:center;justify-content:center}.box view{line-height:2;color:#53b7c7}

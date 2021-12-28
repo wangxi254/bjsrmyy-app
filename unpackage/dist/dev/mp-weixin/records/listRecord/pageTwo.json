@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "门诊详细",
+  "usingComponents": {
+    "no-data": "/components/nodata/index"
+  }
+}

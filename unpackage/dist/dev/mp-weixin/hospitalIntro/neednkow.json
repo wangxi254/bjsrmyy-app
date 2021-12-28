@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "就诊须知",
+  "usingComponents": {
+    "uni-title": "/components/uni-title"
+  }
+}

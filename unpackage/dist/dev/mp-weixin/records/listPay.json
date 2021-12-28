@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "诊间支付",
+  "usingComponents": {
+    "uni-icons": "/components/uni-icons/uni-icons",
+    "user-model": "/components/userList/index"
+  }
+}
