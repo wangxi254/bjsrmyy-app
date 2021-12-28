@@ -125,20 +125,25 @@
 			  let date = e.detail.value;
 			  this.startDate = date;
 			  this.reportlist = [];
+			  if(this.judgeCondition()){
+			  	this.search();
+			  }
 			},
 			bindEDateChange(e) {
 			  let date = e.detail.value;
 			  this.endDate = date;
 			  this.reportlist = [];
+			  if(this.judgeCondition()){
+			  	this.search();
+			  }
 			},
 			getCheckreport(mrn){
 				let that = this;
-				let date = new Date().toISOString().slice(0, 10);
 				this.$request({
 					path:'/checkReport/mobile/getInfo',
 					query:{
-						beginDate:date,
-						endDate:date,
+						beginDate:this.startDate,
+						endDate:this.endDate,
 						mrn:mrn,
 					}
 				}).then(res=>{
@@ -164,7 +169,6 @@
 				}
 				
 				let that = this;  
-				let date = new Date().toISOString().slice(0, 10);
 				this.$request({
 					path:'/checkReport/mobile/getInfoByPatient',
 					query:{
@@ -177,6 +181,20 @@
 						that.reportlist = res.data.data;
 					}
 				})
+			},
+			judgeCondition(){
+				if(this.startDate.length == 0){
+					return false;
+				}
+				
+				if(this.endDate.length == 0){
+					return false;
+				}
+				
+				if(this.credentialNo.length == 0){
+					return false;
+				}	
+				return true;
 			},
 			search(){
 				// if(this.mrn.length > 0){
@@ -254,7 +272,9 @@
 				this.credentialTypeIndex =  index;
 				this.credentialType = this.credentialTyps[index].credentialType;
 				this.credentialNo = this.credentialTyps[index].credentialNo;
-				this.search();
+				if(this.judgeCondition()){
+					this.search();
+				}
 			}
 			
 		}
@@ -282,6 +302,12 @@
 		line-height: 30px;
 		margin: 0px 5px;
 		border-radius: 5px;
+	}
+	
+	.btnsize{
+		width: 50px;
+		height: 20px;
+		line-height: 20px;
 	}
 	
 	.margin{
