@@ -125,13 +125,13 @@
 			},
 			chooseDate(row){
 				if(row.reg_time && row.reg_time.indexOf(':')!=-1){
-					let regtime = new Date(this.currentDate +" "+ row.reg_time)
-					var nowtime = new Date().getTime()
-					var difftime = (nowtime - regtime)/1000; //计算时间差,并把毫秒转换成秒
-					var days = parseInt(difftime/86400); // 天  24*60*60*1000 
-					var hours = parseInt(difftime/3600)-24*days;    // 小时 60*60 总小时数-过去的小时数=现在的小时数 
-					var minutes = parseInt(difftime%3600/60);
-					if(hours >= 1){
+					let regtime = new Date(this.currentDate +" "+ row.reg_time+":000").getTime() 
+					var nowtime = new Date().getTime() 
+					var difftime = nowtime - regtime;  
+					if(difftime<0){
+						difftime = -difftime
+					}
+					if(difftime >= 3600000 ){
 						//号源超过一个小时的不能再预约
 						uni.showToast({
 							title:'该号源已过可预约时段',
