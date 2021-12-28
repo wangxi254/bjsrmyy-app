@@ -9,6 +9,7 @@
 <script>
 	export default {
 		onLaunch: async function() {
+			uni.hideTabBar();
 			uni.$once('Login',function(data){
 				this.$userInit();
 			})
