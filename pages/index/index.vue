@@ -73,7 +73,7 @@
 		</view>
 		<!-- <hsMenuList :List="dataList" @menuClick="menuClick" /> -->
 		
-		
+		<tabbar :current="0" @tabclick="tabclick"></tabbar>
 	</view>
 	
 	
@@ -85,6 +85,7 @@
 	import indexMenuItem from "../../components/index-menu-item.vue";
 	import zyGrid from '../../components/zy-grid/zy-grid.vue'
 	import authDialog from "../../components/authDialog/authDialog.vue";
+	import tabbar from '../../components/tabbar.vue';
 	export default{
 		data(){
 			return {
@@ -292,9 +293,11 @@
 			hsBannerView,
 			indexMenuItem,
 			zyGrid,
-			authDialog
+			authDialog,
+			tabbar
 		},
 		onLoad() {
+			uni.hideTabBar();
 			this.requestHospitalInto();
 		},
 		onShow() {
@@ -428,6 +431,24 @@
 			},
 			closemodal(e){
 				this.authShowFlag = false;
+			},
+			tabclick(e){
+				if(e.index==0){
+					uni.switchTab({
+						url:"../index/index"
+					})
+				}else if(e.index==1){
+					uni.switchTab({
+						url:'../eleguide/eleguide'
+					})
+					// uni.navigateTo({
+					// 	url:`../eleguide/eleguide?index=${e.current}`,
+					// })
+				}else{
+					uni.switchTab({
+						url:"../mine/mine"
+					})
+				}
 			}
 		}
 	}

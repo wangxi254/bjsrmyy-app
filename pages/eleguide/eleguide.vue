@@ -1,8 +1,7 @@
 <template>
-	<view>
+	<view class="content">
 		<view class="checklayer" v-if="openlayer">
 			<view class="parkbox">
-				<!-- <view class="center height40 bottomborder">姓名：{{disagnoseCode.name}}</view> -->
 				<view class="center bottomborder flex-row">
 					<view>姓名：</view>
 					<view>
@@ -20,7 +19,6 @@
 					<view class="tcode">
 						<w-barcode :options="barcode"></w-barcode>
 					</view>
-					<!-- <image class="tcode" mode="aspectFill" :src="disagnoseCode.tcode"></image> -->
 				</view>
 				<view class="center height40">
 					{{mrn}}
@@ -29,17 +27,19 @@
 					<view class="scode">
 						<w-qrcode @press="longtap" style="margin-top: 1rem;" :options="scancode" ref="qrcode" @generate="hello"></w-qrcode>
 					</view>
-					<!-- <image class="scode" mode="aspectFill" :src="disagnoseCode.tcode"></image> -->
 				</view>
 				<view class="center height40">
 					<view class="footer-box footer-box-w share-next" @tap="coselayer">关闭</view>
 				</view>
 			</view>
 		</view>
+		<tabbar :current="1" @tabclick="tabclick"></tabbar>
 	</view>
 </template>
 
 <script>
+	import tabbar from '../../components/tabbar.vue';
+	import codeDialog from "../../components/codeDisalog.vue"
 	export default {
 		data() {
 			return {
@@ -71,6 +71,10 @@
 		},
 		onLoad() {
 			
+		},
+		components(){
+			tabbar,
+			codeDialog
 		},
 		onShow() {
 			if(uni.getStorageSync("userId") === null || uni.getStorageSync("userId").length === 0){
@@ -239,6 +243,25 @@
 				this.credentialNo = this.patientList[index].credentialNo;
 				
 				this.openCode();
+			},
+			tabclick(e){
+				console.log("ee",JSON.stringify(e))
+				if(e.index==0){
+					uni.switchTab({
+						url:"../index/index"
+					})
+				}else if(e.index==1){
+					uni.switchTab({
+						url:'../eleguide/eleguide'
+					})
+					// uni.navigateTo({
+					// 	url:`../eleguide/eleguide?index=${e.current}`,
+					// })
+				}else{
+					uni.switchTab({
+						url:"../mine/mine"
+					})
+				}
 			}
 			
 		}
@@ -246,6 +269,12 @@
 </script>
 
 <style lang="scss" scoped>
+	
+	.content{
+		width: 100%;
+		height: 100%;
+		background: #FFFFFF;
+	}
 	
 	page{
 		background: #FFFFFF;
@@ -299,9 +328,10 @@
 		position: fixed;
 		left: 0;
 		top: 0;
+		bottom: 0;
 		background-color: rgba(0, 0, 0, 0.5);
-		z-index: 999999;
-		overflow: hidden;
+		z-index: 99;
+		// overflow: hidden;
 		padding: 30rpx;
 		box-sizing: border-box;
 		justify-content: center;
@@ -366,5 +396,11 @@
 		line-height: 30px;
 		margin: 0px 5px;
 		border-radius: 5px;
+	}
+	
+	.test-view{
+		height: 100vh;
+		width: 100%;
+		background: #14C759;
 	}
 </style>
