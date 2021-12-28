@@ -38,8 +38,8 @@
 		<uni-popup ref="popup" type="right" background-color="#fff">
 			<view class="selTimeBox flex flex-column">
 				<view class="current-dateV">
-					<text>2021年12月24日</text>
-					<text>上午</text>
+					<text>{{currentDate}}</text>
+					<text>{{currentRow.type == 0?"上午":"下午"}}</text>
 				</view>
 				<view class="nodes">选择想要预约的时间段</view>
 				<view class="nodes-txt">注：超过号源时间1小时后不可预约该号源</view>

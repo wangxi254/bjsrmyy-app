@@ -19,7 +19,7 @@
             <scroll-view class="flex-1" scroll-y="true"  style="height: calc(100% - 50px)">
                 <view class="list">
                     <NoData v-if="list.length == 0" />
-                    <hs-card v-else v-for="(item,index) in list" :key="index" class="list-item" @click="goDetail({})">
+                    <hs-card v-else v-for="(item,index) in list" :key="index" class="list-item">
                         <template v-slot:header>
                             <view class="title-model flex justify-between items-center">
                                 <text>{{item.preid}}</text>
