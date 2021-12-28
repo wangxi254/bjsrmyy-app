@@ -217,7 +217,19 @@
 				{
 					"path":"listRecord",
 					"style": {
-						"navigationBarTitleText": "门诊清单"
+						"navigationBarTitleText": "门诊缴费"
+					}
+				},
+				{
+					"path":"listRecord/pageOne",
+					"style": {
+						"navigationBarTitleText": "门诊详细"
+					}
+				},
+				{
+					"path":"listRecord/pageTwo",
+					"style": {
+						"navigationBarTitleText": "门诊详细"
 					}
 				},
 				{
