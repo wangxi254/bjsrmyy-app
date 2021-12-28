@@ -106,7 +106,7 @@ export default {
 			endDate:getDate('end'),
             PatientInfo: {},
             list: [],
-            currentInfo:{},
+            currentInfo:null,
             openId: uni.getStorageSync("openId"),
             PaientCard: {}
         }
@@ -181,10 +181,6 @@ export default {
                 uni.hideLoading();
                 if(res.data.code == 200) {
                     this.PaientCard = res.data.data;
-
-                    console.log(this.PatientInfo)
-                    console.log(this.PaientCard)
-                    console.log(this.currentInfo)
                 }
             })
         },

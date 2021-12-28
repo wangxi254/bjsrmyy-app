@@ -180,9 +180,13 @@ export default {
 	//获取用户病例信息
 	getUserCard(PaientInfo) {
 		return new Promise((resolve,reject)=>{
+			uni.showLoading({
+				text: "加载中..."
+			})
 			this.$request({
 				path:`/tpatientCard/mobile/getPatientCardByPatientInfo?condition=${PaientInfo.credentialNo}&conditionType=${PaientInfo.credentialType}`,
 			}).then(res=>{
+				uni.hideLoading();
 				if(res.data.code == 200) resolve(res.data.data)
 				else reject()
 			}).catch(err=> reject())
@@ -193,9 +197,13 @@ export default {
 		return new Promise((resolve,reject)=>{
 			const userId = this.$getUserId();
 			if(userId){
+				uni.showLoading({
+					text: "加载中..."
+				})
 				this.$request({
 					path:`/patient/mobile/getPatientByUserId?userId=${userId}`,
 				}).then(res=>{
+					uni.hideLoading();
 					if(res.data.code == 200) {
 						resolve(res.data.data || [])
 					}else{
