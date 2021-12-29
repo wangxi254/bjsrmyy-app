@@ -108,6 +108,9 @@ export default {
 								success: (info) => {
 									console.log("info===>",JSON.stringify(info));
 									const name = info.userInfo.nickName
+									const avatarUrl = info.userInfo.avatarUrl
+									uni.setStorageSync("userInfo",info.userInfo);
+									uni.setStorageSync("phone",phone);
 									that.requestAdd(openId,name,name,phone);
 								},
 								fail: (err) => {

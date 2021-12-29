@@ -4,21 +4,22 @@
 			<view class="avator">
 				<span class="left">头像</span>
 				<view class="right">
-					<image :src="userInfo.avatarUrl"></image>
+					<open-data class="awarimg" type="userAvatarUrl"></open-data>
 					<image class="i_right" src="../static/common/right.png"></image>
 				</view>
 			</view>
 			<view class="item">
 				<span class="left">昵称</span>
+				
 				<view class="right">
-					<span class="tit">{{userInfo.nickName}}</span>
+					<open-data class="tit" type="userNickName"></open-data>
 					<image class="i_right" src="../static/common/right.png"></image>
 				</view>
 			</view>
 			<view class="item">
 				<span class="left">电话号码</span>
 				<view class="right">
-					<span class="tit">17394930905</span>
+					<span class="tit">{{phone ? phone : ''}}</span>
 					<image class="i_right" src="../static/common/right.png"></image>
 				</view>
 			</view>
@@ -30,7 +31,8 @@
 	export default {
 		data() {
 			return {
-				userInfo: {}
+				userInfo: {},
+				phone:uni.getStorageSync("phone"),
 			}
 		},
 		onLoad() {
@@ -89,6 +91,15 @@
 					image:nth-child(2) {
 						width: 15px;
 						height: 15px;
+					}
+					
+					.awarimg{
+						width: 50px;
+						height: 50px;
+						margin-right: 10px;
+						overflow:hidden;
+						display: block;
+						border-radius: 50%;
 					}
 				}
 			}

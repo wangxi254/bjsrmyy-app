@@ -55,7 +55,6 @@
 			<view>操作人：{{testReport && testReport.reportDoc ? testReport.reportDoc : ''}}</view>
 			<view>审核人：{{testReport && testReport.shDoc ? testReport.shDoc : ''}}</view>
 		</view>
-		<view>完成时间：{{testReport && testReport.cyTime ? testReport.cyTime:''}}</view>
 	</view>
 </template>
 

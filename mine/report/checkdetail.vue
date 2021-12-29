@@ -26,7 +26,6 @@
 			<view>{{testReport && testReport.reportDoc ? testReport.reportDoc : ''}}</view>
 			<view>{{testReport && testReport.shDoc ? testReport.shDoc : ''}}</view>
 		</view>
-		<view>采样时间：{{testReport && testReport.cyTime ? testReport.cyTime:''}}</view>
 	</view>
 </template>
 

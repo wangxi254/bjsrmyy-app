@@ -7,10 +7,12 @@
 			</view>
 			<view class="person">
 				<view class="left">
-					<image :src="userInfo.avatarUrl"></image>
+					<!-- <image :src="userInfo.avatarUrl"></image> -->
+					<open-data class="awarimg" type="userAvatarUrl"></open-data>
 					<view class="name">
-						<span>{{userInfo.nickName}}</span>
-						<span>17394930905</span>
+						<!-- <span>{{userInfo.nickName}}</span> -->
+						<open-data class="nickname" type="userNickName"></open-data>
+						<span>{{phone ? phone : ''}}</span>
 					</view>
 				</view>
 				<view class="right" @click="navitoPage('../../info/index')">
@@ -86,7 +88,8 @@
 			return {
 				userId: null,
 				total: 0,
-				userInfo: {}
+				userInfo: {},
+				phone:'',
 			}
 		},
 		onLoad() {
@@ -96,17 +99,19 @@
 				})
 			} else {
 				this.userId = uni.getStorageSync("userId")
+				this.userInfo = uni.getStorageSync("userInfo");
+				this.phone = uni.getStorageSync('phone');
 				this.getData()
 			}
-			const that = this
+			// const that = this
 			// 获取用户信息
-			uni.getUserInfo({
-			  provider: 'weixin',
-			  success: function (infoRes) {
-			    console.log(infoRes);
-				that.userInfo = infoRes.userInfo
-			  }
-			});
+			// uni.getUserInfo({
+			//   provider: 'weixin',
+			//   success: function (infoRes) {
+			//     console.log(infoRes);
+			// 	that.userInfo = infoRes.userInfo
+			//   }
+			// });
 		},
 		components:{
 			tabbar
@@ -189,12 +194,24 @@
 				height: 77px;
 				border-radius: 77px;
 			}
+			.awarimg{
+				width: 77px;
+				height: 77px;
+				border-radius: 77px;
+				
+				overflow:hidden;
+				display: block;
+				margin: 20rpx;
+				border-radius: 50%;
+			}
 			.name {
 				height: 77px;
 				display: flex;
 				flex-direction: column;
 				justify-content: space-around;
 				margin-left: 10px;
+				
+				
 				
 				span:first-child {
 					color: white;
@@ -206,6 +223,12 @@
 					background: #cbe9ee;
 					padding: 4px 6px;
 					border-radius: 3px;
+				}
+				
+				.nickname{
+					color: white;
+					font-size: 20px;
+					font-weight: bold;
 				}
 			}
 		}
