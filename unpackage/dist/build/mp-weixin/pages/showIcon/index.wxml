@@ -1,0 +1,1 @@
+<view class="flex flex-wrap justify-center"><block wx:for="{{$root.l0}}" wx:for-item="item" wx:for-index="index" wx:key="index"><view class="flex flex-column justify-center" style="width:30%;margin:20rpx 0;"><uni-icons class="right" vue-id="{{'04814474-1-'+index}}" type="{{item}}" size="20" bind:__l="__l"></uni-icons><view>{{item}}</view></view></block></view>

@@ -13,7 +13,8 @@
 		{
 			"path": "pages/mine/mine", 
 			"style": {
-				"navigationBarTitleText": "个人中心"
+				"navigationStyle": "custom",
+				"navigationBarTextStyle":"white"
 			}
 		},
 		{
@@ -137,6 +138,17 @@
 					"path":"index",
 					"style": {
 						"navigationBarTitleText": "出诊信息"
+					}
+				}
+			]
+		},
+		{
+			"root": "info",
+			"pages": [
+				{
+					"path":"index",
+					"style": {
+						"navigationBarTitleText": "个人主页"
 					}
 				}
 			]
@@ -348,7 +360,7 @@
 		},
 		{
 			"pagePath": "pages/mine/mine",
-			"text": "个人中心",
+			"text": "我的",
 			"iconPath": "/static/tabbar/home.png",
 			"selectedIconPath": "/static/tabbar/homed.png"
 		}]

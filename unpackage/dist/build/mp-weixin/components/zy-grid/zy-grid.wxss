@@ -1,0 +1,6 @@
+.grid-title.data-v-1412a0bb{display:flex;align-items:center;font-size:32rpx;color:rgba(0,0,0,.63);padding:30rpx 0}.grid-title view.data-v-1412a0bb{width:8rpx;height:30rpx;background-color:#ff5241;margin-right:20rpx}.grid.data-v-1412a0bb{display:flex;align-items:center;flex-wrap:wrap}.grid .grid-item-3.data-v-1412a0bb,
+.grid .grid-item-4.data-v-1412a0bb{box-sizing:border-box;width:calc(100% / 3);text-align:center;position:relative;padding:10px 0}.grid .grid-item-3 image.data-v-1412a0bb,
+.grid .grid-item-4 image.data-v-1412a0bb{width:30px;height:30px}.grid .grid-item-3 view.data-v-1412a0bb,
+.grid .grid-item-4 view.data-v-1412a0bb{margin-top:16rpx;font-size:14px;font-family:PingFang-SC-Regular,PingFang-SC;font-weight:400;color:#333}.grid .grid-item-3 text.data-v-1412a0bb,
+.grid .grid-item-4 text.data-v-1412a0bb{display:block;padding:4rpx 8rpx;text-align:center;border-radius:36rpx;font-size:24rpx;background-color:#ff5241;color:#fff;position:absolute;right:6rpx;top:6rpx}.grid .grid-item-3.data-v-1412a0bb:nth-child(3n + 3),
+.grid .grid-item-4.data-v-1412a0bb:nth-child(4n + 4){border-right:none}.grid .grid-item-4.data-v-1412a0bb{width:calc(100% / 4)}

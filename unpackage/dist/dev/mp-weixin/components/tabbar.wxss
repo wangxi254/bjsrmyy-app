@@ -1,0 +1,41 @@
+
+.TabBar.data-v-852a8b4e {
+    position: fixed;
+    bottom: 0;
+    height: 156rpx;
+    background-color: #fff;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.tab.data-v-852a8b4e {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+	height: 88rpx;
+	margin-bottom: 68rpx;
+}
+.imgsize.data-v-852a8b4e {
+	margin-top: 10rpx;
+    width: 48rpx;
+    height: 48rpx;
+}
+.addimgsize.data-v-852a8b4e {
+    width: 110rpx;
+    height: 88rpx;
+	border-top-left-radius: 70rpx;
+	border-top-right-radius: 70rpx;
+    margin-top: -38rpx;
+	background: #FFFFFF;
+}
+.mimgsize.data-v-852a8b4e{
+	height: 70rpx;
+	width: 70rpx;
+	padding-left: 20rpx;
+	margin-top: 20rpx;
+}
+.text.data-v-852a8b4e {
+    font-size: 12px;
+}
+

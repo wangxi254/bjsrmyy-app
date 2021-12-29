@@ -13,7 +13,7 @@
 			</view>
 		</view>
 		<uni-notice-bar class="noticebar" backgroundColor="#FEF0E9" :scrollable="true" :showIcon="true" :single="true" text="注：出诊时间如有变化，以当日挂号为准" />
-		<hsSubfieldList :leftNavData="leftNavData" :rightNavData="rightNavData" :scrollHeiht="scrollHeiht" @leftClick="leftClick" @rightClick="rightClick" />
+		<hsSubfieldList :leftNavData="searchList" :rightNavData="rightNavData" :scrollHeiht="scrollHeiht" @leftClick="leftClick" @rightClick="rightClick" />
 	</view>
 </template>
 
@@ -46,8 +46,8 @@
 			hsSubfieldList,uniNoticeBar
 		},
 		watch: {
-			'searchText': ()=>{
-				alert(1)
+			'searchText': (val)=>{
+				this.filter(val)
 			}
 		},
 		methods: {
@@ -62,6 +62,11 @@
 				this.rightNavData = array;
 				uni.navigateTo({
 					url:'../appointment/index?title=' + item.depName +'&&type=' +this.pageType + '&&id='+item.depCode
+				})
+			},
+			filter(val){
+				this.searchList = this.leftNavData.filter(item=>{
+					return item.depName.indexOf(val)>-1
 				})
 			},
 			searchClick(){
@@ -94,6 +99,7 @@
 					uni.hideLoading();
 					if(res.data.code == 200){
 						this.leftNavData = res.data.data;
+						this.searchList = res.data.data;
 					}
 				})
 			}

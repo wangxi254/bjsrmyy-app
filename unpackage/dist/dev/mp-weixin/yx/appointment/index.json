@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "uni-popup": "/components/uni-popup/components/uni-popup/uni-popup",
+    "no-data": "/components/nodata/index",
+    "choose-day": "/components/choosedate/index"
+  }
+}

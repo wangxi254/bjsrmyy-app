@@ -180,9 +180,13 @@ export default {
 	//获取用户病例信息
 	getUserCard(PaientInfo) {
 		return new Promise((resolve,reject)=>{
+			uni.showLoading({
+				text: "加载中..."
+			})
 			this.$request({
 				path:`/tpatientCard/mobile/getPatientCardByPatientInfo?condition=${PaientInfo.credentialNo}&conditionType=${PaientInfo.credentialType}`,
 			}).then(res=>{
+				uni.hideLoading();
 				if(res.data.code == 200) resolve(res.data.data)
 				else reject()
 			}).catch(err=> reject())
@@ -193,9 +197,13 @@ export default {
 		return new Promise((resolve,reject)=>{
 			const userId = this.$getUserId();
 			if(userId){
+				uni.showLoading({
+					text: "加载中..."
+				})
 				this.$request({
 					path:`/patient/mobile/getPatientByUserId?userId=${userId}`,
 				}).then(res=>{
+					uni.hideLoading();
 					if(res.data.code == 200) {
 						resolve(res.data.data || [])
 					}else{
@@ -210,16 +218,37 @@ export default {
 	},
 	//获取用户信息和就诊信息
 	async getUserInfo() {
-		uni.showLoading({
-			text: "加载中..."
-		})
-		let PatientList = await this.$getPatientList();
-		let PatientCard = await this.$getUserCard(PatientList[0]);
-		uni.hideLoading();
-		return {
-			PatientList,
-			PatientCard
+		let PatientListStore = uni.getStorageSync('PatientList');
+		let PatientCardStore = uni.getStorageSync('PatientCard');
+		if(PatientListStore && PatientCardStore){
+			return {
+				PatientList: JSON.parse(PatientListStore),
+				PatientCard: JSON.parse(PatientCardStore)
+			}
+		}else{
+			uni.showLoading({
+				text: "加载中..."
+			})
+			let PatientList = await this.$getPatientList();
+			let PatientCard = await this.$getUserCard(PatientList[0]);
+			uni.setStorageSync('PatientList',JSON.stringify(PatientList))
+			uni.setStorageSync('PatientCard',JSON.stringify(PatientCard))
+			uni.hideLoading();
+			return {
+				PatientList,
+				PatientCard
+			}
 		}
+		// uni.showLoading({
+		// 	text: "加载中..."
+		// })
+		// let PatientList = await this.$getPatientList();
+		// let PatientCard = await this.$getUserCard(PatientList[0]);
+		// uni.hideLoading();
+		// return {
+		// 	PatientList,
+		// 	PatientCard
+		// }
 	},
 	//初始化操作
 	userInit() {
