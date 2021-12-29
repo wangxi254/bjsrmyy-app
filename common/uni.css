@@ -8,6 +8,20 @@
 	border-radius: 5px;
 }
 
+.circleButton{
+	margin: 20px 60px;
+	height: 38px;
+	line-height: 38px;
+	background: #53B7C7;
+	border-radius: 19px;
+	
+	font-size: 16px;
+	font-family: PingFang-SC-Medium, PingFang-SC;
+	font-weight: 500;
+	color: #FFFFFF;
+	text-align: center;
+}
+
 
 .flex-row{
 	display: flex;
@@ -63,4 +77,8 @@
 
 .paading15{
 	padding: 15px;
+}
+
+.align-items-center{
+	align-items: center;
 }

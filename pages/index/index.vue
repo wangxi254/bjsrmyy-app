@@ -316,6 +316,9 @@
 				// uni.navigateTo({
 				// 	url:"../auth/auth"
 				// })
+				uni.navigateTo({
+					url:`../../hospitalIntro/newdetail?item=${JSON.stringify(item)}`
+				})
 			},
 			hospitalnews(id){
 				let that = this;

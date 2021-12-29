@@ -1,25 +1,33 @@
 <template>
-	<view>
+	<view class="content-view">
+		<view class="note-view">
+			<view>温馨提示：</view>
+			<view>1.请如实提供就诊人真实姓名</view>
+		</view>
 		<view v-for="item in list" class="cell" @click="eleguide(item)">
-			<view class="name">{{item.name}}</view>
-			<view class="flex-row info">
-				<view class="flex1">
-					<view>证件号：{{item.credentialNo}}</view>
-					<view>联系电话：{{item.phone}}</view>
-					<view>出生日期：{{item.birthday}}</view>
+			
+			<view class="space-between align-items-center paadinglr15 cell-height">
+				<view class="name flex1">{{item.name}}</view>
+				<view class="eidt" @click.stop="unbindDisagnose(item)">
+					编辑
 				</view>
-				<image class="right-img" src="../../static/common/right.png"></image>
+				<image class="right-img marginl15" src="../../static/common/right.png"></image>
 			</view>
-			<view class="space-btw">
-				<view class="btn" @click.stop="openCode(item)">电子就诊码</view>
-				<view class="btn" @click.stop="bindCard(item)">绑定就诊卡</view>
-				<view class="btn" @click.stop="edit(item)">编辑</view>
-				<view class="btn" @click.stop="unbindDisagnose(item)">解绑</view>
+			<view class="info">
+				<view>电话：{{item.phone}}</view>
+				<view>出生日期：{{item.birthday}}</view>
+				<view>证件号：{{item.credentialNo}}</view>
+			</view>
+			<view class="bottom-view space-between paadinglr15">
+				<view @click.stop="openCode(item)">电子就诊码</view>
+				<view @click.stop="bindCard(item)">绑定就诊卡</view>
+				<!-- <view @click.stop="edit(item)">编辑</view> -->
+				<view @click.stop="unbindDisagnose(item)">解绑</view>
 			</view>
 		</view>
 		
 		
-		<view class="addBtn" @click="addDisagnoseMan">
+		<view class="circleButton" @click="addDisagnoseMan">
 			添加
 		</view>
 		
@@ -214,30 +222,73 @@
 
 <style lang="scss" scoped>
 	
+	.content-view{
+		background: #F5F5F5;
+		min-height: 100%;
+		width: 100%;
+	}
+	
 	.right-img{
 		width: 15px;
 		height: 15px;
 	}
 	
 	.cell{
-		border: 0.5px solid $uni-border-color;
-		margin: 10px;
+		margin: 0px 15px 20px 15px;
 		border-radius: 5px;
-		.name{
-			padding: 10px 15px;
-			border-bottom: 0.5px solid $uni-border-color;
-			font-size: $uni-font-detail-title;
-			color: $uni-text-color;
+		background: #FFFFFF;
+		
+		
+		.cell-height{
+			height: 51px;
+			line-height: 51px;
+			border-bottom: 1px solid #F5F5F5;
+			.name{
+				font-size: 16px;
+				font-family: PingFang-SC-Semibold, PingFang-SC;
+				font-weight: 600;
+				color: #333333;
+			}
+			.eidt{
+				font-size: 14px;
+				font-family: PingFang-SC-Regular, PingFang-SC;
+				font-weight: 400;
+				color: #8F8F8F;
+			}
 		}
 		
 		.info{
-			justify-content: center;
-			align-items: center;
-			border-bottom: 0.5px solid $uni-border-color;
-			padding: 10px 15px;
+			// justify-content: center;
+			// align-items: center;
+			// border-bottom: 0.5px solid $uni-border-color;
+			// padding: 10px 15px;
+			// font-size: $uni-font-detail-title;
+			// color: $uni-text-color;
+			padding: 20px 15px;
+			view{
+				height: 20px;
+				font-size: 14px;
+				font-family: PingFang-SC-Regular, PingFang-SC;
+				font-weight: 400;
+				color: #5E5E5E;
+				line-height: 20px;
+				margin-bottom: 5px;
+			}
 			
-			font-size: $uni-font-detail-title;
-			color: $uni-text-color;
+		}
+		
+		.bottom-view{
+			border-top: 1px solid #F5F5F5;
+			height: 50px;
+			line-height: 50px;
+			view{
+				
+				font-size: 14px;
+				font-family: PingFang-SC-Regular, PingFang-SC;
+				font-weight: 400;
+				color: #53B7C7;
+				
+			}
 		}
 		
 		.space-btw{
@@ -306,4 +357,14 @@
 		line-height: 40px;
 		height: 40px;
 	}
+	
+	.note-view{
+		padding: 20px 36px 10px 36px;
+		font-size: 12px;
+		font-family: PingFang-SC-Regular, PingFang-SC;
+		font-weight: 400;
+		color: #333333;
+	}
+	
+
 </style>

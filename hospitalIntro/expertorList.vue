@@ -29,7 +29,7 @@
 						<view class="expertor-pro">
 							<text class="">擅长：</text>{{item.special}}
 						</view>
-						<view class="fav addBtn" style="text-align: right;"  @click.stop="usrfav(item)">关注</view>
+						<view class="fav addBtn" style="text-align: right;"  @click.stop="usrfav(item)">{{item.isfav == 0 ? '关注':'取消关注'}}</view>
 					</view>
 				</view>
 				<image class="right-icon" src="../static/common/right.png">
@@ -72,6 +72,7 @@
 				console.log("input:",JSON.stringify(item));
 			},
 			getexpert(depCode){
+				let that = this;
 				let date = new Date().toISOString().slice(0, 10);
 				this.$request({
 					path:'/expert/mobile/listNoPage',
@@ -82,9 +83,48 @@
 					}
 				}).then(res=>{
 					if(res.data.code == 200){
-						this.expertorList = res.data.data;
+						// this.expertorList = res.data.data;
+						const expertorList = res.data.data;
+						that.getfavlist(expertorList);
+						// uni.request({
+						//     url: 'https://min.his.gzskt.net/bjrmWebApi/userfav/list/' + this.userId +'?docName=' + this.searchValue, //仅为示例，并非真实接口地址。
+						//     success: (res) => {
+						// 		this.persons = res.data.data
+						// 	}
+						// })
+						
 					}
 				})
+			},
+			async getfavlist(expertorList){
+				const [err,res] = await this.$arequest({
+					path:`/userfav/list/${uni.getStorageSync("userId")}`
+				})
+				console.log("res===>",JSON.stringify(res));
+				if(res && res.data && res.data.code == 200){
+					const favlist = res.data.data;
+					
+					console.log("expertorListb===>",JSON.stringify(expertorList));
+					this.expertorList = expertorList.forEach((item)=>{
+						let isfav = 0;
+						for(let i = 0; i < favlist.length; i++){
+							const favitem = favlist[i];
+							if(favitem.docCode == item.docCode){
+								isfav = 1;
+								break;
+							}
+						}
+						item.isfav = isfav;
+						return item;
+					})
+					this.expertorList = expertorList;
+					console.log("expertorLista===>",JSON.stringify(expertorList));
+					console.log("expertorLista===>",JSON.stringify(this.expertorList));
+				}else{
+					
+					this.expertorList = expertorList;
+				}
+				
 			},
 			usrfav(item){
 				if(!uni.getStorageSync("userId")){
@@ -105,6 +145,7 @@
 					method:'POST',
 				}).then(res=>{
 					if(res.data.code == 200){
+						item.isfav = !item.isfav;
 						uni.showToast({
 							icon:'none',
 							title:res.data.msg
@@ -233,7 +274,7 @@
 	}
 	
 	.fav{
-		width: 30px;
+		min-width: 30px;
 		height: 10px;
 		line-height: 10px;
 		text-align: center;
