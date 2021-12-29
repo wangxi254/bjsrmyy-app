@@ -1,7 +1,0 @@
-{
-  "navigationBarTitleText": "门诊清单",
-  "usingComponents": {
-    "uni-icons": "/components/uni-icons/uni-icons",
-    "user-model": "/components/userList/index"
-  }
-}

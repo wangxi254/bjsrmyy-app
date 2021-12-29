@@ -1,1 +1,0 @@
-<view class="paading15 data-v-93cf4154"><view class="data-v-93cf4154">{{detailInfo.contentTitle}}</view><view class="data-v-93cf4154">{{detailInfo.content}}</view><view class="data-v-93cf4154">{{detailInfo.createTime}}</view><image class="img data-v-93cf4154" mode src="{{detailInfo.carouselImageUrl}}"></image></view>

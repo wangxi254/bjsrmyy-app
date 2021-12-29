@@ -1,5 +1,0 @@
-<view class="container data-v-5cc15f5c"><view class="banner data-v-5cc15f5c"></view><view class="content data-v-5cc15f5c"><view class="notes data-v-5cc15f5c">尊敬的患者 ： 根据国家卫生健康委员会、国家中医药 
-            管理局颁发的《新型冠状病毒肺炎诊疗方案》的文件，依照 
-            乙类传染病、甲类传染病管理要求，需要全面统计填报新型 
-            冠状病毒感染的肺炎疫情防控信息，请您提供真实、准确的 
-            流行病学史信息，感谢您的配合。</view><view class="list data-v-5cc15f5c"><block wx:for="{{list}}" wx:for-item="item" wx:for-index="index" wx:key="index"><view class="item data-v-5cc15f5c"><view class="title data-v-5cc15f5c">{{''+(index+1)+"、"+item.title+''}}</view><radio-group id="{{index}}" data-event-opts="{{[['change',[['radioChange',['$event']]]]]}}" bindchange="__e" class="data-v-5cc15f5c"><view class="radiao data-v-5cc15f5c"><radio color="#007aff" value="{{true}}" checked="{{item==true}}" class="data-v-5cc15f5c"></radio>是</view><view class="radiao data-v-5cc15f5c"><radio color="#007aff" value="{{false}}" checked="{{item==false}}" class="data-v-5cc15f5c"></radio>否</view></radio-group></view></block></view></view><button data-event-opts="{{[['tap',[['submit',['$event']]]]]}}" class="btn data-v-5cc15f5c" bindtap="__e">提交</button></view>
