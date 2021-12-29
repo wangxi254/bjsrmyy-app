@@ -1,151 +1,164 @@
 <template>
-	<view>
-		<view class="flex-row">
-			<view>
-				就诊人类型
-			</view>
-			<radio-group @change="paintChange">
-				<view class="row-cls">
-					<label class="row-cls left15" v-for="(patintIem, index) in patints" :key="patintIem.value">
-						<view>
-							<radio :value="patintIem.value" :checked="patintIem.value == patientIndex" />
+	<view class="page">
+		<view class="content-view">
+			<view class="cell-view row-cls">
+				<view class="left-text">
+					就诊人类型
+				</view>
+				<view class="flex1 row-right">
+					<radio-group @change="paintChange" style="transform: scale(0.77,0.77);margin-right: -20px;">
+						<view class="row-right">
+							<label class="marginl15 align-items-center row-cls" v-for="(patintIem, index) in patints" :key="patintIem.value">
+								<view>
+									<radio color="#53B7C7" :value="patintIem.value" :checked="patintIem.value == patientIndex" />
+								</view>
+								<view class="radio-name">{{patintIem.name}}</view>
+							</label>
 						</view>
-						<view>{{patintIem.name}}</view>
-					</label>
+					</radio-group>
 				</view>
-			</radio-group>
-		</view>
-		<view class="flex-row">
-			<view>
-				姓名
 			</view>
-			<input v-model="name" placeholder="请输入就诊人姓名" />
-		</view>
-		<view class="flex-row">
-			<view>
-				手机号码
+			<view class="cell-view row-cls">
+				<view class="left-text">
+					<text>*</text>姓名
+				</view>
+				<input class="right-text" v-model="name" placeholder="请输入就诊人姓名" />
 			</view>
-			<input v-model="phone" placeholder="请输入就诊人手机号码" />
-		</view>
-		<view class="flex-row">
-			<view>
-				性别
+			<view class="cell-view row-cls">
+				<view class="left-text">
+					<text>*</text>手机号码
+				</view>
+				<input class="right-text" v-model="phone" placeholder="请输入就诊人手机号码" />
 			</view>
-			<radio-group @change="radioChange">
-				<view class="row-cls">
-					<label class="row-cls left15" v-for="(sexitem, index) in sexs" :key="sexitem.value">
-						<view>
-							<radio :value="sexitem.value" :checked="sexitem.value == sex" />
+			
+			<view class="cell-view row-cls">
+				<view class="left-text">
+					<text>*</text>性别
+				</view>
+				<view class="flex1 row-right">
+					<radio-group @change="radioChange" style="transform: scale(0.77,0.77);margin-right: -20px;">
+						<view class="row-right">
+							<label class="marginl15 align-items-center row-cls" v-for="(sexitem, index) in sexs" :key="sexitem.value">
+								<view>
+									<radio color="#53B7C7" :value="sexitem.value" :checked="sexitem.value == sex" />
+								</view>
+								<view class="radio-name">{{sexitem.name}}</view>
+							</label>
 						</view>
-						<view>{{sexitem.name}}</view>
-					</label>
+					</radio-group>
 				</view>
-			</radio-group>
-		</view>
-		<view class="flex-row">
-			<view>
-				证件类型
 			</view>
-			<picker :value="credentialTypeIndex" :range="credentialTyps" @change="credentialTypeChange" range-key="name">
-				<view class="flex-row picker-view height40 hs-border">
-				  <view>
-						{{credentialTyps[credentialTypeIndex].name||'选择联系人类型'}}
-				  </view>
-				   <image class="right" src="../../static/common/right.png"></image>
+			
+			<view class="cell-view row-cls">
+				<view class="left-text">
+					<text>*</text>证件类型
 				</view>
-			</picker>
-		</view>
-		
-		<view class="flex-row">
-			<view>
-				证件号
+				<picker :value="credentialTypeIndex" :range="credentialTyps" @change="credentialTypeChange" range-key="name">
+					<view class="row-cls picker-view">
+					  <view class="right-text marginr15">
+							{{credentialTyps[credentialTypeIndex].name||'选择联系人类型'}}
+					  </view>
+					   <image class="right" src="../../static/common/right.png"></image>
+					</view>
+				</picker>
 			</view>
-			<input v-model="idcard" placeholder="请输入就诊人证件号" />
-		</view>
-		<view class="flex-row">
-			<view>
-				出生日期
-			</view>
-			<picker mode="date" :value="birthday" @change="birthdayChange">
-				<view class="flex-row picker-view height40 hs-border">
-				  <view>
-						{{birthday||'选择出生日期'}}
-				  </view>
-				   <image class="right" src="../../static/common/right.png"></image>
+			
+			
+			
+			<view class="cell-view row-cls">
+				<view class="left-text">
+					证件号
 				</view>
-			</picker>
-		</view>
-		
-		
-		<view class="flex-row">
-			<view>
-				民族
+				<input v-model="idcard" placeholder="请输入就诊人证件号" />
 			</view>
-			<picker :value="nationIndex" :range="nations" @change="nationChange">
-				<view class="flex-row picker-view height40 hs-border">
-				  <view>
-						{{nations[nationindex]||'选择民族'}}
-				  </view>
-				   <image class="right" src="../../static/common/right.png"></image>
+			<view class="cell-view row-cls">
+				<view class="left-text">
+					出生日期
 				</view>
-			</picker>
-		</view>
-		
-		<view class="flex-row" v-if="patientIndex === 1">
-			<view>
-				联系人类型
+				<picker mode="date" :value="birthday" @change="birthdayChange">
+					<view class="row-cls picker-view ">
+					  <view class="right-text marginr15">
+							{{birthday||'选择出生日期'}}
+					  </view>
+					   <image class="right" src="../../static/common/right.png"></image>
+					</view>
+				</picker>
 			</view>
-			<picker :value="contactTypeIndex" :range="contactTypes" @change="contactTypeChange" range-key="name">
-				<view class="flex-row picker-view height40 hs-border">
-				  <view>
-						{{contactTypes[contactTypeIndex].name||'选择联系人类型'}}
-				  </view>
-				   <image class="right" src="../../static/common/right.png"></image>
+			
+			
+			<view class="cell-view row-cls">
+				<view class="left-text">
+					民族
 				</view>
-			</picker>
+				<picker :value="nationIndex" :range="nations" @change="nationChange">
+					<view class="row-cls picker-view">
+					  <view class="right-text marginr15">
+							{{nations[nationindex]||'选择民族'}}
+					  </view>
+					   <image class="right" src="../../static/common/right.png"></image>
+					</view>
+				</picker>
+			</view>
+			
+			<view class="cell-view row-cls" v-if="patientIndex === 1">
+				<view class="left-text">
+					联系人类型
+				</view>
+				<picker :value="contactTypeIndex" :range="contactTypes" @change="contactTypeChange" range-key="name">
+					<view class="row-cls picker-view">
+					  <view class="right-text marginr15">
+							{{contactTypes[contactTypeIndex].name||'选择联系人类型'}}
+					  </view>
+					   <image class="right" src="../../static/common/right.png"></image>
+					</view>
+				</picker>
+			</view>
+			
+			   
+			<view class="cell-view row-cls" v-if="patientIndex === 1">
+				<view class="left-text">
+					联系人姓名
+				</view>
+				<input class="right-text" v-model="contactName" placeholder="请输入联系人姓名" />
+			</view>
+			
+			<view class="cell-view row-cls" v-if="patientIndex === 1">
+				<view class="left-text">
+					联系人电话
+				</view>
+				<input class="right-text" v-model="contactPhone" placeholder="请输入联系人电话" />
+			</view>
+			    
+			<view class="cell-view row-cls" v-if="patientIndex === 1">
+				<view class="left-text">
+					联系人身份证号
+				</view>
+				<input class="right-text" v-model="contactIdcard" placeholder="请输入联系人身份证号" />
+			</view>
+			
+			<view class="cell-view row-cls">
+				<view class="left-text">
+					详细地址
+				</view>
+				<input class="right-text" v-model="address" placeholder="请输入就诊人详细地址" />
+			</view>
+			
+			<view class="cell-view row-cls">
+				<view class="left-text">
+					设为默认就诊人
+				</view>
+				<view @click="clickSwit">
+					<switch  color="#14C759" disabled="true" :checked="defaultDisgnose" style="transform: scale(0.5,0.5)" ></switch>
+				</view>
+			</view>
+			<view class="note">
+				温馨提示:实行实名制就诊,请务必填写真实有效就诊信息。
+			</view>
+			<view class="circleButton marginb20" @click="addPatient">
+				确定
+			</view>
 		</view>
 		
-		   
-		<view class="flex-row" v-if="patientIndex === 1">
-			<view>
-				联系人姓名
-			</view>
-			<input v-model="contactName" placeholder="请输入联系人姓名" />
-		</view>
-		
-		<view class="flex-row" v-if="patientIndex === 1">
-			<view>
-				联系人电话
-			</view>
-			<input v-model="contactPhone" placeholder="请输入联系人电话" />
-		</view>
-		    
-		<view class="flex-row" v-if="patientIndex === 1">
-			<view>
-				联系人身份证号
-			</view>
-			<input v-model="contactIdcard" placeholder="请输入联系人身份证号" />
-		</view>
-		
-		<view class="flex-row">
-			<view>
-				详细地址
-			</view>
-			<input v-model="address" placeholder="请输入就诊人详细地址" />
-		</view>
-		
-		<view class="flex-row">
-			<view>
-				设为默认就诊人
-			</view>
-			<view @click="clickSwit">
-				<switch  color="#14C759" disabled="true" :checked="defaultDisgnose" style="transform: scale(0.5,0.5)" ></switch>
-			</view>
-		</view>
-		
-		<view class="addBtn" @click="addPatient">
-			确定
-		</view>
 	</view>
 </template>
 
@@ -175,7 +188,7 @@
 				patints:[
 					{
 						value:0,
-						name:'成人',
+						name:'成人/儿童',
 					},
 					{
 						value:1,
@@ -564,9 +577,50 @@
 
 <style lang="scss" scoped>
 	
+	.page{
+		background: #F5F5F5;
+		min-height: 100%;
+	}
+	
+	.content-view{
+		background: #FFFFFF;
+	}
+	
+	.cell-view{
+		margin: 0px 15px;
+		border-bottom: 1px solid #F5F5F5;
+		height: 60px;
+		justify-content: space-between;
+		align-items: center;
+		display: flex;
+	}
+	.left-text{
+		font-size: 14px;
+		font-family: PingFang-SC-Medium, PingFang-SC;
+		font-weight: 500;
+		color: #333333;
+		text{
+			color: #FF6E15;
+		}
+	}
+	
+	.right-text{
+		font-size: 14px;
+		font-family: PingFang-SC-Regular, PingFang-SC;
+		font-weight: 400;
+		color: #333333;
+	}
+	.radio-name{
+		font-size: 12px;
+		font-family: PingFang-SC-Regular, PingFang-SC;
+		font-weight: 400;
+		color: #53B7C7;
+	}
+	
 	.row-cls{
 		display: flex;
-		flex-direction: row;
+		// flex-direction: row;
+		justify-content: space-between;
 	}
 	
 	.flex-row{
@@ -585,9 +639,6 @@
 	}
 	
 	.picker-view{
-		min-width: 80px;
-		padding: 0 10px;
-		
 		align-items: center;
 		display: flex;
 		justify-content: space-between;
@@ -605,4 +656,24 @@
 		width: 10px;
 		height: 10px;
 	}
+	
+	.row-right{
+		display: flex;
+		justify-content: flex-end;
+		align-items: center;
+	}
+	
+	.note{
+		font-size: 12px;
+		font-family: PingFang-SC-Regular, PingFang-SC;
+		font-weight: 400;
+		color: #8F8F8F;
+		line-height: 17px;
+		margin: 20px 15px 40px 15px;
+	}
+	
+	.marginb20{
+		margin-bottom: 20px;
+	}
+	
 </style>
