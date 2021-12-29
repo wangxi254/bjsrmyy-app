@@ -48,7 +48,7 @@
 	        // 容器滚动到底部
 	        getDetailInfoByPatient(item) {
 				
-				// let that = this;
+				let that = this;
 	            let date = new Date().toISOString().slice(0, 10);
 	            this.$request({
 	            	path:'/checkReport/mobile/getDetailInfo',

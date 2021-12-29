@@ -22,16 +22,16 @@
 		<view class="uni-container">
 			<uni-table ref="table" :loading="loading" border stripe emptyText="暂无更多数据" @selection-change="selectionChange">
 				<uni-tr>
-					<uni-th align="center">
+					<uni-th align="center" width="75">
 						<view class="header">检查项目</view>
 					</uni-th>
-					<uni-th align="center">
+					<uni-th align="center" width="75">
 						<view class="header">定性结果</view>
 					</uni-th>
-					<uni-th align="center">
+					<uni-th align="center" width="75">
 						<view class="header">参考值范围</view>
 					</uni-th>
-					<uni-th align="center">
+					<uni-th align="center" width="75">
 						<view class="header">计量单位</view>
 					</uni-th>
 				</uni-tr>
