@@ -358,12 +358,12 @@
 			},
 			smartbind(){
 				
-				if(this.idcard.length === 0){
-					return uni.showToast({
-						icon:'none',
-						title:"请输入就诊人证件号码"
-					})
-				}
+				// if(this.idcard.length === 0){
+				// 	return uni.showToast({
+				// 		icon:'none',
+				// 		title:"请输入就诊人证件号码"
+				// 	})
+				// }
 				
 				let req = {
 					userId:uni.getStorageSync("userId"),
