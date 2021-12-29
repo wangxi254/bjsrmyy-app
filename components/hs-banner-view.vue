@@ -13,7 +13,7 @@
 			<swiper-item v-for="(item, index) in banners" :key="index">
 				<image class="banner-view" :src="item[props.image]" mode="aspectFill" @click="bannerClick(item)">
 				</image>
-			<!-- 	<image class="banner-view" src="https://second-vedio.oss-cn-shenzhen.aliyuncs.com/image/banner%201.png" mode="" @click="bannerClick(item)">
+				<!-- <image class="banner-view" src="https://second-vedio.oss-cn-shenzhen.aliyuncs.com/image/banner%201.png" mode="" @click="bannerClick(item)">
 				</image> -->
 			</swiper-item>
 		</swiper>
@@ -66,7 +66,6 @@
 	.banner-view{
 		width: 100%;
 		height: 150px;
-		margin-top: 30px;
 	}
 	
 	// .banner-img{

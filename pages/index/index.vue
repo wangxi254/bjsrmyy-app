@@ -337,13 +337,13 @@
 							const banner =  list[i];
 							let imageUrl = config.baseUrl + '/bjrmWebApi/'+ banner.carouselImageUrl;
 							console.log("imageUrl===>",imageUrl);
-							if(banner.isShow){
+							if(banner.isShow == 1 && banner.isRotation == 1 && i < 5){
 								array.push({
 									imageUrl:imageUrl,
 									...banner
 								});
 							}
-							if(i <= 3){
+							if(i <= 3 && banner.isShow == 1){
 								news.push({
 									imageUrl:imageUrl,
 									...banner
@@ -567,7 +567,7 @@
 		height: 82px;
 		background: linear-gradient(357deg, #87E7E0 0%, #53B7C7 100%);
 		opacity: 0.9;
-		
+		margin-bottom: 50px;
 		.title{
 			padding-top: 15px;
 			padding-left: 15px;
@@ -627,7 +627,6 @@
 			float: right;
 		}
 	}
-
 </style>
 
 
