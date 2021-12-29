@@ -66,7 +66,7 @@
 						{{item.createTime && item.createTime.length > 10 ? item.createTime.substr(0,11) : item.createTime }}
 					</view>
 				</view>
-				<image class="img" :src="item.carouselImageUrl" mode=""></image>
+				<image class="img" :src="item.imageUrl" mode=""></image>
 			</view>
 		</view>
 		<view style="height: 94px;"></view>
@@ -85,6 +85,7 @@
 	import zyGrid from '../../components/zy-grid/zy-grid.vue'
 	import authDialog from "../../components/authDialog/authDialog.vue";
 	import tabbar from "../../components/tabbar.vue";
+	import config from "../../config.js";
 	export default{
 		data(){
 			return {
@@ -116,7 +117,7 @@
 					}
 				],
 				props:{
-					image:"carouselImageUrl",
+					image:"imageUrl",
 				},
 				hospitalInto:{},
 				item1:{
@@ -334,11 +335,19 @@
 						let news = [];
 						for(let i = 0; i < list.length; i++){
 							const banner =  list[i];
+							let imageUrl = config.baseUrl + '/bjrmWebApi/'+ banner.carouselImageUrl;
+							console.log("imageUrl===>",imageUrl);
 							if(banner.isShow){
-								array.push(banner);
+								array.push({
+									imageUrl:imageUrl,
+									...banner
+								});
 							}
 							if(i <= 3){
-								news.push(banner);
+								news.push({
+									imageUrl:imageUrl,
+									...banner
+								});
 							}
 						}
 						that.banners = array;
