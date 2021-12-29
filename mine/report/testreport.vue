@@ -194,20 +194,69 @@
 					path:"/tpatientCard/mobile/getPatientCardByPatientInfo",
 					query:req,
 				})
-				console.log("res",JSON.stringify(pres));
+				console.log("getPatientCardByPatientInfo pres===>",JSON.stringify(pres));
 				if(pres.data.code == 200){
 					const data = pres.data.data;
 					const mrn = data.mrn
 					this.mrn = mrn;
+					console.log("getPatientCardByPatientInfo: mrn=>",mrn);
 					this.getTestreport(mrn);
 				}
 			},
 			getDetailInfo(item){
 				// mrn=522428198907190614&reportCode=123 reportSeq=
+				const credentialTyps = [
+					// {
+					// 	value:0,
+					// 	name:'未知',
+					// },
+					{
+						value:1,
+						name:'身份证'
+					},
+					{
+						value:2,
+						name:'军官证',
+					},
+					{
+						value:3,
+						name:'户口本'
+					},
+					{
+						value:4,
+						name:'护照',
+					},
+					{
+						value:5,
+						name:'外国人永久居住证'
+					},
+					{
+						value:6,
+						name:'就诊卡号',
+					},
+					{
+						value:7,
+						name:'住院号'
+					},
+					{
+						value:8,
+						name:'病历号'
+					}
+				];
+				const credentialType = this.credentialType;
+				let credentialText  = '';
+				credentialTyps.forEach(item=>{
+					if(item.value == credentialType){
+						credentialText = item.name;
+					}
+				})
 				let req = {
 					beginDate:this.startDate,
 					endDate:this.endDate,
 					mrn:this.mrn,
+					credentialText:credentialText,
+					credentialType:credentialType,
+					credentialNo:this.credentialNo,
 					...item
 				}
 				uni.navigateTo({
