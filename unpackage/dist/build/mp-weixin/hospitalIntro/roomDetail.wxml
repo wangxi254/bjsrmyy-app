@@ -1,1 +1,0 @@
-<view class="content data-v-260fcb60"><view class="title data-v-260fcb60">{{roomdetail.depName}}</view><view class="detail data-v-260fcb60">{{roomdetail.depDes}}</view></view>

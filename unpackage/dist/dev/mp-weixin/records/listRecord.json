@@ -1,8 +1,0 @@
-{
-  "navigationBarTitleText": "门诊缴费",
-  "usingComponents": {
-    "uni-icons": "/components/uni-icons/uni-icons",
-    "user-model": "/components/userList/index",
-    "no-data": "/components/nodata/index"
-  }
-}
