@@ -8,7 +8,7 @@
 -->
 <template>
 	<view v-if="banners && banners.length > 0" class="banner-view">
-		<swiper  :indicator-dots="banner.indicatorDots" :autoplay="banner.autoplay"
+		<swiper  :indicator-dots="banner.indicatorDots" indicator-active-color="#FFFFFF" :autoplay="banner.autoplay"
 			:interval="banner.interval" :duration="banner.duration">
 			<swiper-item v-for="(item, index) in banners" :key="index">
 				<!-- <image class="banner-view" :src="item[props.image]" mode="aspectFill" @click="bannerClick(item)">

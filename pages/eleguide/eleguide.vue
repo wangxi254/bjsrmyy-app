@@ -3,8 +3,8 @@
 		<view class="checklayer" v-if="openlayer">
 			<view class="parkbox">
 				<!-- <view class="center height40 bottomborder">姓名：{{disagnoseCode.name}}</view> -->
-				<view class="center bottomborder flex-row">
-					<view>姓名：</view>
+				<view class="center h-title bottomborder flex-row">
+					<view style="margin-left: 10px;">姓名：</view>
 					<view>
 						<picker :value="credentialTypeIndex" :range="patientList" @change="credentialTypeChange" range-key="name">
 							<view class="flex-row picker-view height40">
@@ -343,6 +343,8 @@
 	.tcode{
 		height: 50px;
 		margin-top: 10px;
+		justify-content: center;
+		align-items: center;
 	}
 	
 	.scode{
@@ -350,6 +352,8 @@
 		height: 180px;
 		width: 180px;
 		margin-bottom: 10px;
+		justify-content: center;
+		align-items: center;
 	}
 	
 	.center{
@@ -386,5 +390,10 @@
 		line-height: 30px;
 		margin: 0px 5px;
 		border-radius: 5px;
+	}
+	
+	.h-title{
+		justify-content: center;
+		align-items: center;
 	}
 </style>
