@@ -8,7 +8,7 @@
 			
 			<view class="space-between align-items-center paadinglr15 cell-height">
 				<view class="name flex1">{{item.name}}</view>
-				<view class="eidt" @click.stop="unbindDisagnose(item)">
+				<view class="eidt" @click.stop="edit(item)">
 					编辑
 				</view>
 				<image class="right-img marginl15" src="../../static/common/right.png"></image>
