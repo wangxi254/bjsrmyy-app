@@ -22,7 +22,7 @@
 							<text class="name">{{x.name}}</text>
 							<view class="flex items-center">
 								<text class="price">挂号费：{{x.price}}</text>
-								<view class="surplus" @click="open(x)">可预约({{x.surplus}})</view>
+								<view :class="['surplus',x.active?'active':'']" @click="open(x)">可预约({{x.surplus}})</view>
 							</view>
 						</view>
 						<view class="tex">
@@ -119,6 +119,7 @@
 
 			},
 			open(row){
+				if(!row.active) return
 				this.currentRow = row;
 				this.getCodeList(row);
 				this.$refs.popup.open('right');
@@ -158,7 +159,7 @@
 				const topArr = [],
 				bottomArr = [];
 				this.Data.map(item=>{
-					if(item.date == date && item.depCode == this.classId && item.timeType == '上午'&& (new Date().getTime()< new Date(`${item.date} ${item.deadLine}`).getTime())) topArr.push({
+					if(item.date == date && item.depCode == this.classId && item.timeType == '上午') topArr.push({
 						name: item.docInfo.docName,
 						img: '',
 						price: item.etPrice,
@@ -168,9 +169,10 @@
 						depName:item.depName,
 						pbCode: item.pbCode,
 						docCode: item.docInfo.docCode,
-						type: 0
+						type: 0,
+						active: (new Date().getTime()< new Date(`${item.date} ${item.deadLine}`).getTime())?true:false
 					})
-					if(item.date == date && item.depCode == this.classId && item.timeType == '下午' && (new Date().getTime()< new Date(`${item.date} ${item.deadLine}`).getTime())) bottomArr.push({
+					if(item.date == date && item.depCode == this.classId && item.timeType == '下午') bottomArr.push({
 						name: item.docInfo.docName,
 						img: '',
 						price: item.etPrice,
@@ -180,7 +182,8 @@
 						depName:item.depName,
 						pbCode: item.pbCode,
 						docCode: item.docInfo.docCode,
-						type: 1
+						type: 1,
+						active: (new Date().getTime()< new Date(`${item.date} ${item.deadLine}`).getTime())?true:false
 					})
 				})
 				this.list = [topArr,bottomArr]
@@ -292,8 +295,9 @@
 					.price{
 						color: red;
 					}
+					
 					.surplus{
-						background: $uni-color-primary;
+						background: $uni-text-color-disable;
 						color: #fff;
 						width: 160rpx;
 						height: 50rpx;
@@ -301,6 +305,9 @@
 						border-radius: 10rpx;
 						text-align: center;
 						margin-left: 10rpx;
+					}
+					.active{
+						background: $uni-color-primary !important;
 					}
 					.tex{
 						color: $uni-text-color-grey;
