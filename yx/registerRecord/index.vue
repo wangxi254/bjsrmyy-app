@@ -11,18 +11,18 @@
             </view>
           </view>
       </hs-card>
-      <view class="pageContainer flex-1 flex flex-column">
-            <view class="text-view flex justify-between">
+      <view class="flex-1 flex flex-column">
+            <view class="text-view flex justify-between" style="padding: 0 20rpx;box-sizing: border-box;">
                 <text>挂号列表</text>
                 <uni-icons @click="showSearch"  type="settings" size="16" />
             </view>
             <scroll-view class="flex-1" scroll-y="true"  style="height: calc(100% - 50px)">
-                <view class="list">
+                <view class="list" style="padding: 0 20rpx;box-sizing: border-box;">
                     <NoData v-if="list.length == 0" />
-                    <hs-card v-else v-for="(item,index) in list" :key="index" class="list-item">
+                    <hs-card v-else v-for="(item,index) in list" :key="index" class="list-item" @click="goDetail(item)">
                         <template v-slot:header>
                             <view class="title-model flex justify-between items-center">
-                                <text>{{item.preid}}</text>
+                                <text>挂号时间：{{item.date | getdate}}</text>
                                 <view class="status">
                                     {{item.active==1?"挂号":"退号"}}
                                 </view>
@@ -160,9 +160,19 @@ export default {
             })
         },
         goDetail(row) {
-            console.log(row)
+            const rows = {
+                ...row,
+                patientName: this.PatientInfo.name,
+                certificateNo: this.PatientInfo.credentialNo,
+                phoneNum: this.PatientInfo.phone,
+                currentDate: row.visitDate,
+                timeType: row.timePart,
+                payAmountStr: row.fee?row.fee:"暂无"
+                // doctorName: row.docName
+            }
+            
             uni.navigateTo({
-				url:'../appointment/payment'
+				url:'../appointment/payment?row=' + JSON.stringify(rows)
 			})
         },
         showSearch() {

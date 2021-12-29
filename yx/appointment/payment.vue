@@ -20,8 +20,8 @@
                     <text>预约信息</text>
                 </view>
             </template>
-            <view>就诊科室：<text>{{info.deptName}}</text></view>
-            <view>就诊医生：<text>{{info.doctorName}}</text></view>
+            <view v-if="!onlyShow">就诊科室：<text>{{info.deptName}}</text></view>
+            <view v-if="!onlyShow">就诊医生：<text>{{info.doctorName}}</text></view>
             <view>就诊日期： <text>{{info.currentDate}}</text></view>
             <view>就诊时间：<text>{{info.timeType==1?'上午':'下午'}}</text></view>
             <view>挂号费用：<text>￥{{info.payAmountStr}}</text></view>
@@ -81,18 +81,21 @@ export default {
         }
     },
     onLoad(options) {
-        console.log(JSON.parse(options.row))
         options.row? (this.info = JSON.parse(options.row)): (this.info = {})
-        if(this.info.active){
+        if(this.info.hasOwnProperty('active')){
             this.onlyShow = true
-            var time = new Date()
-            var year = time.getFullYear()  //获取年份
-			var month = time.getMonth() + 1 
-            var date = new Date(time.setDate(time.getDate() + 1)).getDate() 
-            var nowDate = year+'/'+month + '/' + date
-            if(this.info.currentDate>nowDate){
-                this.cancelBtn = true;
+            if(this.info.active == 1){
+                var time = new Date()
+                var year = time.getFullYear()  //获取年份
+                var month = time.getMonth() + 1 
+                var date = new Date(time.setDate(time.getDate() + 1)).getDate() 
+                var nowDate = year+'/'+month + '/' + date
+                if(this.info.currentDate>nowDate){
+                    this.cancelBtn = true;
+                }
             }
+
+            
         }
     },
     onUnload() {
@@ -162,9 +165,10 @@ export default {
                         duration: 2000
                     })
                     setTimeout(()=>{
-                        uni.navigateTo({
-                                url:'../appointRecord/index'
-                        })
+                        // uni.navigateTo({
+                        //         url:'../appointRecord/index'
+                        // })
+                        uni.navigateBack();
                     })
                 }
             })

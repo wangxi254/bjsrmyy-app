@@ -11,28 +11,30 @@
             </view>
           </view>
       </hs-card>
-      <view class="flex-1 flex flex-column">
-            <view class="text-view flex justify-between" style="padding: 0 20rpx;box-sizing: border-box;">
-                <text>挂号列表</text>
+      <view class="pageContainer flex-1 flex flex-column">
+            <view class="text-view flex justify-between">
+                <text>预约列表</text>
                 <uni-icons @click="showSearch"  type="settings" size="16" />
             </view>
             <scroll-view class="flex-1" scroll-y="true"  style="height: calc(100% - 50px)">
-                <view class="list" style="padding: 0 20rpx;box-sizing: border-box;">
+                <view class="list">
                     <NoData v-if="list.length == 0" />
                     <hs-card v-else v-for="(item,index) in list" :key="index" class="list-item" @click="goDetail(item)">
                         <template v-slot:header>
                             <view class="title-model flex justify-between items-center">
-                                <text>挂号时间：{{item.date | getdate}}</text>
+                                <text>{{item.deptName}}</text>
                                 <view class="status">
-                                    {{item.active==1?"挂号":"退号"}}
+                                    <text v-if="item.active == 1" class="error">预约中</text>
+                                    <text v-if="item.active == 1" class="waring">已锁号</text>
+                                    <text v-else-if="item.active == 0" class="success">已支付</text>
+                                    <text v-else-if="item.active == 'N'" class="default">已取消</text>
                                 </view>
                             </view>
                         </template>
-                        <view>挂号编号<text>{{item.preid}}</text></view>
-                        <view>预约时间：<text>{{item.visitDate}} {{item.timePart}}</text></view>
-                        <view>预约医生：<text>{{item.docTitle}}</text></view>
-                        <view>导诊信息：<text>{{item.dzInfo}}</text></view>
-                        <view>预约费用：<text>{{item.fee}}</text></view>
+                        <view>就诊医生：<text>{{item.docName}}</text></view>
+                        <view>就诊时间：<text>{{item.visitDate}} {{item.timePart}}</text></view>
+                        <view>导诊信息:<text>{{item.dzInfo}}</text></view>
+                        <view>挂号金额：<text>{{item.fee}}</text></view>
                     </hs-card>
                 </view>
             </scroll-view>
@@ -120,11 +122,11 @@ export default {
             startDate:getDate('start'),
 			endDate:getDate('end'),
             PatientInfo: {},
-            PatientCard:{},
+            PatientCard: {},
             list: []
         }
     },
-    // onLoad: function (option) {
+    // onLoad() {
     //     const { PatientList, PatientCard }  = getApp().globalData;
     //     this.PatientInfo = PatientList[0];
     //     this.PatientCard = PatientCard;
@@ -137,13 +139,22 @@ export default {
         this.PatientCard = PatientCard;
         this.getList();
     },
+    onUnload() {
+        const pages = getCurrentPages();
+        if(pages[pages.length - 2].route == 'yx/appointment/payment') {
+            uni.navigateBack({  
+                delta: 1  
+            }); 
+        }
+        
+    },
     methods: {
         getList() {
             uni.showLoading({
                 title: '加载中...'
             })
             this.$request({
-                path:`/registration/order/get-register-record-list`,
+                path:`/registration/order/get-appointment-record-list`,
                 method: 'post',
                 query: {
                     medicalRecordNo: this.PatientCard.mrn,
@@ -167,8 +178,8 @@ export default {
                 phoneNum: this.PatientInfo.phone,
                 currentDate: row.visitDate,
                 timeType: row.timePart,
-                payAmountStr: row.fee?row.fee:"暂无"
-                // doctorName: row.docName
+                payAmountStr: row.fee?row.fee:"暂无",
+                doctorName: row.docName
             }
             
             uni.navigateTo({
@@ -190,7 +201,7 @@ export default {
                 this.PatientCard = res
                 this.getList();
             });
-           
+            
         },
         submit() {
             this.$refs.searchpopup.close();
@@ -251,7 +262,12 @@ export default {
                 border-radius: 30rpx;
                 font-size: $uni-font-size-sm;
             }
-    }}
+            .error{background: $uni-color-error;}
+            .waring{ background: $uni-color-warning;}
+            .success{ background: $uni-color-success;}
+            .default{ background: #ccc;}
+        }
+    }
     .search-view{
         width: 70vw;
         padding: 20rpx;
@@ -289,4 +305,5 @@ export default {
         border-radius: $uni-border-radius-base;
         padding: 10rpx 20rpx;
     }
+    
 </style>

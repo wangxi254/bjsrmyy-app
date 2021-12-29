@@ -46,8 +46,8 @@
 			hsSubfieldList,uniNoticeBar
 		},
 		watch: {
-			'searchText': (val)=>{
-				this.filter(val)
+			searchText(val) {
+				this.filter(val);
 			}
 		},
 		methods: {
@@ -66,7 +66,10 @@
 			},
 			filter(val){
 				this.searchList = this.leftNavData.filter(item=>{
-					return item.depName.indexOf(val)>-1
+					if(item.depName.indexOf(val)>-1) {
+						console.log(item)
+						return item
+					}
 				})
 			},
 			searchClick(){
