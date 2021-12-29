@@ -4,7 +4,7 @@
         <hs-card class="pageContainer">
                 <view>院区：<text>{{item.district}}</text></view>
                 <view>医院唯一号：<text>{{item.seqNum}}</text></view>
-                <view>处方号：<text>{{item.recipeCode}}</text></view>
+                <view>处方号：<text>{{item.drugno}}</text></view>
                 <view>科室编号：<text>{{item.depCode}}</text></view>
                 <view>科室名称：<text>{{item.depName}}</text></view>
                 <view>医生编号：<text>{{item.docCode}}</text></view>

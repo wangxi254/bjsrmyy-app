@@ -33,21 +33,21 @@
         <hs-card v-for="(item,index) in list1" :key="index" class="list-item" @click="goDetail(0,item)">
             <template v-slot:header>
                 <view class="title-model flex justify-between items-center">
-                    <text>{{item.visitTime | getdate}}</text>
+                    <text>{{item.registerTime || getdate}}</text>
                     <view class="status">
                         <text class="err">待支付</text>
                     </view>
                 </view>
             </template>
             <view>院区：<text>{{item.district}}</text></view>
-            <view>处方号：<text>{{item.recipeCode}}</text></view>
+            <view>处方号：<text>{{item.drugno}}</text></view>
             <view>处方类别：<text>{{item.recipeType}}</text></view>
             <view>支付金额：<text>{{item.total}}</text></view>
         </hs-card>
         <hs-card  v-for="(item,index) in list2" :key="index" class="list-item" @click="goDetail(1,item)">
             <template v-slot:header>
                 <view class="title-model flex justify-between items-center">
-                    <text>{{registerTime | getdate}}</text>
+                    <text>{{item.registerTime || getdate}}</text>
                     <view class="status">
                         <text class="success">已支付</text>
                     </view>
