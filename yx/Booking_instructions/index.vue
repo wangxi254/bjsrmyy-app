@@ -29,8 +29,12 @@
 		},
 		methods: {
 			toNext() {
-				uni.navigateTo({
-					url:'../Department/index?type=' + this.pageType
+				this.$getPatientList().then(res=>{
+					if(res && res.length>0){
+						uni.navigateTo({
+							url:'../Department/index?type=' + this.pageType
+						})
+					}
 				})
 			},
 			getexpert(){

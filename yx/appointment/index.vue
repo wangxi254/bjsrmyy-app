@@ -42,7 +42,7 @@
 					<text>{{currentRow.type == 0?"上午":"下午"}}</text>
 				</view>
 				<view class="nodes">选择想要预约的时间段</view>
-				<view class="nodes-txt">注：超过号源时间1小时后不可预约该号源</view>
+			<!-- 	<view class="nodes-txt" v-if='showDate'>注：超过号源时间1小时后不可预约该号源</view> -->
 				<scroll-view scroll-y="true" style="height: 85vh">
 					<view class="selList flex flex1 flex-wrap "> 
 							<view class="sel-item justify-center" v-for="(item,index) in selList[currentRow.type]" :key="index" @click="chooseDate(item)">
@@ -125,29 +125,29 @@
 				this.$refs.popup.open('right');
 			},
 			chooseDate(row){
-				if(row.reg_time && row.reg_time.indexOf(':')!=-1){
-					//同一天取号判断是否是号源时效内
-					let tempDate = new Date()
-					let month = tempDate.getMonth()+1
-					let nowDate = tempDate.getFullYear()+"-"+(month<10?"0"+month:month)+"-"+(tempDate.getDate()<10?'0'+tempDate.getDate():tempDate.getDate())
-					if(nowDate == this.currentDate){
-						var nowtime = new Date().getTime()
-						let regtime = new Date(this.currentDate +" "+ row.reg_time+":000").getTime() 
-						var nowtime = new Date().getTime() 
-						var difftime = nowtime - regtime;  
-						if(difftime<0){
-							difftime = -difftime
-						}
-						if(difftime >= 3600000 ){
-							//号源超过一个小时的不能再预约
-							uni.showToast({
-								title:'该号源已过可预约时段',
-								icon: 'none'
-							})
-							return
-						}  
-					} 
-				}
+				// if(row.reg_time && row.reg_time.indexOf(':')!=-1){
+				// 	//同一天取号判断是否是号源时效内
+				// 	let tempDate = new Date()
+				// 	let month = tempDate.getMonth()+1
+				// 	let nowDate = tempDate.getFullYear()+"-"+(month<10?"0"+month:month)+"-"+(tempDate.getDate()<10?'0'+tempDate.getDate():tempDate.getDate())
+				// 	if(nowDate == this.currentDate){
+				// 		let regtime = new Date(this.currentDate +" "+ row.reg_time+":000").getTime() 
+				// 		var nowtime = new Date().getTime() 
+				// 		var difftime = nowtime - regtime;  
+				// 		console.log('时间：'+nowtime+"   "+regtime+"    "+difftime)
+				// 		if(difftime<0){
+				// 			difftime = -difftime
+				// 		}
+				// 		if(difftime >= 3600000 ){
+				// 			//号源超过一个小时的不能再预约
+				// 			uni.showToast({
+				// 				title:'该号源已过可预约时段',
+				// 				icon: 'none'
+				// 			})
+				// 			return
+				// 		}  
+				// 	} 
+				// }
 				this.currentRow['currentDate'] = this.currentDate;
 				this.currentRow = {...this.currentRow,...row,deptCode: this.classId,registerType: this.showDate?1:0}
 				uni.navigateTo({
