@@ -158,11 +158,11 @@
 						userId:uni.getStorageSync("userId"),
 					}
 				})
-				let defaultPatientItem = {};
+				let defaultPatientItem;
 				if(res.data.code == 200){
 					const list = res.data.data;
+					this.patientList = list;
 					if(list && list.length > 0){
-						this.patientList = list;
 						console.log("list===>",JSON.stringify(list));
 						for(let i = 0; i < list.length; i ++){
 							const item = list[i];
@@ -174,8 +174,13 @@
 								break;
 							}
 						}
-
-						this.openCode()
+						if(defaultPatientItem == null){
+							const item = list[0];
+							this.credentialNo = item.credentialNo;
+							this.credentialType = item.credentialType;
+							this.credentialTypeIndex = 0;
+						}
+						
 					}else{
 						// uni.showModal({
 						// 	content:"您还没有就没有添加就诊人，立即添加就诊人?",
@@ -192,7 +197,7 @@
 						// })
 					}
 				}
-				
+				this.openCode()
 			},
 			getPainInfo(){
 				let that = this;
