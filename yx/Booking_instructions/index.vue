@@ -30,7 +30,7 @@
 		methods: {
 			toNext() {
 				this.$getPatientList().then(res=>{
-					if(res){
+					if(res && res.length>0){
 						uni.navigateTo({
 							url:'../Department/index?type=' + this.pageType
 						})
