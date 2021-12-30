@@ -339,6 +339,9 @@
 	.tcode{
 		height: 50px;
 		margin-top: 10px;
+		justify-content: center;
+		align-items: center;
+		display: flex;
 	}
 	
 	.scode{
@@ -346,6 +349,9 @@
 		height: 180px;
 		width: 180px;
 		margin-bottom: 10px;
+		justify-content: center;
+		align-items: center;
+		display: flex;
 	}
 	
 	.center{
