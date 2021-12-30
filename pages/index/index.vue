@@ -391,7 +391,7 @@
 					// })
 					
 					uni.requestSubscribeMessage({
-						tmplIds: ['MoiTqzChVSM7_DEWK8VHEe0SMngBLN-F9prORB8Eco0','7cILJ8g_K-nfBaWuIDozYW2w9bNUHCcaKlcaPMHh-UI','M8go0PLVzfKT2RXixiZ_YUngqaMjg2sl54x_OFxVcFQ'], //退款成功、退款失败
+						tmplIds: ['MoiTqzChVSM7_DEWK8VHEe0SMngBLN-F9prORB8Eco0','7cILJ8g_K-nfBaWuIDozYW2w9bNUHCcaKlcaPMHh-UI','M8go0PLVzfKT2RXixiZ_YUngqaMjg2sl54x_OFxVcFQ','_WYyoRoxFhHNTip-OVf8nzt6XA0b4IszVaf_qaorQNY'], //退款成功、退款失败
 						success(res) {
 							console.log(res)
 							thin.gotoNavi(navigation);
@@ -416,7 +416,7 @@
 					// })
 					
 					uni.requestSubscribeMessage({
-						tmplIds: ['WflkJ_8XxvotL-XW6rlstevkOQlmc6zimdrVlsGRMA4','7cILJ8g_K-nfBaWuIDozYW2w9bNUHCcaKlcaPMHh-UI'], //退款成功、退款失败
+						tmplIds: ['WflkJ_8XxvotL-XW6rlstevkOQlmc6zimdrVlsGRMA4','7cILJ8g_K-nfBaWuIDozYW2w9bNUHCcaKlcaPMHh-UI','_WYyoRoxFhHNTip-OVf8nzt6XA0b4IszVaf_qaorQNY'], //退款成功、退款失败
 						success(res) {
 							console.log(res)
 							thin.gotoNavi(navigation);
