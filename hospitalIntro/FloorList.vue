@@ -78,6 +78,7 @@
 			.Image {
 				width: 330rpx;
 				height: 320rpx;
+				background: #FFFFFF;
 			}
 			.GStitle {
 				width: 330rpx;
@@ -86,7 +87,6 @@
 				justify-content: center;
 				align-items: center;
 				background: #FFFFFF;
-				
 				overflow: hidden;
 				word-break: break-all;  /* break-all(允许在单词内换行。) */
 				text-overflow: ellipsis;  /* 超出部分省略号 */
