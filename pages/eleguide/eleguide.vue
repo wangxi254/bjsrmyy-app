@@ -200,6 +200,7 @@
 				this.openCode()
 			},
 			getPainInfo(){
+				uni.showLoading();
 				let that = this;
 				this.$request({
 					path:"/tpatientCard/mobile/getPatientCardByPatientInfo",
@@ -209,6 +210,7 @@
 					},
 					hastoast:true,
 				}).then(res=>{
+					uni.hideLoading();
 					console.log("res",JSON.stringify(res));
 					if(res.data.code == 200){
 						const mrn = res.data.data.mrn;
@@ -315,6 +317,7 @@
 		.info{
 			justify-content: center;
 			align-items: center;
+			display: flex;
 			border-bottom: 0.5px solid $uni-border-color;
 			padding: 10px 15px;
 			
@@ -377,6 +380,7 @@
 		margin-bottom: 10px;
 		justify-content: center;
 		align-items: center;
+		display: flex;
 	}
 	
 	.center{
