@@ -7,7 +7,11 @@
 		<view v-for="item in list" class="cell" @click="eleguide(item)">
 			
 			<view class="space-between align-items-center paadinglr15 cell-height">
-				<view class="name flex1">{{item.name}}</view>
+				<view class="flex-row">
+					<view class="name flex1">{{item.name}}</view>
+					<view class="label">{{item.patientType == 0 ? '成人' : '儿童'}}</view>
+				</view>
+				
 				<view class="eidt" @click.stop="edit(item)">
 					编辑
 				</view>
@@ -366,5 +370,20 @@
 		color: #333333;
 	}
 	
+	.label{
+		width: 40px;
+		height: 20px;
+		line-height: 20px;
+		background: #EFF9FF;
+		border-radius: 5px;
+		border: 1px solid #00A3FF;
+		text-align: center;
+		font-size: 12px;
+		font-family: PingFang-SC-Regular, PingFang-SC;
+		font-weight: 400;
+		color: #00A3FF;
+		margin-top: 15.5px;
+		margin-left: 10px;
+	}
 
 </style>
