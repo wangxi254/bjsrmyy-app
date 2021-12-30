@@ -111,7 +111,8 @@ export default {
                 medicalRecordNo: this.PaientCard.mrn,
                 certificateType: parseInt(this.userInfo.credentialType),
                 certificateNo: this.userInfo.credentialNo,
-                registerType: this.appointmentInfo.registerType
+                registerType: this.appointmentInfo.registerType,
+                regTime: this.appointmentInfo.reg_time
             }
             this.$request({
 					path:`/registration/order/post`,
