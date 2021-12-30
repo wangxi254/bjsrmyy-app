@@ -192,7 +192,7 @@
 					},
 					{
 						value:1,
-						name:'儿童'
+						name:'儿童(无身份证)'
 					}
 				],
 				patientIndex:0,
