@@ -1,12 +1,12 @@
 <template>
 	<view>
 		<view v-if="isSmart">
-			<view class="cell-view row-cls">
+			<!-- <view class="cell-view row-cls">
 				<view class="left-text">
 					就诊卡号
 				</view>
 				<input class="right-text" type="number" v-model="jzCard" placeholder="请输入就诊卡号" />
-			</view>
+			</view> -->
 			<!-- <view class="flex-row">
 				<view>
 					证件类型
@@ -20,14 +20,14 @@
 					</view>
 				</picker>
 			</view> -->
-			<view class="cell-view row-cls">
+			<!-- <view class="cell-view row-cls">
 				<view class="left-text">
 					证件号
 				</view>
 				<input class="right-text" v-model="idcard" placeholder="请输入就诊人证件号" />
-			</view>
-			<view class="circleButton marginb20" @click="smartbind">
-				绑定
+			</view> -->
+			<view class="circleButton marginb20" style="margin-top: 80px;" @click="smartbind">
+				只能快捷绑定
 			</view>
 		</view>
 		<view v-else>
@@ -229,7 +229,7 @@
 				this.patientId = item.id;
 				this.isSmart = false;
 				uni.setNavigationBarTitle({
-					title:"智能快捷绑卡"
+					title:"绑定就诊卡"
 				})
 			}else{
 				uni.setNavigationBarTitle({
@@ -261,12 +261,12 @@
 						title:"请输入就诊人年龄"
 					})
 				}
-				if(this.jzCard.length === 0){
-					return uni.showToast({
-						icon:'none',
-						title:"请输入就诊卡号"
-					})
-				}
+				// if(this.jzCard.length === 0){
+				// 	return uni.showToast({
+				// 		icon:'none',
+				// 		title:"请输入就诊卡号"
+				// 	})
+				// }
 				
 				if(this.phone.length === 0){
 					return uni.showToast({
@@ -310,7 +310,7 @@
 					age:parseInt(this.age),
 					phoneNum:this.phone,
 					style:'A',  // 自费/医保类型(A：自费，B：医保)
-					jzCard:this.jzCard,
+					// jzCard:this.jzCard,
 					patientId:this.patientId,
 					ageUnit:this.ageUnit, //年龄单位(Y:岁，M:月，D:天)
 					operType:'I', //账户操作类型（I:新增账户注册，U:补卡）
