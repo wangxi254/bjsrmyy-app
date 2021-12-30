@@ -24,7 +24,7 @@
 			</view>
 			<view class="bottom-view space-between paadinglr15">
 				<view @click.stop="openCode(item)">电子就诊码</view>
-				<view @click.stop="bindCard(item)">绑定就诊卡</view>
+				<view v-if="item.mrn==null || item.mrn==''" @click.stop="bindCard(item)">绑定就诊卡</view>
 				<!-- <view @click.stop="edit(item)">编辑</view> -->
 				<view @click.stop="unbindDisagnose(item)">解绑</view>
 			</view>
