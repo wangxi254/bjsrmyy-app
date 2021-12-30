@@ -335,7 +335,7 @@
 						let news = [];
 						for(let i = 0; i < list.length; i++){
 							const banner =  list[i];
-							let imageUrl = config.baseUrl + '/bjrmWebApi/'+ banner.carouselImageUrl;
+							let imageUrl = config.baseUrl + '/'+ banner.carouselImageUrl;
 							console.log("imageUrl===>",imageUrl);
 							if(banner.isShow == 1 && banner.isRotation == 1 && i < 5){
 								array.push({
@@ -389,9 +389,11 @@
 					// 		thin.gotoNavi(navigation);
 					// 	},
 					// })
-					
+					//1 缴费成功通知  _WYyoRoxFhHNTip-OVf8nzt6XA0b4IszVaf_qaorQNY
+					//2 退费通知 WflkJ_8XxvotL-XW6rlstevkOQlmc6zimdrVlsGRMA4
+					//3 挂号成功通知 7cILJ8g_K-nfBaWuIDozYW2w9bNUHCcaKlcaPMHh-UI
 					uni.requestSubscribeMessage({
-						tmplIds: ['MoiTqzChVSM7_DEWK8VHEe0SMngBLN-F9prORB8Eco0','7cILJ8g_K-nfBaWuIDozYW2w9bNUHCcaKlcaPMHh-UI','M8go0PLVzfKT2RXixiZ_YUngqaMjg2sl54x_OFxVcFQ'], //退款成功、退款失败
+						tmplIds: ['_WYyoRoxFhHNTip-OVf8nzt6XA0b4IszVaf_qaorQNY','7cILJ8g_K-nfBaWuIDozYW2w9bNUHCcaKlcaPMHh-UI','WflkJ_8XxvotL-XW6rlstevkOQlmc6zimdrVlsGRMA4'], //退款成功、退款失败
 						success(res) {
 							console.log(res)
 							thin.gotoNavi(navigation);
@@ -414,9 +416,8 @@
 					// 		thin.gotoNavi(navigation);
 					// 	},
 					// })
-					
 					uni.requestSubscribeMessage({
-						tmplIds: ['WflkJ_8XxvotL-XW6rlstevkOQlmc6zimdrVlsGRMA4','7cILJ8g_K-nfBaWuIDozYW2w9bNUHCcaKlcaPMHh-UI'], //退款成功、退款失败
+						tmplIds: ['_WYyoRoxFhHNTip-OVf8nzt6XA0b4IszVaf_qaorQNY','7cILJ8g_K-nfBaWuIDozYW2w9bNUHCcaKlcaPMHh-UI','WflkJ_8XxvotL-XW6rlstevkOQlmc6zimdrVlsGRMA4'], //退款成功、退款失败
 						success(res) {
 							console.log(res)
 							thin.gotoNavi(navigation);
