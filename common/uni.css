@@ -86,3 +86,19 @@
 .align-items-flex-end{
 	align-items: flex-end;
 }
+
+.margint5{
+	margin-top: 5px;
+}
+
+.margint10{
+	margin-top: 10px;
+}
+
+.text-color-8f8f8f{
+	color: #8F8F8F;
+}
+
+.text-color-333333{
+	color: #333333;
+}

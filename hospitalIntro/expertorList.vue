@@ -1,5 +1,5 @@
 <template>
-	<view>
+	<view class="content-view">
 		<view class="search">
 			<!-- <view v-if="isNotSearching" @click="searchClick" class="search-bg show-center">
 				<view class="search-input">搜索</view>
@@ -17,22 +17,26 @@
 				<input class="search-input" type="text" placeholder="请输入专家名称" v-model="searchText" @input="input"  @focus="vauleEmpty" confirm-type="search" />
 			</view>
 		</view>
-		<scroll-view scroll-y>
+		<scroll-view scroll-y class="scroll-view">
 			<view class="expert" v-for="item in expertorList" @click="onClick(item)">
 				<image class="expert-icon" mode="" src="../static/common/person.jpg"></image>
-				<view class="content">
-					<view class="flex-row">
-						<view>{{item.docName}}</view>
-						<view style="margin-left: 10px;">{{item.docTitle}}</view>
-					</view>
+				<view class="content marginl15">
 					<view class="space-beteewn">
-						<view class="expertor-pro">
-							<text class="">擅长：</text>{{item.special}}
+						<view class="font-size-16-w600">{{item.docName}}</view>
+						<view class="font-size-m14-w500 fav" @click.stop="usrfav(item)">{{item.isfav == 0 ? '关注':'取消关注'}}</view>
+					</view>
+					<view class="flex-row margint5">
+						<view class="font-size-m12-w400">
+							{{item.docTitle ? item.docTitle : ''}}
 						</view>
-						<view class="fav addBtn" style="text-align: right;"  @click.stop="usrfav(item)">{{item.isfav == 0 ? '关注':'取消关注'}}</view>
+						<view class="font-size-m12-w400">
+							{{item.special ? item.special : ''}}
+						</view>
+					</view>
+					<view class="font-size-m12-w400 special margint5">
+						擅长：{{item.special ? item.special : ''}}
 					</view>
 				</view>
-				<image class="right-icon" src="../static/common/right.png">
 			</view>
 		</scroll-view>
 	</view>
@@ -160,16 +164,23 @@
 
 <style lang="scss" scoped>
 	
+	.content-view{
+		height: 100%;
+		background: $uni-bg-color-grey;
+	}
+	
+	.scroll-view{
+		background: $uni-bg-color-grey;
+	}
 	.expert{
-		padding: 8px 15px;
-		border-bottom: 0.5px solid $uni-border-color;
+		padding: 15px;
 		flex-direction: row;
 		display: flex;
-		justify-content: center;
-		align-items: center;
+		margin: 15px 15px 0px 15px;
+		background: #FFFFFF;
 		.expert-icon{
 			width: 60px;
-			height: 75px;
+			height: 80px;
 		}
 		.content{
 			width: 100%;
@@ -203,8 +214,8 @@
 	
 	
 	.search{
-		height: 44px;
-		line-height: 44px;
+		height: 50px;
+		line-height: 50px;
 		width: 100%;
 		background: #FFFFFF;
 	}
@@ -274,9 +285,15 @@
 	}
 	
 	.fav{
-		min-width: 30px;
-		height: 10px;
-		line-height: 10px;
 		text-align: center;
+		color: $uni-color-primary;
+	}
+	
+	.special{
+		overflow: hidden;
+		word-break: break-all;  /* break-all(允许在单词内换行。) */
+		text-overflow: ellipsis;  /* 超出部分省略号 */
+		-webkit-box-orient: vertical; /** 设置或检索伸缩盒对象的子元素的排列方式 **/
+		-webkit-line-clamp: 2; 
 	}
 </style>
