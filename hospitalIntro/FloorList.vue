@@ -1,10 +1,10 @@
 <template>
-    <view>
+    <view class="content">
     	<view class="Grid">
     		<view class="Grid-Item" v-for="(item,index) in list" :key="item.id" @click="onClick(item)" >
     			<view :style="index % 2 == 0 ? 'padding-left: 30rpx;padding-right: 15rpx;':'padding-right: 30rpx;padding-left: 15rpx;'" >
-					<image class="Image" mode="aspectFill" :src="item.picture"></image>
-					<view class="GStitle">{{ item.name }}</view>
+					<image class="Image" mode="" :src="item.picture"></image>
+					<view class="GStitle font-size-14-w400">{{ item.name }}</view>
 				</view>
     		</view>
     	</view>
@@ -56,29 +56,42 @@
 </script>
 
 <style lang="less" scoped>
-    .content {
-        height: 100%;
+    page {
+        min-height: 100%;
+		background: #f5f5f5;
     }
+	
+	.content{
+		min-height: 100%;
+		background: #f5f5f5;
+	}
 	.Grid {
 		display: flex;
 		flex-direction: row;
 		flex-wrap: wrap;
-		background: #FFFFFF;
+		background: #f5f5f5;
+		height: 100%;
 		.Grid-Item {
 			width: 50%;
-			margin-top: 10px;
-			margin-bottom: 20px;
+			margin-top: 15px;
+			background: #f5f5f5;
 			.Image {
 				width: 330rpx;
-				height: 330rpx;
+				height: 320rpx;
 			}
 			.GStitle {
-				width: 100%;
-				height: 34rpx;
-				line-height: 34rpx;
-				color: #06121e;
-				font-size: 28rpx;
-				font-weight: 500;
+				width: 330rpx;
+				height: 80rpx;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				background: #FFFFFF;
+				
+				overflow: hidden;
+				word-break: break-all;  /* break-all(允许在单词内换行。) */
+				text-overflow: ellipsis;  /* 超出部分省略号 */
+				-webkit-box-orient: vertical; /** 设置或检索伸缩盒对象的子元素的排列方式 **/
+				-webkit-line-clamp: 2; /** 显示的行数 **/
 			}
 		}
 	}
