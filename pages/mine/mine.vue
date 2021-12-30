@@ -92,7 +92,8 @@
 				phone:'',
 			}
 		},
-		onLoad() {
+		onShow() {
+			console.log(111)
 			if(uni.getStorageSync("userId") === null || uni.getStorageSync("userId").length === 0){
 				uni.navigateTo({
 					url:"../auth/auth"
@@ -103,15 +104,8 @@
 				this.phone = uni.getStorageSync('phone');
 				this.getData()
 			}
-			// const that = this
-			// 获取用户信息
-			// uni.getUserInfo({
-			//   provider: 'weixin',
-			//   success: function (infoRes) {
-			//     console.log(infoRes);
-			// 	that.userInfo = infoRes.userInfo
-			//   }
-			// });
+		},
+		onLoad() {
 		},
 		components:{
 			tabbar
