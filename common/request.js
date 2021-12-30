@@ -207,7 +207,7 @@ export default {
 					if(res.data.code == 200) {
 						const data = res.data.data || []
 						if(JSON.stringify(data) !== uni.getStorageSync('PatientList')) uni.setStorageSync('PatientList',JSON.stringify(data))
-						if(data.length == 0){
+						if(!res.data || data.length == 0){
 							uni.showModal({
 								title: '提示',
 								content: '暂无就诊用户，是否立即添加',
