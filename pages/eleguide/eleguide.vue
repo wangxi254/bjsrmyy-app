@@ -161,20 +161,38 @@
 				let defaultPatientItem = {};
 				if(res.data.code == 200){
 					const list = res.data.data;
-					this.patientList = list;
-					console.log("list===>",JSON.stringify(list));
-					for(let i = 0; i < list.length; i ++){
-						const item = list[i];
-						if(item.defaultPatient == 1){
-							defaultPatientItem = item;
-							this.credentialNo = item.credentialNo;
-							this.credentialType = item.credentialType;
-							this.credentialTypeIndex = i;
-							break;
+					if(list && list.length > 0){
+						this.patientList = list;
+						console.log("list===>",JSON.stringify(list));
+						for(let i = 0; i < list.length; i ++){
+							const item = list[i];
+							if(item.defaultPatient == 1){
+								defaultPatientItem = item;
+								this.credentialNo = item.credentialNo;
+								this.credentialType = item.credentialType;
+								this.credentialTypeIndex = i;
+								break;
+							}
 						}
+
+						this.openCode()
+					}else{
+						// uni.showModal({
+						// 	content:"您还没有就没有添加就诊人，立即添加就诊人?",
+						// 	cancelText:"否",
+						// 	confirmText:"是",
+						// 	success: (e) => {
+						// 		console.log("e==>",JSON.stringify(e))
+						// 		if(e.confirm == 'confirm'){
+						// 			uni.navigateTo({
+						// 				url:""
+						// 			})
+						// 		}
+						// 	}
+						// })
 					}
 				}
-				this.openCode()
+				
 			},
 			getPainInfo(){
 				let that = this;

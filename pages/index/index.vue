@@ -194,6 +194,7 @@
 						img:'../../static/index/menu-item6.png',
 						title:'缴费记录',
 						no:6,
+						noti:1,
 						navigation:'../../records/PayRecord',
 						hashospitalInto:false,
 						needLogin:true,
@@ -393,7 +394,7 @@
 					//2 退费通知 WflkJ_8XxvotL-XW6rlstevkOQlmc6zimdrVlsGRMA4
 					//3 挂号成功通知 7cILJ8g_K-nfBaWuIDozYW2w9bNUHCcaKlcaPMHh-UI
 					uni.requestSubscribeMessage({
-						tmplIds: ['_WYyoRoxFhHNTip-OVf8nzt6XA0b4IszVaf_qaorQNY','7cILJ8g_K-nfBaWuIDozYW2w9bNUHCcaKlcaPMHh-UI','WflkJ_8XxvotL-XW6rlstevkOQlmc6zimdrVlsGRMA4'], //退款成功、退款失败
+						tmplIds: ['WflkJ_8XxvotL-XW6rlstevkOQlmc6zimdrVlsGRMA4','_WYyoRoxFhHNTip-OVf8nzt6XA0b4IszVaf_qaorQNY','7cILJ8g_K-nfBaWuIDozYW2w9bNUHCcaKlcaPMHh-UI'], //退款成功、退款失败
 						success(res) {
 							console.log(res)
 							thin.gotoNavi(navigation);
@@ -417,7 +418,7 @@
 					// 	},
 					// })
 					uni.requestSubscribeMessage({
-						tmplIds: ['_WYyoRoxFhHNTip-OVf8nzt6XA0b4IszVaf_qaorQNY','7cILJ8g_K-nfBaWuIDozYW2w9bNUHCcaKlcaPMHh-UI','WflkJ_8XxvotL-XW6rlstevkOQlmc6zimdrVlsGRMA4'], //退款成功、退款失败
+						tmplIds: ['WflkJ_8XxvotL-XW6rlstevkOQlmc6zimdrVlsGRMA4','_WYyoRoxFhHNTip-OVf8nzt6XA0b4IszVaf_qaorQNY','7cILJ8g_K-nfBaWuIDozYW2w9bNUHCcaKlcaPMHh-UI'], //退款成功、退款失败
 						success(res) {
 							console.log(res)
 							thin.gotoNavi(navigation);
@@ -562,6 +563,9 @@
 		padding: 10px 0px;
 	}
 	
+	.margin30{
+		margin-top: 30px;
+	}
 	
 	.hs-bar{
 		width: 100%;

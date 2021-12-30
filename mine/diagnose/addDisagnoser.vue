@@ -49,7 +49,7 @@
 				</view>
 			</view>
 			
-			<view class="cell-view row-cls">
+			<!-- <view class="cell-view row-cls">
 				<view class="left-text">
 					<text>*</text>证件类型
 				</view>
@@ -61,7 +61,7 @@
 					   <image class="right" src="../../static/common/right.png"></image>
 					</view>
 				</picker>
-			</view>
+			</view> -->
 			
 			
 			
@@ -188,7 +188,7 @@
 				patints:[
 					{
 						value:0,
-						name:'成人/儿童',
+						name:'成人',
 					},
 					{
 						value:1,

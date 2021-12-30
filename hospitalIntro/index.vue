@@ -1,45 +1,49 @@
 <template>
 	<view>
 		<view class="head">
-			<view class="flex-row">
-				<view @click="clickTab(0)" class="flex1 head-view" :class="currentindex === 0 ? 'active' : 'unactive'">
+			<view class="space-between align-items-center">
+				<view @click="clickTab(0)" class="flex1 head-view-size font-size-16-w500" :class="currentindex === 0 ? 'active' : 'unactive'">
 					医院概况
 				</view>
-				<view @click="clickTab(1)" class="flex1 head-view" :class="currentindex === 1 ? 'active' : 'unactive'">
+				<!-- <view @click="clickTab(1)" class="flex1 head-view" :class="currentindex === 1 ? 'active' : 'unactive'">
 					乘车指南
-				</view>
-				<view @click="clickTab(2)" class="flex1 head-view" :class="currentindex === 2 ? 'active' : 'unactive' ">
+				</view> -->
+				<view class="m-line"></view>
+				<view @click="clickTab(2)" class="flex1 head-view-size font-size-16-w500" :class="currentindex === 2 ? 'active' : 'unactive' ">
 					联系我们
 				</view>
 			</view>
-			<view class="head-line"></view>
+			<!-- <view class="head-line"></view> -->
 		</view>
 		
 		<view v-if="currentindex === 0" class="content1">
-			<view class="hs1-title">{{hospitalInto.name}}</view>
 			<image class="hs1-img" mode="" :src="hospitalInto.picture"></image>
-			<view class="flex-row item">
+			<view class="hs1-title font-size-16-w500">{{hospitalInto.name}}</view>
+			<!-- <view class="flex-row item">
 				<view class="hs1-text" @click="totel">咨询电话：<text>{{hospitalInto.contact}}</text></view>
 				<image class="hs1-icon" mode="" src="../static/common/right.png"></image>
-			</view>
+			</view> -->
 			<view class="flex-row item" @click="navito">
-				<view class="hs1-text">{{hospitalInto.name}}</view>
+				<view class="hs1-text font-size-14-w400">{{hospitalInto.name}}</view>
 				<image class="hs1-icon" mode="" src="../static/common/right.png"></image>
 			</view>
-			<view class="hs1-detail">
+			<view class="hs1-detail paading15 font-size-14-w400">
 				{{hospitalInto.synopsis}}
 			</view>
 		</view>
 		
-		<view v-if="currentindex === 1">
+		<!-- <view v-if="currentindex === 1">
 			<view class="traffic">
 				公交{{hospitalInto.busRoute}}
 			</view>
-		</view>
+		</view> -->
 		
-		<view v-if="currentindex === 2">
-			<view class="contact">咨询热线：</view>
-			<view class="number" @click="totel">{{hospitalInto.contact}}</view>
+		<view class="content2">
+			<view style="height: 15px;"></view>
+			<view class="contact-item marginlr15" v-if="currentindex === 2">
+				<view class="contact font-size-m14-w500">咨询热线：</view>
+				<view class="number" @click="totel">{{hospitalInto.contact}}</view>
+			</view>
 		</view>
 		
 	</view>
@@ -98,18 +102,16 @@
 	
 	
 	.head{
-		.head-view{
-			height: 50px;
-			line-height: 50px;
+		.head-view-size{
+			height: 52px;
+			line-height: 52px;
 			text-align: center;
-			font-size: $uni-font-normal-title;
 		}
 		.active{
 			color: $uni-color-primary;
-			border-bottom: 1px solid $uni-color-primary;
 		}
 		.unactive{
-			color: $uni-text-color;
+			color: $uni-text-color-grey;
 		}
 		.head-line{
 			background: #C8C7CC;
@@ -121,44 +123,34 @@
 	.content1{
 		.hs1-title{
 			color: $uni-color-primary;
-			font-size: $uni-font-big-title;
-			height: 40px;
-			line-height: 40px;
-			margin-left: 15px;
-			font-weight: bold;
+			height: 53px;
+			line-height: 53px;
+			text-align: center;
 		}
 		.hs1-img{
 			width: 100%;
-			height: 100px;
-			margin-top: 5px;
+			height: 200px;
 		}
 		
 		.item{
 			display: flex;
-			flex-direction: row;
-			height: 40px;
-			line-height: 40px;
+			height: 50px;
+			line-height: 50px;
 			justify-content: space-between;
 			padding: 0px 15px;
-			border-bottom: 0.5px solid $uni-border-color;
+			background: $uni-bg-color-grey;
+			align-items: center;
 			.hs1-text{
 				color: $uni-text-color;
-				font-size: $uni-font-detail-title;
-				text{
-					color: $uni-color-primary;
-				}
 			}
 			.hs1-icon{
-				width: 20px;
-				height: 20px;
-				margin-top: 10px;	
+				width: 15px;
+				height: 15px;
 			}
 		}
 		
 		.hs1-detail{
-			padding: 10px;
-			color: $uni-text-color;
-			font-size: $uni-font-detail-title;
+			color: $uni-text-color-grey;
 		}
 	}
 	
@@ -169,15 +161,34 @@
 	}
 	
 	.contact{
-		margin-top: 10px;
-		margin-left: 10px;
 		color: $uni-text-color;
-		font-size: $uni-font-detail-title;
 	}
 	
 	.number{
 		margin-left: 10px;
 		color: $uni-text-color-grey;
 		font-size: $uni-font-detail-title;
+	}
+	
+	.m-line{
+		width: 1px;
+		height: 22px;
+		background: #E2E2E2;
+	}
+	
+	
+	
+	.content2{
+		background: $uni-bg-color-grey;
+		height: 100vh;
+		.contact-item{
+			height: 60px;
+			line-height: 60px;
+			padding: 0px 15px;
+			background: $uni-bg-color;
+			align-items: center;
+			display: flex;
+			justify-content: space-between;
+		}
 	}
 </style>
