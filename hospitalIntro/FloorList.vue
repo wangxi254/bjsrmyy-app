@@ -2,7 +2,7 @@
     <view class="content">
     	<view class="Grid">
     		<view class="Grid-Item" v-for="(item,index) in list" :key="item.id" @click="onClick(item)" >
-    			<view :style="index % 2 == 0 ? 'padding-left: 30rpx;padding-right: 15rpx;':'padding-right: 30rpx;padding-left: 15rpx;'" >
+    			<view :class="index % 2 == 0 ? 'margin00':'margin01'" >
 					<image class="Image" mode="" :src="item.picture"></image>
 					<view class="GStitle font-size-14-w400">{{ item.name }}</view>
 				</view>
@@ -94,5 +94,16 @@
 				-webkit-line-clamp: 2; /** 显示的行数 **/
 			}
 		}
+	}
+	
+	.margin00{
+		margin-left: 30rpx;
+		margin-right: 15rpx;
+		background: #FFFFFF;
+	}
+	.margin01{
+		margin-right: 30rpx;
+		margin-left: 15rpx;
+		background: #FFFFFF;
 	}
 </style>
