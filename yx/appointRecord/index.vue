@@ -14,7 +14,7 @@
       <view class="flex-1 flex flex-column">
             <view class="text-view flex justify-between" style="padding: 0 20rpx;box-sizing: border-box;">
                 <text>挂号列表</text>
-                <uni-icons @click="showSearch"  type="settings" size="16" />
+                <!-- <uni-icons @click="showSearch"  type="settings" size="16" /> -->
             </view>
             <scroll-view class="flex-1" scroll-y="true"  style="height: calc(100% - 50px)">
                 <view class="list" style="padding: 0 20rpx;box-sizing: border-box;">

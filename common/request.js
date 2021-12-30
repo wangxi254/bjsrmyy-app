@@ -205,13 +205,29 @@ export default {
 				}).then(res=>{
 					uni.hideLoading();
 					if(res.data.code == 200) {
-						resolve(res.data.data || [])
+						const data = res.data.data || []
+						if(JSON.stringify(data) !== uni.getStorageSync('PatientList')) uni.setStorageSync('PatientList',JSON.stringify(data))
+						if(data.length == 0){
+							uni.showModal({
+								title: '提示',
+								content: '暂无就诊用户，是否立即添加',
+								success: function (res) {
+									if (res.confirm) {
+										uni.navigateTo({url:'/mine/diagnose/diagnoseLsit'})
+									}
+								}
+							});
+							reject(null)
+						}else{
+							resolve(data)
+						}
+						
 					}else{
-						resolve([])
+						reject(null)
 					}
-				}).catch(err=>resolve([]))
+				}).catch(err=>reject(null))
 			}else{
-				resolve([])
+				reject(null)
 			}
 			
 		})
@@ -220,7 +236,7 @@ export default {
 	async getUserInfo() {
 		let PatientListStore = uni.getStorageSync('PatientList');
 		let PatientCardStore = uni.getStorageSync('PatientCard');
-		if(PatientListStore && PatientCardStore){
+		if(PatientListStore && PatientCardStore && JSON.parse(PatientListStore).length>0){
 			return {
 				PatientList: JSON.parse(PatientListStore),
 				PatientCard: JSON.parse(PatientCardStore)
@@ -239,16 +255,6 @@ export default {
 				PatientCard
 			}
 		}
-		// uni.showLoading({
-		// 	text: "加载中..."
-		// })
-		// let PatientList = await this.$getPatientList();
-		// let PatientCard = await this.$getUserCard(PatientList[0]);
-		// uni.hideLoading();
-		// return {
-		// 	PatientList,
-		// 	PatientCard
-		// }
 	},
 	//初始化操作
 	userInit() {
