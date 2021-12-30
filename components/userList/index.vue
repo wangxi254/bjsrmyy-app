@@ -44,14 +44,17 @@ export default {
 			})
         },
         getexpert(){
-            const userId = this.$getUserId();
-            this.$request({
-					path:`/patient/mobile/getPatientByUserId?userId=${userId}`,
-			}).then(res=>{
-                if(res.data.code == 200) {
-                    this.userList = res.data.data || [];
-                }
+            this.$getPatientList().then(res=>{
+                this.userList = res || [];
             })
+            // const userId = this.$getUserId();
+            // this.$request({
+			// 		path:`/patient/mobile/getPatientByUserId?userId=${userId}`,
+			// }).then(res=>{
+            //     if(res.data.code == 200) {
+            //         this.userList = res.data.data || [];
+            //     }
+            // })
         }
     }
 }
