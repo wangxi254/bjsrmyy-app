@@ -42,7 +42,7 @@
 					<text>{{currentRow.type == 0?"上午":"下午"}}</text>
 				</view>
 				<view class="nodes">选择想要预约的时间段</view>
-				<view class="nodes-txt">注：超过号源时间1小时后不可预约该号源</view>
+				<view class="nodes-txt" v-if='showDate'>注：超过号源时间1小时后不可预约该号源</view>
 				<scroll-view scroll-y="true" style="height: 85vh">
 					<view class="selList flex flex1 flex-wrap "> 
 							<view class="sel-item justify-center" v-for="(item,index) in selList[currentRow.type]" :key="index" @click="chooseDate(item)">
