@@ -9,7 +9,7 @@ const envObject = {
 		baseUrl: 'https://min.his.gzskt.net/bjrmWebApi',
 	},
 	build: {
-		baseUrl: 'https://bjsyy.gzzxbd.com:9448/api/',
+		baseUrl: 'https://bjsyy.gzzxbd.com:9448/api',
 	}
 }
 
