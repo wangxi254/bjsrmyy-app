@@ -127,11 +127,17 @@ export default {
                     PatientCard: this.PatientCard
                 }
                 uni.navigateTo({
-                    url:'./listRecord/pageOne?row=' + JSON.stringify(data)
+                    url:'./listRecord/pageOne?row=',
+					success: function(res) {
+						res.eventChannel.emit('acceptDataFromOpenerPage', { data: row })
+					}
                 })
             }else{
                 uni.navigateTo({
-                    url:'./listRecord/pageTwo?row=' + JSON.stringify(row)
+                    url:'./listRecord/pageTwo?row=',
+					success: function(res) {
+						res.eventChannel.emit('acceptDataFromOpenerPage', { data: row })
+					}
                 })
             }
         },
