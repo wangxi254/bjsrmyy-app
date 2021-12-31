@@ -28,7 +28,7 @@
                                 </view>
                             </view>
                         </template>
-                        <view>挂号编号<text>{{item.preid}}</text></view>
+                        <view>挂号编号：<text>{{item.preid}}</text></view>
                         <view>预约时间：<text>{{item.visitDate}} {{item.timePart}}</text></view>
                         <view>医生职称：<text>{{docEnum[item.docTitle]}}</text></view>
                         <view>导诊信息：<text>{{item.dzInfo}}</text></view>

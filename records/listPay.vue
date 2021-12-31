@@ -42,9 +42,9 @@
                             </view>
                         </view>
                     </template>
-                    <view>处方号:<text>{{item.recipeCode}}</text></view>
+                    <view>处方号：<text>{{item.recipeCode}}</text></view>
                     <view>处方信息：<text>{{item.zdInfo}}</text></view>
-                    <view>金额:<text>{{item.total}}</text></view>
+                    <view>金额：<text>{{item.total}}</text></view>
                     
                 </hs-card>
             </view>
