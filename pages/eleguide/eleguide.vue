@@ -187,7 +187,7 @@
 						// 	title:res.data.msg
 						// })
 						uni.showModal({
-							content:"您还没有就没有添加就诊人，立即添加就诊人?",
+							content:"你还没有添加就诊人，去添加就诊人？",
 							cancelText:"否",
 							confirmText:"是",
 							success: (e) => {
