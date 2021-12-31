@@ -11,11 +11,12 @@
 					<view class="name flex1">{{item.name}}</view>
 					<view class="label">{{item.patientType == 0 ? '成人' : '儿童'}}</view>
 				</view>
-				
-				<view class="eidt" @click.stop="edit(item)">
-					编辑
+				<view class="flex-row align-items-center" @click.stop="edit(item)">
+					<view class="eidt">
+						编辑
+					</view>
+					<image class="right-img marginl15" src="../../static/common/right.png"></image>
 				</view>
-				<image class="right-img marginl15" src="../../static/common/right.png"></image>
 			</view>
 			<view class="info">
 				<view>电话：{{item.phone}}</view>
