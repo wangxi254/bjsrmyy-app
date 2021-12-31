@@ -136,7 +136,7 @@ export default {
                 uni.navigateTo({
                     url:'./listRecord/pageTwo?row=',
 					success: function(res) {
-						res.eventChannel.emit('acceptDataFromOpenerPage', { data: data })
+						res.eventChannel.emit('acceptDataFromOpenerPage', { data: row })
 					}
                 })
             }
