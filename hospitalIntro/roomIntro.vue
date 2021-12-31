@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<view class="search show-center">
+		<!-- <view class="search show-center">
 			<view v-if="isNotSearching" @click="searchClick" class="search-bg show-center">
 				<view class="search-input">搜索</view><image class="search-icon" src="../static/index/search.png">
 			</view>
@@ -11,7 +11,7 @@
 				</view>
 				<view @click="cancleEdit" class="cancle">取消</view>
 			</view>
-		</view>
+		</view> -->
 		<hsSubfieldList :leftNavData="leftNavData" :rightNavData="rightNavData" :scrollHeiht="scrollHeiht" @leftClick="leftClick" @rightClick="rightClick" />
 	</view>
 </template>
