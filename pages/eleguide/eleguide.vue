@@ -186,6 +186,7 @@
 						// 	icon:"none",
 						// 	title:res.data.msg
 						// })
+						this.openlayer = false;
 						uni.showModal({
 							content:"你还没有添加就诊人，去添加就诊人？",
 							cancelText:"否",
