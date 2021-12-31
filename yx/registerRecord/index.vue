@@ -16,7 +16,7 @@
                 <text>挂号列表</text>
                 <!-- <uni-icons @click="showSearch"  type="settings" size="16" /> -->
             </view>
-            <scroll-view class="flex-1" scroll-y="true"  style="height: calc(100% - 50px)">
+            <!-- <scroll-view class="flex-1" scroll-y="true"  style="height: calc(100% - 50px)"> -->
                 <view class="list" style="padding: 0 20rpx;box-sizing: border-box;">
                     <NoData v-if="list.length == 0" />
                     <hs-card v-else v-for="(item,index) in list" :key="index" class="list-item" @click="goDetail(item)">
@@ -24,18 +24,18 @@
                             <view class="title-model flex justify-between items-center">
                                 <text>挂号时间：{{item.date | getdate}}</text>
                                 <view class="status">
-                                    {{item.active==1?"挂号":"退号"}}
+                                    {{item.active==1?"已挂号":"已退号"}}
                                 </view>
                             </view>
                         </template>
-                        <view>挂号编号：<text>{{item.preid}}</text></view>
+                        <view>号源编号：<text>{{item.seqNum}}</text></view>
                         <view>预约时间：<text>{{item.visitDate}} {{item.timePart}}</text></view>
                         <view>医生职称：<text>{{docEnum[item.docTitle]}}</text></view>
                         <view>导诊信息：<text>{{item.dzInfo}}</text></view>
                         <view>预约费用：<text>{{item.fee}}</text></view>
                     </hs-card>
                 </view>
-            </scroll-view>
+            <!-- </scroll-view> -->
             
       </view>
         <uni-popup ref="searchpopup" type="right" background-color="#fff">
