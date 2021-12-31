@@ -96,7 +96,7 @@
 			console.log(111)
 			if(uni.getStorageSync("userId") === null || uni.getStorageSync("userId").length === 0){
 				uni.navigateTo({
-					url:"../auth/auth"
+					url:"../auth/auth?backindex=eleguide"
 				})
 			} else {
 				this.userId = uni.getStorageSync("userId")
@@ -122,7 +122,7 @@
 			navitoPage(path){
 				if(uni.getStorageSync("userId") === null || uni.getStorageSync("userId").length === 0){
 					return uni.navigateTo({
-						url:"../auth/auth?backindex=eleguide"
+						url:"../auth/auth?backindex=eleguide",
 					})
 				}
 				uni.navigateTo({
