@@ -96,7 +96,7 @@
 						userId:uni.getStorageSync("userId"),
 					}
 				});
-				let defaultPatientItem = {};
+				let defaultPatientItem;
 				if(res.data.code == 200){
 					const list = res.data.data;
 					this.patientList = list;
