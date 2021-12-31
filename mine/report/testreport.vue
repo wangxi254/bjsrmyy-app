@@ -6,7 +6,7 @@
 				  <view class="font-size-16-w600 text-color-333333">
 						{{patientList[credentialTypeIndex].name||'选择联系人类型'}}
 				  </view>
-				  <view class="flex1 marginl10 text-color-333333 font-size-14-w400">{{patientList[credentialTypeIndex].credentialNo}}</view>
+				  <view class="flex1 marginl10 text-color-333333 font-size-14-w400">{{utils.hideIdentityCard(patientList[credentialTypeIndex].credentialNo)}}</view>
 				  <view class="font-size-14-w400 text-color-8f8f8f">切换</view>
 				  <image class="right marginl10" src="../../static/common/exchange.png"></image>
 				</view>
@@ -15,7 +15,8 @@
 		<view class="space-between paadinglr15">
 			<picker mode="date" :value="startDate" @change="bindSDateChange">
 				<view class="picker-view height50">
-				  <view>
+				  <view class="font-size-14-w400 text-color-8f8f8f">开始：</view>
+				  <view class="font-size-14-w400 text-color-333333">
 						{{startDate||'选择日期'}}
 				  </view>
 				   <image class="marginl10 right" src="../../static/common/down.png"></image>
@@ -23,7 +24,8 @@
 			</picker>
 			<picker mode="date" :value="endDate" @change="bindEDateChange">
 				<view class="picker-view height50">
-				  <view>
+				  <view class="font-size-14-w400 text-color-8f8f8f">结束：</view>
+				  <view class="font-size-14-w400 text-color-333333">
 						{{endDate||'选择日期'}}
 				  </view>
 				  <image class="marginl10 right" src="../../static/common/down.png"></image>
@@ -50,9 +52,11 @@
 </template>
 
 <script>
+	import utils from "../../utils/utils.js";
 	export default {
 		data() {
 			return {
+				utils,
 				userInfo:{
 					name:"张某某",
 					idcard:'522122xxxxxxxxx0011'

@@ -60,7 +60,7 @@
 .TabBar {
     position: fixed;
     bottom: 0;
-    height: 156upx;
+    height: 116upx;
     background-color: #fff;
     width: 100%;
     display: flex;
@@ -72,7 +72,7 @@
     flex-direction: column;
     align-items: center;
 	height: 88upx;
-	margin-bottom: 68upx;
+	margin-bottom: 28upx;
 }
 .imgsize {
 	margin-top: 10upx;

@@ -27,7 +27,7 @@
 				<input class="right-text" v-model="idcard" placeholder="请输入就诊人证件号" />
 			</view> -->
 			<view class="circleButton marginb20" style="margin-top: 80px;" @click="smartbind">
-				只能快捷绑定
+				智能快捷绑卡
 			</view>
 		</view>
 		<view v-else>
