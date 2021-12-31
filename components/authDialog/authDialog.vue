@@ -147,7 +147,6 @@ export default {
 			
 		},
 		requestAdd(openId,name,nickName,phone){
-			this.postAuth(phone,openId);
 			let that = this;
 			uni.showLoading();
 			this.$request({
@@ -157,6 +156,7 @@ export default {
 					name:name,
 					nickName:nickName,
 					phone:phone,
+					openId:openId,
 				},
 				hastoast:true,
 			}).then(res=>{

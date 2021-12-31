@@ -158,7 +158,6 @@ export default {
 		requestAdd(openId,name,nickName,phone){
 			let that = this;
 			that.loading = true;
-			this.postAuth(phone,openId);
 			this.$request({
 				path:"/user/mobile/add",
 				method:"POST",
@@ -166,6 +165,7 @@ export default {
 					name:name,
 					nickName:nickName,
 					phone:phone,
+					openId:openId,
 				},
 				hastoast:true,
 			}).then(res=>{
