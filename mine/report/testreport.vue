@@ -300,7 +300,7 @@
 				}
 				
 				let that = this;  
-				let date = new Date().toISOString().slice(0, 10);
+				uni.showLoading();
 				this.$request({
 					path:'/testReport/mobile/getInfoByPatient',
 					query:{
@@ -309,6 +309,7 @@
 						userId:uni.getStorageSync("userId"),
 					}
 				}).then(res=>{
+					uni.hideLoading();
 					if(res.data.code == 200){
 						that.list = res.data.data;
 						

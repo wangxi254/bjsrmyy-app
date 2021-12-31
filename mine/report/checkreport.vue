@@ -144,6 +144,7 @@
 			},
 			getCheckreport(mrn){
 				let that = this;
+				uni.showLoading();
 				this.$request({
 					path:'/checkReport/mobile/getInfo',
 					query:{
@@ -152,6 +153,7 @@
 						mrn:mrn,
 					}
 				}).then(res=>{
+					uni.hideLoading()
 					if(res.data.code == 200){
 						that.reportlist = res.data.data;
 					}
