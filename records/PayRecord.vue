@@ -119,7 +119,7 @@ export default {
                 uni.hideLoading()
                 if(res.data.code == 200){
                     this.list = res.data.data;
-                }
+                }else this.list = []
             })
         },
         change1(e) {

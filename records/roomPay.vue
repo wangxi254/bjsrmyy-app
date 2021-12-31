@@ -158,7 +158,7 @@ export default {
                     this.currentInfo = this.list.find(item=>{
                         return item.status == 1
                     })
-                }
+                }else this.list = []
             })
         },
         openNums() {
