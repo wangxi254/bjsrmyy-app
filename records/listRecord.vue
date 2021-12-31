@@ -156,6 +156,9 @@ export default {
                 if(res.data.code == 200){
                     this.list1 = res.data.data.notPayList;
                     this.list2 = res.data.data.paidList
+                }else {
+                    this.list1 = []
+                    this.list2 = []
                 }
             })
         },
