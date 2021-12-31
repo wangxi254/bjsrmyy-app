@@ -163,6 +163,7 @@
 				if(this.credentialNo.length == 0){
 					return false;
 				}	
+				this.list = [];
 				return true;
 			},
 			search(){

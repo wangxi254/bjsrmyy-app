@@ -199,6 +199,7 @@
 				if(this.credentialNo.length == 0){
 					return false;
 				}	
+				this.reportlist = [];
 				return true;
 			},
 			search(){
