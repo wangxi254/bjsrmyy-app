@@ -96,6 +96,7 @@
 				});
 			},
 			joinUrl(url){
+				console.log("url===>",url);
 				const newurl = config.baseUrl + '/'+url;
 				console.log("newurl===>",newurl);
 				return newurl;

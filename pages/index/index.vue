@@ -343,7 +343,7 @@
 									...banner
 								});
 							}
-							if(i <= 5 && banner.isShow == 1){
+							if(i <= 5 && banner.isShow == 1 && banner.isRotation == 0){
 								news.push({
 									imageUrl:imageUrl,
 									...banner

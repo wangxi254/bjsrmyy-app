@@ -16,12 +16,12 @@ const envObject = {
 let ENV = ''
 if (process.env.NODE_ENV === 'development') {
 	// 开发环境、
-	ENV = 'pro'
+	ENV = 'build'
 } else if (process.env.NODE_ENV === 'production') {
 	ENV = 'build'
 	// ENV = 'pro'
 } else {
-	ENV = 'pro'
+	ENV = 'build'
 }
 export default {
 	ENV,

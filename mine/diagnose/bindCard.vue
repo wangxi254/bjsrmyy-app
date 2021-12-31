@@ -1,12 +1,12 @@
 <template>
 	<view>
 		<view v-if="isSmart">
-			<!-- <view class="cell-view row-cls">
+			<view class="cell-view row-cls">
 				<view class="left-text">
 					就诊卡号
 				</view>
 				<input class="right-text" type="number" v-model="jzCard" placeholder="请输入就诊卡号" />
-			</view> -->
+			</view>
 			<!-- <view class="flex-row">
 				<view>
 					证件类型
@@ -20,12 +20,12 @@
 					</view>
 				</picker>
 			</view> -->
-			<!-- <view class="cell-view row-cls">
+			<view class="cell-view row-cls">
 				<view class="left-text">
-					证件号
+					<text>*</text>证件号
 				</view>
 				<input class="right-text" v-model="idcard" placeholder="请输入就诊人证件号" />
-			</view> -->
+			</view>
 			<view class="circleButton marginb20" style="margin-top: 80px;" @click="smartbind">
 				智能快捷绑卡
 			</view>
@@ -358,12 +358,12 @@
 			},
 			smartbind(){
 				
-				// if(this.idcard.length === 0){
-				// 	return uni.showToast({
-				// 		icon:'none',
-				// 		title:"请输入就诊人证件号码"
-				// 	})
-				// }
+				if(this.idcard.length === 0){
+					return uni.showToast({
+						icon:'none',
+						title:"请输入就诊人证件号码"
+					})
+				}
 				
 				let req = {
 					userId:uni.getStorageSync("userId"),
