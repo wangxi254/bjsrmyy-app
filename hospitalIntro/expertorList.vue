@@ -1,23 +1,12 @@
 <template>
 	<view class="content-view">
-		<view class="search">
-			<!-- <view v-if="isNotSearching" @click="searchClick" class="search-bg show-center">
-				<view class="search-input">搜索</view>
-				<image class="search-icon" src="../static/index/search.png">
-			</view>
-			<view v-else class="space-beteewn search-bg">
-				<view class="show-center justify-content">
-					<image class="search-icon marginl10r10" src="../static/index/search.png">
-					<input class="search-input" type="text" placeholder="搜索" v-model="searchText" @input="input"  @focus="vauleEmpty" confirm-type="search" />
-				</view>
-				<view @click="cancleEdit" class="cancle">取消</view>
-			</view> -->
+		<!-- <view class="search">
 			<view class="show-center flex1 justify-content">
 				<image class="search-icon marginl10r10" src="../static/index/search.png">
 				<input class="search-input" type="text" placeholder="请输入专家名称" v-model="searchText" @input="input"  @focus="vauleEmpty" confirm-type="search" />
 			</view>
-		</view>
-		<scroll-view scroll-y class="scroll-view">
+		</view> -->
+		<scroll-view scroll-y v-if="expertorList && expertorList.length > 0" class="scroll-view">
 			<view class="expert" v-for="item in expertorList" @click="onClick(item)">
 				<image class="expert-icon" mode="" src="../static/common/person.jpg"></image>
 				<view class="content marginl15">
@@ -39,6 +28,9 @@
 				</view>
 			</view>
 		</scroll-view>
+		<view class="font-size-m12-w400 text-color-8f8f8f no-data" v-else>
+			暂无数据
+		</view>
 	</view>
 </template>
 

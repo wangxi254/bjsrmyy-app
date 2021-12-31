@@ -43,6 +43,9 @@
 				</view>
 			</view>
 		</view>
+		<view v-if="reportlist.length == 0" class="font-size-m12-w400 text-color-8f8f8f no-data" v-else>
+			暂无数据
+		</view>
 	</view>
 </template>
 
