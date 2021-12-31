@@ -12,7 +12,7 @@
                 <view>处方类别：<text>{{item.recipeType}}</text></view>
                 <view>就诊时间：<text>{{item.visitTime}}</text></view>
                 <view>总费用：<text>{{item.total}}</text></view>
-                <view>就诊状态：<text>{{item.visitStatus==1?"已就诊":"未就诊"}}</text></view>
+                <view>就诊状态：<text>{{visitStatusEnums[parseInt(item.visitStatus)]|| ''}}</text></view>
                 <view>诊断信息：<text>{{item.zdInfo}}</text></view>
                 <view>处方类型：<text>{{item.cftype==1?"自费":"医保"}}</text></view>
                 <view>处方来源：<text>{{enums[item.lyInfo] || "未知"}}</text></view>
@@ -36,6 +36,11 @@ export default {
                 'P':'体检',
                 'E':'急诊',
                 'I':'住院',
+            },
+            visitStatusEnums:{
+                1:'半年内',
+                2:'半年外',
+                3:'全部'
             },
             item: {}   
         }
