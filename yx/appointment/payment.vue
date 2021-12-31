@@ -114,18 +114,12 @@ export default {
                 title:"加载中..."
             })
             this.$request({
+				hastoast:true,
 					path:`/registration/order/xl-wx-applet-pay?openId=${this.openId}&orderId=${this.info.id}`
 				}).then(res=>{
                     uni.hideLoading()
-					if(!res.data||!res.data.data){
-						uni.showToast({
-							title:'获取支付信息失败' ,
-							icon:'none',
-							mask:true
-						})
-						return
-					}
 					const payinfo = res.data.data;
+					if(!payinfo)return
 					uni.requestPayment({
 						timeStamp: payinfo.timeStamp,
 						nonceStr: payinfo.nonceStr,
@@ -149,21 +143,7 @@ export default {
                             },2000)
 						}
 					});
-            }).catch(err=> {
-				if(err){
-					uni.showToast({
-						title:''+err,
-						icon:'none',
-						mask:true
-					})
-				} else {
-					uni.showToast({
-						title:'预约失败，请稍后再试' ,
-						icon:'none',
-						mask:true
-					})
-				}
-			})
+            })
         },
         cancel() {
             this.$refs.popup.open()

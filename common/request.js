@@ -94,6 +94,7 @@ export default {
 						uni.showToast({
 							title: JSON.stringify(err),
 							icon: 'none',
+							mask:true,
 							duration:3000
 						});
 					}
