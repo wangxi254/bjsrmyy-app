@@ -144,7 +144,7 @@ export default {
 				}else{
 					uni.showToast({
 						icon:"none",
-						title:err ? JSON.stringify(err) : JSON.stringify(res.data.msg)
+						title: JSON.stringify(res.data.msg)
 					})
 				}
 			})
