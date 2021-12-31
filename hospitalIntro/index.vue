@@ -17,7 +17,7 @@
 		</view>
 		
 		<view v-if="currentindex === 0" class="content1">
-			<image class="hs1-img" mode="" :src="hospitalInto.picture"></image>
+			<image class="hs1-img" mode="" :src="joinUrl(hospitalInto.picture)"></image>
 			<view class="hs1-title font-size-16-w500">{{hospitalInto.name}}</view>
 			<!-- <view class="flex-row item">
 				<view class="hs1-text" @click="totel">咨询电话：<text>{{hospitalInto.contact}}</text></view>
@@ -50,6 +50,7 @@
 </template>
 
 <script>
+	import config from '../config.js';
 	export default {
 		data() {
 			return {
@@ -93,6 +94,11 @@
 				  longitude: Number(this.hospitalInto.latitude),
 				  name: this.hospitalInto.name
 				});
+			},
+			joinUrl(url){
+				const newurl = config.baseUrl + '/'+url;
+				console.log("newurl===>",newurl);
+				return newurl;
 			}
 		}
 	}

@@ -59,7 +59,7 @@
 		<view v-for="item in news">
 			<view class="cell paading15" @click="goDetail(item)">
 				<view class="cont">
-					<view class="title">
+					<view class="title ellipsis-line2">
 						{{item.contentTitle}}
 					</view>
 					<view class="date">
@@ -69,9 +69,8 @@
 				<image class="img" :src="item.imageUrl" mode=""></image>
 			</view>
 		</view>
-		<view style="height: 94px;"></view>
 		<!-- <hsMenuList :List="dataList" @menuClick="menuClick" /> -->
-		
+		<view style="height: 88px;"></view>
 		<tabbar current="0" @tabClick="tabClick" />
 	</view>
 	
@@ -338,13 +337,13 @@
 							const banner =  list[i];
 							let imageUrl = config.baseUrl + '/'+ banner.carouselImageUrl;
 							console.log("imageUrl===>",imageUrl);
-							if(banner.isShow == 1 && banner.isRotation == 1 && i < 5){
+							if(banner.isShow == 1 && banner.isRotation == 1 && i < 3){
 								array.push({
 									imageUrl:imageUrl,
 									...banner
 								});
 							}
-							if(i <= 3 && banner.isShow == 1){
+							if(i <= 5 && banner.isShow == 1){
 								news.push({
 									imageUrl:imageUrl,
 									...banner
@@ -613,7 +612,7 @@
 				font-family: PingFang-SC-Regular, PingFang-SC;
 				font-weight: 400;
 				color: #333333;
-				line-height: 20px;
+				
 			}
 			
 			.date{

@@ -57,3 +57,11 @@
 	padding-top: 30%;
 	text-align: center;
 }
+
+.ellipsis-line2{
+	overflow: hidden;
+	text-overflow: ellipsis;/* 超出部分省略号 */
+	display: -webkit-box;
+	-webkit-line-clamp: 2; //行数
+	-webkit-box-orient: vertical;/** 设置或检索伸缩盒对象的子元素的排列方式 **/
+}
