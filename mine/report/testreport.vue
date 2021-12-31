@@ -1,46 +1,45 @@
 <template>
-	<view>
-		<view class="flex-row margin">
+	<view class="content-view">
+		<view class="head-view">
+			<picker :value="credentialTypeIndex" :range="patientList" @change="credentialTypeChange" range-key="name">
+				<view class="picker-view paadinglr15">
+				  <view class="font-size-16-w600 text-color-333333">
+						{{patientList[credentialTypeIndex].name||'选择联系人类型'}}
+				  </view>
+				  <view class="flex1 marginl10 text-color-333333 font-size-14-w400">{{patientList[credentialTypeIndex].credentialNo}}</view>
+				  <view class="font-size-14-w400 text-color-8f8f8f">切换</view>
+				  <image class="right marginl10" src="../../static/common/exchange.png"></image>
+				</view>
+			</picker>
+		</view>
+		<view class="space-between paadinglr15">
 			<picker mode="date" :value="startDate" @change="bindSDateChange">
-				<view class="flex-row picker-view height40 hs-border">
+				<view class="picker-view height50">
 				  <view>
 						{{startDate||'选择日期'}}
 				  </view>
-				   <image class="right" src="../../static/common/right.png"></image>
+				   <image class="marginl10 right" src="../../static/common/down.png"></image>
 				</view>
 			</picker>
-			<view class="height40">至</view>
 			<picker mode="date" :value="endDate" @change="bindEDateChange">
-				<view class="flex-row height40 picker-view hs-border">
+				<view class="picker-view height50">
 				  <view>
 						{{endDate||'选择日期'}}
 				  </view>
-				  <image class="right" src="../../static/common/right.png"></image>
+				  <image class="marginl10 right" src="../../static/common/down.png"></image>
 				</view>
 			</picker>
-			
 		</view>
-		<view class="flex-row margin">
-			<picker :value="credentialTypeIndex" :range="patientList" @change="credentialTypeChange" range-key="name">
-				<view class="flex-row picker-view height40 hs-border">
-				  <view>
-						{{patientList[credentialTypeIndex].name||'选择联系人类型'}}
-				  </view>
-				   <image class="right" src="../../static/common/right.png"></image>
-				</view>
-			</picker>
-			<view class="height40 hs-border" @click="search()">查询</view>
-		</view>
-
+		
 		<view v-for="item in list">
-			<view class="cell hs-border" @click="getDetailInfo(item)">
-				<view class="space-between">
-					<view>科室名称：{{item.depName}}</view>
-					<view>检验名称：{{item.reportName}}</view>
+			<view class="cell" @click="getDetailInfo(item)">
+				<view class="space-between border-bottom paddingb15">
+					<view class="font-size-16-w600 text-color-53B7C7">{{item.depName}}</view>
+					<view class="font-size-14-w400 text-color-8f8f8f">{{item.reportTime}}</view>
 				</view>
-				<view class="space-between">
-					<view>检验编号：{{item.reportCode}}</view>
-					<!-- <view>检查医生：{{item.sqDoc}}</view> -->
+				<view>
+					<view class="margint10 font-size-14-w400 text-color-333333">检验名称：{{item.reportName}}</view>
+					<view class="margint10 font-size-14-w400 text-color-333333">检验编号：{{item.reportCode}}</view>
 				</view>
 			</view>
 		</view>
@@ -58,18 +57,18 @@
 				startDate:new Date().toISOString().slice(0, 10),
 				endDate:new Date().toISOString().slice(0, 10),
 				list:[
-					// {
-					// 	expert:'外科检查',
-					// 	date:'2021-12-20',
-					// 	name:'常规检查',
-					// 	number:'00003283434834',
-					// },
-					// {
-					// 	expert:'外科检查',
-					// 	date:'2021-12-20',
-					// 	name:'常规检查',
-					// 	number:'00003283434834',
-					// }
+					{
+						depName:'外科检查',
+						reportTime:'2021-12-20',
+						reportName:'常规检查',
+						reportCode:'00003283434834',
+					},
+					{
+						depName:'外科检查',
+						reportTime:'2021-12-20',
+						reportName:'常规检查',
+						reportCode:'00003283434834',
+					}
 				],
 				mrn:'',
 				patientList:[],
@@ -279,7 +278,7 @@
 					}
 				}).then(res=>{
 					if(res.data.code == 200){
-						that.list = res.data.data;
+						// that.list = res.data.data;
 					}
 				})
 			},
@@ -319,12 +318,13 @@
 				console.log("e===>",JSON.stringify(e));
 				const index = e.detail.value;
 				this.credentialTypeIndex =  index;
-				this.credentialType = this.credentialTyps[index].credentialType;
-				this.credentialNo = this.credentialTyps[index].credentialNo;
+				this.credentialType = this.patientList[index].credentialType;
+				this.credentialNo = this.patientList[index].credentialNo;
 				if(this.judgeCondition()){
 					this.search();
 				}
-			}
+			},
+			
 		}
 	}
 </script>
@@ -335,21 +335,25 @@
 		width: 10px;
 	}
 	
+	.head-view{
+		height: 52px;
+		background: #FFFFFF;
+	}
+	
 	.picker-view{
-		min-width: 80px;
-		padding: 0 10px;
-		
 		align-items: center;
 		display: flex;
-		justify-content: space-between;
-		text-align: center;
+		justify-content: center;
+		height: 52px;
+		
+	}
+	
+	.height50{
+		height: 50px;
 	}
 	
 	.height40{
-		height: 30px;
-		line-height: 30px;
-		margin: 0px 5px;
-		border-radius: 5px;
+		height: 50px;
 	}
 	
 	.margin{
@@ -357,9 +361,9 @@
 	}
 	
 	.cell{
-		margin: 10px;
-		
-		padding: 10px;
-		
+		margin: 15px;
+		margin-top: 0px;
+		padding: 15px;
+		background: #FFFFFF;
 	}
 </style>

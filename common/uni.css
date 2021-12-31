@@ -75,9 +75,15 @@
 	padding-left: 15px;	
 }
 
+.paddingb15{
+	padding-bottom: 15px;
+}
+
 .paading15{
 	padding: 15px;
 }
+
+
 
 .align-items-center{
 	align-items: center;
@@ -95,15 +101,6 @@
 	margin-top: 10px;
 }
 
-.text-color-8f8f8f{
-	color: #8F8F8F;
+.marginl10{
+	margin-left: 10px;
 }
-
-.text-color-333333{
-	color: #333333;
-}
-
-.text-color-53B7C7{
-	color: #53B7C7;
-}
-
