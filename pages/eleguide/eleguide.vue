@@ -32,7 +32,7 @@
 					<!-- <image class="scode" mode="aspectFill" :src="disagnoseCode.tcode"></image> -->
 				</view>
 				<view class="center height40">
-					<view class="footer-box footer-box-w share-next" @tap="coselayer">关闭</view>
+					<view class="font-size-m14-w500 text-color-53B7C7" @tap="coselayer">关闭</view>
 				</view>
 			</view>
 		</view>
@@ -393,8 +393,8 @@
 	}
 	
 	.height40{
-		line-height: 40px;
-		height: 40px;
+		line-height: 50px;
+		height: 50px;
 	}
 	
 	.right{

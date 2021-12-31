@@ -100,13 +100,18 @@
 				if(res.data.code == 200){
 					const list = res.data.data;
 					this.patientList = list;
-					console.log("list===>",JSON.stringify(list));
-					for(let i = 0; i < list.length; i ++){
-						const item = list[i];
-						if(item.defaultPatient == 1){
-							defaultPatientItem = item;
-							this.credentialTypeIndex = i;
-							break;
+					if(list && list.length > 0){
+						console.log("list===>",JSON.stringify(list));
+						for(let i = 0; i < list.length; i ++){
+							const item = list[i];
+							if(item.defaultPatient == 1){
+								defaultPatientItem = item;
+								this.credentialTypeIndex = i;
+								break;
+							}
+						}
+						if(defaultPatientItem==null){
+							 defaultPatientItem = list[0];
 						}
 					}
 				}
