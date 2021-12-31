@@ -7,7 +7,7 @@
 			<view v-else class="space-beteewn search-bg">
 				<view class="show-center justify-content">
 					<image class="search-icon marginl10r10" src="../static/index/search.png">
-					<input class="search-input" type="text" placeholder="搜索" v-model="searchText"  @focus="vauleEmpty" confirm-type="search" />
+					<input class="search-input" type="text" placeholder="搜索" @input="inputtext" v-model="searchText"  @focus="vauleEmpty" confirm-type="search" />
 				</view>
 				<view @click="cancleEdit" class="cancle">取消</view>
 			</view>
@@ -65,6 +65,12 @@
 			},
 			cancleEdit(){
 				this.isNotSearching = true;
+				this.searchText = ''
+				this.getexpert();
+			},
+			inputtext(e){
+				console.log("e--->",JSON.stringify(e));
+				this.getexpert();
 			},
 			getexpert(){
 				
@@ -74,7 +80,8 @@
 					query:{
 						beginDate:date,
 						endDate:date,
-						regtype:1
+						regtype:1,
+						search:this.searchText,
 					}
 				}).then(res=>{
 					if(res.data.code == 200){

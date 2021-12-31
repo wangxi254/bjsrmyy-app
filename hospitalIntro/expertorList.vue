@@ -49,12 +49,15 @@
 				expertorList:[],
 				searchText:'',
 				isNotSearching:true,
+				depCode:'',
 			}
 		},
 		onLoad(options) {
 			if(options.item){
 				let item = JSON.parse(options.item)
-				this.getexpert(item.depCode);
+				this.depCode = item.depCode;
+				
+				this.getexpert();
 			}
 		},
 		methods: {
@@ -74,8 +77,9 @@
 			},
 			input(item){
 				console.log("input:",JSON.stringify(item));
+				this.getexpert();
 			},
-			getexpert(depCode){
+			getexpert(){
 				let that = this;
 				let date = new Date().toISOString().slice(0, 10);
 				this.$request({
@@ -83,7 +87,8 @@
 					query:{
 						beginDate:date,
 						endDate:date,
-						depCode:depCode
+						depCode:this.depCode,
+						search:this.searchText,
 					}
 				}).then(res=>{
 					if(res.data.code == 200){

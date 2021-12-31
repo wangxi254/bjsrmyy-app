@@ -71,7 +71,8 @@
 					query:{
 						beginDate:date,
 						endDate:date,
-						regtype:1
+						regtype:1,
+						search:this.searchText,
 					}
 				}).then(res=>{
 					if(res.data.code == 200){
