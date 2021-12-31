@@ -129,14 +129,14 @@ export default {
                 uni.navigateTo({
                     url:'./listRecord/pageOne?row=',
 					success: function(res) {
-						res.eventChannel.emit('acceptDataFromOpenerPage', { data: row })
+						res.eventChannel.emit('acceptDataFromOpenerPage', { data: data })
 					}
                 })
             }else{
                 uni.navigateTo({
                     url:'./listRecord/pageTwo?row=',
 					success: function(res) {
-						res.eventChannel.emit('acceptDataFromOpenerPage', { data: row })
+						res.eventChannel.emit('acceptDataFromOpenerPage', { data: data })
 					}
                 })
             }
