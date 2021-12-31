@@ -7,15 +7,21 @@ const envObject = {
 	},
 	pro: {
 		baseUrl: 'https://min.his.gzskt.net/bjrmWebApi',
-	} 
+	},
+	build: {
+		baseUrl: 'https://bjsyy.gzzxbd.com:9448/api/',
+	}
 }
 
 let ENV = ''
-if(process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV === 'development') {
 	// 开发环境、
-  ENV='pro'
+	ENV = 'pro'
+} else if (process.env.NODE_ENV === 'production') {
+	ENV = 'build'
+	// ENV = 'pro'
 } else {
-  ENV='pro'
+	ENV = 'pro'
 }
 export default {
 	ENV,
