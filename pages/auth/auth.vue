@@ -70,82 +70,153 @@ export default {
 					const encryptedData = e.detail.encryptedData;
 					const iv = e.detail.iv;
 					const code = loginres.code;
+					that.reqopenId(e,loginres);
+					
 					// that.requestByCode(code,encryptedData,iv);
 					
 					// that.getOpenIdSessionKey(code,e);
-					let url = 'https://api.weixin.qq.com/sns/jscode2session?appid=' + appid + '&secret=' + secret +
-						'&js_code=' +
-						loginres.code + '&grant_type=authorization_code';
+					// let url = 'https://api.weixin.qq.com/sns/jscode2session?appid=' + appid + '&secret=' + secret +
+					// 	'&js_code=' +
+					// 	loginres.code + '&grant_type=authorization_code';
 					// 用 code 换取 session 和 openId
-					uni.request({
-						url: url, // 请求路径
-						success: res => { //成功res返回openid，session_key
-							that.loading = false;
-							res.data.openid && uni.setStorageSync("openId",res.data.openid)
-							console.log(JSON.stringify(res));	
-							const openId = res.data.openid;
-							console.log("res.data.session_key===>",res.data.session_key);
-							console.log("appid===>",appid);
-							console.log("e.detail.encryptedData===>",e.detail.encryptedData);
-							console.log("e.detail.iv===>",e.detail.iv);
-							//解密用户信息
-							let pc = new WXBizDataCrypt(appid,res.data.session_key);           //wxXXXXXXX为你的小程序APPID  
-							let data = pc.decryptData(e.detail.encryptedData , e.detail.iv);  
+					// uni.request({
+					// 	url: "https://apiv3.chemi.ren/ucas/user/app/getSKAndOpenid", // 请求路径
+					// 	data:{
+					// 		code: code,
+					// 		type:2
+					// 	},
+					// 	header: {
+					// 		'Content-Type': 'application/json',
+					// 		'x-auth-token':'',
+					// 	},
+					// 	success: res => { //成功res返回openid，session_key
+					// 		that.loading = false;
+					// 		res.data.openid && uni.setStorageSync("openId",res.data.openid)
+					// 		console.log(JSON.stringify(res));	
+					// 		const openId = res.data.openid;
+					// 		console.log("res.data.session_key===>",res.data.session_key);
+					// 		console.log("appid===>",appid);
+					// 		console.log("e.detail.encryptedData===>",e.detail.encryptedData);
+					// 		console.log("e.detail.iv===>",e.detail.iv);
+					// 		//解密用户信息
+					// 		let pc = new WXBizDataCrypt(appid,res.data.session_key);           //wxXXXXXXX为你的小程序APPID  
+					// 		let data = pc.decryptData(e.detail.encryptedData , e.detail.iv);  
 							
 							
-							// //data就是最终解密的用户信息 
-							// countryCode: "86"  区号
-							// phoneNumber: "15634123456"  用户绑定的手机号（国外手机号会有区号）
-							// purePhoneNumber: "15634123456"  没有区号的手机号
-							// watermark:
-							//         appid: "wxce185cd1da123456"
-							//         timestamp: 1607906868
+					// 		// //data就是最终解密的用户信息 
+					// 		// countryCode: "86"  区号
+					// 		// phoneNumber: "15634123456"  用户绑定的手机号（国外手机号会有区号）
+					// 		// purePhoneNumber: "15634123456"  没有区号的手机号
+					// 		// watermark:
+					// 		//         appid: "wxce185cd1da123456"
+					// 		//         timestamp: 1607906868
 							
-							console.log(JSON.stringify(data))
-							const phone = data.phoneNumber;
-							uni.getUserInfo({    
-								withCredentials:true,
-								success: (info) => {
-									console.log("info===>",JSON.stringify(info));
-									const name = info.userInfo.nickName
-									const avatarUrl = info.userInfo.avatarUrl
-									uni.setStorageSync("userInfo",info.userInfo);
-									uni.setStorageSync("phone",phone);
-									that.requestAdd(openId,name,name,phone);
-								},
-								fail: (err) => {
-									console.log(err)
-								}
-							})
-						},
-						fail: err => {
-							that.loading = false;
-							console.log(err)
-						}
-					})
+					// 		console.log(JSON.stringify(data))
+					// 		const phone = data.phoneNumber;
+					// 		uni.getUserInfo({    
+					// 			withCredentials:true,
+					// 			success: (info) => {
+					// 				console.log("info===>",JSON.stringify(info));
+					// 				const name = info.userInfo.nickName
+					// 				const avatarUrl = info.userInfo.avatarUrl
+					// 				uni.setStorageSync("userInfo",info.userInfo);
+					// 				uni.setStorageSync("phone",phone);
+					// 				that.requestAdd(openId,name,name,phone);
+					// 			},
+					// 			fail: (err) => {
+					// 				console.log(err)
+					// 			}
+					// 		})
+					// 	},
+					// 	fail: err => {
+					// 		that.loading = false;
+					// 		console.log(err)
+					// 	}
+					// })
 				}
 			})
 		},
-		
-		postAuth(phone,openId){
+		reqopenId(e,loginres){
+			let that = this;
+			const encryptedData = e.detail.encryptedData;
+			const iv = e.detail.iv;
+			const code = loginres.code;
+			// that.requestByCode(code,encryptedData,iv);
+			
+			// that.getOpenIdSessionKey(code,e);
+			// let url = 'https://api.weixin.qq.com/sns/jscode2session?appid=' + appid + '&secret=' + secret +
+			// 	'&js_code=' +
+			// 	loginres.code + '&grant_type=authorization_code';
+			// 用 code 换取 session 和 openId
+			
+			this.$request({
+				path:"/user/mobile/getOpenIdByCode",
+				query:{
+					code:code,
+					iv:iv,
+					encryptedData:encryptedData
+				}
+			}).then(res=>{
+				if(res && res.data &&res.data.code== 200){
+					res.data.data.openid && uni.setStorageSync("openId",res.data.data.openid)
+					console.log(JSON.stringify(res));	
+					const openId = res.data.data.openid;
+					const session_key = res.data.data.session_key;
+					console.log("res.data.session_key===>",session_key);
+					console.log("e.detail.encryptedData===>",e.detail.encryptedData);
+					console.log("e.detail.iv===>",e.detail.iv);
+					console.log("zzzopenId===>",openId);
+					that.postAuth(openId,iv,encryptedData,session_key);
+					//解密用户信息
+					// let pc = new WXBizDataCrypt(openId,session_key);           //wxXXXXXXX为你的小程序APPID  
+					// let data = pc.decryptData(e.detail.encryptedData, e.detail.iv);  
+					// // //data就是最终解密的用户信息 
+					// // countryCode: "86"  区号
+					// // phoneNumber: "15634123456"  用户绑定的手机号（国外手机号会有区号）
+					// // purePhoneNumber: "15634123456"  没有区号的手机号
+					// // watermark:
+					// //         appid: "wxce185cd1da123456"
+					// //         timestamp: 1607906868
+					// console.log(JSON.stringify(data))
+					// const phone = data.phoneNumber;
+					
+					// uni.getUserInfo({    
+					// 	withCredentials:true,
+					// 	success: (info) => {
+					// 		console.log("info===>",JSON.stringify(info));
+					// 		const name = info.userInfo.nickName
+					// 		uni.setStorageSync("userInfo",info.userInfo);
+					// 		uni.setStorageSync("phone",phone);
+					// 		that.requestAdd(openId,name,name,phone);
+					// 	},
+					// 	fail: (err) => {
+					// 		console.log(err)
+					// 	}
+					// })
+				}else{
+					uni.showToast({
+						icon:'none',
+						title:res.msg
+					})
+				}
+			})
+			
+		},
+		postAuth(openId,iv,encryptedData,session_key){
 			let that = this;
 			this.$request({
 				path:"/user/mobile/postAuth",
 				method:"POST",
 				query:{
-					phone:phone,
-					openId:openId,
-				},
+					encryptedData: encryptedData,
+					openId: openId,
+					iv: iv,
+					sessionKey: session_key,
+				}
 			}).then(res=>{
-				if(res && res.data.code == 200){
-					
-					const encryptedData = e.detail.encryptedData;
-					const iv = e.detail.iv;
-					// const code = loginres.code;
-					const openId = res.data.data.openId;
-					const sessionKey = res.data.data.sessionKey;
-					console.log("openId===>",JSON.stringify(res));
-					that.requestByCode(sessionKey,openId,encryptedData,iv);
+				if(res && res.data && res.data.code == 200){
+					let phone = res.data.data;
+					that.requestAdd(openId,"微信用户","微信用户",phone);
 				}else{
 					uni.showToast({
 						icon:"none",
