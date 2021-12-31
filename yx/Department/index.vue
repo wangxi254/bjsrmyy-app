@@ -91,11 +91,18 @@
 					title: "加载中..."
 				})
 				let date = new Date().toISOString().slice(0, 10);
+				let time = new Date();
+				let num = 7;
+				time.getHours()>20 && (num = num + 1);
+				var dates = new Date(time.setDate(time.getDate() + num)).getDate()  //这里先获取日期，在按需求设置日期，最后获取需要的
+				var year = time.getFullYear()  //获取年份
+				var month = time.getMonth() + 1   // 获取月份
+				const endtime = year + '-' + month + '-' + dates;
 				this.$request({
 					path:'/department/mobile/listNoPage',
 					query:{
 						beginDate:date,
-						endDate:date,
+						endDate:endtime,
 						regtype:1
 					}
 				}).then(res=>{
