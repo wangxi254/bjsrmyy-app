@@ -180,24 +180,30 @@
 							this.credentialType = item.credentialType;
 							this.credentialTypeIndex = 0;
 						}
-						
+						this.openCode()
 					}else{
-						// uni.showModal({
-						// 	content:"您还没有就没有添加就诊人，立即添加就诊人?",
-						// 	cancelText:"否",
-						// 	confirmText:"是",
-						// 	success: (e) => {
-						// 		console.log("e==>",JSON.stringify(e))
-						// 		if(e.confirm == 'confirm'){
-						// 			uni.navigateTo({
-						// 				url:""
-						// 			})
-						// 		}
-						// 	}
+						// uni.showToast({
+						// 	icon:"none",
+						// 	title:res.data.msg
 						// })
+						uni.showModal({
+							content:"您还没有就没有添加就诊人，立即添加就诊人?",
+							cancelText:"否",
+							confirmText:"是",
+							success: (e) => {
+								console.log("e==>",JSON.stringify(e))
+								if(e.confirm){
+									uni.navigateTo({
+										url:"../../mine/diagnose/addDisagnoser"
+									})
+								}else{
+									this.coselayer();
+								}
+							}
+						})
 					}
 				}
-				this.openCode()
+				
 			},
 			getPainInfo(){
 				uni.showLoading();
