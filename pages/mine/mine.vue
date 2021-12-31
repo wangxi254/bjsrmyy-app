@@ -122,7 +122,7 @@
 			navitoPage(path){
 				if(uni.getStorageSync("userId") === null || uni.getStorageSync("userId").length === 0){
 					return uni.navigateTo({
-						url:"../auth/auth"
+						url:"../auth/auth?backindex=eleguide"
 					})
 				}
 				uni.navigateTo({
