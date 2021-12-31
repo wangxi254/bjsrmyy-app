@@ -159,31 +159,33 @@
 				const topArr = [],
 				bottomArr = [];
 				this.Data.map(item=>{
+					const dealdate = `${item.date} ${item.deadLine}`;
+					const newdate = dealdate.replace(/-/g,'/');
 					if(item.date == date && item.depCode == this.classId && item.timeType == '上午') topArr.push({
-						name: item.docInfo.docName,
+						name: item.docInfo && item.docInfo.docName ? item.docInfo.docName : '',
 						img: '',
 						price: item.etPrice,
-						postion: item.docInfo.docTitle,
-						describe: item.docInfo.special,
-						surplus: item.docInfo.total1,
+						postion: item.docInfo && item.docInfo.docTitle ? item.docInfo.docTitle : '',
+						describe: item.docInfo && item.docInfo.special ? item.docInfo.special : '',
+						surplus: item.docInfo && item.docInfo.total1 ? item.docInfo.total1 : 0,
 						depName:item.depName,
 						pbCode: item.pbCode,
-						docCode: item.docInfo.docCode,
+						docCode: item.docInfo && item.docInfo.docCode ? item.docInfo.docCode : '',
 						type: 0,
-						active: (new Date().getTime()< new Date(`${item.date} ${item.deadLine}`).getTime())?true:false
+						active: (new Date().getTime()< new Date(newdate).getTime())?true:false
 					})
 					if(item.date == date && item.depCode == this.classId && item.timeType == '下午') bottomArr.push({
-						name: item.docInfo.docName,
+						name: item.docInfo && item.docInfo.docName ? item.docInfo.docName : '',
 						img: '',
 						price: item.etPrice,
-						postion: item.docInfo.docTitle,
-						describe: item.docInfo.special,
-						surplus: item.docInfo.total2,
+						postion: item.docInfo && item.docInfo.docTitle ? item.docInfo.docTitle : '',
+						describe: item.docInfo && item.docInfo.special ? item.docInfo.special : '',
+						surplus: item.docInfo && item.docInfo.total2 ? item.docInfo.total2 : 0 ,
 						depName:item.depName,
 						pbCode: item.pbCode,
-						docCode: item.docInfo.docCode,
+						docCode: item.docInfo && item.docInfo.docCode ? item.docInfo.docCode : '',
 						type: 1,
-						active: (new Date().getTime()< new Date(`${item.date} ${item.deadLine}`).getTime())?true:false
+						active: (new Date().getTime()< new Date(newdate).getTime())?true:false
 					})
 				})
 				this.list = [topArr,bottomArr]
@@ -229,8 +231,11 @@
 						this.Data = data;
 						if(this.showDate){
 							arr.map(item=>{
+								
 								const has = data.find(x=>{
-									return (x.date == item && x.depCode == this.classId && (new Date().getTime()< new Date(`${x.date} ${x.deadLine}`).getTime()))
+									const dealdate = `${x.date} ${x.deadLine}`;
+									const newdate = dealdate.replace(/-/g,'/');
+									return (x.date == item && x.depCode == this.classId && (new Date().getTime()< new Date(newdate).getTime()))
 								})
 								console.log(has)
 								this.hasData[item] = has?true:false;

@@ -9,7 +9,20 @@ const hideIdentityCard = identityCard  => {
 	return midentityCard;
 }
 
+// 字符串转时间戳
+const dealIOSTimeFormat = timestr  => {
+	console.log("timestr===>",timestr);
+	if(timestr && timestr.length > 0){
+		let time = timestr.replace(/-/g,'/');
+		return time;
+	}else{
+		return timestr;
+	}
+	
+}
+
 module.exports = {
-	hideIdentityCard
+	hideIdentityCard,
+	dealIOSTimeFormat
 };
 

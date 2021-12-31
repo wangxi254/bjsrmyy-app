@@ -6,7 +6,7 @@
 				  <view class="font-size-16-w600 text-color-333333">
 						{{patientList[credentialTypeIndex].name||'选择联系人类型'}}
 				  </view>
-				  <view class="flex1 marginl10 text-color-333333 font-size-14-w400">{{utils.hideIdentityCard(patientList[credentialTypeIndex].credentialNo)}}</view>
+				  <view class="flex1 marginl10 text-color-333333 font-size-14-w400">{{ utils.hideIdentityCard(patientList[credentialTypeIndex].credentialNo)}}</view>
 				  <view class="font-size-14-w400 text-color-8f8f8f">切换</view>
 				  <image class="right marginl10" src="../../static/common/exchange.png"></image>
 				</view>
