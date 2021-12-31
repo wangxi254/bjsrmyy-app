@@ -25,7 +25,7 @@
 					<span>我关注的</span>
 				</view>
 				<view class="m_de">
-					<span>2</span>
+					<span>0</span>
 					<span>浏览记录</span>
 				</view>
 			</view>
