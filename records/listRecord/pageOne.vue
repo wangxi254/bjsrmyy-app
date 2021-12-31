@@ -41,7 +41,12 @@ export default {
         }
     },
     async onLoad(options){
-        options.row?(this.item = JSON.parse(options.row)):(this.item = null)
+        // options.row?(this.item = JSON.parse(options.row)):(this.item = null)
+		let that = this 
+		const eventChannel = this.getOpenerEventChannel();
+		eventChannel.on('acceptDataFromOpenerPage', function(data) {
+			that.item = data.data
+		})
     },
     methods: {
         submit() {
