@@ -57,18 +57,18 @@
 				startDate:new Date().toISOString().slice(0, 10),
 				endDate:new Date().toISOString().slice(0, 10),
 				list:[
-					{
-						depName:'外科检查',
-						reportTime:'2021-12-20',
-						reportName:'常规检查',
-						reportCode:'00003283434834',
-					},
-					{
-						depName:'外科检查',
-						reportTime:'2021-12-20',
-						reportName:'常规检查',
-						reportCode:'00003283434834',
-					}
+					// {
+					// 	depName:'外科检查',
+					// 	reportTime:'2021-12-20',
+					// 	reportName:'常规检查',
+					// 	reportCode:'00003283434834',
+					// },
+					// {
+					// 	depName:'外科检查',
+					// 	reportTime:'2021-12-20',
+					// 	reportName:'常规检查',
+					// 	reportCode:'00003283434834',
+					// }
 				],
 				mrn:'',
 				patientList:[],
@@ -278,7 +278,7 @@
 					}
 				}).then(res=>{
 					if(res.data.code == 200){
-						// that.list = res.data.data;
+						that.list = res.data.data;
 					}
 				})
 			},
