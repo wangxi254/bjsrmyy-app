@@ -28,7 +28,7 @@
 				<view class="left-text">
 					<text>*</text>手机号码
 				</view>
-				<input class="right-text" v-model="phone" placeholder="请输入就诊人手机号码" />
+				<input class="right-text" v-model="phone" maxlength="11" type="number" placeholder="请输入就诊人手机号码" />
 			</view>
 			
 			<view class="cell-view row-cls">
@@ -69,7 +69,7 @@
 				<view class="left-text">
 					证件号
 				</view>
-				<input v-model="idcard" placeholder="请输入就诊人证件号" />
+				<input v-model="idcard" type="idcard" maxlength="18" placeholder="请输入就诊人证件号" />
 			</view>
 			<view class="cell-view row-cls">
 				<view class="left-text">
@@ -126,14 +126,14 @@
 				<view class="left-text">
 					联系人电话
 				</view>
-				<input class="right-text" v-model="contactPhone" placeholder="请输入联系人电话" />
+				<input class="right-text" type="number" v-model="contactPhone" maxlength="11" placeholder="请输入联系人电话" />
 			</view>
 			    
 			<view class="cell-view row-cls" v-if="patientIndex === 1">
 				<view class="left-text">
 					联系人身份证号
 				</view>
-				<input class="right-text" v-model="contactIdcard" placeholder="请输入联系人身份证号" />
+				<input class="right-text" type="idcard" v-model="contactIdcard" maxlength="18" placeholder="请输入联系人身份证号" />
 			</view>
 			
 			<view class="cell-view row-cls">

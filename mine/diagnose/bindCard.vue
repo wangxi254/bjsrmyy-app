@@ -81,7 +81,7 @@
 				<view class="left-text">
 					<text>*</text>手机号码
 				</view>
-				<input class="right-text" v-model="phone" placeholder="请输入就诊人手机号码" />
+				<input class="right-text" type="number" v-model="phone" maxlength="11" placeholder="请输入就诊人手机号码" />
 			</view>
 			<view class="cell-view row-cls">
 				<view class="left-text">
