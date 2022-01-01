@@ -31,8 +31,8 @@
 					</view>
 					<!-- <image class="scode" mode="aspectFill" :src="disagnoseCode.tcode"></image> -->
 				</view>
-				<view class="center height40">
-					<view class="font-size-m14-w500 text-color-53B7C7" @tap="coselayer">关闭</view>
+				<view class="center height50" @tap="coselayer">
+					<view class="font-size-m14-w500 text-color-53B7C7" >关闭</view>
 				</view>
 			</view>
 		</view>
@@ -422,6 +422,13 @@
 	.height40{
 		height: 30px;
 		line-height: 30px;
+		margin: 0px 5px;
+		border-radius: 5px;
+	}
+	
+	.height50{
+		height: 60px;
+		line-height: 60px;
 		margin: 0px 5px;
 		border-radius: 5px;
 	}
