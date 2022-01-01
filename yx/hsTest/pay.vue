@@ -36,7 +36,7 @@
                         </view>
                     </view>
                     <view class="label-valitem flex justify-between items-center">
-                        <label>来自地区（选填）</label>
+                        <label>来自地区</label>
                         <view>
                             <picker :value="selForm.sel1" :range="type1" @change="type1Change" :range-key="item">
                                 <view class="flex-row picker-view height40 ">
@@ -60,7 +60,7 @@
             </template>
             <view class="content">
                     <view class="label-valitem flex justify-between items-center">
-                        <label>检验对象（选填）</label>
+                        <label>检验对象</label>
                         <view>
                             <picker :value="selForm.sel2" :range="type2" @change="type2Change" :range-key="item">
                                 <view class="flex-row picker-view height40 ">
@@ -73,7 +73,7 @@
                         </view>
                     </view>
                     <view class="label-valitem flex justify-between items-center">
-                        <label>采样目的（选填）</label>
+                        <label>采样目的</label>
                         <view>
                             <picker :value="selForm.sel3" :range="type3" @change="type3Change" :range-key="item">
                                 <view class="flex-row picker-view height40 ">
@@ -177,7 +177,7 @@ export default {
         const { PatientList, PatientCard }  = await this.$getUserInfo();
         this.userInfo = PatientList[0];
         this.PaientCard = PatientCard;
-        this.getList();
+        // this.getList();
 
         if(this.userInfo && Object.keys(this.userInfo).length>0){
 
@@ -222,20 +222,39 @@ export default {
                 console.log(getApp().globalData.PatientCard)
                 return uni.showToast({
                     icon: 'none',
-                    text: '暂无病历号'
+                    title: '暂无病历号'
                 })
             }
+			if(!this.selForm.sel1 ){
+				return uni.showToast({
+				    icon: 'none',
+				    title: '请选择地区'
+				})
+			}
+			if(!this.selForm.sel2 ){
+				return uni.showToast({
+				    icon: 'none',
+				    title: '请选择检验对象'
+				})
+			}
+			if(!this.selForm.sel3 ){
+				return uni.showToast({
+					title:'请选择采样目的',
+				    icon: 'none',
+				})
+			}
             uni.showLoading({
-                text: "加载中..."
+                title: "加载中...",
+				mask:true
             })
             this.$request({
                 path:`/nucleicPatientInfo `,
                 method:'post',
                 query: {
                     patientMrn: this.PaientCard.mrn,
-                    area: this.selForm.sel1,
-                    occupationClassify: this.selForm.sel2,
-                    purpose: this.selForm.sel3,
+                    area: this.selForm.sel1 || '',
+                    occupationClassify: this.selForm.sel2 || '',
+                    purpose: this.selForm.sel3 || '',
                     openId: this.openId,
                     questionId: this.quesionId,
 					patientId: this.userInfo.id
