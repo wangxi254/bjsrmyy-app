@@ -1,6 +1,6 @@
 <template>
 	<view class="page">
-		<uni-title class="title" type="h2" title="预约须知" align="center"></uni-title>
+		<uni-title class="title" type="h2" :title="pageType==1?'当日挂号须知':'预约须知'" align="center"></uni-title>
 		<view>
 			为方便您早日康复，请您认真阅读预约就诊须知；
 		</view>

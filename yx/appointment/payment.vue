@@ -86,12 +86,7 @@ export default {
             this.onlyShow = true
             if(this.info.active == 1){
                 var time = new Date()
-                var date = new Date(time.setDate(time.getDate() + 1)).getDate() 
-                var year = time.getFullYear()  //获取年份
-                var month = time.getMonth() + 1 
-                var nowDate = year+'/'+month + '/' + date
-                console.log(this.info.currentDate)
-                console.log(nowDate)
+                let nowDate = new Date(time.setDate(time.getDate() + 1)).toISOString().slice(0, 10).replaceAll('-','/');
                 if(this.info.currentDate>nowDate){
                     this.cancelBtn = true;
                 }
