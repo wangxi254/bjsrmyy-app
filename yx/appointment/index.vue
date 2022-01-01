@@ -21,15 +21,15 @@
 						<view class="flex justify-between items-center">
 							<text class="name">{{x.name}}</text>
 							<view class="flex items-center">
-								<text class="price">挂号费：{{x.price}}</text>
-								<view :class="['surplus',x.active?'active':'']" @click="open(x)">可预约({{x.surplus}})</view>
+								<text class="price">挂号费：￥{{x.price}}</text>
+								<view :class="['surplus',x.active?'active':'']" @click="open(x)">{{!showDate?'可挂号':'可预约'}}({{x.surplus}})</view>
 							</view>
 						</view>
 						<view class="tex">
 							职称：{{x.postion}}
 						</view>
 						<view class="tex">
-							擅长：{{x.describe}}
+							擅长：{{x.describe||'暂无介绍'}}
 						</view>
 					</view>
 				</view>
@@ -41,7 +41,7 @@
 					<text>{{currentDate}}</text>
 					<text>{{currentRow.type == 0?"上午":"下午"}}</text>
 				</view>
-				<view class="nodes">选择想要预约的时间段</view>
+				<view class="nodes">分时段号源</view>
 			<!-- 	<view class="nodes-txt" v-if='showDate'>注：超过号源时间1小时后不可预约该号源</view> -->
 				<scroll-view scroll-y="true" style="height: 85vh">
 					<view class="selList flex flex1 flex-wrap "> 
@@ -295,6 +295,7 @@
 					}
 					.price{
 						color: red;
+						margin-right: 20rpx;
 					}
 					
 					.surplus{
@@ -346,9 +347,9 @@
 			padding: 10rpx;
 			overflow-y: auto;
 			.sel-item{
-				border: 1rpx solid red;
-				padding: 10rpx;
-				color: red;
+				border: 1rpx solid #000000;
+				padding: 10rpx 16rpx;
+				color: #000000;
 				margin: 10rpx;
 			}
 		}

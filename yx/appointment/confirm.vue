@@ -10,8 +10,8 @@
             <template v-slot:header>
                 <view class="title-model"><text>预约信息</text></view>
             </template>
-            <view>就诊科室：<text>{{appointmentInfo.depName}}</text><uni-icons class="right" type="arrowright" size="14" /></view>
-            <view>就诊医生：<text>{{appointmentInfo.name}}</text><uni-icons class="right" type="arrowright" size="14" /></view>
+            <view>就诊科室：<text>{{appointmentInfo.depName}}</text></view>
+            <view>就诊医生：<text>{{appointmentInfo.name}}</text></view>
             <view>挂号费用：<text>￥{{appointmentInfo.price}}</text></view>
         </hs-card>
         <hs-card class="appointdate-view">
