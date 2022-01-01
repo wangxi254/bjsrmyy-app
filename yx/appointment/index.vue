@@ -146,7 +146,7 @@
 				// }
 				this.currentRow['currentDate'] = this.currentDate;
 				this.currentRow = {...this.currentRow,...row,deptCode: this.classId,registerType: this.showDate?1:0}
-				uni.navigateTo({
+				uni.redirectTo({
 					url:'./confirm?row=' + JSON.stringify(this.currentRow)
 				})
 			},

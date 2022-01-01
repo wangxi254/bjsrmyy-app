@@ -95,14 +95,15 @@ export default {
             
         }
     },
-    onUnload() {
-        const pages = getCurrentPages();
-        if(pages[pages.length - 2]['route'] == 'yx/appointment/confirm') {
-            uni.navigateBack({  
-                delta: 2  
-            }); 
-        }
-    },
+    // onUnload() {
+    //     const pages = getCurrentPages();
+    //     pages.close();
+    //     // if(pages[pages.length - 2]['route'] == 'yx/appointment/confirm') {
+    //     //     uni.navigateBack({  
+    //     //         delta: 2  
+    //     //     }); 
+    //     // }
+    // },
     methods:{
         payfor(){
             uni.showLoading({
@@ -122,7 +123,7 @@ export default {
 						signType: payinfo.signType,
 						paySign: payinfo.paySign,
 						success: payFlag => {
-                            uni.navigateTo({
+                            uni.redirectTo({
                                 url:'../appointRecord/index'
                             })
 						},
@@ -132,7 +133,7 @@ export default {
                                 duration: 2000
                             })
                             setTimeout(()=>{
-                                uni.navigateTo({
+                                uni.redirectTo({
                                     url:'../appointRecord/index'
                                 })
                             },2000)

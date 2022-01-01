@@ -121,7 +121,7 @@ export default {
 				}).then(res=>{
                     uni.hideLoading()
                     if(res.data.code == 200) {
-                        uni.navigateTo({
+                        uni.redirectTo({
                             url:'../appointment/payment?row=' + JSON.stringify({
                                 ...res.data.data,
                                 currentDate: this.appointmentInfo.currentDate
