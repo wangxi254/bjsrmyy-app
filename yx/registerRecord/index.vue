@@ -22,14 +22,14 @@
                     <hs-card v-else v-for="(item,index) in list" :key="index" class="list-item" @click="goDetail(item)">
                         <template v-slot:header>
                             <view class="title-model flex justify-between items-center">
-                                <text>挂号时间：{{item.date | getdate}}</text>
+                                <text>挂号时间：{{item.date}}</text>
                                 <view class="status">
                                     {{item.active==1?"已挂号":"已退号"}}
                                 </view>
                             </view>
                         </template>
                         <view>号源编号：<text>{{item.seqNum}}</text></view>
-                        <view>预约时间：<text>{{item.visitDate}} {{item.timePart}}</text></view>
+                        <view>预约时间：<text>{{item.visitDate}} {{timeEnum[parseInt(item.timePart)]}}</text></view>
                         <view>医生职称：<text>{{docEnum[item.docTitle]}}</text></view>
                         <view>导诊信息：<text>{{item.dzInfo}}</text></view>
                         <view>预约费用：<text>{{item.fee}}</text></view>
@@ -85,7 +85,7 @@ import userModel from '@/components/userList/index.vue'
 import NoData from '@/components/nodata/index.vue' 
 function getDate(type) {
 		const date = new Date();
-
+		
 		let year = date.getFullYear();
 		let month = date.getMonth() + 1;
 		let day = date.getDate();
@@ -117,6 +117,11 @@ export default {
                 2: '中级',
                 3: '副高',
                 4: '正高',
+            },
+            timeEnum: {
+                0: '全部',
+                1: '上午',
+                2: '下午'
             },
             searchForm: {
                 startDate: "",

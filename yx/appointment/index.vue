@@ -46,7 +46,7 @@
 				<scroll-view scroll-y="true" style="height: 85vh">
 					<view class="selList flex flex1 flex-wrap "> 
 							<view class="sel-item justify-center" v-for="(item,index) in selList[currentRow.type]" :key="index" @click="chooseDate(item)">
-								{{item.reg_time}} ( {{item.seqNum}} )
+								{{item.reg_time}} ( {{item.seqNum}}号 )
 							</view> 
 					</view>
 				</scroll-view>
