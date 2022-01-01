@@ -90,26 +90,25 @@
 		},
 		onLoad(options) {
 			options.row ? (this.info = JSON.parse(options.row)) : (this.info = {})
-			
+
 			let that = this
 			const eventChannel = this.getOpenerEventChannel();
 			eventChannel.on('acceptDataFromOpenerPage', function(data) {
 				that.info = data.data
-			})
 
-			if (this.info.hasOwnProperty('active')) {
-				this.onlyShow = true
-				if (this.info.active == 1) {
-					var time = new Date()
-					let nowDate = new Date(time.setDate(time.getDate() + 1)).toISOString().slice(0, 10).replaceAll('-',
-						'/');
-					if (this.info.currentDate > nowDate) {
-						this.cancelBtn = true;
+				if (that.info.hasOwnProperty('active')) {
+					that.onlyShow = true
+					if (that.info.active == 1) {
+						var time = new Date()
+						let nowDate = new Date(time.setDate(time.getDate() + 1)).toISOString().slice(0, 10)
+							.replaceAll('-',
+								'/');
+						if (that.info.currentDate > nowDate) {
+							that.cancelBtn = true;
+						}
 					}
 				}
-
-
-			}
+			})
 		},
 		// onUnload() {
 		//     const pages = getCurrentPages();
