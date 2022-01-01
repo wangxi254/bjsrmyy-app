@@ -13,6 +13,7 @@
 		<view class="auth">
 			<button class='bottom' open-type="getPhoneNumber" @getphonenumber="onGetPhoneNumber" :loading="loading" withCredentials="true">手机号授权登录</button>
 		</view>
+		<view class="canclebtn" @click="back">取消</view>
 	</view>
 </template>
 
@@ -331,6 +332,18 @@ export default {
 	.icon{
 		font-size: 30rpx !important;
 		padding-left: 15px;
+	}
+	
+	.canclebtn{
+		margin-left: calc(50vw - 150rpx);
+		width: 300rpx;
+		height: 70rpx;
+		line-height: 70rpx;
+		font-size: 30rpx;
+		color: #FFFFFF;
+		text-align: center;
+		margin-top: 80rpx;
+		background-color: #18BC37;
 	}
 	
 </style>
