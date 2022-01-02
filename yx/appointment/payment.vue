@@ -21,8 +21,6 @@
 					<text>预约信息</text>
 				</view>
 			</template>
-			<view v-if="info.deptName">就诊科室：<text>{{info.deptName}}</text></view>
-			<view v-if="info.doctorName">就诊医生：<text>{{info.doctorName}}</text></view>
 			<view>号源编号： <text>{{info.seqNum}}</text></view>
 			<view>就诊日期： <text>{{info.currentDate}}</text></view>
 			<view v-if="info.deptName">就诊科室： <text>{{info.deptName}}</text></view>
