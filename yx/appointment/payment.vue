@@ -21,8 +21,8 @@
 					<text>预约信息</text>
 				</view>
 			</template>
-			<view v-if="!onlyShow">就诊科室：<text>{{info.deptName}}</text></view>
-			<view v-if="!onlyShow">就诊医生：<text>{{info.doctorName}}</text></view>
+			<view v-if="info.deptName">就诊科室：<text>{{info.deptName}}</text></view>
+			<view v-if="info.doctorName">就诊医生：<text>{{info.doctorName}}</text></view>
 			<view>号源编号： <text>{{info.seqNum}}</text></view>
 			<view>就诊日期： <text>{{info.currentDate}}</text></view>
 			<view v-if="info.deptName">就诊科室： <text>{{info.deptName}}</text></view>
@@ -84,7 +84,7 @@
 			return {
 				info: {},
 				openId: uni.getStorageSync("openId") || "",
-				onlyShow: false,
+				onlyShow: true,
 				cancelBtn: false
 			}
 		},
@@ -95,10 +95,13 @@
 			const eventChannel = this.getOpenerEventChannel();
 			eventChannel.on('acceptDataFromOpenerPage', function(data) {
 				that.info = data.data
-
-				if (that.info.hasOwnProperty('active')) {
+				if(data.onlyShow){
 					that.onlyShow = true
+					return
+				}
+				if (that.info.hasOwnProperty('active')) {
 					if (that.info.active == 1) {
+						that.onlyShow = false
 						var time = new Date()
 						let nowDate = new Date(time.setDate(time.getDate() + 1)).toISOString().slice(0, 10)
 							.replaceAll('-',
@@ -106,6 +109,8 @@
 						if (that.info.currentDate > nowDate) {
 							that.cancelBtn = true;
 						}
+					} else {
+						that.onlyShow = true
 					}
 				}
 			})

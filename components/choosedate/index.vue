@@ -76,7 +76,7 @@ export default {
         },
         setCurrent() {
             var arr = []
-            for (let i = 0; i < 7; i++) {
+            for (let i = 1; i < 9; i++) {
                 arr.push(this.dealTime(i))
             }
             this.weekInfo = arr;

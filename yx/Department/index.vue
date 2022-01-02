@@ -96,22 +96,41 @@
 				uni.showLoading({
 					title: "加载中..."
 				})
+				let date = null
 				let endtime = null
-				let date = new Date().toISOString().slice(0, 10);
-				if (this.pageType == 1) {
-					//当日挂号开始结束都是当前日期
-					endtime = date
+			
+				if(this.pageType != 1){
+					var dd = new Date();
+					dd.setDate(dd.getDate()+1); 
+					var y = dd.getFullYear();
+					var m = dd.getMonth()+1; 
+					var d = dd.getDate();
+					date = y + '-' + (m < 10 ? '0' + m : m) + '-' + (d < 10 ? '0' + d : d);
+						
+					if (this.pageType == 1) {
+						//当日挂号开始结束都是当前日期
+						endtime = date
+					} else {
+						//预约挂号，获取当前日期七天后的日期
+						let time = dd;
+						let num = 7; 
+						time.getHours() > 20 && (num = num + 1);
+						var dates = new Date(time.setDate(time.getDate() + num)).getDate()
+						var year = time.getFullYear() //获取年份
+						var month = time.getMonth() + 1 // 获取月份
+						endtime = year + '-' + (month < 10 ? '0' + month : month) + '-' + (dates < 10 ? '0' + dates :
+							dates);
+					}
 				} else {
-					//预约挂号，获取当前日期七天后的日期
-					let time = new Date();
-					let num = 7;
-					time.getHours() > 20 && (num = num + 1);
-					var dates = new Date(time.setDate(time.getDate() + num)).getDate()
-					var year = time.getFullYear() //获取年份
-					var month = time.getMonth() + 1 // 获取月份
-					endtime = year + '-' + (month < 10 ? '0' + month : month) + '-' + (dates < 10 ? '0' + dates :
+					let tempDate = new Date()
+					var year = tempDate.getFullYear()
+					var month = tempDate.getMonth() + 1 
+					var dates = tempDate.getDate()
+					date = year + '-' + (month < 10 ? '0' + month : month) + '-' + (dates < 10 ? '0' + dates :
 						dates);
+					endtime = date
 				}
+			
 				this.$request({
 					path: '/department/mobile/listNoPage',
 					query: {

@@ -200,7 +200,8 @@
 					url: '../appointment/payment',
 					success: function(res) {
 						res.eventChannel.emit('acceptDataFromOpenerPage', {
-							data: rows
+							data: rows,
+							onlyShow: true
 						})
 					}
 				})

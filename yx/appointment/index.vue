@@ -86,7 +86,14 @@
 			option.type == 1?(this.showDate = false): ""
 			option.id?(this.classId = option.id): (this.classId = 'P')
 			if(option.type == 1){
-				this.currentDate = new Date().toISOString().slice(0, 10) //year+'-'+month + '-' + date;
+				var dd = new Date();
+				if(this.showDate)dd.setDate(dd.getDate()+1); 
+				var y = dd.getFullYear();
+				var m = dd.getMonth()+1; 
+				var d = dd.getDate();
+				this.currentDate = y + '-' + (m < 10 ? '0' + m : m) + '-' + (d < 10 ? '0' + d : d);
+					
+				// this.currentDate = new Date().toISOString().slice(0, 10) //year+'-'+month + '-' + date;
 			}
 			uni.setNavigationBarTitle({
 			　　title:option.title
@@ -107,7 +114,9 @@
 					return year+'-'+month + '-' + date
 				}
 				var arr = []
-				for (let i = 0; i < 7; i++) {
+				let startNum = this.showDate?1:0
+				let endNum = this.showDate?9:7
+				for (let i = startNum; i < endNum; i++) {
 					arr.push(returnDate(i))
 				}
 				return arr;
@@ -133,7 +142,7 @@
 				const topArr = [],
 				bottomArr = [];
 				this.Data.map(item=>{
-					if(item.code == 1){
+					if(item.code == 1 && item.docInfo){
 						//只显示未停诊的值班医生
 						const dealdate = `${item.date} ${item.deadLine}`;
 						const newdate = dealdate.replace(/-/g,'/');
