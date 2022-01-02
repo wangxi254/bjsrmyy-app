@@ -2,18 +2,22 @@
 	<view>
 		<view class="search show-center">
 			<view v-if="isNotSearching" @click="searchClick" class="search-bg show-center">
-				<view class="search-input">搜索</view><image class="search-icon" src="../../../static/index/search.png">
+				<view class="search-input">搜索</view>
+				<image class="search-icon" src="../../../static/index/search.png">
 			</view>
 			<view v-else class="space-beteewn search-bg">
 				<view class="show-center justify-content">
 					<image class="search-icon marginl10r10" src="../../../static/index/search.png">
-					<input class="search-input" type="text" placeholder="搜索" v-model="searchText"  @focus="vauleEmpty" confirm-type="search" />
+						<input class="search-input" type="text" placeholder="搜索" v-model="searchText"
+							@focus="vauleEmpty" confirm-type="search" />
 				</view>
 				<view @click="cancleEdit" class="cancle">取消</view>
 			</view>
 		</view>
-		<uni-notice-bar class="noticebar" backgroundColor="#FEF0E9" :scrollable="true" :showIcon="true" :single="true" text="注：出诊时间如有变化，以当日挂号为准" />
-		<hsSubfieldList :leftNavData="searchList" :rightNavData="rightNavData" :scrollHeiht="scrollHeiht" @leftClick="leftClick" @rightClick="rightClick" />
+		<uni-notice-bar class="noticebar" backgroundColor="#FEF0E9" :scrollable="true" :showIcon="true" :single="true"
+			text="注：出诊时间如有变化，以当日挂号为准" />
+		<hsSubfieldList :leftNavData="searchList" :rightNavData="rightNavData" :scrollHeiht="scrollHeiht"
+			@leftClick="leftClick" @rightClick="rightClick" />
 	</view>
 </template>
 
@@ -23,27 +27,28 @@
 	export default {
 		data() {
 			return {
-				leftNavData:[],
-				rightNavData:[],
-				searchText:'',
-				isNotSearching:true,
-				scrollHeiht:'',
+				leftNavData: [],
+				rightNavData: [],
+				searchText: '',
+				isNotSearching: true,
+				scrollHeiht: '',
 				pageType: 0,
 				searchList: []
 			}
 		},
 		onLoad(options) {
 			/* 获取屏幕可视区域的高度 */
-			let height=uni.getSystemInfoSync().windowHeight - 44 - 42
-			this.scrollHeiht=`height:${height}px`
+			let height = uni.getSystemInfoSync().windowHeight - 44 - 42
+			this.scrollHeiht = `height:${height}px`
 			options.type && (this.pageType = options.type)
 			this.getDepartment();
 		},
 		onShow() {
 			//this.leftClick(this.leftNavData[0]);
 		},
-		components:{
-			hsSubfieldList,uniNoticeBar
+		components: {
+			hsSubfieldList,
+			uniNoticeBar
 		},
 		watch: {
 			searchText(val) {
@@ -55,59 +60,68 @@
 			// 	console.log("expert:",JSON.stringify(item));
 			// 	let array = [];
 			// 	this.rightNavData = array;
-				
+
 			// },
-			leftClick(item){
+			leftClick(item) {
 				let array = [];
 				this.rightNavData = array;
 				uni.navigateTo({
-					url:'../appointment/index?title=' + item.depName +'&&type=' +this.pageType + '&&id='+item.depCode
+					url: '../appointment/index?title=' + item.depName + '&&type=' + this.pageType + '&&id=' + item
+						.depCode
 				})
 			},
-			filter(val){
-				this.searchList = this.leftNavData.filter(item=>{
-					if(item.depName.indexOf(val)>-1) {
+			filter(val) {
+				this.searchList = this.leftNavData.filter(item => {
+					if (item.depName.indexOf(val) > -1) {
 						console.log(item)
 						return item
 					}
 				})
 			},
-			searchClick(){
+			searchClick() {
 				this.isNotSearching = false;
 			},
-			valueEmpty(e){
+			valueEmpty(e) {
 				return this.searchText = '';
 			},
-			cancleEdit(){
+			cancleEdit() {
 				this.isNotSearching = true;
 			},
-			rightClick(item){
+			rightClick(item) {
 				uni.navigateTo({
-					url:`./roomDetail?item=${JSON.stringify(item)}`
+					url: `./roomDetail?item=${JSON.stringify(item)}`
 				})
 			},
-			getDepartment(){
+			getDepartment() {
 				uni.showLoading({
 					title: "加载中..."
 				})
+				let endtime = null
 				let date = new Date().toISOString().slice(0, 10);
-				let time = new Date();
-				let num = 7;
-				time.getHours()>20 && (num = num + 1);
-				var dates = new Date(time.setDate(time.getDate() + num)).getDate()  //这里先获取日期，在按需求设置日期，最后获取需要的
-				var year = time.getFullYear()  //获取年份
-				var month = time.getMonth() + 1   // 获取月份
-				const endtime = year + '-' + month + '-' + dates;
+				if (this.pageType == 1) {
+					//当日挂号开始结束都是当前日期
+					endtime = date
+				} else {
+					//预约挂号，获取当前日期七天后的日期
+					let time = new Date();
+					let num = 7;
+					time.getHours() > 20 && (num = num + 1);
+					var dates = new Date(time.setDate(time.getDate() + num)).getDate()
+					var year = time.getFullYear() //获取年份
+					var month = time.getMonth() + 1 // 获取月份
+					endtime = year + '-' + (month < 10 ? '0' + month : month) + '-' + (dates < 10 ? '0' + dates :
+						dates);
+				}
 				this.$request({
-					path:'/department/mobile/listNoPage',
-					query:{
-						beginDate:date,
-						endDate:endtime,
-						regtype:1
+					path: '/department/mobile/listNoPage',
+					query: {
+						beginDate: date,
+						endDate: endtime,
+						// regtype:1
 					}
-				}).then(res=>{
+				}).then(res => {
 					uni.hideLoading();
-					if(res.data.code == 200){
+					if (res.data.code == 200) {
 						this.leftNavData = res.data.data;
 						this.searchList = res.data.data;
 					}
@@ -119,53 +133,52 @@
 </script>
 
 <style lang="scss" scoped>
-	
-	.search{
+	.search {
 		height: 44px;
 		line-height: 44px;
 		width: 100%;
 		background: $uni-bg-color-hover;
 	}
-	
-	.show-center{
+
+	.show-center {
 		align-items: center;
 		justify-content: center;
 		display: flex;
 		flex-direction: row;
 	}
-	
-	.justify-content{
+
+	.justify-content {
 		justify-content: start;
 	}
-	
-	.search-icon{
+
+	.search-icon {
 		width: 20px;
 		height: 20px;
 	}
-	
-	.search-text{
+
+	.search-text {
 		color: $uni-text-color;
 		font-size: $uni-font-detail-title;
 	}
-	
-	.search-bg{
+
+	.search-bg {
 		background: #FFFFFF;
 		height: 28px;
 		width: 100%;
 		margin: 8px;
 	}
-	
-	.marginl10r10{
+
+	.marginl10r10 {
 		margin-left: 10px;
 		margin-right: 10px;
 	}
-	
-	.space-beteewn{
+
+	.space-beteewn {
 		justify-content: space-between;
 		display: flex;
 	}
-	
-	.cancle{
+
+	.cancle {
 		height: 28px;
 		line-height: 28px;
 		padding-left: 8px;
@@ -174,12 +187,13 @@
 		background: $uni-bg-color-hover;
 		text-align: right;
 	}
-	
-	.search-input{
+
+	.search-input {
 		font-size: $uni-font-detail-title;
 		color: $uni-text-color;
 		margin-right: 8px;
 	}
+
 	.noticebar {
 		line-height: 30rpx;
 	}

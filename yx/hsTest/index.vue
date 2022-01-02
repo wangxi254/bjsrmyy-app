@@ -65,9 +65,19 @@ export default {
             const query = {
                 userId: this.userId
             }
+			let answerNum = 0
             this.keyArr.map((item,index)=>{
                 query[item] = this.list[index]['val']
+				if(query[item] && query[item].length > 0){
+					answerNum += 1
+				}
             })
+			if(answerNum != this.keyArr.length){
+				return uni.showToast({
+					title:'请阅读并完成所有信息的勾选',
+					icon:'none'
+				})
+			}
             this.$request({
 					path:`/nucleicQuestion`,
                     method: 'post',
@@ -100,9 +110,13 @@ export default {
         }
 
     }
+	.title{
+		margin-top: 20rpx;
+	}
     .radiao{
         radio{
-            transform: scale(0.6);
+            transform: scale(1);
+			margin: 10rpx 10rpx 0 10rpx;
         }
     }
     .btn{
