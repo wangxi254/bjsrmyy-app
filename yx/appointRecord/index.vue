@@ -33,7 +33,7 @@
 						<view>医生信息：<text>{{item.doctorName?item.doctorName+" ":''}} {{docEnum[item.docTitle]}}</text></view>
 						<view>{{item.deptName?'门诊科室':'导诊信息'}}：<text>{{item.deptName?item.deptName:item.dzInfo}}</text>
 						</view>
-                        <view>导诊信息：<text>{{item.dzInfo}}</text></view>
+                        <view v-if="item.deptName">导诊信息：<text>{{item.dzInfo}}</text></view>
                         <view>预约费用：<text>￥{{item.fee}}</text></view>
                     </hs-card>
                 </view>
