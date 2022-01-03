@@ -274,6 +274,7 @@ export default {
 			updateManager.onCheckForUpdate(function (res) {
 				if (res.hasUpdate) {
 				updateManager.onUpdateReady(function () {
+					console.log('更新')
 					wx.showModal({
 					title: '更新提示',
 					content: '新版本已经准备好，是否重启应用？',
@@ -285,13 +286,17 @@ export default {
 					})
 				})
 				updateManager.onUpdateFailed(function () {
+					console.log('已经是最新版本')
 					wx.showModal({
 					title: '已经有新版本了哟~',
 					content: '新版本已经上线啦~，请您删除当前小程序，重新搜索打开哟~'
 					})
 				})
 				}
+				console.log(res)
+				console.log('获取更新信息完毕')
 			})
+			console.log('完毕')
 		} else {
 			wx.showModal({
 				title: '提示',
