@@ -16,6 +16,7 @@
 			//var globalData = getApp().globalData;
 			//获取默认就诊人
 			//this.$userInit();
+			this.$appUpdate();
 		},
 		globalData: {
 			PatientList: [],
