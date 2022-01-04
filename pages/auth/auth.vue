@@ -13,7 +13,7 @@
 		<view class="auth">
 			<button class='bottom' open-type="getPhoneNumber" @getphonenumber="onGetPhoneNumber" :loading="loading" withCredentials="true">手机号授权登录</button>
 		</view>
-		<view class="canclebtn" @click="back">取消</view>
+		<view class="canclebtn bg-color-8F8F8F border-radius5" @click="back">取消</view>
 	</view>
 </template>
 

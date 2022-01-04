@@ -45,7 +45,14 @@
 	color: #53B7C7;
 }
 
+.bg-color-8F8F8F{
+	background: #8F8F8F !important;
+	
+}
 
+.border-radius5{
+	border-radius: 5px;
+}
 
 .content-view{
 	background: #F5F5F5;
