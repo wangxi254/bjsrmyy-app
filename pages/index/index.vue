@@ -66,7 +66,7 @@
 						{{item.createTime && item.createTime.length > 10 ? item.createTime.substr(0,11) : item.createTime }}
 					</view>
 				</view>
-				<image class="img" :src="item.imageUrl" mode=""></image>
+				<image class="img" v-if="item.imageUrl" :src="item.imageUrl" mode=""></image>
 			</view>
 		</view>
 		<!-- <hsMenuList :List="dataList" @menuClick="menuClick" /> -->
