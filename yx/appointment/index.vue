@@ -114,8 +114,8 @@
 					return year+'-'+month + '-' + date
 				}
 				var arr = []
-				let startNum = this.showDate?1:0
-				let endNum = this.showDate?9:7
+				let startNum = 0
+				let endNum = 7
 				for (let i = startNum; i < endNum; i++) {
 					arr.push(returnDate(i))
 				}
@@ -175,7 +175,6 @@
 					}
 				})
 				this.list = [topArr,bottomArr]
-				console.log(this.list)
 				this.currentDate = date;
 			},
 			getCodeList(row) {
@@ -220,6 +219,7 @@
 								const has = data.find(x=>{
 									const dealdate = `${x.date} ${x.deadLine}`;
 									const newdate = dealdate.replace(/-/g,'/');
+									// console.log(x.date,item)
 									return (x.date == item && x.depCode == this.classId && (new Date().getTime()< new Date(newdate).getTime()))
 								})
 								this.hasData[item] = has?true:false;

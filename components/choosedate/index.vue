@@ -76,16 +76,16 @@ export default {
         },
         setCurrent() {
             var arr = []
-            for (let i = 1; i < 9; i++) {
+            for (let i = 1; i < 8; i++) {
                 arr.push(this.dealTime(i))
             }
             this.weekInfo = arr;
         },
         clickLast() {
-            this.current >= 1  && (this.current-=1,this.LeftWid -= 50)
+            this.current >= 1  && (this.current-=1,this.LeftWid -= 50, this.$emit('clickDate',this.weekInfo[this.current]['date']))
         },
         clickNext() {
-            this.current < 6  && (this.current+=1,this.LeftWid += 50)
+            this.current < 6  && (this.current+=1,this.LeftWid += 50,this.$emit('clickDate',this.weekInfo[this.current]['date']))
         },
         chooseDay(index) {
             this.current = index;
