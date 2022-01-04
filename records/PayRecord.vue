@@ -6,8 +6,10 @@
             <text class="username">{{PatientInfo.name?PatientInfo.name:'请选择就诊人'}}</text>
             <text class="idCard">{{(PatientInfo.credentialNo?PatientInfo.credentialNo:'') | haddenIdCard}}</text>
         </view>
-        <view class="btn">
-            <uni-icons @click="showUserList"  type="settings" size="14" color="#fff" />
+        <view class="flex items-center" @click="showUserList">
+            <!-- <uni-icons @click="showUserList"  type="settings" size="14" color="#fff" /> -->
+            <view class="font-size-14-w400 text-color-8f8f8f">切换</view>
+            <image class="right marginl10" style="width: 10px;height: 10px" src="../static/common/exchange.png"></image>
         </view>
         </view>
     </hs-card>

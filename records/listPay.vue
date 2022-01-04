@@ -6,12 +6,35 @@
             <text class="username">{{PatientInfo.name?PatientInfo.name:'请选择就诊人'}}</text>
             <text class="idCard">{{(PatientInfo.credentialNo?PatientInfo.credentialNo:'') | haddenIdCard}}</text>
         </view>
-        <view class="btn">
-            <uni-icons @click="showUserList"  type="settings" size="14" color="#fff" />
+        <view class="flex items-center" @click="showUserList">
+            <!-- <uni-icons @click="showUserList"  type="settings" size="14" color="#fff" /> -->
+            <view class="font-size-14-w400 text-color-8f8f8f">切换</view>
+            <image class="right marginl10" style="width: 10px;height: 10px" src="../static/common/exchange.png"></image>
         </view>
         </view>
     </hs-card>
-    <view class="search-view">
+    <view class="space-between paadinglr15">
+        <picker mode="date" :value="searchForm.startDate" @change="change1">
+            <view class="picker-view flex items-center" >
+                <view class="font-size-14-w400 text-color-8f8f8f">开始：</view>
+                <view class="font-size-14-w400 text-color-333333">
+                    {{searchForm.startDate||'选择日期'}}
+                </view>
+                <image class="marginl10" style="width: 10px;height: 10px" src="../static/common/down.png"></image>
+            </view>
+        </picker>
+        <picker mode="date" :value="searchForm.endDate" @change="change2">
+            
+            <view class="picker-view height50 flex items-center">
+                <view class="font-size-14-w400 text-color-8f8f8f">结束：</view>
+                <view class="font-size-14-w400 text-color-333333">
+                    {{searchForm.endDate||'选择日期'}}
+                </view>
+                <image class="marginl10" style="width: 10px;height: 10px" src="../static/common/down.png"></image>
+            </view>
+        </picker>
+    </view>
+    <!-- <view class="search-view">
         <view class="date-view flex justify-between items-center">
             <view class="dateInput">
                 <picker mode="date" :value="searchForm.startDate" :start="startDate" :end="endDate" @change="change1">
@@ -27,7 +50,7 @@
             
         </view>
         <button class="primary-btn" style="margin-top: 10rpx" @click="getList">查询</button>
-    </view>
+    </view> -->
     <view class="pageContainer flex-1" style="overflow:auto">
         <scroll-view class="flex-1" scroll-y="true"  style="height: calc(100% - 50px)">
             <view class="list">
@@ -185,10 +208,12 @@ export default {
         change1(e) {
             let date = e.detail.value;
 			this.searchForm.startDate = date;
+            this.getList();
         },
         change2(e) {
             let date = e.detail.value;
 			this.searchForm.endDate = date;
+            this.getList();
         }
     }
 }

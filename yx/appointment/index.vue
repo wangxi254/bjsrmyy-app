@@ -141,8 +141,11 @@
 				// 获取当前日期的专家
 				const topArr = [],
 				bottomArr = [];
+				uni.showLoading({
+					title: "加载中..."
+				})
 				this.Data.map(item=>{
-					if(item.code == 1 && item.docInfo){
+					if(item.code == 1){
 						//只显示未停诊的值班医生
 						const dealdate = `${item.date} ${item.deadLine}`;
 						const newdate = dealdate.replace(/-/g,'/');
@@ -176,6 +179,9 @@
 				})
 				this.list = [topArr,bottomArr]
 				this.currentDate = date;
+				setTimeout(()=>{
+					uni.hideLoading();
+				},1000)
 			},
 			getCodeList(row) {
 				uni.showLoading({
