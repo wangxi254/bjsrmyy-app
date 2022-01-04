@@ -228,6 +228,7 @@ export default {
 			
 		},
 		requestAdd(openId,name,nickName,phone){
+			uni.setStorageSync("phone",phone);
 			let that = this;
 			that.loading = true;
 			this.$request({
