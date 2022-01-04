@@ -9,10 +9,10 @@
 				<view class="left">
 					<!-- <image :src="userInfo.avatarUrl"></image> -->
 					<open-data class="awarimg" type="userAvatarUrl"></open-data>
-					<view class="name">
+					<view class="name" @click="goLogin">
 						<!-- <span>{{userInfo.nickName}}</span> -->
 						<open-data class="nickname" type="userNickName"></open-data>
-						<span>{{phone ? phone : ''}}</span>
+						<span>{{phone ? phone : '授权手机号'}}</span>
 					</view>
 				</view>
 				<view class="right" @click="navitoPage('../../info/index')">
@@ -141,6 +141,13 @@
 				}else if(e.index == 2){
 					uni.switchTab({
 						url:"../mine/mine"
+					})
+				}
+			},
+			goLogin(){
+				if(this.phone == null || this.phone.length == 0){
+					uni.navigateTo({
+						url:"../auth/auth"
 					})
 				}
 			}

@@ -18,8 +18,8 @@
 			</view>
 			<view class="item">
 				<span class="left">电话号码</span>
-				<view class="right">
-					<span class="tit">{{phone ? phone : ''}}</span>
+				<view class="right" @click="goLogin">
+					<span class="tit">{{phone ? phone : '授权手机号'}}</span>
 					<image class="i_right" src="../static/common/right.png"></image>
 				</view>
 			</view>
@@ -45,6 +45,15 @@
 				that.userInfo = infoRes.userInfo
 			  }
 			});
+		},
+		methods:{
+			goLogin(){
+				if(this.phone == null || this.phone.length == 0){
+					uni.navigateTo({
+						url:"../auth/auth"
+					})
+				}
+			}
 		}
 	}
 </script>
