@@ -110,7 +110,7 @@ export default {
                 payAmountStr: this.appointmentInfo.price,//this.appointmentInfo.price * 100,
                 patientId: this.userInfo.id,
                 patientName: this.userInfo.name,
-                medicalRecordNo: this.userInfo.mrn ? this.userInfo.mrn : this.PaientCard.mrn,
+                medicalRecordNo: this.userInfo.mrn && this.userInfo.mrn.length > 0 ? this.userInfo.mrn : this.PaientCard.mrn,
                 certificateType: parseInt(this.userInfo.credentialType),
                 certificateNo: this.userInfo.credentialNo,
                 registerType: this.appointmentInfo.registerType,

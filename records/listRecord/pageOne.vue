@@ -74,7 +74,7 @@ export default {
                                 query: {
                                     openId: uni.getStorageSync("openId"),
                                     payAmountStr: row.total,
-                                    medicalRecordNo: row.PatientCard.mrn,
+                                    medicalRecordNo: row.PatientInfo.mrn && row.PatientInfo.mrn.length > 0 ? row.PatientInfo.mrn : row.PatientCard.mrn,
                                     depCode: row.depCode,
                                     docCode: row.docCode,
                                     certificateType: row.PatientInfo.credentialType,
