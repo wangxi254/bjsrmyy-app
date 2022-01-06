@@ -246,8 +246,32 @@ export default {
 			uni.showLoading({
 				text: "加载中..."
 			})
-			let PatientList = await this.$getPatientList();
-			let PatientCard = await this.$getUserCard(PatientList[0]);
+			// let PatientList = await this.$getPatientList();
+			// let PatientCard = await this.$getUserCard(PatientList[0]);
+			
+			const userId = this.$getUserId();
+		 	const [PatientListerr,PatientListres] = await this.$arequest({
+				path:`/patient/mobile/getPatientByUserId?userId=${userId}`,
+			})
+			console.log("PatientListerr==>",JSON.stringify(PatientListerr));
+			console.log("PatientListres==>",JSON.stringify(PatientListres));
+			let PatientList = null;
+			let PatientCard = null;
+			if(PatientListres.data.code == 200){
+				PatientList = PatientListres.data.data;
+				let PaientInfo = PatientList[0];
+				const [PatientCarderr,PatientCardres] = await this.$arequest({
+					path:`/tpatientCard/mobile/getPatientCardByPatientInfo?condition=${PaientInfo.credentialNo}&conditionType=${PaientInfo.credentialType}`,
+				})
+				uni.hideLoading();
+				console.log("PatientCarderr==>",JSON.stringify(PatientCarderr));
+				console.log("PatientCardres==>",JSON.stringify(PatientCardres));
+				if(PatientCardres.data.code == 200){
+					PatientCard = PatientCardres.data.data;
+				}
+			}else{
+				uni.hideLoading();
+			}
 			uni.setStorageSync('PatientList',JSON.stringify(PatientList))
 			uni.setStorageSync('PatientCard',JSON.stringify(PatientCard))
 			uni.hideLoading();

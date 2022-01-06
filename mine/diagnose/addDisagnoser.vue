@@ -579,7 +579,7 @@
 	
 	.page{
 		background: #F5F5F5;
-		min-height: 100%;
+		// min-height: 100%;
 	}
 	
 	.content-view{

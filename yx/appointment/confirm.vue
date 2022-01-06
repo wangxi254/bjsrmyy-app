@@ -71,6 +71,8 @@ export default {
     async onLoad(option) {
         option.row && (this.appointmentInfo = JSON.parse(option.row))
         const { PatientList, PatientCard }  = await this.$getUserInfo();
+		console.log("PatientList===>",JSON.stringify(PatientList));
+		console.log("PatientCard===>",JSON.stringify(PatientCard));
         this.userInfo = PatientList[0];
         this.PaientCard = PatientCard;
     },
@@ -108,7 +110,7 @@ export default {
                 payAmountStr: this.appointmentInfo.price,//this.appointmentInfo.price * 100,
                 patientId: this.userInfo.id,
                 patientName: this.userInfo.name,
-                medicalRecordNo: this.PaientCard.mrn,
+                medicalRecordNo: this.userInfo.mrn ? this.userInfo.mrn : this.PaientCard.mrn,
                 certificateType: parseInt(this.userInfo.credentialType),
                 certificateNo: this.userInfo.credentialNo,
                 registerType: this.appointmentInfo.registerType,
