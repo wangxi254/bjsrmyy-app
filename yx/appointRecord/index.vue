@@ -1,5 +1,5 @@
 <template>
-  <view class="detailPage flex flex-column">
+  <view class="detailPage flex flex-column" style="height: auto;">
       <hs-card class="user-view">
           <view class="flex justify-between items-center">
               <view class="flex flex-column">
@@ -26,7 +26,7 @@
                             <view class="title-model flex justify-between items-center">
                                 <text>挂号时间：{{item.date}}</text>
                                 <view class="status">
-									{{item.active==1?"已挂号":"已退号"}}
+								{{registerEnum[parseInt(item.active)]}}
                                 </view>
                             </view>
                         </template>
@@ -127,6 +127,11 @@ export default {
 				0: '全部',
 				1: '上午',
 				2: '下午'
+			},
+			registerEnum: {
+				0: '待诊',
+				1: '挂号',
+				2: '退号'
 			},
             searchForm: {
                 startDate: "",
