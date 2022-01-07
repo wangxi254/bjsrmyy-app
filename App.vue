@@ -22,7 +22,7 @@
 			PatientCard: {}
 		},
 		onShow: function() {
-			this.$appUpdate();
+			// this.$appUpdate();
 			console.log('App Show')
 		},
 		onHide: function() {
