@@ -7,13 +7,13 @@
 				毕节市第一人民医院
 			</view>
 		</view>
-		<image class="hs-banner" mode="" src="https://second-vedio.oss-cn-shenzhen.aliyuncs.com/image/d4860fdbe172f0285deb8a2cc4a58c64.jpeg"></image>
+		<image class="hs-banner" mode="" :src="hospitalInto.homePageImg ? hospitalInto.homePageImg : 'https://second-vedio.oss-cn-shenzhen.aliyuncs.com/image/d4860fdbe172f0285deb8a2cc4a58c64.jpeg'"></image>
 		<view class="flex-row paadinglr15">
 			<view class="notifacationtitle">
 				最新通知｜
 			</view>
-			<view class="notifacationdetail">
-				疫情期间就诊请网上预约
+			<view class="notifacationdetail" @click="bannerClick(banners[0])" :disable='banners && banners.length > 0'>
+				{{banners && banners.length > 0 && banners[0].contentTitle ? banners[0].contentTitle : '疫情期间就诊请网上预约' }}
 			</view>
 		</view>
 		<view class="flex-row">

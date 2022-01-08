@@ -69,7 +69,7 @@
 				<view class="left-text">
 					证件号
 				</view>
-				<input v-model="idcard" type="idcard" maxlength="18" placeholder="请输入就诊人证件号" />
+				<input v-model="idcard" type="idcard" @input="changecertno" maxlength="18" placeholder="请输入就诊人证件号" />
 			</view>
 			<view class="cell-view row-cls">
 				<view class="left-text">
@@ -133,7 +133,7 @@
 				<view class="left-text">
 					联系人身份证号
 				</view>
-				<input class="right-text" type="idcard" v-model="contactIdcard" maxlength="18" placeholder="请输入联系人身份证号" />
+				<input class="right-text" type="idcard"  v-model="contactIdcard" maxlength="18" placeholder="请输入联系人身份证号" />
 			</view>
 			
 			<view class="cell-view row-cls">
@@ -340,13 +340,14 @@
 				credentialTypeIndex:0,
 				credentialType:1,
 				patientId:'',
+				isAdd:false,
 			}
 		},
 		onLoad(options) {
 			console.log("options==>",options.item);
 			if(options.item){
 				let item = JSON.parse(options.item);
-				
+				this.isAdd = false;
 				
 				uni.setNavigationBarTitle({
 					title:"编辑就诊人"
@@ -406,6 +407,7 @@
 				}
 				
 			}else{
+				this.isAdd = true;
 				uni.setNavigationBarTitle({
 					title:"添加就诊人"
 				})
@@ -569,6 +571,29 @@
 				const index = e.detail.value;
 				this.nationindex =  index;
 				this.nation = this.nations[index];
+			},
+			changecertno(){
+				if(this.isAdd){
+					if(this.idcard.length == 18){
+						let that = this;
+						this.$request({
+							path:'/user/mobile/parseIDCard',
+							query:{
+								idCard:this.idcard
+							}
+						}).then(res=>{
+							console.log("res===>",JSON.stringify(res))
+							if(res.data.code == 200){
+								let data = res.data.data;
+								that.sex = data.sex;
+								if(that.birthday.length == 0){
+									that.birthday = data.birthday;
+								}
+							}
+						})
+					}
+				}
+				
 			}
 			
 		}
