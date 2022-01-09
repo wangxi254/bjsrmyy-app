@@ -32,7 +32,7 @@
                         </template>
 						<view>号源编号：<text>{{item.seqNum}}</text></view>
                         <view>预约时间：<text>{{item.visitDate}}  {{timeEnum[parseInt(item.timePart)]}}</text></view>
-						<view>医生信息：<text>{{item.doctorName?item.doctorName+" ":''}} {{docEnum[item.docTitle]}}</text></view>
+						<view>医生信息：<text>{{item.doctorName?item.doctorName||''+" ":''}} {{docEnum[item.docTitle || 0]}}</text></view>
 						<view>{{item.deptName?'门诊科室':'导诊信息'}}：<text>{{item.deptName?item.deptName:item.dzInfo}}</text>
 						</view>
                         <view v-if="item.deptName">导诊信息：<text>{{item.dzInfo}}</text></view>
