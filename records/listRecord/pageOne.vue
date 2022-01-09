@@ -14,7 +14,7 @@
                 <view>总费用：<text>{{item.total}}</text></view>
                 <view>就诊状态：<text>{{visitStatusEnums[parseInt(item.visitStatus)]|| ''}}</text></view>
                 <view>诊断信息：<text>{{item.zdInfo}}</text></view>
-                <view>处方类型：<text>{{item.cftype==1?"自费":"医保"}}</text></view>
+                <!-- <view>医保类型：<text>{{item.cftype==1?"自费":"医保"}}</text></view> -->
                 <view>处方来源：<text>{{enums[item.lyInfo] || "未知"}}</text></view>
                 <view>结算状态：<text>{{item.settlementState == 1?"已结算":"未结算"}}</text></view>
                 <!-- <view>人员结算单信息：<text>{{item.jsonStr}}</text></view> -->

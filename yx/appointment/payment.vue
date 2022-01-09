@@ -59,7 +59,7 @@
 			</view>
 			<view class="pay-btn" @click="payfor">立即支付</view>
 		</view>
-		<!-- <button v-if="cancelBtn" class="cancelbtn" @click="confirmMsgback">取消订单</button> -->
+		<button v-if="cancelBtn" class="cancelbtn" @click="confirmMsgback">取消订单</button>
 		<view style="height: 100rpx"></view>
 		<uni-popup ref="popup" type="dialog">
 			<uni-popup-dialog mode="base" title="提示" content="是否确定取消当前预约" @close="closeMsg" @confirm="confirmMsg"
@@ -98,8 +98,10 @@
 							var time = new Date()
 							let nowDate = new Date(time.setDate(time.getDate() + 1)).toISOString().slice(0, 10)
 								.replaceAll('-',
-									'/');
-							if (that.info.currentDate > nowDate) {
+									'/')
+							let currentDate = new Date(that.info.currentDate).toISOString().slice(0, 10).replaceAll('-',
+									'/')
+							if (currentDate > nowDate) {
 								that.cancelBtn = true;
 							}
 						}
@@ -113,7 +115,9 @@
 						let nowDate = new Date(time.setDate(time.getDate() + 1)).toISOString().slice(0, 10)
 							.replaceAll('-',
 								'/');
-						if (that.info.currentDate > nowDate) {
+						let currentDate = new Date(that.info.currentDate).toISOString().slice(0, 10).replaceAll('-',
+									'/')
+						if (currentDate > nowDate) {
 							that.cancelBtn = true;
 						}
 					}
