@@ -1,5 +1,6 @@
 <template>
   <view class="detailPage">
+    <s-pull-scroll ref="pullScroll" :pullDown="pullDown">
     <hs-card class="user-view">
         <view class="flex justify-between items-center">
             <view class="flex flex-column">
@@ -83,6 +84,7 @@
         </hs-card>
         <NoData v-if="list1.length == 0 && list2.length == 0" />
     </view>
+    </s-pull-scroll>
     <userModel ref="userModelref"  @changeUser="changeUser" />
   </view>
 </template>
@@ -163,6 +165,12 @@ export default {
 					}
                 })
             }
+        },
+        pullDown(pullScroll) {
+            this.getList();
+            setTimeout(()=>{
+                pullScroll.success();
+            },2000)
         },
         getList() {
             uni.showLoading({

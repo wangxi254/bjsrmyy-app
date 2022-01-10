@@ -1,5 +1,6 @@
 <template>
-  <view class="detailPage flex flex-column" style="height: auto;">
+  <view class="detailPage flex flex-column">
+      <s-pull-scroll ref="pullScroll" :pullDown="pullDown">
       <hs-card class="user-view">
           <view class="flex justify-between items-center">
               <view class="flex flex-column">
@@ -42,6 +43,7 @@
             </scroll-view>
             
       </view>
+      </s-pull-scroll>
         <uni-popup ref="searchpopup" type="right" background-color="#fff">
             <view class="search-view">
                 <view class="label">请选择预约日期</view>
@@ -167,7 +169,13 @@ export default {
         this.getList();
     },
     methods: {
-        getList() {
+        pullDown(pullScroll) {
+            this.getList();
+            setTimeout(()=>{
+                pullScroll.success();
+            },2000)
+        },
+        getList(pullScroll) {
             uni.showLoading({
                 title: '加载中...'
             })
@@ -185,6 +193,7 @@ export default {
                 uni.hideLoading()
                 if(res.data.code == 200){
                     this.list = res.data.data;
+                    
                 }else this.list = []
             })
         },

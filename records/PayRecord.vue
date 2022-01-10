@@ -1,5 +1,6 @@
 <template>
   <view class="detailPage flex flex-column">
+       <s-pull-scroll ref="pullScroll" :pullDown="pullDown">
     <hs-card class="user-view">
         <view class="flex justify-between items-center">
             <view class="flex flex-column">
@@ -50,6 +51,7 @@
                     </hs-card>
         </scroll-view>
     </view>
+       </s-pull-scroll>
     <userModel ref="userModelref"  @changeUser="changeUser" />
   </view>
 </template>
@@ -111,6 +113,12 @@ export default {
                 this.getList();
             });
             
+        },
+        pullDown(pullScroll) {
+            this.getList();
+            setTimeout(()=>{
+                pullScroll.success();
+            },2000)
         },
         getList() {
             uni.showLoading({

@@ -4,7 +4,7 @@
  * @Author: seven
  * @Date: 2021-12-24 18:14:07
  * @LastEditors: seven
- * @LastEditTime: 2021-12-25 17:37:53
+ * @LastEditTime: 2022-01-10 20:08:43
  */
 import Vue from 'vue'
 import App from './App'
@@ -13,12 +13,14 @@ import * as filters from './utils/filter'
 import hsCard from '@/components/hs-card/index.vue'
 import uniTitle from '@/components/uni-title.vue'
 import uniIcons from '@/components/uni-icons/uni-icons.vue'
+import SpullScroll from '@/components/s-pull-scroll/index.vue'
 
 
 Vue.config.productionTip = false
 Vue.component('uni-title',uniTitle)
 Vue.component('uni-icon',uniIcons)
 Vue.component('hs-card',hsCard)
+Vue.component('sPullScroll',SpullScroll)
 
 import request from 'common/request.js';
 Vue.prototype.$request = request.apprequst;

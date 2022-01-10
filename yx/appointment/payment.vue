@@ -101,6 +101,7 @@
 									'/')
 							let currentDate = new Date(that.info.currentDate).toISOString().slice(0, 10).replaceAll('-',
 									'/')
+									console.log(currentDate,nowDate)
 							if (currentDate >= nowDate) {
 								that.cancelBtn = true;
 							}

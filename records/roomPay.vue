@@ -1,5 +1,6 @@
 <template>
   <view class="detailPage">
+      <s-pull-scroll ref="pullScroll" :pullDown="pullDown">
     <hs-card class="user-view">
         <view class="flex justify-between items-center">
             <view class="flex flex-column">
@@ -88,6 +89,7 @@
             </view>
         </hs-card>
     </view>
+      </s-pull-scroll>
     <uni-popup ref="inputDialog" type="dialog">
         <uni-popup-dialog mode="input" message="成功消息" :duration="2000" @confirm="confirm"></uni-popup-dialog>
     </uni-popup>
@@ -159,6 +161,12 @@ export default {
                 this.PatientCard = res
                 this.getList();
             });
+        },
+        pullDown(pullScroll) {
+            this.getList();
+            setTimeout(()=>{
+                pullScroll.success();
+            },2000)
         },
         getList() {
             uni.showLoading({
