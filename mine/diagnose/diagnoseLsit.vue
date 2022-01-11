@@ -13,9 +13,9 @@
 				</view>
 				<view class="flex-row align-items-center" @click.stop="edit(item)">
 					<view class="eidt">
-						编辑
+						<!-- 编辑 -->
 					</view>
-					<image class="right-img marginl15" src="../../static/common/right.png"></image>
+					<!-- <image class="right-img marginl15" src="../../static/common/right.png"></image> -->
 				</view>
 			</view>
 			<view class="info">
@@ -145,6 +145,7 @@
 				this.openlayer = false;
 			},
 			edit(item){
+				return;
 				uni.navigateTo({
 					url:`./addDisagnoser?item=${JSON.stringify(item)}`
 				})

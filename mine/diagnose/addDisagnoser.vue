@@ -1,5 +1,5 @@
 <template>
-	<view class="page">
+	<view class="page-view">
 		<view class="content-view">
 			<view class="cell-view row-cls">
 				<view class="left-text">
@@ -31,23 +31,7 @@
 				<input class="right-text" v-model="phone" maxlength="11" type="number" placeholder="请输入就诊人手机号码" />
 			</view>
 			
-			<view class="cell-view row-cls">
-				<view class="left-text">
-					<text>*</text>性别
-				</view>
-				<view class="flex1 row-right">
-					<radio-group @change="radioChange" style="transform: scale(0.77,0.77);margin-right: -20px;">
-						<view class="row-right">
-							<label class="marginl15 align-items-center row-cls" v-for="(sexitem, index) in sexs" :key="sexitem.value">
-								<view>
-									<radio color="#53B7C7" :value="sexitem.value" :checked="sexitem.value == sex" />
-								</view>
-								<view class="radio-name">{{sexitem.name}}</view>
-							</label>
-						</view>
-					</radio-group>
-				</view>
-			</view>
+			
 			
 			<!-- <view class="cell-view row-cls">
 				<view class="left-text">
@@ -67,13 +51,32 @@
 			
 			<view class="cell-view row-cls">
 				<view class="left-text">
-					证件号
+					<text>*</text>证件号
 				</view>
-				<input v-model="idcard" type="idcard" @input="changecertno" maxlength="18" placeholder="请输入就诊人证件号" />
+				<input v-model="idcard" class="right-text" type="idcard" @input="changecertno" maxlength="18" placeholder="请输入就诊人证件号" />
 			</view>
+			
 			<view class="cell-view row-cls">
 				<view class="left-text">
-					出生日期
+					<text>*</text>性别
+				</view>
+				<view class="flex1 row-right">
+					<radio-group @change="radioChange" style="transform: scale(0.77,0.77);margin-right: -20px;">
+						<view class="row-right">
+							<label class="marginl15 align-items-center row-cls" v-for="(sexItem, index) in sexs" :key="sexItem.value">
+								<view>
+									<radio color="#53B7C7" :value="sexItem.value" :checked="sexItem.value == sexValue" />
+								</view>
+								<view class="radio-name">{{sexItem.name}}</view>
+							</label>
+						</view>
+					</radio-group>
+				</view>
+			</view>
+			
+			<view class="cell-view row-cls">
+				<view class="left-text">
+					<text>*</text>出生日期
 				</view>
 				<picker mode="date" :value="birthday" @change="birthdayChange">
 					<view class="row-cls picker-view ">
@@ -88,7 +91,7 @@
 			
 			<view class="cell-view row-cls">
 				<view class="left-text">
-					民族
+					<text>*</text>民族
 				</view>
 				<picker :value="nationIndex" :range="nations" @change="nationChange">
 					<view class="row-cls picker-view">
@@ -102,7 +105,7 @@
 			
 			<view class="cell-view row-cls" v-if="patientIndex === 1">
 				<view class="left-text">
-					联系人类型
+					<text>*</text>联系人类型
 				</view>
 				<picker :value="contactTypeIndex" :range="contactTypes" @change="contactTypeChange" range-key="name">
 					<view class="row-cls picker-view">
@@ -117,34 +120,34 @@
 			   
 			<view class="cell-view row-cls" v-if="patientIndex === 1">
 				<view class="left-text">
-					联系人姓名
+					<text>*</text>联系人姓名
 				</view>
 				<input class="right-text" v-model="contactName" placeholder="请输入联系人姓名" />
 			</view>
 			
 			<view class="cell-view row-cls" v-if="patientIndex === 1">
-				<view class="left-text">
-					联系人电话
+				<view class="left-text width50">
+					<text>*</text>联系人电话
 				</view>
 				<input class="right-text" type="number" v-model="contactPhone" maxlength="11" placeholder="请输入联系人电话" />
 			</view>
 			    
 			<view class="cell-view row-cls" v-if="patientIndex === 1">
-				<view class="left-text">
-					联系人身份证号
+				<view class="left-text width50">
+					<text>*</text>联系人身份证号
 				</view>
 				<input class="right-text" type="idcard"  v-model="contactIdcard" maxlength="18" placeholder="请输入联系人身份证号" />
 			</view>
 			
 			<view class="cell-view row-cls">
 				<view class="left-text">
-					详细地址
+					<text>*</text>详细地址
 				</view>
 				<input class="right-text" v-model="address" placeholder="请输入就诊人详细地址" />
 			</view>
 			
 			<view class="cell-view row-cls">
-				<view class="left-text">
+				<view class="left-text width50">
 					设为默认就诊人
 				</view>
 				<view @click="clickSwit">
@@ -157,6 +160,7 @@
 			<view class="circleButton marginb20" @click="addPatient">
 				确定
 			</view>
+			<view style="height: 34px;"></view>
 		</view>
 		
 	</view>
@@ -184,7 +188,7 @@
 						name:'女'
 					}
 				],
-				sex:1,
+				sexValue:0,
 				patints:[
 					{
 						value:0,
@@ -368,7 +372,7 @@
 				this.contactIdcard = item.contactIdcard;
 				this.contactName = item.contactName;
 				this.credentialType = item.credentialType;
-				this.sex = item.sex;
+				this.sexValue = item.sex;
 				this.defaultDisgnose = item.defaultPatient ? true : false;
 				for(let i = 0; i < this.contactTypes.length; i ++){
 					const contactTypeItem = this.contactTypes[i];
@@ -391,13 +395,13 @@
 						break;
 					}
 				}
-				// for(let i = 0; i < this.sexs.length; i ++){
-				// 	const patintItem = this.sexs[i];
-				// 	if(patintItem.value == item.sex){
-				// 		this.sex = item.sex;
-				// 		break;
-				// 	}
-				// }
+				for(let i = 0; i < this.sexs.length; i ++){
+					const patintItem = this.sexs[i];
+					if(patintItem.value == item.sex){
+						this.sexValue = item.sex;
+						break;
+					}
+				}
 				for(let i = 0; i < this.nations.length; i ++){
 					const nation = this.nations[i];
 					if(nation == item.nation){
@@ -420,7 +424,7 @@
 			radioChange(evt){
 				for (let i = 0; i < this.sexs.length; i++) {
 					if (this.sexs[i].value == evt.detail.value) {
-						this.sex = this.sexs[i].value;
+						this.sexValue = this.sexs[i].value;
 						break;
 					}
 				}
@@ -442,6 +446,8 @@
 					})
 				}
 				
+				
+				
 				if(this.phone.length === 0){
 					return uni.showToast({
 						icon:'none',
@@ -456,7 +462,12 @@
 					})
 				}
 				
-				
+				if(!(this.sexValue == 1 || this.sexValue == 2)){
+					return uni.showToast({
+						icon:'none',
+						title:"请选择性别"
+					})
+				}
 				
 				if(this.birthday.length === 0){
 					return uni.showToast({
@@ -477,7 +488,7 @@
 					credentialNo:this.idcard,
 					credentialType:this.credentialType,
 					name:this.name,
-					sex:this.sex,
+					sex:this.sexValue,
 					birthday:this.birthday,
 					patientType:this.patientIndex,
 					phone:this.phone,
@@ -491,7 +502,7 @@
 						credentialNo:this.idcard,
 						credentialType:this.credentialType,
 						name:this.name,
-						sex:this.sex,
+						sex:this.sexValue,
 						birthday:this.birthday,
 						patientType:this.patientIndex,
 						address:this.address,
@@ -573,27 +584,25 @@
 				this.nation = this.nations[index];
 			},
 			changecertno(){
-				if(this.isAdd){
-					if(this.idcard.length == 18){
-						let that = this;
-						this.$request({
-							path:'/user/mobile/parseIDCard',
-							query:{
-								idCard:this.idcard
-							}
-						}).then(res=>{
-							console.log("res===>",JSON.stringify(res))
-							if(res.data.code == 200){
-								let data = res.data.data;
-								that.sex = data.sex;
-								if(that.birthday.length == 0){
-									that.birthday = data.birthday;
-								}
-							}
-						})
-					}
+				if(this.idcard.length == 18){
+					let that = this;
+					this.$request({
+						path:'/user/mobile/parseIDCard',
+						query:{
+							idCard:this.idcard
+						}
+					}).then(res=>{
+						console.log("res===>",JSON.stringify(res))
+						if(res.data.code == 200){
+							let data = res.data.data;
+							that.sexValue = (data.sex == 1 ? 1 : 2);
+							that.birthday = data.birthday;
+							// if(that.birthday.length == 0){
+							// 	that.birthday = data.birthday;
+							// }
+						}
+					})
 				}
-				
 			}
 			
 		}
@@ -602,9 +611,9 @@
 
 <style lang="scss" scoped>
 	
-	.page{
+	.page-view{
 		background: #F5F5F5;
-		// min-height: 100%;
+		padding: 5px 15px;
 	}
 	
 	.content-view{
@@ -624,9 +633,15 @@
 		font-family: PingFang-SC-Medium, PingFang-SC;
 		font-weight: 500;
 		color: #333333;
+		width: 30%;
 		text{
 			color: #FF6E15;
 		}
+	}
+	
+	
+	.width50{
+		width: 50%;
 	}
 	
 	.right-text{
