@@ -47,7 +47,7 @@
                         <view>就诊人：<text>{{item.patientName}}</text></view>
                         <view>挂号状态：<text>{{statusEnam[item.orderState]}}</text></view>
                         <view>支付金额：<text>{{item.payAmountStr}}</text></view>
-                        <view>缴费时间：<text>{{item.appointmentDate||''}}</text></view>
+                        <view>预约时间：<text>{{item.appointmentDate||''}}</text></view>
                     </hs-card>
         </scroll-view>
     </view>
