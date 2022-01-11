@@ -31,23 +31,7 @@
 				<input class="right-text" v-model="phone" maxlength="11" type="number" placeholder="请输入就诊人手机号码" />
 			</view>
 			
-			<view class="cell-view row-cls">
-				<view class="left-text">
-					<text>*</text>性别
-				</view>
-				<view class="flex1 row-right">
-					<radio-group @change="radioChange" style="transform: scale(0.77,0.77);margin-right: -20px;">
-						<view class="row-right">
-							<label class="marginl15 align-items-center row-cls" v-for="(sexItem, index) in sexs" :key="sexItem.value">
-								<view>
-									<radio color="#53B7C7" :value="sexItem.value" :checked="sexItem.value == sexValue" />
-								</view>
-								<view class="radio-name">{{sexItem.name}}</view>
-							</label>
-						</view>
-					</radio-group>
-				</view>
-			</view>
+			
 			
 			<!-- <view class="cell-view row-cls">
 				<view class="left-text">
@@ -71,6 +55,25 @@
 				</view>
 				<input v-model="idcard" type="idcard" @input="changecertno" maxlength="18" placeholder="请输入就诊人证件号" />
 			</view>
+			
+			<view class="cell-view row-cls">
+				<view class="left-text">
+					<text>*</text>性别
+				</view>
+				<view class="flex1 row-right">
+					<radio-group @change="radioChange" style="transform: scale(0.77,0.77);margin-right: -20px;">
+						<view class="row-right">
+							<label class="marginl15 align-items-center row-cls" v-for="(sexItem, index) in sexs" :key="sexItem.value">
+								<view>
+									<radio color="#53B7C7" :value="sexItem.value" :checked="sexItem.value == sexValue" />
+								</view>
+								<view class="radio-name">{{sexItem.name}}</view>
+							</label>
+						</view>
+					</radio-group>
+				</view>
+			</view>
+			
 			<view class="cell-view row-cls">
 				<view class="left-text">
 					<text>*</text>出生日期
@@ -185,7 +188,7 @@
 						name:'女'
 					}
 				],
-				sexValue:1,
+				sexValue:0,
 				patints:[
 					{
 						value:0,
@@ -443,6 +446,8 @@
 					})
 				}
 				
+				
+				
 				if(this.phone.length === 0){
 					return uni.showToast({
 						icon:'none',
@@ -457,7 +462,12 @@
 					})
 				}
 				
-				
+				if(!(this.sexValue == 1 || this.sexValue == 2)){
+					return uni.showToast({
+						icon:'none',
+						title:"请选择性别"
+					})
+				}
 				
 				if(this.birthday.length === 0){
 					return uni.showToast({
