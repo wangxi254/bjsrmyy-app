@@ -1,5 +1,5 @@
 <template>
-	<view class="page">
+	<view class="page-view">
 		<view class="content-view">
 			<view class="cell-view row-cls">
 				<view class="left-text">
@@ -53,7 +53,7 @@
 				<view class="left-text">
 					<text>*</text>证件号
 				</view>
-				<input v-model="idcard" type="idcard" @input="changecertno" maxlength="18" placeholder="请输入就诊人证件号" />
+				<input v-model="idcard" class="right-text" type="idcard" @input="changecertno" maxlength="18" placeholder="请输入就诊人证件号" />
 			</view>
 			
 			<view class="cell-view row-cls">
@@ -147,7 +147,7 @@
 			</view>
 			
 			<view class="cell-view row-cls">
-				<view class="left-text">
+				<view class="left-text width50">
 					设为默认就诊人
 				</view>
 				<view @click="clickSwit">
@@ -597,9 +597,10 @@
 							if(res.data.code == 200){
 								let data = res.data.data;
 								that.sexValue = (data.sex == 1 ? 1 : 2);
-								if(that.birthday.length == 0){
-									that.birthday = data.birthday;
-								}
+								that.birthday = data.birthday;
+								// if(that.birthday.length == 0){
+								// 	that.birthday = data.birthday;
+								// }
 							}
 						})
 					}
@@ -613,8 +614,9 @@
 
 <style lang="scss" scoped>
 	
-	.page{
+	.page-view{
 		background: #F5F5F5;
+		padding: 5px 15px;
 	}
 	
 	.content-view{
@@ -634,9 +636,15 @@
 		font-family: PingFang-SC-Medium, PingFang-SC;
 		font-weight: 500;
 		color: #333333;
+		width: 30%;
 		text{
 			color: #FF6E15;
 		}
+	}
+	
+	
+	.width50{
+		width: 50%;
 	}
 	
 	.right-text{
