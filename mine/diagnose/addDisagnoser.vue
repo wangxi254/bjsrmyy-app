@@ -584,28 +584,25 @@
 				this.nation = this.nations[index];
 			},
 			changecertno(){
-				if(this.isAdd){
-					if(this.idcard.length == 18){
-						let that = this;
-						this.$request({
-							path:'/user/mobile/parseIDCard',
-							query:{
-								idCard:this.idcard
-							}
-						}).then(res=>{
-							console.log("res===>",JSON.stringify(res))
-							if(res.data.code == 200){
-								let data = res.data.data;
-								that.sexValue = (data.sex == 1 ? 1 : 2);
-								that.birthday = data.birthday;
-								// if(that.birthday.length == 0){
-								// 	that.birthday = data.birthday;
-								// }
-							}
-						})
-					}
+				if(this.idcard.length == 18){
+					let that = this;
+					this.$request({
+						path:'/user/mobile/parseIDCard',
+						query:{
+							idCard:this.idcard
+						}
+					}).then(res=>{
+						console.log("res===>",JSON.stringify(res))
+						if(res.data.code == 200){
+							let data = res.data.data;
+							that.sexValue = (data.sex == 1 ? 1 : 2);
+							that.birthday = data.birthday;
+							// if(that.birthday.length == 0){
+							// 	that.birthday = data.birthday;
+							// }
+						}
+					})
 				}
-				
 			}
 			
 		}
