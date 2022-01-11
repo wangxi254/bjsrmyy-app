@@ -126,14 +126,14 @@
 			</view>
 			
 			<view class="cell-view row-cls" v-if="patientIndex === 1">
-				<view class="left-text">
+				<view class="left-text width50">
 					<text>*</text>联系人电话
 				</view>
 				<input class="right-text" type="number" v-model="contactPhone" maxlength="11" placeholder="请输入联系人电话" />
 			</view>
 			    
 			<view class="cell-view row-cls" v-if="patientIndex === 1">
-				<view class="left-text">
+				<view class="left-text width50">
 					<text>*</text>联系人身份证号
 				</view>
 				<input class="right-text" type="idcard"  v-model="contactIdcard" maxlength="18" placeholder="请输入联系人身份证号" />
