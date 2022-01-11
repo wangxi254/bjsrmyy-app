@@ -38,11 +38,11 @@
 				<view class="flex1 row-right">
 					<radio-group @change="radioChange" style="transform: scale(0.77,0.77);margin-right: -20px;">
 						<view class="row-right">
-							<label class="marginl15 align-items-center row-cls" v-for="(sexitem, index) in sexs" :key="sexitem.value">
+							<label class="marginl15 align-items-center row-cls" v-for="(sexItem, index) in sexs" :key="sexItem.value">
 								<view>
-									<radio color="#53B7C7" :value="sexitem.value" :checked="sexitem.value == sex" />
+									<radio color="#53B7C7" :value="sexItem.value" :checked="sexItem.value == sexValue" />
 								</view>
-								<view class="radio-name">{{sexitem.name}}</view>
+								<view class="radio-name">{{sexItem.name}}</view>
 							</label>
 						</view>
 					</radio-group>
@@ -67,13 +67,13 @@
 			
 			<view class="cell-view row-cls">
 				<view class="left-text">
-					证件号
+					<text>*</text>证件号
 				</view>
 				<input v-model="idcard" type="idcard" @input="changecertno" maxlength="18" placeholder="请输入就诊人证件号" />
 			</view>
 			<view class="cell-view row-cls">
 				<view class="left-text">
-					出生日期
+					<text>*</text>出生日期
 				</view>
 				<picker mode="date" :value="birthday" @change="birthdayChange">
 					<view class="row-cls picker-view ">
@@ -88,7 +88,7 @@
 			
 			<view class="cell-view row-cls">
 				<view class="left-text">
-					民族
+					<text>*</text>民族
 				</view>
 				<picker :value="nationIndex" :range="nations" @change="nationChange">
 					<view class="row-cls picker-view">
@@ -102,7 +102,7 @@
 			
 			<view class="cell-view row-cls" v-if="patientIndex === 1">
 				<view class="left-text">
-					联系人类型
+					<text>*</text>联系人类型
 				</view>
 				<picker :value="contactTypeIndex" :range="contactTypes" @change="contactTypeChange" range-key="name">
 					<view class="row-cls picker-view">
@@ -117,28 +117,28 @@
 			   
 			<view class="cell-view row-cls" v-if="patientIndex === 1">
 				<view class="left-text">
-					联系人姓名
+					<text>*</text>联系人姓名
 				</view>
 				<input class="right-text" v-model="contactName" placeholder="请输入联系人姓名" />
 			</view>
 			
 			<view class="cell-view row-cls" v-if="patientIndex === 1">
 				<view class="left-text">
-					联系人电话
+					<text>*</text>联系人电话
 				</view>
 				<input class="right-text" type="number" v-model="contactPhone" maxlength="11" placeholder="请输入联系人电话" />
 			</view>
 			    
 			<view class="cell-view row-cls" v-if="patientIndex === 1">
 				<view class="left-text">
-					联系人身份证号
+					<text>*</text>联系人身份证号
 				</view>
 				<input class="right-text" type="idcard"  v-model="contactIdcard" maxlength="18" placeholder="请输入联系人身份证号" />
 			</view>
 			
 			<view class="cell-view row-cls">
 				<view class="left-text">
-					详细地址
+					<text>*</text>详细地址
 				</view>
 				<input class="right-text" v-model="address" placeholder="请输入就诊人详细地址" />
 			</view>
@@ -157,6 +157,7 @@
 			<view class="circleButton marginb20" @click="addPatient">
 				确定
 			</view>
+			<view style="height: 34px;"></view>
 		</view>
 		
 	</view>
@@ -184,7 +185,7 @@
 						name:'女'
 					}
 				],
-				sex:1,
+				sexValue:1,
 				patints:[
 					{
 						value:0,
@@ -368,7 +369,7 @@
 				this.contactIdcard = item.contactIdcard;
 				this.contactName = item.contactName;
 				this.credentialType = item.credentialType;
-				this.sex = item.sex;
+				this.sexValue = item.sex;
 				this.defaultDisgnose = item.defaultPatient ? true : false;
 				for(let i = 0; i < this.contactTypes.length; i ++){
 					const contactTypeItem = this.contactTypes[i];
@@ -391,13 +392,13 @@
 						break;
 					}
 				}
-				// for(let i = 0; i < this.sexs.length; i ++){
-				// 	const patintItem = this.sexs[i];
-				// 	if(patintItem.value == item.sex){
-				// 		this.sex = item.sex;
-				// 		break;
-				// 	}
-				// }
+				for(let i = 0; i < this.sexs.length; i ++){
+					const patintItem = this.sexs[i];
+					if(patintItem.value == item.sex){
+						this.sexValue = item.sex;
+						break;
+					}
+				}
 				for(let i = 0; i < this.nations.length; i ++){
 					const nation = this.nations[i];
 					if(nation == item.nation){
@@ -420,7 +421,7 @@
 			radioChange(evt){
 				for (let i = 0; i < this.sexs.length; i++) {
 					if (this.sexs[i].value == evt.detail.value) {
-						this.sex = this.sexs[i].value;
+						this.sexValue = this.sexs[i].value;
 						break;
 					}
 				}
@@ -477,7 +478,7 @@
 					credentialNo:this.idcard,
 					credentialType:this.credentialType,
 					name:this.name,
-					sex:this.sex,
+					sex:this.sexValue,
 					birthday:this.birthday,
 					patientType:this.patientIndex,
 					phone:this.phone,
@@ -491,7 +492,7 @@
 						credentialNo:this.idcard,
 						credentialType:this.credentialType,
 						name:this.name,
-						sex:this.sex,
+						sex:this.sexValue,
 						birthday:this.birthday,
 						patientType:this.patientIndex,
 						address:this.address,
@@ -585,7 +586,7 @@
 							console.log("res===>",JSON.stringify(res))
 							if(res.data.code == 200){
 								let data = res.data.data;
-								that.sex = data.sex;
+								that.sexValue = (data.sex == 1 ? 1 : 2);
 								if(that.birthday.length == 0){
 									that.birthday = data.birthday;
 								}
@@ -604,7 +605,6 @@
 	
 	.page{
 		background: #F5F5F5;
-		// min-height: 100%;
 	}
 	
 	.content-view{
