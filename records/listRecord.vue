@@ -95,12 +95,13 @@ function getDate(type) {
 
 		return `${year}-${month}-${day}`;
 }
+const time = new Date();
 export default {
     components: { userModel,NoData },
     data(){
         return {
             searchForm: {
-                startDate: new Date().toISOString().slice(0, 10),
+                startDate: new Date(time.setDate(time.getDate() - 30)).toISOString().slice(0, 10),
                 endDate: new Date().toISOString().slice(0, 10),
             },
             startDate:getDate('start'),
