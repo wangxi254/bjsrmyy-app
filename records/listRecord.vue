@@ -49,7 +49,7 @@
             <view v-for="(x,i) in item.feeList" :key="i">{{x.docMName}}<text style="margin: 0 10rpx">*</text>{{x.num}}</view>
             <view>科室名称：<text>{{item.depName}}</text></view>
             <view>医生姓名：<text>{{item.docName}}</text></view>
-            <view v-if="item.lyInfo">处方来源：<text>{{enums(item.lyInfo)}}</text></view>
+            <view v-if="item.lyInfo">处方来源：<text>{{enums[item.lyInfo]}}</text></view>
             <view v-if="item.cftype">处方类型：<text>{{item.cftype == 1?'自费':'医保'}}</text></view>
             <view>费用：<text>{{item.total}}</text></view>
         </hs-card>
@@ -64,7 +64,7 @@
             </template>
             <view>科室名称：<text>{{item.depName}}</text></view>
             <view v-if="item.docName">医生姓名：<text>{{item.docName}}</text></view>
-            <view v-if="item.lyInfo">处方来源：<text>{{enums(item.lyInfo)}}</text></view>
+            <view v-if="item.lyInfo">处方来源：<text>{{enums[item.lyInfo]}}</text></view>
             <view v-if="item.cftype">处方类型：<text>{{item.cftype == 1?'自费':'医保'}}</text></view>
             <view>费用：<text>{{item.total}}</text></view>
         </hs-card>
