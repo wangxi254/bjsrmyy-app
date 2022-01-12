@@ -8,7 +8,7 @@
             <view>科室名称：<text>{{item.depName}}</text></view>
             <view>病人 ID 号：<text>{{item.mrn}}</text></view>
             <view>姓名：<text>{{item.name}}</text></view>
-            <view>性别：<text>{{sexEnums[parseInt(item.sex)] || ''}}</text></view>
+            <view>性别：<text>{{sexEnums[item.sex] || ''}}</text></view>
             <view>年龄：<text>{{item.age}}</text></view>
             <view>费别：<text>{{item.chargeType}}</text></view>
             <view>挂号科室编号：<text>{{item.depCode}}</text></view>
@@ -37,9 +37,9 @@ export default {
                 'I':'住院',
             },
             sexEnums: {
-                1:'男',
-                2:'女',
-                3:'未知'
+                'M':'男',
+                'W':'女',
+                '':'未知'
             },
             item: {}
         }
