@@ -56,7 +56,7 @@
 				<input v-model="idcard" class="right-text" type="idcard" @input="changecertno" maxlength="18" placeholder="请输入就诊人证件号" />
 			</view>
 			
-			<view v-if="idcard.length == 18" class="cell-view row-cls">
+			<view v-if="isIdCard" class="cell-view row-cls">
 				<view class="left-text">
 					<text>*</text>性别
 				</view>
@@ -74,7 +74,7 @@
 				</view>
 			</view>
 			
-			<view v-if="idcard.length == 18" class="cell-view row-cls" >
+			<view v-if="isIdCard" class="cell-view row-cls" >
 				<view class="left-text">
 					<text>*</text>出生日期
 				</view>
@@ -83,7 +83,7 @@
 					  <view class="right-text marginr15">
 							{{birthday||'选择出生日期'}}
 					  </view>
-					   <image class="right" src="../../static/common/right.png"></image>
+					   <!-- <image class="right" src="../../static/common/right.png"></image> -->
 					</view>
 				</picker>
 			</view>
@@ -142,7 +142,7 @@
 			
 			<view class="cell-view row-cls" >
 				<view class="left-text">
-					<text>*</text>城市地址
+					<text>*</text>城市
 				</view>
 				<pickerAddress @change="cityChange">
 					<view class="row-cls picker-view ">
@@ -188,6 +188,7 @@
 			return {
 				name:'',
 				idcard:'',
+				isIdCard:false,
 				address:'',
 				phone:'',
 				identify:'',
@@ -494,19 +495,26 @@
 					})
 				}
 				
-				if(!(this.sexValue == 1 || this.sexValue == 2)){
+				if(!this.isIdCard){
 					return uni.showToast({
 						icon:'none',
-						title:"请选择性别"
+						title:"请输入有效的就诊人证件号"
 					})
 				}
 				
-				if(this.birthday.length === 0){
-					return uni.showToast({
-						icon:'none',
-						title:"请选择出生日期"
-					})
-				}
+				// if(!(this.sexValue == 1 || this.sexValue == 2)){
+				// 	return uni.showToast({
+				// 		icon:'none',
+				// 		title:"请选择性别"
+				// 	})
+				// }
+				
+				// if(this.birthday.length === 0){
+				// 	return uni.showToast({
+				// 		icon:'none',
+				// 		title:"请选择出生日期"
+				// 	})
+				// }
 				if(this.cityAddress.length === 0){
 					return uni.showToast({
 						icon:'none',
@@ -638,9 +646,14 @@
 							let data = res.data.data;
 							that.sexValue = (data.sex == 1 ? 1 : 2);
 							that.birthday = data.birthday;
+							that.isIdCard = true;
 							// if(that.birthday.length == 0){
 							// 	that.birthday = data.birthday;
 							// }
+						}else{
+							that.isIdCard = false;
+							that.birthday = '';
+							that.sexValue = 0;
 						}
 					})
 				}
