@@ -234,7 +234,7 @@ export default {
 		})
 	},
 	//获取用户信息和就诊信息
-	async getUserInfo() {
+	async getUserInfo1() {
 		let PatientListStore = uni.getStorageSync('PatientList');
 		let PatientCardStore = uni.getStorageSync('PatientCard');
 		if(PatientListStore && PatientCardStore && JSON.parse(PatientListStore).length>0){
@@ -279,6 +279,24 @@ export default {
 				PatientList,
 				PatientCard
 			}
+		}
+	},
+	async getUserInfo() {
+		uni.showLoading({
+			text: "加载中..."
+		})
+		let PatientList = await this.$getPatientList();
+		PatientList.find((item,index)=>{
+			if(item.defaultPatient == 1) {
+				PatientList.splice(index,1);
+				PatientList.unshift(item);
+			}
+		})
+		let PatientCard = await this.$getUserCard(PatientList[0]);
+		uni.hideLoading();
+		return {
+			PatientList,
+			PatientCard
 		}
 	},
 	//初始化操作
