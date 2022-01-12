@@ -83,7 +83,7 @@
 					  <view class="right-text marginr15">
 							{{birthday||'选择出生日期'}}
 					  </view>
-					   <image class="right" src="../../static/common/right.png"></image>
+					   <!-- <image class="right" src="../../static/common/right.png"></image> -->
 					</view>
 				</picker>
 			</view>
@@ -142,7 +142,7 @@
 			
 			<view class="cell-view row-cls" >
 				<view class="left-text">
-					<text>*</text>城市地址
+					<text>*</text>城市
 				</view>
 				<pickerAddress @change="cityChange">
 					<view class="row-cls picker-view ">
