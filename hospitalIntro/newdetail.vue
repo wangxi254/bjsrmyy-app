@@ -1,9 +1,9 @@
 <template>
 	<view class="paading15">
 		<view>{{detailInfo.contentTitle}}</view>
-		<view>{{detailInfo.content}}</view>
+		<view v-html="detailInfo.content"></view>
+		<image class="img" mode="" v-if="detailInfo.imageUrl" :src="detailInfo.imageUrl"></image>
 		<view>{{detailInfo.createTime}}</view>
-		<image class="img" mode="" :src="detailInfo.carouselImageUrl"></image>
 	</view>
 </template>
 
@@ -11,13 +11,16 @@
 	export default {
 		data() {
 			return {
-				detailInfo:{}
+
+				detailInfo:{},
+				
 			}
 		},
 		onLoad(options) {
 			if(options.item){
 				let item = JSON.parse(options.item);
 				this.detailInfo = item;
+				console.log(item)
 			}
 		},
 		onShow() {
@@ -25,7 +28,7 @@
 		},
 		methods: {
 			
-			
+
 		}
 	}
 </script>
