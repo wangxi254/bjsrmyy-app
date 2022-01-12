@@ -56,7 +56,7 @@
 				<input v-model="idcard" class="right-text" type="idcard" @input="changecertno" maxlength="18" placeholder="请输入就诊人证件号" />
 			</view>
 			
-			<view class="cell-view row-cls">
+			<view v-if="idcard.length == 18" class="cell-view row-cls">
 				<view class="left-text">
 					<text>*</text>性别
 				</view>
@@ -65,7 +65,7 @@
 						<view class="row-right">
 							<label class="marginl15 align-items-center row-cls" v-for="(sexItem, index) in sexs" :key="sexItem.value">
 								<view>
-									<radio color="#53B7C7" :value="sexItem.value" :checked="sexItem.value == sexValue" />
+									<radio disabled="true" color="#53B7C7" :value="sexItem.value" :checked="sexItem.value == sexValue" />
 								</view>
 								<view class="radio-name">{{sexItem.name}}</view>
 							</label>
@@ -74,11 +74,11 @@
 				</view>
 			</view>
 			
-			<view class="cell-view row-cls">
+			<view v-if="idcard.length == 18" class="cell-view row-cls" >
 				<view class="left-text">
 					<text>*</text>出生日期
 				</view>
-				<picker mode="date" :value="birthday" @change="birthdayChange">
+				<picker mode="date" disabled="true" :value="birthday" @change="birthdayChange">
 					<view class="row-cls picker-view ">
 					  <view class="right-text marginr15">
 							{{birthday||'选择出生日期'}}
@@ -139,6 +139,21 @@
 				<input class="right-text" type="idcard"  v-model="contactIdcard" maxlength="18" placeholder="请输入联系人身份证号" />
 			</view>
 			
+			
+			<view class="cell-view row-cls" >
+				<view class="left-text">
+					<text>*</text>城市地址
+				</view>
+				<pickerAddress @change="cityChange">
+					<view class="row-cls picker-view ">
+					  <view class="right-text marginr15">
+							{{cityAddress||'选择省市区'}}
+					  </view>
+					   <image class="right" src="../../static/common/right.png"></image>
+					</view>
+				</pickerAddress>
+			</view>
+			
 			<view class="cell-view row-cls">
 				<view class="left-text">
 					<text>*</text>详细地址
@@ -167,6 +182,7 @@
 </template>
 
 <script>
+	import pickerAddress from "../../components/pickerAddress/pickerAddress.vue";
 	export default {
 		data() {
 			return {
@@ -345,6 +361,8 @@
 				credentialType:1,
 				patientId:'',
 				isAdd:false,
+				cityAddress:'',
+				citycityAddressData:[],
 			}
 		},
 		onLoad(options) {
@@ -416,6 +434,20 @@
 					title:"添加就诊人"
 				})
 			}
+			
+			this.$request({
+				path:"/wx/region/selectByParentId",
+				method:'GET',
+				query:{
+					parentId:1
+				},
+				hastoast:true,
+			}).then(res=>{
+				
+			})
+		},
+		components:{
+			pickerAddress
 		},
 		methods: {
 			clickSwit(){
@@ -475,6 +507,12 @@
 						title:"请选择出生日期"
 					})
 				}
+				if(this.cityAddress.length === 0){
+					return uni.showToast({
+						icon:'none',
+						title:"请选择省市区地址"
+					})
+				}
 				
 				if(this.address.length === 0){
 					return uni.showToast({
@@ -482,6 +520,9 @@
 						title:"请输入就诊人详细地址"
 					})
 				}
+				
+				
+				const address = this.citycityAddressData.join('/') + '/' + this.address;
 				
 				let req = {
 					userId:uni.getStorageSync("userId"),
@@ -493,7 +534,7 @@
 					patientType:this.patientIndex,
 					phone:this.phone,
 					nation:this.nation,
-					address:this.address,
+					address:address,
 					defaultPatient:this.defaultDisgnose ? 1 : 0,
 				}
 				if(this.patientIndex == 1){
@@ -505,7 +546,7 @@
 						sex:this.sexValue,
 						birthday:this.birthday,
 						patientType:this.patientIndex,
-						address:this.address,
+						address:address,
 						contactPhone:this.contactPhone,
 						contactIdcard:this.contactIdcard,
 						contactName:this.contactName,
@@ -603,6 +644,11 @@
 						}
 					})
 				}
+			},
+			cityChange(data){
+				this.citycityAddressData = data.data;
+				this.cityAddress = data.data.join('');
+				console.log(data.data.join(''));
 			}
 			
 		}

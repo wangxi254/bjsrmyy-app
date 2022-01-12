@@ -12,8 +12,8 @@
 			<view class="notifacationtitle">
 				最新通知｜
 			</view>
-			<view class="notifacationdetail" @click="bannerClick(banners[0])" :disable='banners && banners.length > 0'>
-				{{banners && banners.length > 0 && banners[0].contentTitle ? banners[0].contentTitle : '疫情期间就诊请网上预约' }}
+			<view class="notifacationdetail" @click="newsClick()">
+				{{hoslist && hoslist.length > 0 && hoslist[0].contentTitle ? hoslist[0].contentTitle : '疫情期间就诊请网上预约' }}
 			</view>
 		</view>
 		<view class="flex-row">
@@ -287,6 +287,7 @@
 					// }
 				],
 				authShowFlag:true,
+				hoslist:[],
 			}
 		},
 		components:{
@@ -317,9 +318,18 @@
 				// uni.navigateTo({
 				// 	url:"../auth/auth"
 				// })
+				console.log("bannerClick:item===>",JSON.stringify(item))
 				uni.navigateTo({
 					url:`../../hospitalIntro/newdetail?item=${JSON.stringify(item)}`
 				})
+			},
+			newsClick(){
+				if(this.hoslist.length > 0){
+					let item = this.hoslist[0];
+					uni.navigateTo({
+						url:`../../hospitalIntro/newdetail?item=${JSON.stringify(item)}`
+					})
+				}
 			},
 			hospitalnews(id){
 				let that = this;
@@ -333,9 +343,11 @@
 						let list = res.data.data;
 						let array = [];
 						let news = [];
+						let hoslist = [];
 						for(let i = 0; i < list.length; i++){
 							const banner =  list[i];
-							let imageUrl = config.baseUrl + '/'+ banner.carouselImageUrl;
+
+							let imageUrl = banner.carouselImageUrl && banner.carouselImageUrl.indexOf('http')==-1 ? config.baseUrl + '/'+ banner.carouselImageUrl : banner.carouselImageUrl;
 							console.log("imageUrl===>",imageUrl);
 							if(banner.isShow == 1 && banner.isRotation == 1 && i < 3){
 								array.push({
@@ -349,9 +361,15 @@
 									...banner
 								});
 							}
+							hoslist.push({
+								imageUrl:imageUrl,
+								...banner
+							});
+							
 						}
 						that.banners = array;
 						that.news = news;
+						that.hoslist = hoslist;
 					}
 				})
 			},
