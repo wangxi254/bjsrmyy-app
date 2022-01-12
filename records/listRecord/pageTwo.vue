@@ -1,7 +1,21 @@
 <template>
   <view class="detailPage">
       <hs-card class="pageContainer">
-            <view>院区：<text>{{item.district}}</text></view>
+          <view class="header">
+               <view class="flex justify-between">
+                        <text>就诊人：{{item.PatientInfo.name}}</text>
+                        <text>性别：{{sexEnums[item.PatientInfo.sex] || ''}}</text>
+                        <text>年龄：{{item.PatientInfo.ageForAccountApply}}</text>
+                </view>
+                <view>身份证号：{{item.PatientInfo.credentialNo | haddenIdCard}}</view>
+          </view>
+          <view>{{item.drugno}}</view>
+          <view class="flex justify-between"><text>科室名称：{{item.depName}}</text><text>医生姓名：{{item.docName || ''}}</text></view>
+          <!-- <view>明细：</view>
+          <view v-for="(x,i) in item.feeList" :key="i">{{x.docMName}}<text style="margin: 0 10rpx">*</text>{{x.num}}</view> -->
+          <view>诊断信息：<text>{{item.zdInfo || ''}}</text></view>
+          <view class="flex justify-between"><text>订单状态：{{item.settlementState == 1?"已结算":"未结算"}}</text><text>费用：{{item.total}}</text></view>
+            <!-- <view>院区：<text>{{item.district}}</text></view>
             <view>院区名字：<text>{{item.hosname}}</text></view>
             <view>卡号：<text>{{item.cardNum}}</text></view>
             <view>发票号：<text>{{item.invoiceNum}}</text></view>
@@ -19,7 +33,7 @@
             <view>打印人姓名：<text>{{item.printer}}</text></view>
             <view>处方号：<text>{{item.drugno}}</text></view>
             <view>处方类型：<text>{{item.registerFlag}}</text></view>
-            <view>缴费渠道：<text>{{item.payChannel}}</text></view>
+            <view>缴费渠道：<text>{{item.payChannel}}</text></view> -->
         </hs-card>
   </view>
 </template>
@@ -37,8 +51,8 @@ export default {
                 'I':'住院',
             },
             sexEnums: {
-                'M':'男',
-                'W':'女',
+                '1':'男',
+                '2':'女',
                 '':'未知'
             },
             item: {}
@@ -56,5 +70,9 @@ export default {
 </script>
 
 <style>
-
+    .header{
+        border-bottom: 1px solid #eee;
+        padding: 20rpx 0;
+        margin-bottom: 20rpx;
+    }
 </style>
