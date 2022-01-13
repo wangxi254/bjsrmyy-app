@@ -125,6 +125,11 @@ export default {
         this.PatientCard = PatientCard;
         this.getList();
     },
+    async onShow() {
+        if(Object.getOwnPropertyNames(this.PatientInfo)!==0 && Object.getOwnPropertyNames(this.PatientCard)!==0){
+			this.getList();
+		}
+    },
     methods: {
         showUserList() {
             this.$refs.userModelref.show();

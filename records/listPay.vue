@@ -110,19 +110,16 @@ export default {
             list: []
         }
     },
-    // async onLoad() {
-    //     //const { PatientList, PatientCard }  = getApp().globalData;
-    //     const { PatientList, PatientCard }  = await this.$getUserInfo();
-    //     this.PatientInfo = PatientList[0];
-    //     this.PatientCard = PatientCard;
-    //     this.getList();
-    // },
-    async onShow() {
-        //const { PatientList, PatientCard }  = getApp().globalData;
+    async onLoad() {
         const { PatientList, PatientCard }  = await this.$getUserInfo();
         this.PatientInfo = PatientList[0];
         this.PatientCard = PatientCard;
         this.getList();
+    },
+    async onShow() {
+        if(Object.getOwnPropertyNames(this.PatientInfo)!==0 && Object.getOwnPropertyNames(this.PatientCard)!==0){
+				this.getList();
+		}
     },
     methods: {
         showUserList() {

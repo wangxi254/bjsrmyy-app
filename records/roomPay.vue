@@ -139,12 +139,6 @@ export default {
             PaientCard: {}
         }
     },
-    // onLoad() {
-    //     this.PatientInfo = getApp().globalData.PatientList[0];
-    //     if(Object.keys(this.PatientInfo).length>0) this.getPaientCard(this.PatientInfo);
-    //     this.$getUserId();
-    //     this.getList();
-    // },
     async onLoad() {
         //const { PatientList, PatientCard }  = getApp().globalData;
         const { PatientList, PatientCard }  = await this.$getUserInfo();

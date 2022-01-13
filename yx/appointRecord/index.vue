@@ -148,25 +148,17 @@ export default {
             list: []
         }
     },
-    // onLoad: function (option) {
-    //     const { PatientList, PatientCard }  = getApp().globalData;
-    //     this.PatientInfo = PatientList[0];
-    //     this.PatientCard = PatientCard;
-    //     this.getList();
-    // },
-    // async onLoad() {
-    //     //const { PatientList, PatientCard }  = getApp().globalData;
-    //     const { PatientList, PatientCard }  = await this.$getUserInfo();
-    //     this.PatientInfo = PatientList[0];
-    //     this.PatientCard = PatientCard;
-    //     this.getList();
-    // },
-    async onShow() {
+    async onLoad() {
         //const { PatientList, PatientCard }  = getApp().globalData;
         const { PatientList, PatientCard }  = await this.$getUserInfo();
         this.PatientInfo = PatientList[0];
         this.PatientCard = PatientCard;
         this.getList();
+    },
+    async onShow() {
+        if(Object.getOwnPropertyNames(this.PatientInfo)!==0 && Object.getOwnPropertyNames(this.PatientCard)!==0){
+				this.getList();
+		}
     },
     methods: {
         pullDown(pullScroll) {
