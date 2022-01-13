@@ -5,7 +5,8 @@
 </template>
 
 <script>
-    import AllAddress from './data.js'
+    // import AllAddress from './data.js'
+	import AllAddress from './address.js';
     let selectVal = ['','','']
     export default {
         data() {
@@ -27,6 +28,7 @@
             },
             // 地址控件改变控件
             columnchange(d) {
+				console.log("columnchange===>",JSON.stringify(d));
                 this.updateSelectIndex(d.detail.column, d.detail.value) // 更新选择索引
                 .updateSourceDate() // 更新源数据
                 .updateAddressDate() // 更新结果数据
@@ -38,21 +40,40 @@
              * */
             updateSourceDate() {
                 this.array = []
-                this.array[0] = AllAddress.map(obj => {
-                    return {
-                        name: obj.name
-                    }
-                })
-                this.array[1] = AllAddress[this.value[0]].city.map(obj => {
-                    return {
-                        name: obj.name
-                    }
-                })
-                this.array[2] = AllAddress[this.value[0]].city[this.value[1]].area.map(obj => { 
-                    return {
-                        name: obj
-                    }
-                })
+                // this.array[0] = AllAddress.map(obj => {
+                //     return {
+                //         name: obj.name
+                //     }
+                // })
+                // this.array[1] = AllAddress[this.value[0]].city.map(obj => {
+                //     return {
+                //         name: obj.name
+                //     }
+                // })
+                // this.array[2] = AllAddress[this.value[0]].city[this.value[1]].area.map(obj => { 
+                //     return {
+                //         name: obj
+                //     }
+                // })
+				
+				this.array[0] = AllAddress.map(obj => {
+				    return {
+				        name: obj.name
+				    }
+				})
+				this.array[1] = AllAddress[this.value[0]].cityList.map(obj => {
+				    return {
+				        name: obj.name
+				    }
+				})
+				this.array[2] = AllAddress[this.value[0]].cityList[this.value[1]].areaList.map(obj => { 
+				    return {
+				        name: obj.name
+				    }
+				})
+				console.log("this.array===>",JSON.stringify(this.array[0]));
+				console.log("this.array===>",JSON.stringify(this.array[1]));
+				console.log("this.array===>",JSON.stringify(this.array[2]));
                 return this
             },
             
@@ -87,6 +108,7 @@
              * 点击确定
              * */
             bindPickerChange(e) {
+				console.log("bindPickerChange===>",JSON.stringify(e));
                 this.$emit('change', {
                     index: this.value,
                     data: selectVal
