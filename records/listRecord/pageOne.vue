@@ -11,7 +11,7 @@
                 <view>身份证号：{{item.PatientInfo.credentialNo | haddenIdCard}}</view>
             </view>
             <view>{{item.recipeCode}}</view>
-            <view v-if="item.depName" class="flex justify-between"><text>科室名称：{{item.depName}}</text><text>医生姓名：{{item.docName}}</text></view>
+            <view class="flex justify-between"><text>科室名称：{{item.depName}}</text><text>医生姓名：{{item.docName}}</text></view>
             <view>明细：</view>
             <view v-for="(x,i) in item.feeList" :key="i">{{x.docMName}}<text style="margin: 0 10rpx">*</text>{{x.num}}</view>
             <view>诊断信息：<text>{{item.zdInfo}}</text></view>
