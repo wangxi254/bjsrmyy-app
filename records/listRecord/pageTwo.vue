@@ -14,7 +14,10 @@
           <!-- <view>明细：</view>
           <view v-for="(x,i) in item.feeList" :key="i">{{x.docMName}}<text style="margin: 0 10rpx">*</text>{{x.num}}</view> -->
           <view>诊断信息：<text>{{item.zdInfo || ''}}</text></view>
-          <view class="flex justify-between"><text>订单状态：{{item.settlementState == 1?"已结算":"未结算"}}</text><text>费用：{{item.total}}</text></view>
+          <view class="flex justify-between"><text>订单状态：已结算
+              <!-- {{item.settlementState == 1?"已结算":"未结算"}} -->
+              </text>
+              <text>费用：{{item.total}}</text></view>
             <!-- <view>院区：<text>{{item.district}}</text></view>
             <view>院区名字：<text>{{item.hosname}}</text></view>
             <view>卡号：<text>{{item.cardNum}}</text></view>
