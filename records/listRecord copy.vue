@@ -35,38 +35,52 @@
             </view>
         </picker>
     </view>
+    <!-- <view class="search-view">
+        <view class="date-view flex justify-between items-center">
+            <view class="dateInput">
+                <picker mode="date" :value="searchForm.startDate" :start="startDate" :end="endDate" @change="change1">
+                    <view class="uni-input">{{searchForm.startDate}}</view>
+                </picker>
+            </view>
+            <text>至</text>
+            <view class="dateInput">
+                <picker mode="date" :value="searchForm.endDate" :start="startDate" :end="endDate" @change="change2">
+                    <view class="uni-input">{{searchForm.endDate}}</view>
+                </picker>
+            </view>
+            
+        </view>
+        <button class="primary-btn" style="margin-top: 10rpx" @click="getList">查询</button>
+    </view> -->
     <view class="pageContainer">
         <!-- <NoData v-if="list.length == 0" /> -->
         <hs-card v-for="(item,index) in list1" :key="index" class="list-item" @click="goDetail(0,item)">
             <template v-slot:header>
                 <view class="title-model flex justify-between items-center">
-                    <text>{{item.recipeCode}}</text>
+                    <text>{{item.registerTime || getdate}}</text>
                     <view class="status">
                         <text class="err">待支付</text>
                     </view>
                 </view>
             </template>
-            <view v-for="(x,i) in item.feeList" :key="i">{{x.docMName}}<text style="margin: 0 10rpx">*</text>{{x.num}}</view>
-            <view>科室名称：<text>{{item.depName}}</text></view>
-            <view>医生姓名：<text>{{item.docName}}</text></view>
-            <view v-if="item.lyInfo">处方来源：<text>{{enums[item.lyInfo]}}</text></view>
-            <view v-if="item.cftype">处方类型：<text>{{item.cftype == 1?'自费':'医保'}}</text></view>
-            <view>费用：<text>{{item.total}}</text></view>
+            <view>院区：<text>{{item.district}}</text></view>
+            <view>处方号：<text>{{item.drugno}}</text></view>
+            <view>处方类别：<text>{{item.recipeType}}</text></view>
+            <view>支付金额：<text>{{item.total}}</text></view>
         </hs-card>
         <hs-card  v-for="(item,index) in list2" :key="index" class="list-item" @click="goDetail(1,item)">
             <template v-slot:header>
                 <view class="title-model flex justify-between items-center">
-                    <text>{{item.drugno}}</text>
+                    <text>{{item.registerTime || getdate}}</text>
                     <view class="status">
                         <text class="success">已支付</text>
                     </view>
                 </view>
             </template>
-            <view>科室名称：<text>{{item.depName}}</text></view>
-            <view v-if="item.docName">医生姓名：<text>{{item.docName}}</text></view>
-            <view v-if="item.lyInfo">处方来源：<text>{{enums[item.lyInfo]}}</text></view>
-            <view v-if="item.cftype">处方类型：<text>{{item.cftype == 1?'自费':'医保'}}</text></view>
-            <view>费用：<text>{{item.total}}</text></view>
+            <view>院区：<text>{{item.district}}</text></view>
+            <view>处方号：<text>{{item.drugno}}</text></view>
+            <view>处方类别：<text>{{item.registerFlag}}</text></view>
+            <view>支付金额：<text>{{item.total}}</text></view>
         </hs-card>
         <NoData v-if="list1.length == 0 && list2.length == 0" />
     </view>
@@ -95,13 +109,12 @@ function getDate(type) {
 
 		return `${year}-${month}-${day}`;
 }
-const time = new Date();
 export default {
     components: { userModel,NoData },
     data(){
         return {
             searchForm: {
-                startDate: new Date(time.setDate(time.getDate() - 30)).toISOString().slice(0, 10),
+                startDate: new Date().toISOString().slice(0, 10),
                 endDate: new Date().toISOString().slice(0, 10),
             },
             startDate:getDate('start'),
@@ -109,13 +122,7 @@ export default {
             PatientInfo: {},
             PatientCard:{},
             list1: [],
-            list2: [],
-            enums:{
-                'O':'门诊',
-                'P':'体检',
-                'E':'急诊',
-                'I':'住院',
-            },
+            list2: []
         }
     },
     async onLoad() {
@@ -138,12 +145,12 @@ export default {
             
         },
         goDetail(type,row){
-            let data = {
-                ...row,
-                PatientInfo: this.PatientInfo,
-                PatientCard: this.PatientCard
-            }
             if(type == 0) {
+                let data = {
+                    ...row,
+                    PatientInfo: this.PatientInfo,
+                    PatientCard: this.PatientCard
+                }
                 uni.navigateTo({
                     url:'./listRecord/pageOne?row=',
 					success: function(res) {
@@ -154,7 +161,7 @@ export default {
                 uni.navigateTo({
                     url:'./listRecord/pageTwo?row=',
 					success: function(res) {
-						res.eventChannel.emit('acceptDataFromOpenerPage', { data: data })
+						res.eventChannel.emit('acceptDataFromOpenerPage', { data: row })
 					}
                 })
             }

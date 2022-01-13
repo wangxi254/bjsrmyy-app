@@ -2,7 +2,21 @@
   <view class="detailPage">
     <view v-if="item">
         <hs-card class="pageContainer">
-                <view>院区：<text>{{item.district}}</text></view>
+            <view class="header">
+                <view class="flex justify-between">
+                        <text>就诊人：{{item.PatientInfo.name}}</text>
+                        <text>性别：{{sexEnums[item.PatientInfo.sex] || ''}}</text>
+                        <text>年龄：{{item.PatientInfo.ageForAccountApply}}</text>
+                </view>
+                <view>身份证号：{{item.PatientInfo.credentialNo | haddenIdCard}}</view>
+            </view>
+            <view>{{item.recipeCode}}</view>
+            <view class="flex justify-between"><text>科室名称：{{item.depName}}</text><text>医生姓名：{{item.docName}}</text></view>
+            <view>明细：</view>
+            <view v-for="(x,i) in item.feeList" :key="i">{{x.docMName}}<text style="margin: 0 10rpx">*</text>{{x.num}}</view>
+            <view>诊断信息：<text>{{item.zdInfo}}</text></view>
+            <view class="flex justify-between"><text>订单状态：{{item.settlementState == 1?"已结算":"未结算"}}</text><text>费用：{{item.total}}</text></view>
+                <!-- <view>院区：<text>{{item.district}}</text></view>
                 <view>医院唯一号：<text>{{item.seqNum}}</text></view>
                 <view>处方号：<text>{{item.drugno}}</text></view>
                 <view>科室编号：<text>{{item.depCode}}</text></view>
@@ -14,10 +28,8 @@
                 <view>总费用：<text>{{item.total}}</text></view>
                 <view>就诊状态：<text>{{visitStatusEnums[parseInt(item.visitStatus)]|| ''}}</text></view>
                 <view>诊断信息：<text>{{item.zdInfo}}</text></view>
-                <!-- <view>医保类型：<text>{{item.cftype==1?"自费":"医保"}}</text></view> -->
                 <view>处方来源：<text>{{enums[item.lyInfo] || "未知"}}</text></view>
-                <view>结算状态：<text>{{item.settlementState == 1?"已结算":"未结算"}}</text></view>
-                <!-- <view>人员结算单信息：<text>{{item.jsonStr}}</text></view> -->
+                <view>结算状态：<text>{{item.settlementState == 1?"已结算":"未结算"}}</text></view> -->
         </hs-card>
         <button class="btn" @click="submit">支付</button>
     </view>
@@ -41,6 +53,11 @@ export default {
                 1:'半年内',
                 2:'半年外',
                 3:'全部'
+            },
+            sexEnums: {
+                '1':'男',
+                '2':'女',
+                '':'未知'
             },
             item: {}   
         }
@@ -126,5 +143,9 @@ export default {
         background: $uni-color-primary;
         color: #fff;
     }
-
+    .header{
+        border-bottom: 1px solid #eee;
+        padding: 20rpx 0;
+        margin-bottom: 20rpx;
+    }
 </style>

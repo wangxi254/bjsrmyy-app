@@ -104,6 +104,7 @@ import userModel from '@/components/userList/index.vue'
 import uniPopup from '@/components/uni-popup/components/uni-popup/uni-popup.vue'
 import uniPopupDialog from '@/components/uni-popup/components/uni-popup-dialog/uni-popup-dialog.vue'
 import NoData from '@/components/nodata/index.vue'
+const time = new Date();
 function getDate(type) {
 		const date = new Date();
 
@@ -126,7 +127,7 @@ export default {
     data(){
         return {
             searchForm: {
-                startDate: new Date().toISOString().slice(0, 10),
+                startDate: new Date(time.setDate(time.getDate() - 30)).toISOString().slice(0, 10),
                 endDate: new Date().toISOString().slice(0, 10),
             },
             startDate:getDate('start'),
