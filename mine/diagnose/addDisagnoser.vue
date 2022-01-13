@@ -436,16 +436,16 @@
 				})
 			}
 			
-			this.$request({
-				path:"/wx/region/selectByParentId",
-				method:'GET',
-				query:{
-					parentId:1
-				},
-				hastoast:true,
-			}).then(res=>{
+			// this.$request({
+			// 	path:"/wx/region/selectByParentId",
+			// 	method:'GET',
+			// 	query:{
+			// 		parentId:1
+			// 	},
+			// 	hastoast:true,
+			// }).then(res=>{
 				
-			})
+			// })
 		},
 		components:{
 			pickerAddress
