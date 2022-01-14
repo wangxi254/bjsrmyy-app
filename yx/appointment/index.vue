@@ -115,7 +115,7 @@
 				}
 				var arr = []
 				let startNum = 0
-				let endNum = 7
+				let endNum = 8
 				for (let i = startNum; i < endNum; i++) {
 					arr.push(returnDate(i))
 				}
@@ -210,8 +210,9 @@
 					title: "加载中..."
 				})
 				const arr = this.getDateforSearch();
-				const firstDate = arr[0];
+				const firstDate = this.showDate?arr[1]:arr[0];
 				const endDate = this.showDate?arr[arr.length - 1]:arr[0];
+				arr.splice(0,1);
 				this.$request({
 					path:`/smartinquiry/schedule/list?ampm=0&beginDate=${firstDate}&endDate=${endDate}`,
 				}).then(res=>{
