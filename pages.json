@@ -327,6 +327,20 @@
 					}
 				}
 			]
+		},
+		{
+			"root": "test",
+			"pages": [{
+				"path":"index",
+				"style": {
+					"navigationBarTitleText": "测试"
+				}
+			},{
+				"path":"web",
+				"style": {
+					"navigationBarTitleText": "测试1"
+				}
+			}]
 		}
 	],
 	"globalStyle": {
@@ -364,6 +378,13 @@
 			"iconPath": "/static/tabbar/home.png",
 			"selectedIconPath": "/static/tabbar/homed.png"
 		}]
+	},
+	"condition": {
+		"current": 0,
+		"list": [{
+			"name":"test",
+			"path":"test/index", 
+			"query":"newsid=5158607"     
+		}]
 	}
-	
 }
