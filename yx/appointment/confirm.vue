@@ -129,6 +129,12 @@ export default {
                                 currentDate: this.appointmentInfo.currentDate
                             })
                         })
+                    }else{
+                        res.data.msg && uni.showToast({
+                            title: res.data.msg,
+                            icon: 'none',
+                            duration:3000
+                        });
                     }
                 })
             
