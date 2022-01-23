@@ -43,7 +43,7 @@ export default {
         dealTime(num) {
             var time = new Date()     // 获取当前时间日期
             //判断当前时间是否超过20:00
-            time.getHours()>20 && (num = num + 1);
+            //time.getHours()>20 && (num = num + 1);
             var date = new Date(time.setDate(time.getDate() + num)).getDate()  //这里先获取日期，在按需求设置日期，最后获取需要的
             var year = time.getFullYear()  //获取年份
             var month = time.getMonth() + 1   // 获取月份
