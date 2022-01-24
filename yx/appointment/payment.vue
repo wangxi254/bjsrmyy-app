@@ -4,12 +4,12 @@
 		<view class="keeptime-view">
 			<view class="icon flex justify-center items-center">
 				<uni-icons class="right" type="checkbox" size="20" color="#fff" />
-				<text v-if="!onlyShow">已锁号</text>
+				<!-- <text v-if="!onlyShow">已锁号</text> -->
 			</view>
 			<!-- <view>剩余: 9分48秒</view> -->
 			<view v-if="!onlyShow" class="flex justify-center items-center">
 				<view style="margin-right: 10rpx">剩余: </view>
-				<uni-countdown color="#FFFFFF" :show-day="false" :hour="0" :minute="8" :second="0" @timeup="timeup">
+				<uni-countdown color="#FFFFFF" :show-day="false" :hour="0" :minute="3" :second="0" @timeup="timeup">
 				</uni-countdown>
 			</view>
 
@@ -161,6 +161,7 @@
 						fail: err => {
 							uni.showToast({
 								title: "支付失败",
+								icon: 'none',
 								duration: 2000
 							})
 							setTimeout(() => {
@@ -236,7 +237,11 @@
 				})
 			},
 			timeup() {
-
+				uni.showToast({
+					title: "已超时",
+					icon: 'none',
+					duration: 2000
+				})
 			}
 		}
 	}
