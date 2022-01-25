@@ -113,7 +113,7 @@
 		methods: {
 			getData() {
 				uni.request({
-				    url: 'https://min.his.gzskt.net/bjrmWebApi/userfav/list/' + this.userId, //仅为示例，并非真实接口地址。
+				    url: 'https://bjsyy.gzzxbd.com:9448/api/userfav/list/' + this.userId, //仅为示例，并非真实接口地址。
 				    success: (res) => {
 						this.total = res.data.data.length > 0 ? res.data.data.length : 0
 					}

@@ -63,28 +63,27 @@
 				})
 			},
 			getData(id) {
-				uni.request({
-				    url: 'https://min.his.gzskt.net/bjrmWebApi/smartinquiry/body/listRelData', //仅为示例，并非真实接口地址。
-				    success: (res) => {
-						this.navData = res.data.data
-						this.$nextTick(function(){
-							if (id) {
-								this.firstId = 'nav' + id
-								this.leftActive = 'nav' + id
-								const arr = this.navData.filter((item) => {
-									return ('nav' + item.id) === this.leftActive
-								})
-								if (arr && arr.length > 0) {
-									this.rightNavData = arr[0].symptoms
-								}
-								console.log(this.rightNavData)
-							} else {
-								this.leftActive = 'nav' + this.navData[0].id
-								this.rightNavData = this.navData[0].symptoms
+				this.$request({
+					path: `/smartinquiry/body/listRelData`
+				}).then(res=>{
+					this.navData = res.data.data
+					this.$nextTick(function(){
+						if (id) {
+							this.firstId = 'nav' + id
+							this.leftActive = 'nav' + id
+							const arr = this.navData.filter((item) => {
+								return ('nav' + item.id) === this.leftActive
+							})
+							if (arr && arr.length > 0) {
+								this.rightNavData = arr[0].symptoms
 							}
-						})
-				    }
-				});
+							console.log(this.rightNavData)
+						} else {
+							this.leftActive = 'nav' + this.navData[0].id
+							this.rightNavData = this.navData[0].symptoms
+						}
+					})
+				})
 			},
 			leftTap(item) {
 				this.firstId = ''
@@ -98,7 +97,7 @@
 			},
 			clickObjectItem(item) {
 				uni.request({
-				    url: 'https://min.his.gzskt.net/bjrmWebApi/smartinquiry/symptom/listDeps?symptomId=' + item.id, //仅为示例，并非真实接口地址。
+				    url: 'https://bjsyy.gzzxbd.com:9448/api/smartinquiry/symptom/listDeps?symptomId=' + item.id, //仅为示例，并非真实接口地址。
 				    success: (res) => {
 						this.current = res.data.data
 						this.$refs.popup.open()

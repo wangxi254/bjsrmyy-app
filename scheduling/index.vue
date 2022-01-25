@@ -56,7 +56,7 @@
 			},
 			getData() {
 				uni.request({
-				    url: 'https://min.his.gzskt.net/bjrmWebApi/smartinquiry/schedule/list?ampm=0&beginDate=' + this.time[this.timeIndex] + '&endDate=' + this.time[this.timeIndex],
+				    url: 'https://bjsyy.gzzxbd.com:9448/api/smartinquiry/schedule/list?ampm=0&beginDate=' + this.time[this.timeIndex] + '&endDate=' + this.time[this.timeIndex],
 				    success: (res) => {
 						const data = res.data.data
 						data.map((item) => {
