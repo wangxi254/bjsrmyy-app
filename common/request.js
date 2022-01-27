@@ -5,7 +5,7 @@ export default {
 		let token = uni.getStorageSync('token') || '';
 		let data = params.query || {};
 		let requrl = config.baseUrl + params.path;// 审核临时用一下接口uat版本控制接口
-		let hastoast = params.hastoast || false;
+		let hastoast = params.hastoast || true;
 		return new Promise((resolve, reject) => {
 			uni.request({
 				url: requrl,
