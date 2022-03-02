@@ -213,29 +213,67 @@
 				const firstDate = this.showDate?arr[1]:arr[0];
 				const endDate = this.showDate?arr[arr.length - 1]:arr[0];
 				arr.splice(0,1);
-				this.$request({
-					path:`/smartinquiry/schedule/list?ampm=0&beginDate=${firstDate}&endDate=${endDate}`,
-				}).then(res=>{
+				let PromiseAll  = arr.map(item=>{ return this.getEachDay(item) })
+				Promise.all(PromiseAll).then(res=> {
+					let data = []
+					res.map(item=>{
+						data = [...data,...item]
+					})
 					this.loading = false;
 					uni.hideLoading();
-					if(res.data.code == 200){
-						const data = res.data.data || [];
-						this.Data = data;
-						if(this.showDate){
-							arr.map(item=>{
-								const has = data.find(x=>{
-									const dealdate = `${x.date} ${x.deadLine}`;
-									const newdate = dealdate.replace(/-/g,'/');
-									// console.log(x.date,item)
-									return (x.date == item && x.depCode == this.classId && (new Date().getTime()< new Date(newdate).getTime()))
-								})
-								this.hasData[item] = has?true:false;
+					//const data = res.data.data || [];
+					this.Data = data;
+					if(this.showDate){
+						arr.map(item=>{
+							const has = data.find(x=>{
+								const dealdate = `${x.date} ${x.deadLine}`;
+								const newdate = dealdate.replace(/-/g,'/');
+								// console.log(x.date,item)
+								return (x.date == item && x.depCode == this.classId && (new Date().getTime()< new Date(newdate).getTime()))
 							})
-							
-						}else{
-							this.clickDate(this.currentDate)
-						}
+							this.hasData[item] = has?true:false;
+						})
+						
+					}else{
+						this.clickDate(this.currentDate)
 					}
+				})
+				
+				return
+				// this.$request({
+				// 	path:`/smartinquiry/schedule/list?ampm=0&beginDate=${firstDate}&endDate=${endDate}`,
+				// }).then(res=>{
+				// 	this.loading = false;
+				// 	uni.hideLoading();
+				// 	if(res.data.code == 200){
+				// 		const data = res.data.data || [];
+				// 		this.Data = data;
+				// 		if(this.showDate){
+				// 			arr.map(item=>{
+				// 				const has = data.find(x=>{
+				// 					const dealdate = `${x.date} ${x.deadLine}`;
+				// 					const newdate = dealdate.replace(/-/g,'/');
+				// 					// console.log(x.date,item)
+				// 					return (x.date == item && x.depCode == this.classId && (new Date().getTime()< new Date(newdate).getTime()))
+				// 				})
+				// 				this.hasData[item] = has?true:false;
+				// 			})
+							
+				// 		}else{
+				// 			this.clickDate(this.currentDate)
+				// 		}
+				// 	}
+				// })
+			},
+			getEachDay(day) {
+				return new Promise((reslove,reject)=> {
+					this.$request({
+						path:`/smartinquiry/schedule/list?ampm=0&beginDate=${day}&endDate=${day}`,
+					}).then(res=>{
+						if(res.data.code == 200) {
+							reslove(res.data.data || [])
+						}
+					})
 				})
 			}
 		}
