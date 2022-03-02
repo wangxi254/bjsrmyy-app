@@ -212,8 +212,12 @@
 				const arr = this.getDateforSearch();
 				const firstDate = this.showDate?arr[1]:arr[0];
 				const endDate = this.showDate?arr[arr.length - 1]:arr[0];
-				arr.splice(0,1);
-				let PromiseAll  = arr.map(item=>{ return this.getEachDay(item) })
+				let currentArr = []
+				if(this.showDate) {
+					arr.splice(0,1)
+					currentArr = arr
+				}else currentArr = [arr[0]]
+				let PromiseAll  = currentArr.map(item=>{ return this.getEachDay(item) })
 				Promise.all(PromiseAll).then(res=> {
 					let data = []
 					res.map(item=>{
