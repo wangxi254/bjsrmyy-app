@@ -229,7 +229,7 @@
 								const dealdate = `${x.date} ${x.deadLine}`;
 								const newdate = dealdate.replace(/-/g,'/');
 								// console.log(x.date,item)
-								return (x.date == item && x.depCode == this.classId && (new Date().getTime()< new Date(newdate).getTime()))
+								return (x.date == item && x.depCode == this.classId && (new Date().getTime()< new Date(newdate).getTime()) && x.code == 1)
 							})
 							this.hasData[item] = has?true:false;
 						})
