@@ -1,7 +1,7 @@
 <!--
  * @Author: seven
  * @Date: 2022-01-17 13:55:39
- * @LastEditTime: 2022-01-17 14:01:10
+ * @LastEditTime: 2022-03-30 15:51:51
  * @LastEditors: seven
  * @Description: 
  * @FilePath: \my-project\src\test\web.vue
@@ -19,7 +19,9 @@ export default {
         }
     },
     onLoad(options){
-        this.src = options.uri
+        let data = options.data;
+        let uri = `http://61.189.240.138:9007/Visit/GetByIDCard?hospId=${data.hospId}&id=${data.str}&t=${data.timescamp}&co=${data.md5str}`;
+        this.src = uri
     }
 }
 </script>
