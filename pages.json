@@ -192,6 +192,18 @@
 					}
 				},
 				{
+					"path":"report/yxreport",
+					"style": {
+						"navigationBarTitleText": "影像报告"
+					}
+				},
+				{
+					"path":"report/web",
+					"style": {
+						"navigationBarTitleText": "影像报告"
+					}
+				},
+				{
 					"path":"report/testreport",
 					"style": {
 						"navigationBarTitleText": "检验报告"

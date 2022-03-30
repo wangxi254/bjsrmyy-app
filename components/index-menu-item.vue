@@ -99,6 +99,9 @@
 		.grid-item-3:nth-child(3n + 3),.grid-item-4:nth-child(4n + 4){
 			border-right: none;
 		}
+		.grid-item-3{
+			width: calc(100% / 3);
+		}
 		.grid-item-4{
 			width: calc(100% / 4);
 		}

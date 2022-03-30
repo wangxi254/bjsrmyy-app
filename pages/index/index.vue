@@ -43,7 +43,7 @@
 			</view>
 		</view> -->
 		<view class="menus">
-			<zy-grid @gridClick="gridClick" :grid-list=menus :show-tip="false" :col="4"></zy-grid>
+			<zy-grid @gridClick="gridClick" :grid-list=menus :show-tip="false" :col="3"></zy-grid>
 		</view>
 		
 		<view class="hs-bar">
@@ -191,6 +191,14 @@
 						needLogin:true,
 					},
 					{
+						img:'../../static/index/menu-item9.png',
+						title:'影像报告',
+						no:9,
+						navigation:'../../mine/report/yxreport',
+						hashospitalInto:false,
+						needLogin:true,
+					},
+					{
 						img:'../../static/index/menu-item6.png',
 						title:'缴费记录',
 						no:6,
@@ -199,7 +207,7 @@
 						needLogin:true,
 					},
 					{
-						img:'../../static/index/menu-item7.png',
+						img:'../../static/index/menu-item10.png',
 						title:'挂号记录',
 						no:7,
 						navigation:'../../yx/registerRecord/index',
@@ -207,7 +215,7 @@
 						needLogin:true,
 					},
 					{
-						img:'../../static/index/menu-item7.png',
+						img:'../../static/index/menu-item8.png',
 						title:'预约记录',
 						no:7,
 						navigation:'../../yx/appointRecord/index',
