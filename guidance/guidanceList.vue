@@ -97,7 +97,7 @@
 			},
 			clickObjectItem(item) {
 				uni.request({
-				    url: 'https://bjsyy.gzzxbd.com:9448/api/smartinquiry/symptom/listDeps?symptomId=' + item.id, //仅为示例，并非真实接口地址。
+				    url: 'https://bjsyy.yuanbichang.top:9448/api/smartinquiry/symptom/listDeps?symptomId=' + item.id, //仅为示例，并非真实接口地址。
 				    success: (res) => {
 						this.current = res.data.data
 						this.$refs.popup.open()

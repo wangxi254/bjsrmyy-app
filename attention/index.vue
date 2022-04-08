@@ -52,7 +52,7 @@
 		methods: {
 			cancelAttention(item) {
 				uni.request({
-				    url: 'https://bjsyy.gzzxbd.com:9448/api/userfav/doctor', //仅为示例，并非真实接口地址。
+				    url: 'https://bjsyy.yuanbichang.top:9448/api/userfav/doctor', //仅为示例，并非真实接口地址。
 					method: 'POST',
 				    data: {
 						userId: this.userId,
@@ -74,7 +74,7 @@
 			},
 			getData() {
 				uni.request({
-				    url: 'https://bjsyy.gzzxbd.com:9448/api/userfav/list/' + this.userId +'?docName=' + this.searchValue, //仅为示例，并非真实接口地址。
+				    url: 'https://bjsyy.yuanbichang.top:9448/api/userfav/list/' + this.userId +'?docName=' + this.searchValue, //仅为示例，并非真实接口地址。
 				    success: (res) => {
 						this.persons = res.data.data
 					}
