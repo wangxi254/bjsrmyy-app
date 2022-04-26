@@ -145,7 +145,7 @@
 					title: "加载中..."
 				})
 				this.Data.map(item=>{
-					if(item.code == 1){
+					if(item.code == 1 && item.docInfo){
 						//只显示未停诊的值班医生
 						const dealdate = `${item.date} ${item.deadLine}`;
 						const newdate = dealdate.replace(/-/g,'/');
