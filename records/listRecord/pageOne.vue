@@ -119,6 +119,11 @@ export default {
                 signType: payinfo.signType,
                 paySign: payinfo.paySign,
                 success: payFlag => {
+                    this.$afterPay({
+                        order: payinfo.orderId,
+                        responseData: payFlag,
+                        status: 'success'
+                    })
                     uni.showToast({
                         title: '支付成功',
                         duration: 2000
@@ -126,6 +131,11 @@ export default {
                     uni.navigateBack()
                 },
                 fail: err => {
+                    this.$afterPay({
+                        order: payinfo.orderId,
+                        responseData: err,
+                        status: 'fail'
+                    })
                     uni.showToast({
                         title: '支付失败',
                         duration: 2000

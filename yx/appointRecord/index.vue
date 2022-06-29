@@ -32,7 +32,7 @@
                             </view>
                         </template>
 						<view>号源编号：<text>{{item.seqNum}}</text></view>
-                        <view>预约时间：<text>{{item.visitDate}}  {{timeEnum[parseInt(item.timePart)]}}</text></view>
+                        <view>就诊时间：<text>{{item.visitDate}}  {{timeEnum[parseInt(item.timePart)]}}</text></view>
 						<view>医生信息：<text>{{item.doctorName?item.doctorName||''+" ":''}} {{docEnum[item.docTitle || 0]}}</text></view>
 						<view>{{item.deptName?'门诊科室':'导诊信息'}}：<text>{{item.deptName?item.deptName:item.dzInfo}}</text>
 						</view>
@@ -145,7 +145,8 @@ export default {
 			endDate:getDate('end'),
             PatientInfo: {},
             PatientCard:{},
-            list: []
+            list: [],
+            passLoad: false
         }
     },
     async onLoad() {
@@ -154,10 +155,11 @@ export default {
         this.PatientInfo = PatientList[0];
         this.PatientCard = PatientCard;
         this.getList();
+        this.passLoad = true;
     },
     async onShow() {
-        if(Object.getOwnPropertyNames(this.PatientInfo)!==0 && Object.getOwnPropertyNames(this.PatientCard)!==0){
-				this.getList();
+        if(Object.getOwnPropertyNames(this.PatientInfo)!==0 && Object.getOwnPropertyNames(this.PatientCard)!==0 && this.passLoad){
+		    this.getList();
 		}
     },
     methods: {

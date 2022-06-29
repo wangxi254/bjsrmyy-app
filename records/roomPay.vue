@@ -247,6 +247,11 @@ export default {
                     uni.showLoading({
                         title: '加载中...'
                     })
+                    this.$afterPay({
+                        order: payinfo.orderId,
+                        responseData: payFlag,
+                        status: 'success'
+                    })
                     setTimeout(()=>{
                         uni.hideLoading()
                     },2000)
@@ -256,6 +261,11 @@ export default {
                     // })
                 },
                 fail: err => {
+                    this.$afterPay({
+                        order: payinfo.orderId,
+                        responseData: err,
+                        status: 'fail'
+                    })
                     uni.showToast({
                         title: "支付失败",
                         duration: 2000

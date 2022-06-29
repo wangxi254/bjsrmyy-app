@@ -31,7 +31,6 @@ export default {
 							uni.setStorageSync("token", null);
 							resolve(res);
 						}else{
-							
 							console.log('----------------------------')
 							console.log(res.data.msg)
 							console.log('----------------------------')
@@ -39,7 +38,7 @@ export default {
 								uni.showToast({
 									title: res.data.msg,
 									icon: 'none',
-									duration:3000
+									duration: 3000
 								});
 							}else{
 								if(res.statusCode == 502){
@@ -57,7 +56,10 @@ export default {
 								}
 								
 							}
-							resolve(res);
+							setTimeout(()=> {
+								resolve(res);
+							},3000)
+							
 						}
 					}else{
 						if(hastoast){
@@ -260,7 +262,7 @@ export default {
 			if(PatientListres.data.code == 200){
 				PatientList = PatientListres.data.data;
 				let PaientInfo = PatientList[0];
-				const [PatientCarderr,PatientCardres] = await this.$arequest({
+				const [PatientCarderr,PatientCardres] = await this.$request({
 					path:`/tpatientCard/mobile/getPatientCardByPatientInfo?condition=${PaientInfo.credentialNo}&conditionType=${PaientInfo.credentialType}`,
 				})
 				uni.hideLoading();
@@ -298,6 +300,17 @@ export default {
 			PatientList,
 			PatientCard
 		}
+	},
+	// 处理支付成功发送
+	afterPay(data) {
+		this.$request({
+			method: 'POST',
+			path:`/registration/order/payApiResponse`,
+			query: data
+		}).then(res=> {
+			console.log(`支付发送成功`)
+			console.log(res)
+		})
 	},
 	//初始化操作
 	userInit() {

@@ -4,7 +4,7 @@
  * @Author: seven
  * @Date: 2021-12-24 18:14:07
  * @LastEditors: seven
- * @LastEditTime: 2022-01-10 20:08:43
+ * @LastEditTime: 2022-05-30 23:18:48
  */
 import Vue from 'vue'
 import App from './App'
@@ -30,6 +30,7 @@ Vue.prototype.$getPatientList = request.getPatientList;
 Vue.prototype.$userInit = request.userInit;
 Vue.prototype.$getUserInfo = request.getUserInfo;
 Vue.prototype.$appUpdate = request.appUpdate;
+Vue.prototype.$afterPay = request.afterPay;
 
 //测试
 Vue.prototype.$getUserId = ()=>{

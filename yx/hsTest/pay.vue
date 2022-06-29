@@ -4,7 +4,7 @@
  * @Author: seven
  * @Date: 2021-12-24 21:18:23
  * @LastEditors: seven
- * @LastEditTime: 2021-12-27 10:54:23
+ * @LastEditTime: 2022-05-30 23:35:41
 -->
 <template>
     <view class="detailPage">
@@ -275,11 +275,21 @@ export default {
                 signType: payinfo.signType,
                 paySign: payinfo.paySign,
                 success: payFlag => {
+                    this.$afterPay({
+                        order: payinfo.orderId,
+                        responseData: payFlag,
+                        status: 'success'
+                    })
                     uni.navigateTo({
                         url:'../../records/listPay'
                     })
                 },
                 fail: err => {
+                    this.$afterPay({
+                        order: payinfo.orderId,
+                        responseData: err,
+                        status: 'fail'
+                    })
                     uni.showToast({
                         title: '支付失败',
                         duration: 2000

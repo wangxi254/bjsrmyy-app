@@ -154,11 +154,22 @@
 						signType: payinfo.signType,
 						paySign: payinfo.paySign,
 						success: payFlag => {
+							console.log(payFlag)
+							this.$afterPay({
+								order: payinfo.orderId,
+								responseData: payFlag,
+								status: 'success'
+							})
 							uni.redirectTo({
 								url: '../appointRecord/index'
 							})
 						},
 						fail: err => {
+							this.$afterPay({
+								order: payinfo.orderId,
+								responseData: err,
+								status: 'fail'
+							})
 							uni.showToast({
 								title: "支付失败",
 								icon: 'none',
