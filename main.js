@@ -13,7 +13,7 @@ import * as filters from './utils/filter'
 import hsCard from '@/components/hs-card/index.vue'
 import uniTitle from '@/components/uni-title.vue'
 import uniIcons from '@/components/uni-icons/uni-icons.vue'
-import SpullScroll from '@/components/s-pull-scroll/index.vue'
+import SpullScroll from '@/components/s-pull-scroll/index.vue' 
 
 
 Vue.config.productionTip = false
