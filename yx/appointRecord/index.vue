@@ -31,7 +31,7 @@
                                 </view>
                             </view>
                         </template>
-						<view>号源编号：<text>{{item.seqNum}}</text></view>
+						<view>号源编号：<text>{{item.seqNum}}号</text></view>
                         <view>就诊时间：<text>{{item.visitDate}}  {{timeEnum[parseInt(item.timePart)]}}</text></view>
 						<view>医生信息：<text>{{item.doctorName?item.doctorName||''+" ":''}} {{docEnum[item.docTitle || 0]}}</text></view>
 						<view>{{item.deptName?'门诊科室':'导诊信息'}}：<text>{{item.deptName?item.deptName:item.dzInfo}}</text>
@@ -186,8 +186,18 @@ export default {
             }).then(res=>{
                 uni.hideLoading()
                 if(res.data.code == 200){
-                    this.list = res.data.data;
-                    
+					let i = 0;
+					let array = new Array();
+					for(const index in res.data.data){
+						let value = res.data.data[index]
+						let dateOne = value.date.split(' ')[0]
+						let dateTwo = value.visitDate.split(' ')[0]
+						if (dateOne !== dateTwo) {
+							array[i++] = value
+						}
+					}
+					this.list = array;
+                    //this.list = res.data.data;
                 }else this.list = []
             })
         },

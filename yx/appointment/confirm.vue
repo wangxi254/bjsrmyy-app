@@ -91,53 +91,18 @@ export default {
                     title:"暂无病历号",
                 })
             }
-            uni.showLoading({
-                title: "加载中..."
-            })
-            // 提交订单
-            let query = {
-                codeId: this.appointmentInfo.codeId,
-                seqNum: this.appointmentInfo.seqNum,
-                deptCode: this.appointmentInfo.deptCode,
-                deptName: this.appointmentInfo.depName,
-                pbCode: this.appointmentInfo.pbCode,
-                doctorCode: this.appointmentInfo.docCode,
-                doctorName: this.appointmentInfo.name,
-                appointmentDate: this.appointmentInfo.currentDate,
-                phoneNum: this.userInfo.phone,
-                timeType: this.appointmentInfo.type + 1,
-                timePart: this.appointmentInfo.timePart,
-                payAmountStr: this.appointmentInfo.price,//this.appointmentInfo.price * 100,
-                patientId: this.userInfo.id,
-                patientName: this.userInfo.name,
-                medicalRecordNo: this.userInfo.mrn && this.userInfo.mrn.length > 0 ? this.userInfo.mrn : this.PaientCard.mrn,
-                certificateType: parseInt(this.userInfo.credentialType),
-                certificateNo: this.userInfo.credentialNo,
-                registerType: this.appointmentInfo.registerType,
-                regTime: this.appointmentInfo.reg_time
-            }
-            this.$request({
-					path:`/registration/order/post`,
-					method: 'post',
-					query
-				}).then(res=>{
-                    uni.hideLoading()
-                    if(res.data.code == 200) {
-                        uni.redirectTo({
-                            url:'../appointment/payment?row=' + JSON.stringify({
-                                ...res.data.data,
-                                currentDate: this.appointmentInfo.currentDate
-                            })
-                        })
-                    }else{
-                        res.data.msg && uni.showToast({
-                            title: res.data.msg,
-                            icon: 'none',
-                            duration:3000
-                        });
-                    }
-                })
-            
+			let that = this
+			uni.showModal({
+				title: '提示',
+				content: '当前挂号患者为：' + this.userInfo.name,
+				success: function (res) {
+					if (res.confirm) {
+						that.dialogConfirm()
+					} else if (res.cancel) {
+						console.log('用户点击取消');
+					}
+				}
+			});
         },
         showUserList() {
             this.$refs.userModelref.show();
@@ -145,7 +110,59 @@ export default {
         changeUser(row) {
             this.userInfo = row;
             this.$getUserCard(row).then(res=> this.PaientCard = res);
-        }
+        },
+		dialogConfirm() {
+			console.log('点击确认')
+			uni.showLoading({
+			    title: "加载中..."
+			})
+			// 提交订单
+			let query = {
+			    codeId: this.appointmentInfo.codeId,
+			    seqNum: this.appointmentInfo.seqNum,
+			    deptCode: this.appointmentInfo.deptCode,
+			    deptName: this.appointmentInfo.depName,
+			    pbCode: this.appointmentInfo.pbCode,
+			    doctorCode: this.appointmentInfo.docCode,
+			    doctorName: this.appointmentInfo.name,
+			    appointmentDate: this.appointmentInfo.currentDate,
+			    phoneNum: this.userInfo.phone,
+			    timeType: this.appointmentInfo.type + 1,
+			    timePart: this.appointmentInfo.timePart,
+			    payAmountStr: this.appointmentInfo.price,//this.appointmentInfo.price * 100,
+			    patientId: this.userInfo.id,
+			    patientName: this.userInfo.name,
+			    medicalRecordNo: this.userInfo.mrn && this.userInfo.mrn.length > 0 ? this.userInfo.mrn : this.PaientCard.mrn,
+			    certificateType: parseInt(this.userInfo.credentialType),
+			    certificateNo: this.userInfo.credentialNo,
+			    registerType: this.appointmentInfo.registerType,
+			    regTime: this.appointmentInfo.reg_time
+			}
+			this.$request({
+					path:`/registration/order/post`,
+					method: 'post',
+					query
+				}).then(res=>{
+			        uni.hideLoading()
+			        if(res.data.code == 200) {
+			            uni.redirectTo({
+			                url:'../appointment/payment?row=' + JSON.stringify({
+			                    ...res.data.data,
+			                    currentDate: this.appointmentInfo.currentDate
+			                })
+			            })
+			        }else{
+			            res.data.msg && uni.showToast({
+			                title: res.data.msg,
+			                icon: 'none',
+			                duration:3000
+			            });
+			        }
+			    })
+		},
+		dialogClose() {
+			console.log('点击关闭')
+		},
     }
 }
 </script>

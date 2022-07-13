@@ -13,7 +13,8 @@
 
 <script>
 import md5 from 'js-md5';
-let Base64 = require('js-base64').Base64
+//let Base64 = require('js-base64').Base64
+import Base64 from 'base-64';
 export default {
     data(){
         return {
@@ -27,7 +28,8 @@ export default {
         let hospId = "hl_bjsdyrmyy"
                 //this.credentialNo
         let idCard = data;//"522421195307218048"
-        let str = Base64.encode(idCard);
+        //let str = Base64.encode(idCard);
+		let str = Base64.encode(idCard);
         let timescamp = parseInt(new Date().getTime()/1000);
         let md5str = md5(`${hospId}@${idCard}@www.newdcm.com@${timescamp}`);
         //let uri = `http://123.60.31.228/Visit/GetByIDCard?hospId=${hospId}&id=${str}&t=${timescamp}&co=${md5str}`;

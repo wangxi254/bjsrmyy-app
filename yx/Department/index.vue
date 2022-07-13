@@ -3,11 +3,11 @@
 		<view class="search show-center">
 			<view v-if="isNotSearching" @click="searchClick" class="search-bg show-center">
 				<view class="search-input">搜索</view>
-				<image class="search-icon" src="../../../static/index/search.png">
+				<image class="search-icon" src="../../static/index/search.png">
 			</view>
 			<view v-else class="space-beteewn search-bg">
 				<view class="show-center justify-content">
-					<image class="search-icon marginl10r10" src="../../../static/index/search.png">
+					<image class="search-icon marginl10r10" src="../../static/index/search.png">
 						<input class="search-input" type="text" placeholder="搜索" v-model="searchText"
 							@focus="vauleEmpty" confirm-type="search" />
 				</view>

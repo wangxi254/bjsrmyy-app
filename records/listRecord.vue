@@ -143,6 +143,34 @@ export default {
             
         },
         goDetail(type,row){
+			let haveNopay = false;
+			for (let index in this.list1) {
+				if ("7" === this.list1[index].recipeType){
+					haveNopay = true;
+					break;
+				}
+			}
+			
+			for (let index in this.list1) {
+				if (haveNopay 
+				&& row.seqNum === this.list1[index].seqNum 
+				&& "7" !== this.list1[index].recipeType){
+					uni.showModal({
+						title: '提示',
+						content: '必须缴纳门诊费用才能缴纳处方费用，请先缴纳门诊费！',
+						success: function (res) {
+							if (res.confirm) {
+								console.log('确定');
+							} else if (res.cancel) {
+								console.log('取消');
+							}
+						}
+					});
+					return;
+				}
+		
+			}
+			
             let data = {
                 ...row,
                 PatientInfo: this.PatientInfo,

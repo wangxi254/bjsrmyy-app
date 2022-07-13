@@ -60,6 +60,9 @@
 				    success: (res) => {
 						const data = res.data.data
 						data.map((item) => {
+							if(item.code === "0"){
+								return
+							}
 							let hasDep = false
 							this.sourceData.map((data) => {
 								if (data.depName === item.depName) {

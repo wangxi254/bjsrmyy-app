@@ -194,8 +194,19 @@
 					}
 				}).then(res => {
 					uni.hideLoading()
+					
 					if (res.data.code == 200) {
-						this.list = res.data.data;
+						let i = 0;
+						let array = new Array();
+						for(const index in res.data.data){
+							let value = res.data.data[index]
+							let dateOne = value.date.split(' ')[0]
+							let dateTwo = value.visitDate.split(' ')[0]
+							if (dateOne === dateTwo) {
+								array[i++] = value
+							}
+						}
+						this.list = array;
 					} else this.list = []
 				})
 			},
