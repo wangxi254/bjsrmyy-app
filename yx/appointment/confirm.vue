@@ -4,7 +4,6 @@
             <uni-title type="h4" title="温馨提示" align="left"></uni-title>
             <view>1、请您如实提供患者的真实姓名、有效证件号</view>
             <view>2、<text class="textRed">自费挂号</text>在医院缴费时按自费结算</view>
-            <view>3、<text class="textRed">医保挂号</text>只做预约登记，就诊前需到挂号窗口或自助机取号缴费</view>
         </hs-card>
         <hs-card class="appointinfo-view">
             <template v-slot:header>
@@ -18,7 +17,7 @@
             <template v-slot:header>
                 <view class="title-model"><text>预约时间</text></view>
             </template>
-            <view>时间：<text class="textRed">{{appointmentInfo.currentDate}}</text></view>
+            <view>时间：<text class="textRed">{{appointmentInfo.currentDate}}{{' ' + appointmentInfo.reg_time}}</text></view>
             <view>时段：<text class="textRed">{{appointmentInfo.type == 0?"上午":"下午"}}</text></view>
         </hs-card>
         <hs-card class="appointuser-view" @click="showUserList">
@@ -59,7 +58,8 @@ export default {
                 currentDate: "",
             },
             userInfo: {},
-            PaientCard: {}
+            PaientCard: {},
+			specialExplain: ''
         }
     },
     // onLoad: function (option) { //
@@ -71,12 +71,50 @@ export default {
     async onLoad(option) {
         option.row && (this.appointmentInfo = JSON.parse(option.row))
         const { PatientList, PatientCard }  = await this.$getUserInfo();
-		console.log("PatientList===>",JSON.stringify(PatientList));
-		console.log("PatientCard===>",JSON.stringify(PatientCard));
         this.userInfo = PatientList[0];
         this.PaientCard = PatientCard;
+		//this.getNotice()
     },
     methods: {
+		getNotice() {
+			const dateStr = this.appointmentInfo.currentDate;
+			//将1970/08/08转化成1970-08-08
+			const time = this.getFormatTime(new Date());
+			console.log(dateStr)
+			console.log(time)
+			if (time === dateStr){
+				return
+			}
+			this.$request({
+				path:'/system/notice/12',
+			}).then(res=>{
+				uni.hideLoading()
+				if(res.data.code == 200){
+					this.specialExplain = res.data.data.noticeContent
+					uni.showModal({
+						title: '提示',
+						content: this.specialExplain.replace('<p>','').replace('</p>',''),
+						confirmText: '确认告知',
+						cancelText: '取消',
+						success: function (res) {
+							if (res.confirm) {
+							} else if (res.cancel) {
+								uni.navigateBack();
+							}
+						}
+					});
+				}
+			})
+		},
+		//封装一个获取当前年月日的函数getTime
+		getFormatTime(date) {
+			let y = date.getFullYear() //年
+			let m = date.getMonth() + 1  //月，月是从0开始的所以+1
+			let d = date.getDate() //日
+			m = m < 10 ? "0" + m : m //小于10补0
+			d = d < 10 ? "0" + d : d //小于10补0
+			return y + "-" + m + "-" + d; //返回时间形式yyyy-mm-dd
+		},
         submit() {
             //验证
             if(!this.userInfo.name){

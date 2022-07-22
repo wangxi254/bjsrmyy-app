@@ -595,15 +595,21 @@
 					}).then(res=>{
 						console.log("res",JSON.stringify(res));
 						if(res.data.code == 200){
-							uni.showToast({
-								icon:'none',
-								title:res.data.msg,
-								success() {
-									setTimeout(()=>{
+							uni.showModal({
+								title: '提示',
+								content: '添加患者成功！',
+								confirmText: '前往挂号',
+								cancelText: '继续添加',
+								success: function (res) {
+									if (res.confirm) {
+										uni.switchTab({
+											url: '../../pages/index/index'
+										});
+									} else if (res.cancel) {
 										uni.navigateBack();
-									},1000)
+									}
 								}
-							})
+							});
 						}
 					})
 				}

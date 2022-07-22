@@ -79,7 +79,8 @@
 				showDate: true,
 				loading: true,
 				classId: '',
-				currentRow: {}
+				currentRow: {},
+				specialExplain: ''
 			}
 		},
 		onLoad: function (option) { //option为object类型，会序列化上个页面传递的参数
@@ -133,9 +134,45 @@
 			chooseDate(row){ 
 				this.currentRow['currentDate'] = this.currentDate;
 				this.currentRow = {...this.currentRow,...row,deptCode: this.classId,registerType: this.showDate?1:0}
-				uni.redirectTo({
-					url:'./confirm?row=' + JSON.stringify(this.currentRow)
+				const time = this.getFormatTime(new Date());
+				if (time === this.currentDate){
+					return uni.redirectTo({
+										url:'./confirm?row=' + JSON.stringify(this.currentRow)
+									})
+				}
+				let that = this
+				
+				this.$request({
+					path:'/system/notice/12',
+				}).then(res=>{
+					uni.hideLoading()
+					if(res.data.code == 200){
+						that.specialExplain = res.data.data.noticeContent
+						uni.showModal({
+							title: '提示',
+							content: this.specialExplain.replace('<p>','').replace('</p>',''),
+							confirmText: '确认告知',
+							cancelText: '取消',
+							success: function (res) {
+								if (res.confirm) {
+									uni.redirectTo({
+										url:'./confirm?row=' + JSON.stringify(that.currentRow)
+									})
+								} else if (res.cancel) {
+								}
+							}
+						});
+					}
 				})
+			},
+			//封装一个获取当前年月日的函数getTime
+			getFormatTime(date) {
+				let y = date.getFullYear() //年
+				let m = date.getMonth() + 1  //月，月是从0开始的所以+1
+				let d = date.getDate() //日
+				m = m < 10 ? "0" + m : m //小于10补0
+				d = d < 10 ? "0" + d : d //小于10补0
+				return y + "-" + m + "-" + d; //返回时间形式yyyy-mm-dd
 			},
 			clickDate(date) {
 				// 获取当前日期的专家

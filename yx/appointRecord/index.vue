@@ -209,7 +209,8 @@ export default {
                 phoneNum: this.PatientInfo.phone,
                 currentDate: row.visitDate,
                 timeType: row.timePart,
-                payAmountStr: row.fee?row.fee:"暂无"
+                payAmountStr: row.fee?row.fee:"暂无",
+				showTitle: '预约信息'
                 // doctorName: row.docName
             }
             

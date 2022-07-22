@@ -18,13 +18,15 @@
 		<hs-card class="appointInfo-view">
 			<template v-slot:header>
 				<view class="title-model flex justify-between">
-					<text>预约信息</text>
+					<text>{{showTitle}}</text>
 				</view>
 			</template>
-			<view>号源编号： <text>{{info.seqNum}}</text></view>
+			<view>号源编号： <text>{{info.seqNum}}号</text></view>
 			<view>就诊日期： <text>{{info.currentDate}}</text></view>
 			<view v-if="info.deptName">就诊科室： <text>{{info.deptName}}</text></view>
 			<view v-if="info.doctorName">就诊医生： <text>{{info.doctorName}}</text></view>
+			<view>医生职称：<text>{{docEnum[info.docTitle || 0]}}</text></view>
+			<view>导诊信息：<text>{{info.dzInfo?info.dzInfo:'暂无'}}</text></view>
 			<view>就诊时间：<text>{{info.timeType==1?'上午':'下午'}}</text></view>
 			<view>挂号费用：<text>￥{{info.payAmountStr}}</text></view>
 		</hs-card>
@@ -41,15 +43,14 @@
 			<uni-title type="h4" title="温馨提示" align="left"></uni-title>
 			<view>1、请您如实提供患者的真实姓名、有效证件号</view>
 			<view>2、<text class="textRed">自费挂号</text>在医院缴费时按自费结算</view>
-			<view>3、<text class="textRed">医保挂号</text>只做预约登记，就诊前需到挂号窗口或自助机取号缴费</view>
 		</hs-card>
-		<view class="flex justify-end">
+		<!-- <view class="flex justify-end">
 			<view class="flex listText" @click="goList">
 				<uni-icons style="margin-right: 10rpx" class="right" type="info" size="16" color="#007aff" />
 				我的预约记录
 			</view>
 
-		</view>
+		</view> -->
 		<view v-if="!onlyShow" class="pay-view flex">
 			<view class="pay-info flex flex-1 justify-between">
 				<view>
@@ -83,16 +84,27 @@
 				info: {},
 				openId: uni.getStorageSync("openId") || "",
 				onlyShow: true,
-				cancelBtn: false
+				cancelBtn: false,
+				docEnum: {
+					0: '--',
+					1: '主任医师',
+					2: '副主任医师',
+					3: '主治医师',
+					4: '住院医师',
+					5: '民族医专家',
+				},
+				showTitle: '预约信息'
 			}
 		},
 		onLoad(options) {
-			options.row ? (this.info = JSON.parse(options.row)) : (this.info = {})
+			
+			this.info = options.row ? JSON.parse(options.row) : {}
 			let that = this
 			const eventChannel = this.getOpenerEventChannel();
 			try {
 				eventChannel.on('acceptDataFromOpenerPage', function(data) {
 					that.info = data.data
+					that.showTitle = data.data.showTitle
 					if (that.info.hasOwnProperty('active')) {
 						if (that.info.active == 1) {
 							var time = new Date()
