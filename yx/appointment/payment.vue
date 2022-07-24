@@ -152,6 +152,7 @@
 				uni.showLoading({
 					title: "加载中..."
 				})
+				let that = this
 				this.$request({
 					hastoast: true,
 					path: `/registration/order/xl-wx-applet-pay?openId=${this.openId}&orderId=${this.info.id}`
@@ -172,9 +173,18 @@
 								responseData: payFlag,
 								status: 'success'
 							})
-							uni.redirectTo({
-								url: '../appointRecord/index'
-							})
+							
+							const time = this.getFormatTime(new Date());
+							if(that.info.currentDate === time){
+								uni.redirectTo({
+									url: '../registerRecord/index'
+								})
+							} else{
+								uni.redirectTo({
+									url: '../appointRecord/index'
+								})
+							}
+							
 						},
 						fail: err => {
 							this.$afterPay({
@@ -188,13 +198,22 @@
 								duration: 2000
 							})
 							setTimeout(() => {
-								uni.redirectTo({
-									url: '../appointRecord/index'
-								})
+								uni.switchTab({
+									url: '../../pages/index/index'
+								});
 							}, 2000)
 						}
 					});
 				})
+			},
+			//封装一个获取当前年月日的函数getTime
+			getFormatTime(date) {
+				let y = date.getFullYear() //年
+				let m = date.getMonth() + 1  //月，月是从0开始的所以+1
+				let d = date.getDate() //日
+				m = m < 10 ? "0" + m : m //小于10补0
+				d = d < 10 ? "0" + d : d //小于10补0
+				return y + "-" + m + "-" + d; //返回时间形式yyyy-mm-dd
 			},
 			cancel() {
 				this.$refs.popup.open()
