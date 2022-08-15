@@ -176,13 +176,28 @@
 							
 							const time = this.getFormatTime(new Date());
 							if(that.info.currentDate === time){
-								uni.redirectTo({
-									url: '../registerRecord/index'
-								})
+								
+								uni.showModal({
+									title: '提示',
+									showCancel: false,
+									content: '挂号成功，请前往诊室就诊！',
+									success: function (res) {
+										uni.redirectTo({
+											url: '../registerRecord/index'
+										})
+									}
+								});
 							} else{
-								uni.redirectTo({
-									url: '../appointRecord/index'
-								})
+								uni.showModal({
+									title: '提示',
+									showCancel: false,
+									content: '请在预约时间就诊，超过预约时间会取消预约带来就诊不便！',
+									success: function (res) {
+										uni.redirectTo({
+											url: '../appointRecord/index'
+										})
+									}
+								});
 							}
 							
 						},

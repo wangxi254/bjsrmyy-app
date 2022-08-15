@@ -309,7 +309,7 @@
 			getEachDay(day) {
 				return new Promise((reslove,reject)=> {
 					this.$request({
-						path:`/smartinquiry/schedule/list?ampm=0&beginDate=${day}&endDate=${day}`,
+						path:`/smartinquiry/schedule/list?ampm=0&beginDate=${day}&endDate=${day}&depCode=${this.classId}`,
 					}).then(res=>{
 						if(res.data.code == 200) {
 							reslove(res.data.data || [])
