@@ -27,13 +27,13 @@
                             <view class="title-model flex justify-between items-center">
                                 <text>挂号时间：{{item.date}}</text>
                                 <view class="status">
-								{{registerEnum[parseInt(item.active)]}}
+								{{item.statusName}}
                                 </view>
                             </view>
                         </template>
 						<view>号源编号：<text>{{item.seqNum}}号</text></view>
                         <view>就诊时间：<text>{{item.visitDate}}  {{timeEnum[parseInt(item.timePart)]}}</text></view>
-						<view>医生信息：<text>{{item.doctorName?item.doctorName||''+" ":''}} {{docEnum[item.docTitle || 0]}}</text></view>
+						<view>医生信息：<text>{{item.docName?item.docName||''+" ":''}} {{item.title}}</text></view>
 						<view>{{item.deptName?'门诊科室':'导诊信息'}}：<text>{{item.deptName?item.deptName:item.dzInfo}}</text>
 						</view>
                         <view v-if="item.deptName">导诊信息：<text>{{item.dzInfo}}</text></view>
@@ -174,7 +174,7 @@ export default {
                 title: '加载中...'
             })
             this.$request({
-                path:`/registration/order/get-register-record-list`,
+                path:`/registration/order/get-appointment-record-list`,
                 method: 'post',
                 query: {
                     medicalRecordNo: this.PatientCard.mrn,
@@ -187,16 +187,7 @@ export default {
                 uni.hideLoading()
                 if(res.data.code == 200){
 					let i = 0;
-					let array = new Array();
-					for(const index in res.data.data){
-						let value = res.data.data[index]
-						let dateOne = value.date.split(' ')[0]
-						let dateTwo = value.visitDate.split(' ')[0]
-						if (dateOne !== dateTwo) {
-							array[i++] = value
-						}
-					}
-					this.list = array;
+					this.list = res.data.data;
                     //this.list = res.data.data;
                 }else this.list = []
             })

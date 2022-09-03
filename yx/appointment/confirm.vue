@@ -73,6 +73,7 @@ export default {
         const { PatientList, PatientCard }  = await this.$getUserInfo();
         this.userInfo = PatientList[0];
         this.PaientCard = PatientCard;
+		console.log('appointmentInfo--------> : ' + JSON.stringify(this.appointmentInfo))
 		//this.getNotice()
     },
     methods: {
@@ -186,7 +187,9 @@ export default {
 			            uni.redirectTo({
 			                url:'../appointment/payment?row=' + JSON.stringify({
 			                    ...res.data.data,
-			                    currentDate: this.appointmentInfo.currentDate
+			                    currentDate: this.appointmentInfo.currentDate,
+								postion: this.appointmentInfo.postion,
+								dzInfo: this.appointmentInfo.dzInfo
 			                })
 			            })
 			        }else{

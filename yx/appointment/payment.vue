@@ -25,7 +25,7 @@
 			<view>就诊日期： <text>{{info.currentDate}}</text></view>
 			<view v-if="info.deptName">就诊科室： <text>{{info.deptName}}</text></view>
 			<view v-if="info.doctorName">就诊医生： <text>{{info.doctorName}}</text></view>
-			<view>医生职称：<text>{{docEnum[info.docTitle || 0]}}</text></view>
+			<view>医生职称：<text>{{info.postion?info.postion:''}}{{info.title?info.title:''}}{{(info.title || info.postion) ?'':'--'}}</text></view>
 			<view>导诊信息：<text>{{info.dzInfo?info.dzInfo:'暂无'}}</text></view>
 			<view>就诊时间：<text>{{info.timeType==1?'上午':'下午'}}</text></view>
 			<view>挂号费用：<text>￥{{info.payAmountStr}}</text></view>
@@ -98,15 +98,17 @@
 		},
 		onLoad(options) {
 			
-			this.info = options.row ? JSON.parse(options.row) : {}
+			this.info = options.row ? JSON.parse(options.row) : {},
+			console.log('info------->  : ' + JSON.stringify(this.info))
 			let that = this
 			const eventChannel = this.getOpenerEventChannel();
 			try {
 				eventChannel.on('acceptDataFromOpenerPage', function(data) {
 					that.info = data.data
 					that.showTitle = data.data.showTitle
-					if (that.info.hasOwnProperty('active')) {
-						if (that.info.active == 1) {
+					if (that.info.hasOwnProperty('cancelAvailable')) {
+						that.cancelBtn = that.info.cancelAvailable;
+						/**if (that.info.active == 1) {
 							var time = new Date()
 							let nowDate = new Date(time.setDate(time.getDate() + 1)).toISOString().slice(0, 10)
 								.replaceAll('-',
@@ -117,7 +119,7 @@
 							if (currentDate >= nowDate) {
 								that.cancelBtn = true;
 							}
-						}
+						}**/
 					}
 				})
 			} catch (error) {

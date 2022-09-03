@@ -197,7 +197,8 @@
 							pbCode: item.pbCode,
 							docCode: item.docInfo && item.docInfo.docCode ? item.docInfo.docCode : '',
 							type: 0,
-							active: (new Date().getTime()< new Date(newdate).getTime())?true:false
+							active: (new Date().getTime()< new Date(newdate).getTime())?true:false,
+							dzInfo: item.dzInfo
 						})
 						if(item.date == date && item.depCode == this.classId && item.timeType == '下午') bottomArr.push({
 							name: item.docInfo && item.docInfo.docName ? item.docInfo.docName : '',
@@ -210,7 +211,8 @@
 							pbCode: item.pbCode,
 							docCode: item.docInfo && item.docInfo.docCode ? item.docInfo.docCode : '',
 							type: 1,
-							active: (new Date().getTime()< new Date(newdate).getTime())?true:false
+							active: (new Date().getTime()< new Date(newdate).getTime())?true:false,
+							dzInfo: item.dzInfo
 						})
 					}
 				})
