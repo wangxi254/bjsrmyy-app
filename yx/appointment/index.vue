@@ -136,19 +136,23 @@
 				this.currentRow = {...this.currentRow,...row,deptCode: this.classId,registerType: this.showDate?1:0}
 				const time = this.getFormatTime(new Date());
 				if (time === this.currentDate){
-					return uni.redirectTo({
-										url:'./confirm?row=' + JSON.stringify(this.currentRow)
-									})
+					return this.toastMessageAndRedirect('13')
 				}
+				
+				this.toastMessageAndRedirect('12')	
+			},
+			toastMessageAndRedirect(messageId) {
 				let that = this
 				
 				this.$request({
-					path:'/system/notice/12',
+					path:'/system/notice/' + messageId,
 				}).then(res=>{
 					uni.hideLoading()
-					if(res.data.code == 200){
+					// 0表示显示，1表示关闭
+					let showStatus = res.data.data.status === '0'
+					if(res.data.code == 200 && showStatus){
 						that.specialExplain = res.data.data.noticeContent
-						uni.showModal({
+						return uni.showModal({
 							title: '提示',
 							content: this.specialExplain.replace('<p>','').replace('</p>',''),
 							confirmText: '确认告知',
@@ -162,7 +166,11 @@
 								}
 							}
 						});
-					}
+					} 
+					
+					uni.redirectTo({
+						url:'./confirm?row=' + JSON.stringify(that.currentRow)
+					})
 				})
 			},
 			//封装一个获取当前年月日的函数getTime
