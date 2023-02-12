@@ -4,7 +4,7 @@
 		<view class="navibarbg">
 			<view class="navibartitle">
 				<!-- {{hospitalInto.name}} -->
-				毕节市第一人民医院
+				浙江省人民医院毕节医院
 			</view>
 		</view>
 		<image class="hs-banner" mode="" :src="hospitalInto.homePageImg ? hospitalInto.homePageImg : 'https://second-vedio.oss-cn-shenzhen.aliyuncs.com/image/d4860fdbe172f0285deb8a2cc4a58c64.jpeg'"></image>
