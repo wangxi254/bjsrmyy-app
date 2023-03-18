@@ -1,6 +1,6 @@
 <template>
 	<view class="detailPage">
-		<chooseDay v-if="showDate && !loading" :hasData="hasData" @clickDate="clickDate" />
+		<chooseDay v-if="showDate && !loading" :hasData="hasData" :classId="classId" @getDateData="getDateData" />
 		<view class="sel-condition">
 			<text>{{currentDate}}</text>
 			<!-- <view class="v-switch">
@@ -95,11 +95,13 @@
 				this.currentDate = y + '-' + (m < 10 ? '0' + m : m) + '-' + (d < 10 ? '0' + d : d);
 					
 				// this.currentDate = new Date().toISOString().slice(0, 10) //year+'-'+month + '-' + date;
+				this.getDateData(this.currentDate);
 			}
 			uni.setNavigationBarTitle({
 			　　title:option.title
 			})
 			this.getexpert();
+			//this.getExpert();
 		},
 		methods: {
 			getDateforSearch() {
@@ -224,6 +226,7 @@
 						})
 					}
 				})
+				
 				this.list = [topArr,bottomArr]
 				this.currentDate = date;
 				setTimeout(()=>{
@@ -251,6 +254,24 @@
 						})
 					}
 				})
+			},
+			getExpert(){
+				uni.showLoading({
+					title: "加载中..."
+				})
+				const arr = this.getDateforSearch();
+				const firstDate = this.showDate?arr[1]:arr[0];
+				const endDate = this.showDate?arr[arr.length - 1]:arr[0];
+				let currentArr = []
+				if(this.showDate) {
+					arr.splice(0,1)
+					currentArr = arr
+				}else {
+					currentArr = [arr[0]];
+				}
+				
+				this.loading = false;
+				uni.hideLoading();
 			},
 			getexpert(){
 				uni.showLoading({
@@ -325,6 +346,72 @@
 							reslove(res.data.data || [])
 						}
 					})
+				})
+			},
+			getDateData(day) {
+				uni.showLoading({
+					title: "加载中..."
+				})
+				this.$request({
+					path:`/smartinquiry/schedule/list?ampm=0&beginDate=${day}&endDate=${day}&depCode=${this.classId}`,
+				}).then(res=>{
+					if(res.data.code == 200) {
+					
+						// 获取当前日期的专家
+						const topArr = [],
+						bottomArr = [];
+						uni.showLoading({
+							title: "加载中..."
+						})
+						
+						if (res.data.data && res.data.data.length > 0){
+							for (let item of res.data.data) {
+								if(item.code == '1' && item.docInfo){
+									//只显示未停诊的值班医生
+									const dealdate = `${item.date} ${item.deadLine}`;
+									const newdate = dealdate.replace(/-/g,'/');
+									if( item.timeType == '上午') {
+										topArr.push({
+											name: item.docInfo && item.docInfo.docName ? item.docInfo.docName : '',
+											img: '',
+											price: item.etPrice,
+											postion: item.docInfo && item.docInfo.docTitle ? item.docInfo.docTitle : '',
+											describe: item.docInfo && item.docInfo.special ? item.docInfo.special : '',
+											surplus: item.docInfo && item.docInfo.total1 ? item.docInfo.total1 : 0,
+											depName:item.depName,
+											pbCode: item.pbCode,
+											docCode: item.docInfo && item.docInfo.docCode ? item.docInfo.docCode : '',
+											type: 0,
+											active: (new Date().getTime()< new Date(newdate).getTime())?true:false,
+											dzInfo: item.dzInfo
+										});
+									}
+									if( item.timeType == '下午') {
+										bottomArr.push({
+											name: item.docInfo && item.docInfo.docName ? item.docInfo.docName : '',
+											img: '',
+											price: item.etPrice,
+											postion: item.docInfo && item.docInfo.docTitle ? item.docInfo.docTitle : '',
+											describe: item.docInfo && item.docInfo.special ? item.docInfo.special : '',
+											surplus: item.docInfo && item.docInfo.total2 ? item.docInfo.total2 : 0 ,
+											depName:item.depName,
+											pbCode: item.pbCode,
+											docCode: item.docInfo && item.docInfo.docCode ? item.docInfo.docCode : '',
+											type: 1,
+											active: (new Date().getTime()< new Date(newdate).getTime())?true:false,
+											dzInfo: item.dzInfo
+										});
+									}
+								}
+							}
+							
+							this.list = [topArr,bottomArr]
+						} else {
+							this.list = [[],[]];
+						}
+						this.currentDate = day;
+						uni.hideLoading();
+					}
 				})
 			}
 		}

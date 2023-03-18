@@ -7,7 +7,7 @@
         <scroll-view class="day-vew flex-1" scroll-x="true" :scroll-left="LeftWid" scroll-with-animation>
             <view class="day-item" v-for="(item,index) in weekInfo" :key="index" @click="chooseDay(index)">
                     <view class="week">{{item.week}}</view>
-                    <view :class="['hasflag',hasData[item.date]?'active':'']">{{hasData[item.date]?'有号':'无号'}}</view>
+                    <!-- <view :class="['hasflag',hasData[item.date]?'active':'']">{{hasData[item.date]?'有号':'无号'}}</view> -->
                     <view :class="['day',current == index?'active':'']"> {{item.day}}</view>
             </view>
         </scroll-view>
@@ -21,12 +21,12 @@
 <script>
 export default {
     props: {
-        hasData:{
-            type: Object,
-            default: ()=> {
-                return {}
-            }
-        }
+		classId:{
+			type: String,
+			default: ()=> {
+			    return ''
+			}
+		}
     },
     data() {
         return {
@@ -36,8 +36,9 @@ export default {
         }
     },
     created() {
-        this.setCurrent();
-        this.$emit('clickDate',this.weekInfo[0]['date']);
+        //this.setCurrent();
+		this.setDate();
+       
     },
     methods: {
         dealTime(num) {
@@ -81,15 +82,33 @@ export default {
             }
             this.weekInfo = arr;
         },
+		setDate() {
+			this.$request({
+				path:`/user/mobile/getDateList?deptId=${this.classId}`,
+			}).then(res=>{
+				if(res.data.code == 200) {
+					this.weekInfo = res.data.data;
+					this.$emit('getDateData',this.weekInfo[0]['date']);
+				}
+			})
+		},
         clickLast() {
-            this.current >= 1  && (this.current-=1,this.LeftWid -= 50, this.$emit('clickDate',this.weekInfo[this.current]['date']))
+			if (this.current >= 1){
+				this.current-=1
+				this.LeftWid -= 50
+				this.$emit('getDateData',this.weekInfo[this.current]['date']);
+			}
         },
         clickNext() {
-            this.current < 6  && (this.current+=1,this.LeftWid += 50,this.$emit('clickDate',this.weekInfo[this.current]['date']))
+			if (this.current < this.weekInfo.length) {
+				this.current+=1
+				this.LeftWid += 50
+				this.$emit('getDateData',this.weekInfo[this.current]['date'])
+			}
         },
         chooseDay(index) {
             this.current = index;
-            this.$emit('clickDate',this.weekInfo[index]['date']);
+            this.$emit('getDateData',this.weekInfo[index]['date']);
         }
     }
 }
