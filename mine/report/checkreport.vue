@@ -91,7 +91,6 @@
 		onLoad(options) {
 			const dates = new Date()
 			dates.setMonth(dates.getMonth() - 3)
-
 			this.startDate = dates.toISOString().slice(0, 10)
 
 			if (options.item) {

@@ -58,10 +58,10 @@
 			return {
 				utils,
 				userInfo:{
-					name:"张某某",
-					idcard:'522122xxxxxxxxx0011'
+					name:"xxx",
+					idcard:''
 				},
-				startDate:new Date().toISOString().slice(0, 10),
+				startDate: null,
 				endDate:new Date().toISOString().slice(0, 10),
 				list:[
 					// {
@@ -86,10 +86,12 @@
 			}
 		},
 		onLoad(options) {
-			console.log("options.item",options.item);
+			const dates = new Date()
+			dates.setMonth(dates.getMonth() - 3)
+			this.startDate = dates.toISOString().slice(0, 10)
+			
 			if(options.item){
 				let item = JSON.parse(options.item);
-				
 			}
 			this.requestList();
 			// this.getCheckreportbyUserId();

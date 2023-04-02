@@ -61,12 +61,11 @@
 			<view v-if="testReport && testReport.picUrl">
 				<!-- 图片 -->
 				<view v-if="testReport.type == 'image'" class="report-container">
-					<image :src="testReport.picUrl" mode='widthFix'></image>
+					<image :src="cacheFilePath" mode='widthFix' @click="downloadAndOpen(true)"></image>
 				</view>
 				<!-- PDF -->
 				<view v-if="testReport.type == 'pdf'" class="report-container-pdf">
-					<view class="open-btn" @click="openPdf">附件</view>
-					<!-- <web-view :src="testReport.picUrl"></web-view> -->
+					<view class="open-btn" @click="downloadAndOpen(true)">点此打开（pdf文件报告）</view>
 				</view>
 			</view>
 		</view>
@@ -80,7 +79,8 @@
 		data() {
 			return {
 				fileHost: '',
-				testReport: {}
+				testReport: {},
+				cacheFilePath: "",
 			}
 		},
 		onLoad(options) {
@@ -91,70 +91,6 @@
 			}
 		},
 		methods: {
-			openPdf() {
-				let that = this;
-				// #ifdef MP-WEIXIN
-				uni.showLoading({
-					title: '加载中...'
-				})
-				if (that.cachePdfFilePath) {
-					wx.openDocument({
-						filePath: that.cachePdfFilePath,
-						fileType: 'pdf',
-						success: function(res) {
-							uni.hideLoading()
-						},
-						fail: function(err) {
-							uni.hideLoading()
-							console.log('fail:' + JSON.stringify(err));
-						}
-					});
-				} else {
-					wx.downloadFile({
-						url: this.testReport.picUrl,
-						success: function(res) {
-							uni.hideLoading()
-							that.cachePdfFilePath = res.tempFilePath;
-							uni.showLoading({
-								title: '正在打开',
-								mask: true
-							})
-							wx.openDocument({
-								filePath: that.cachePdfFilePath,
-								fileType: 'pdf',
-								success: function(res) {
-									console.log(res)
-									uni.hideLoading()
-								},
-								fail: function(err) {
-									uni.hideLoading()
-									console.log('fail:' + JSON.stringify(err));
-								}
-							});
-						},
-						fail: function(err) {
-							uni.hideLoading()
-							console.log('fail:' + JSON.stringify(err));
-						}
-					});
-				}
-				// #endif
-
-				// // #ifndef MP-WEIXIN
-				// uni.openDocument({
-				// 	filePath: this.testReport.picUrl,
-				// 	filetype: "pdf",
-				// 	showMenu: true,
-				// 	success: function(file) {
-				// 		console.log("file-success", file)
-				// 	},
-				// 	fail: function(file) {
-				// 		console.log("file-fail", file)
-				// 	}
-				// })
-				// // #endif
-			},
-
 			getDetailInfoByPatient(item) {
 				let that = this;
 				let date = new Date().toISOString().slice(0, 10);
@@ -169,8 +105,12 @@
 				}).then(res => {
 					if (res.data.code == 200) {
 						let resultData = res.data.data
-						resultData.picUrl = this.fileHost + resultData.picUrl
+						if (resultData.picUrl) {
+							resultData.picUrl = that.fileHost + resultData.picUrl
+						}
 						that.testReport = resultData;
+						that.downloadAndOpen()
+
 					} else {
 						uni.showToast({
 							icon: 'none',
@@ -179,6 +119,67 @@
 					}
 				})
 			},
+			
+			downloadAndOpen(needOpen) {
+				if (!this.testReport.picUrl) return
+				let that = this
+				if (needOpen) {
+					uni.showLoading({
+						title: '正在打开',
+						mask: true
+					})
+				}
+				if (that.cacheFilePath) {
+					this.open()
+					return
+				}
+				wx.downloadFile({
+					url: that.testReport.picUrl,
+					success: function(res) {
+						uni.hideLoading()
+						that.cacheFilePath = res.tempFilePath;
+
+						if (needOpen) {
+							that.open()
+						}
+					},
+					fail: function(err) {
+						that.cacheFilePath = ""
+						uni.showToast({
+							title: '加载失败'
+						})
+						uni.hideLoading()
+						console.log('fail:' + JSON.stringify(err));
+					}
+				});
+			},
+
+			open() {
+				let that = this
+				if (that.testReport.type == 'image') {
+					uni.hideLoading()
+					uni.previewImage({
+						current: 0,
+						urls: [that.cacheFilePath]
+					})
+					return
+				}
+				uni.openDocument({
+					filePath: that.cacheFilePath,
+					fileType: 'pdf',
+					success: function(res) {
+						uni.hideLoading()
+					},
+					fail: function(err) {
+						that.cacheFilePath = ""
+						uni.showToast({
+							title: '打开失败'
+						})
+						uni.hideLoading()
+						console.log('fail:' + JSON.stringify(err));
+					}
+				});
+			}, 
 		}
 	}
 </script>
@@ -267,6 +268,7 @@
 			font-size: 14px;
 			color: blueviolet;
 			font-weight: bold;
+			text-decoration: underline;
 		}
 	}
 </style>
