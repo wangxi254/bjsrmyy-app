@@ -100,8 +100,8 @@
 			uni.setNavigationBarTitle({
 			　　title:option.title
 			})
-			this.getexpert();
-			//this.getExpert();
+			//this.getexpert();
+			this.getExpert();
 		},
 		methods: {
 			getDateforSearch() {
@@ -286,7 +286,7 @@
 					currentArr = arr
 				}else currentArr = [arr[0]]
 				let PromiseAll  = currentArr.map(item=>{ return this.getEachDay(item) })
-				Promise.all(PromiseAll).then(res=> {
+				/* Promise.all(PromiseAll).then(res=> {
 					let data = []
 					res.map(item=>{
 						data = [...data,...item]
@@ -309,7 +309,7 @@
 					}else{
 						this.clickDate(this.currentDate)
 					}
-				})
+				}) */
 				
 				return
 				// this.$request({

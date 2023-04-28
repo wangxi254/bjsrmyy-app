@@ -7,7 +7,7 @@
         <scroll-view class="day-vew flex-1" scroll-x="true" :scroll-left="LeftWid" scroll-with-animation>
             <view class="day-item" v-for="(item,index) in weekInfo" :key="index" @click="chooseDay(index)">
                     <view class="week">{{item.week}}</view>
-                    <!-- <view :class="['hasflag',hasData[item.date]?'active':'']">{{hasData[item.date]?'有号':'无号'}}</view> -->
+                    <view :class="['hasflag',item.hasNum === 'true' ? 'active' : '' ]">{{item.hasNum === 'true' ? '有号' : '无号'}}</view>
                     <view :class="['day',current == index?'active':'']"> {{item.day}}</view>
             </view>
         </scroll-view>
