@@ -26,7 +26,7 @@
 				擅长
 			</view>
 			<view class="item-detail">
-				{{info.special}}
+				{{info.docDes}}
 			</view>
 		</view>
 		

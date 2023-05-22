@@ -19,11 +19,11 @@
 							{{item.docTitle ? item.docTitle : ''}}
 						</view>
 						<view class="font-size-m12-w400">
-							{{item.special ? item.special : ''}}
+							{{item.docDes ? item.docDes : ''}}
 						</view>
 					</view>
 					<view class="font-size-m12-w400 special margint5">
-						擅长：{{item.special ? item.special : ''}}
+						擅长：{{item.docDes ? item.docDes : ''}}
 					</view>
 				</view>
 			</view>
