@@ -100,14 +100,14 @@
 			</view>
 		</view>
 
-		<view v-if="testReport && testReport.picUrl">
+		<view v-if="testReport && testReport.reportPdfUrl">
 			<!-- 图片 -->
 			<view v-if="testReport.type == 'image'" class="report-container">
 				<image :src="cacheFilePath" mode='widthFix' @click="downloadAndOpen(true)"></image>
 			</view>
 			<!-- PDF -->
 			<view v-if="testReport.type == 'pdf'" class="report-container-pdf">
-				<view class="open-btn" @click="downloadAndOpen(true)">附件</view>
+				<view class="open-btn" @click="downloadAndOpen(true)">点击打开附件</view>
 			</view>
 		</view>
 	</view>
@@ -145,8 +145,11 @@
 				}).then(res => {
 					if (res.data.code == 200) {
 						let resultData = res.data.data
-						if (resultData.picUrl) {
-							resultData.picUrl = that.fileHost + resultData.picUrl
+						if (resultData.reportPdfUrl) {
+							if (resultData.reportPdfUrl.indexOf('http:') == -1 &&
+								resultData.reportPdfUrl.indexOf('https:') == -1) {
+								resultData.reportPdfUrl = that.fileHost + resultData.reportPdfUrl
+							}
 						}
 						that.testReport = resultData;
 						that.downloadAndOpen()
@@ -158,9 +161,9 @@
 					}
 				})
 			},
-			
+
 			downloadAndOpen(needOpen) {
-				if (!this.testReport.picUrl) return
+				if (!this.testReport.reportPdfUrl) return
 				let that = this
 				if (needOpen) {
 					uni.showLoading({
@@ -173,7 +176,7 @@
 					return
 				}
 				wx.downloadFile({
-					url: that.testReport.picUrl,
+					url: that.testReport.reportPdfUrl,
 					success: function(res) {
 						uni.hideLoading()
 						that.cacheFilePath = res.tempFilePath;
