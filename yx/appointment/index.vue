@@ -23,11 +23,14 @@
 							<text class="name">{{x.name}}</text>
 							<view class="flex items-center">
 								<text class="price">挂号费：￥{{x.price}}</text>
-								<view v-if="active" class="surplus" @click="open(x)">
+								<!-- <view :class="['surplus',x.active?'active':'']" @click="open(x)">
+									{{!showDate?'可挂号':'可预约'}}({{x.surplus}})
+								</view> -->
+								<view v-if="x.active" class="surplus active" @click="open(x)">
 									{{!showDate?'可挂号':'可预约'}}({{x.surplus}})
 								</view>
-								<view v-else class="active">
-									已过时段
+								<view v-else class="surplus">
+									可挂号(0)
 								</view>
 							</view>
 						</view>
