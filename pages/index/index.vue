@@ -7,7 +7,9 @@
 				浙江省人民医院毕节医院
 			</view>
 		</view>
-		<image class="hs-banner" mode="" :src="hospitalInto.homePageImg ? hospitalInto.homePageImg : 'https://second-vedio.oss-cn-shenzhen.aliyuncs.com/image/d4860fdbe172f0285deb8a2cc4a58c64.jpeg'"></image>
+		<image class="hs-banner" mode=""
+			:src="hospitalInto.homePageImg ? hospitalInto.homePageImg : 'https://second-vedio.oss-cn-shenzhen.aliyuncs.com/image/d4860fdbe172f0285deb8a2cc4a58c64.jpeg'">
+		</image>
 		<view class="flex-row paadinglr15">
 			<view class="notifacationtitle">
 				最新通知｜
@@ -45,7 +47,7 @@
 		<view class="menus">
 			<zy-grid @gridClick="gridClick" :grid-list=menus :show-tip="false" :col="3"></zy-grid>
 		</view>
-		
+
 		<view class="hs-bar">
 			<view class="title">
 				医院导航
@@ -73,8 +75,8 @@
 		<view style="height: 88px;"></view>
 		<tabbar current="0" @tabClick="tabClick" />
 	</view>
-	
-	
+
+
 </template>
 
 <script>
@@ -85,78 +87,100 @@
 	import authDialog from "../../components/authDialog/authDialog.vue";
 	import tabbar from "../../components/tabbar.vue";
 	import config from "../../config.js";
-	export default{
-		data(){
+	export default {
+		data() {
 			return {
-				dataList:[
-						// {id:1,img:'/static/tabbar/home.png',title:'医院介绍',detail:'appointment',navigation:'../../hospitalIntro/index'},
-						// {id:3,img:'/static/tabbar/home.png',title:'就诊指南',detail:'appointment',navigation:'../../hospitalIntro/neadnkow'},
-						// {id:4,img:'/static/tabbar/home.png',title:'科室介绍',detail:'appointment',navigation:'../../hospitalIntro/roomIntro'},
-						// {id:5,img:'/static/tabbar/home.png',title:'专家介绍',detail:'appointment',navigation:'../../hospitalIntro/expertIntro'},
-						// {id:6,img:'/static/tabbar/home.png',title:'楼层导航',detail:'appointment',navigation:'../../hospitalIntro/FloorList'},
-						// {id:7,img:'/static/tabbar/home.png',title:'电子导诊单',detail:'appointment',navigation:'../../hospitalIntro/guideDiag'},
-						// {id:9,img:'/static/tabbar/home.png',title:'预约挂号',detail:'Appointment',navigation:'../../yx/Booking_instructions/index?type=2'},
-						// {id:9,img:'/static/tabbar/home.png',title:'预约挂号',detail:'Appointment',navigation:'../../yx/appointment/payment'},
-						// {id:10,img:'/static/tabbar/home.png',title:'当日挂号',detail:'Day Registration',navigation:'../../yx/Booking_instructions/index?type=1'},
-						// {id:11,img:'/static/tabbar/home.png',title:'智能导诊',detail:'Intelligent Guidance',navigation:'../../guidance/index'},
-						// {id:12,img:'/static/tabbar/home.png',title:'出诊信息',detail:'scheduling',navigation:'../../scheduling/index'},
-						// {id:13,img:'/static/tabbar/home.png',title:'检查报告',detail:'appointment',navigation:'../../mine/report/checkreport'},
-						// {id:14,img:'/static/tabbar/home.png',title:'检验报告',detail:'appointment',navigation:'../../mine/report/testreport'},
-						// {id:15,img:'/static/tabbar/home.png',title:'缴费记录',detail:'records',navigation:'../../records/PayRecord'},
-						{id:16,img:'/static/tabbar/home.png',title:'门诊清单',detail:'records',navigation:'../../records/listRecord'},
-						// {id:17,img:'/static/tabbar/home.png',title:'预约记录',detail:'Appointment',navigation:'../../yx/appointRecord/index'},
-						// {id:18,img:'/static/tabbar/home.png',title:'挂号记录',detail:'Appointment',navigation:'../../yx/registerRecord/index'},
-						// {id:19,img:'/static/tabbar/home.png',title:'住院预交金',detail:'Appointment',navigation:'../../records/roomPay'},
-						{id:20,img:'/static/tabbar/home.png',title:'诊间支付',detail:'Appointment',navigation:'../../records/listPay'},
-						{id:21,img:'/static/tabbar/home.png',title:'核算检测',detail:'Appointment',navigation:'../../yx/hsTest/index'}
-				   ],
-				banners:[
+				dataList: [
+					// {id:1,img:'/static/tabbar/home.png',title:'医院介绍',detail:'appointment',navigation:'../../hospitalIntro/index'},
+					// {id:3,img:'/static/tabbar/home.png',title:'就诊指南',detail:'appointment',navigation:'../../hospitalIntro/neadnkow'},
+					// {id:4,img:'/static/tabbar/home.png',title:'科室介绍',detail:'appointment',navigation:'../../hospitalIntro/roomIntro'},
+					// {id:5,img:'/static/tabbar/home.png',title:'专家介绍',detail:'appointment',navigation:'../../hospitalIntro/expertIntro'},
+					// {id:6,img:'/static/tabbar/home.png',title:'楼层导航',detail:'appointment',navigation:'../../hospitalIntro/FloorList'},
+					// {id:7,img:'/static/tabbar/home.png',title:'电子导诊单',detail:'appointment',navigation:'../../hospitalIntro/guideDiag'},
+					// {id:9,img:'/static/tabbar/home.png',title:'预约挂号',detail:'Appointment',navigation:'../../yx/Booking_instructions/index?type=2'},
+					// {id:9,img:'/static/tabbar/home.png',title:'预约挂号',detail:'Appointment',navigation:'../../yx/appointment/payment'},
+					// {id:10,img:'/static/tabbar/home.png',title:'当日挂号',detail:'Day Registration',navigation:'../../yx/Booking_instructions/index?type=1'},
+					// {id:11,img:'/static/tabbar/home.png',title:'智能导诊',detail:'Intelligent Guidance',navigation:'../../guidance/index'},
+					// {id:12,img:'/static/tabbar/home.png',title:'出诊信息',detail:'scheduling',navigation:'../../scheduling/index'},
+					// {id:13,img:'/static/tabbar/home.png',title:'检查报告',detail:'appointment',navigation:'../../mine/report/checkreport'},
+					// {id:14,img:'/static/tabbar/home.png',title:'检验报告',detail:'appointment',navigation:'../../mine/report/testreport'},
+					// {id:15,img:'/static/tabbar/home.png',title:'缴费记录',detail:'records',navigation:'../../records/PayRecord'},
 					{
-						carouselImageUrl:''
+						id: 16,
+						img: '/static/tabbar/home.png',
+						title: '门诊清单',
+						detail: 'records',
+						navigation: '../../records/listRecord'
+					},
+					// {id:17,img:'/static/tabbar/home.png',title:'预约记录',detail:'Appointment',navigation:'../../yx/appointRecord/index'},
+					// {id:18,img:'/static/tabbar/home.png',title:'挂号记录',detail:'Appointment',navigation:'../../yx/registerRecord/index'},
+					// {id:19,img:'/static/tabbar/home.png',title:'住院预交金',detail:'Appointment',navigation:'../../records/roomPay'},
+					{
+						id: 20,
+						img: '/static/tabbar/home.png',
+						title: '诊间支付',
+						detail: 'Appointment',
+						navigation: '../../records/listPay'
+					},
+					{
+						id: 21,
+						img: '/static/tabbar/home.png',
+						title: '核算检测',
+						detail: 'Appointment',
+						navigation: '../../yx/hsTest/index'
 					}
 				],
-				props:{
-					image:"imageUrl",
+				banners: [{
+					carouselImageUrl: ''
+				}],
+				props: {
+					image: "imageUrl",
 				},
-				hospitalInto:{},
-				item1:{
-					img:'../../static/index/appointment.png',
-					title:'预约挂号',
-					detail:'提前挂号免排队',
-					no:'1',
-					navigation:'../../yx/Booking_instructions/index?type=2',
-					hashospitalInto:false,
-					noti:1,
-					needLogin:true,
+				hospitalInto: {},
+				item1: {
+					img: '../../static/index/appointment.png',
+					title: '预约挂号',
+					detail: '提前挂号免排队',
+					no: '1',
+					navigation: '../../yx/Booking_instructions/index?type=2',
+					hashospitalInto: false,
+					noti: 1,
+					needLogin: true,
 				},
-				item2:{
-					img:'../../static/index/todaypoint.png',
-					title:'当日挂号',
-					detail:'在线挂号',
-					no:'2',
-					navigation:'../../yx/Booking_instructions/index?type=1',
-					hashospitalInto:false,
-					noti:1,
-					needLogin:true,
+				item2: {
+					img: '../../static/index/todaypoint.png',
+					title: '当日挂号',
+					detail: '在线挂号',
+					no: '2',
+					navigation: '../../yx/Booking_instructions/index?type=1',
+					hashospitalInto: false,
+					noti: 1,
+					needLogin: true,
 				},
-				item3:{
-					img:'../../static/index/pay.png',
-					title:'门诊缴费',
-					detail:'在线快捷缴费',
-					no:'3',
-					navigation:'../../records/listRecord',
+				item3: {
+					img: '../../static/index/pay.png',
+					title: '门诊缴费',
+					detail: '在线快捷缴费',
+					no: '3',
+					navigation: '../../records/listRecord',
 					//navigation:'../../records/listPay',
-					hashospitalInto:false,
-					noti:2,
-					needLogin:true,
+					hashospitalInto: false,
+					noti: 2,
+					needLogin: true,
 				},
-				menus:[
+				menus: [{
+						img: '../../static/index/home_location_icon.png',
+						title: '医院导航',
+						no: 10,
+						navigation: '../../guidance/index',
+						hashospitalInto: false,
+					},
 					{
-						img:'../../static/index/menu-item1.png',
-						title:'智能导诊',
-						no:1,
-						navigation:'../../guidance/index',
-						hashospitalInto:false,
+						img: '../../static/index/menu-item1.png',
+						title: '智能导诊',
+						no: 1,
+						navigation: '../../guidance/index',
+						hashospitalInto: false,
 					},
 					// {
 					// 	img:'../../static/index/menu-item2.png',
@@ -166,69 +190,69 @@
 					// 	hashospitalInto:false,
 					// },
 					{
-						img:'../../static/index/menu-item3.png',
-						title:'住院缴费',
-						no:3,
-						noti:1,
-						navigation:'../../records/roomPay',
-						hashospitalInto:false,
-						needLogin:true,
+						img: '../../static/index/menu-item3.png',
+						title: '住院缴费',
+						no: 3,
+						noti: 1,
+						navigation: '../../records/roomPay',
+						hashospitalInto: false,
+						needLogin: true,
 					},
 					{
-						img:'../../static/index/menu-item4.png',
-						title:'检验报告',
-						no:4,
-						navigation:'../../mine/report/testreport',
-						hashospitalInto:false,
-						needLogin:true,
+						img: '../../static/index/menu-item4.png',
+						title: '检验报告',
+						no: 4,
+						navigation: '../../mine/report/testreport',
+						hashospitalInto: false,
+						needLogin: true,
 					},
 					{
-						img:'../../static/index/menu-item5.png',
-						title:'检查报告',
-						no:5,
-						navigation:'../../mine/report/checkreport',
-						hashospitalInto:false,
-						needLogin:true,
+						img: '../../static/index/menu-item5.png',
+						title: '检查报告',
+						no: 5,
+						navigation: '../../mine/report/checkreport',
+						hashospitalInto: false,
+						needLogin: true,
 					},
 					{
-						img:'../../static/index/menu-item9.png',
-						title:'影像报告',
-						no:9,
-						navigation:'../../mine/report/yxreport',
-						hashospitalInto:false,
-						needLogin:true,
+						img: '../../static/index/menu-item9.png',
+						title: '影像报告',
+						no: 9,
+						navigation: '../../mine/report/yxreport',
+						hashospitalInto: false,
+						needLogin: true,
 					},
 					{
-						img:'../../static/index/menu-item6.png',
-						title:'缴费记录',
-						no:6,
-						navigation:'../../records/PayRecord',
-						hashospitalInto:false,
-						needLogin:true,
+						img: '../../static/index/menu-item6.png',
+						title: '缴费记录',
+						no: 6,
+						navigation: '../../records/PayRecord',
+						hashospitalInto: false,
+						needLogin: true,
 					},
 					{
-						img:'../../static/index/menu-item10.png',
-						title:'挂号记录',
-						no:7,
-						navigation:'../../yx/registerRecord/index',
-						hashospitalInto:false,
-						needLogin:true,
+						img: '../../static/index/menu-item10.png',
+						title: '挂号记录',
+						no: 7,
+						navigation: '../../yx/registerRecord/index',
+						hashospitalInto: false,
+						needLogin: true,
 					},
 					{
-						img:'../../static/index/menu-item8.png',
-						title:'预约记录',
-						no:7,
-						navigation:'../../yx/appointRecord/index',
-						hashospitalInto:false,
-						needLogin:true,
+						img: '../../static/index/menu-item8.png',
+						title: '预约记录',
+						no: 7,
+						navigation: '../../yx/appointRecord/index',
+						hashospitalInto: false,
+						needLogin: true,
 					},
 					{
-						img:'../../static/index/menu-item7.png',
-						title:'核酸检测',
-						no:8,
-						navigation:'../../yx/hsTest/index',
-						hashospitalInto:false,
-						needLogin:true,
+						img: '../../static/index/menu-item7.png',
+						title: '核酸检测',
+						no: 8,
+						navigation: '../../yx/hsTest/index',
+						hashospitalInto: false,
+						needLogin: true,
 					},
 					// {
 					// 	img:'../../static/index/menu-item7.png',
@@ -238,46 +262,45 @@
 					// 	hashospitalInto:false,
 					// 	needLogin:true,
 					// }
-					
+
 				],
-				naviMesus:[
-					{
-						img:'../../static/index/menu-item-navi1.png',
-						title:'医院介绍',
-						no:1,
-						navigation:'../../hospitalIntro/index',
-						hashospitalInto:true,
+				naviMesus: [{
+						img: '../../static/index/menu-item-navi1.png',
+						title: '医院介绍',
+						no: 1,
+						navigation: '../../hospitalIntro/index',
+						hashospitalInto: true,
 					},
 					{
-						img:'../../static/index/menu-item-navi2.png',
-						title:'出诊信息',
-						no:2,
-						navigation:'../../scheduling/index',
-						hashospitalInto:false,
+						img: '../../static/index/menu-item-navi2.png',
+						title: '出诊信息',
+						no: 2,
+						navigation: '../../scheduling/index',
+						hashospitalInto: false,
 					},
 					{
-						img:'../../static/index/menu-item-navi3.png',
-						title:'科室介绍',
-						no:3,
-						navigation:'../../hospitalIntro/roomIntro',
-						hashospitalInto:false,
+						img: '../../static/index/menu-item-navi3.png',
+						title: '科室介绍',
+						no: 3,
+						navigation: '../../hospitalIntro/roomIntro',
+						hashospitalInto: false,
 					},
 					{
-						img:'../../static/index/menu-item-navi4.png',
-						title:'专家信息',
-						no:4,
-						navigation:'../../hospitalIntro/expertIntro',
-						hashospitalInto:false,
+						img: '../../static/index/menu-item-navi4.png',
+						title: '专家信息',
+						no: 4,
+						navigation: '../../hospitalIntro/expertIntro',
+						hashospitalInto: false,
 					},
 					{
-						img:'../../static/index/menu-item-navi5.png',
-						title:'楼层导航',
-						no:5,
-						navigation:'../../hospitalIntro/FloorList',
-						hashospitalInto:true,
+						img: '../../static/index/menu-item-navi5.png',
+						title: '楼层导航',
+						no: 5,
+						navigation: '../../hospitalIntro/FloorList',
+						hashospitalInto: true,
 					}
 				],
-				news:[
+				news: [
 					// {
 					// 	img:'http://www.pptbz.com/pptpic/UploadFiles_6909/201203/2012031220134655.jpg',
 					// 	title:'心电图、心脏彩超、心脏冠心脉照影三者的区别',
@@ -294,11 +317,11 @@
 					// 	date:'2021-09-10',
 					// }
 				],
-				authShowFlag:true,
-				hoslist:[],
+				authShowFlag: true,
+				hoslist: [],
 			}
 		},
-		components:{
+		components: {
 			hsMenuList,
 			hsBannerView,
 			indexMenuItem,
@@ -311,69 +334,70 @@
 			this.requestHospitalInto();
 		},
 		onShow() {
-			if(uni.getStorageSync("userId")){
+			if (uni.getStorageSync("userId")) {
 				this.authShowFlag = false;
 			}
 		},
-		methods:{
-			menuClick(item){
-				console.log("menuClick:item===>",JSON.stringify(item));
+		methods: {
+			menuClick(item) {
+				console.log("menuClick:item===>", JSON.stringify(item));
 				uni.navigateTo({
-					url:item.navigation,
+					url: item.navigation,
 				})
 			},
-			bannerClick(item){
+			bannerClick(item) {
 				// uni.navigateTo({
 				// 	url:"../auth/auth"
 				// })
-				console.log("bannerClick:item===>",JSON.stringify(item))
+				console.log("bannerClick:item===>", JSON.stringify(item))
 				uni.navigateTo({
-					url:`../../hospitalIntro/newdetail?item=${JSON.stringify(item)}`
+					url: `../../hospitalIntro/newdetail?item=${JSON.stringify(item)}`
 				})
 			},
-			newsClick(){
-				if(this.hoslist.length > 0){
+			newsClick() {
+				if (this.hoslist.length > 0) {
 					let item = this.hoslist[0];
 					uni.navigateTo({
-						url:`../../hospitalIntro/newdetail?item=${JSON.stringify(item)}`
+						url: `../../hospitalIntro/newdetail?item=${JSON.stringify(item)}`
 					})
 				}
 			},
-			hospitalnews(id){
+			hospitalnews(id) {
 				let that = this;
 				this.$request({
-					path:"/hospitalInfo/mobile/selectUsableHospitalInfoByHospital",
-					query:{
-						hospitalId:id
+					path: "/hospitalInfo/mobile/selectUsableHospitalInfoByHospital",
+					query: {
+						hospitalId: id
 					},
-				}).then(res=>{
-					if(res.data.code == 200){
+				}).then(res => {
+					if (res.data.code == 200) {
 						let list = res.data.data;
 						let array = [];
 						let news = [];
 						let hoslist = [];
-						for(let i = 0; i < list.length; i++){
-							const banner =  list[i];
+						for (let i = 0; i < list.length; i++) {
+							const banner = list[i];
 
-							let imageUrl = banner.carouselImageUrl && banner.carouselImageUrl.indexOf('http')==-1 ? config.baseUrl + '/'+ banner.carouselImageUrl : banner.carouselImageUrl;
-							console.log("imageUrl===>",imageUrl);
-							if(banner.isShow == 1 && banner.isRotation == 1 && i < 3){
+							let imageUrl = banner.carouselImageUrl && banner.carouselImageUrl.indexOf('http') == -
+								1 ? config.baseUrl + '/' + banner.carouselImageUrl : banner.carouselImageUrl;
+							console.log("imageUrl===>", imageUrl);
+							if (banner.isShow == 1 && banner.isRotation == 1 && i < 3) {
 								array.push({
-									imageUrl:imageUrl,
+									imageUrl: imageUrl,
 									...banner
 								});
 							}
-							if(i <= 5 && banner.isShow == 1 && banner.isRotation == 0){
+							if (i <= 5 && banner.isShow == 1 && banner.isRotation == 0) {
 								news.push({
-									imageUrl:imageUrl,
+									imageUrl: imageUrl,
 									...banner
 								});
 							}
 							hoslist.push({
-								imageUrl:imageUrl,
+								imageUrl: imageUrl,
 								...banner
 							});
-							
+
 						}
 						that.banners = array;
 						that.news = news;
@@ -381,27 +405,35 @@
 					}
 				})
 			},
-			async requestHospitalInto(){
-				const [error,result] = await this.$arequest({
-					path:"/hospital/mobile/getHospital",
+			async requestHospitalInto() {
+				const [error, result] = await this.$arequest({
+					path: "/hospital/mobile/getHospital",
 				});
-				console.log("getHospital==>",JSON.stringify(result));
-				console.log("getHospital==>",JSON.stringify(result.data.code));
-				if(result.data.code == 200){
+				console.log("getHospital==>", JSON.stringify(result));
+				console.log("getHospital==>", JSON.stringify(result.data.code));
+				if (result.data.code == 200) {
 					this.hospitalInto = result.data.data;
 					this.hospitalnews(result.data.data.id);
 				}
 			},
-			gridClick(item){
-				
-				if(item.needLogin && !uni.getStorageSync("userId")){
+			gridClick(item) {
+				if (item.no == 10) { 
+					uni.openLocation({
+						latitude: 27.304252,
+						longitude: 105.281939,
+						name: this.hospitalInto.name
+					});
+					return
+				}
+				if (item.needLogin && !uni.getStorageSync("userId")) {
 					return uni.navigateTo({
-						url:"../auth/auth"
+						url: "../auth/auth"
 					})
 				}
-				let navigation = item.navigation + (item.hashospitalInto ? `?item=${JSON.stringify(this.hospitalInto)}` : '');
-				console.log("navigation===>",navigation);
-				if(item.noti==1){
+				let navigation = item.navigation + (item.hashospitalInto ? `?item=${JSON.stringify(this.hospitalInto)}` :
+					'');
+				console.log("navigation===>", navigation);
+				if (item.noti == 1) {
 					console.log("noti===>");
 					var thin = this;
 					// uni.requestSubscribeMessage({
@@ -419,7 +451,10 @@
 					//2 退费通知 WflkJ_8XxvotL-XW6rlstevkOQlmc6zimdrVlsGRMA4
 					//3 挂号成功通知 7cILJ8g_K-nfBaWuIDozYW2w9bNUHCcaKlcaPMHh-UI
 					uni.requestSubscribeMessage({
-						tmplIds: ['WflkJ_8XxvotL-XW6rlstevkOQlmc6zimdrVlsGRMA4','_WYyoRoxFhHNTip-OVf8nzt6XA0b4IszVaf_qaorQNY','7cILJ8g_K-nfBaWuIDozYW2w9bNUHCcaKlcaPMHh-UI'], //退款成功、退款失败
+						tmplIds: ['WflkJ_8XxvotL-XW6rlstevkOQlmc6zimdrVlsGRMA4',
+							'_WYyoRoxFhHNTip-OVf8nzt6XA0b4IszVaf_qaorQNY',
+							'7cILJ8g_K-nfBaWuIDozYW2w9bNUHCcaKlcaPMHh-UI'
+						], //退款成功、退款失败
 						success(res) {
 							console.log(res)
 							thin.gotoNavi(navigation);
@@ -429,7 +464,7 @@
 							thin.gotoNavi(navigation);
 						},
 					})
-				}else if(item.noti==2){
+				} else if (item.noti == 2) {
 					var thin = this;
 					// uni.requestSubscribeMessage({
 					// 	tmplIds: ['MoiTqzChVSM7_DEWK8VHEe0SMngBLN-F9prORB8Eco0','WflkJ_8XxvotL-XW6rlstevkOQlmc6zimdrVlsGRMA4','7cILJ8g_K-nfBaWuIDozYW2w9bNUHCcaKlcaPMHh-UI','M8go0PLVzfKT2RXixiZ_YUngqaMjg2sl54x_OFxVcFQ'], //退款成功、退款失败
@@ -443,7 +478,10 @@
 					// 	},
 					// })
 					uni.requestSubscribeMessage({
-						tmplIds: ['WflkJ_8XxvotL-XW6rlstevkOQlmc6zimdrVlsGRMA4','_WYyoRoxFhHNTip-OVf8nzt6XA0b4IszVaf_qaorQNY','7cILJ8g_K-nfBaWuIDozYW2w9bNUHCcaKlcaPMHh-UI'], //退款成功、退款失败
+						tmplIds: ['WflkJ_8XxvotL-XW6rlstevkOQlmc6zimdrVlsGRMA4',
+							'_WYyoRoxFhHNTip-OVf8nzt6XA0b4IszVaf_qaorQNY',
+							'7cILJ8g_K-nfBaWuIDozYW2w9bNUHCcaKlcaPMHh-UI'
+						], //退款成功、退款失败
 						success(res) {
 							console.log(res)
 							thin.gotoNavi(navigation);
@@ -453,36 +491,35 @@
 							thin.gotoNavi(navigation);
 						},
 					})
-				}
-				else{
+				} else {
 					this.gotoNavi(navigation);
 				}
 			},
-			gotoNavi(navigation){
+			gotoNavi(navigation) {
 				uni.navigateTo({
-					url:navigation,
+					url: navigation,
 				})
 			},
-			goDetail(item){
+			goDetail(item) {
 				uni.navigateTo({
-					url:`../../hospitalIntro/newdetail?item=${JSON.stringify(item)}`
+					url: `../../hospitalIntro/newdetail?item=${JSON.stringify(item)}`
 				})
 			},
-			closemodal(e){
+			closemodal(e) {
 				this.authShowFlag = false;
 			},
-			tabClick(e){
-				if(e.index == 0){
+			tabClick(e) {
+				if (e.index == 0) {
 					uni.switchTab({
-						url:"../index/index"
+						url: "../index/index"
 					})
-				}else if(e.index==1){
+				} else if (e.index == 1) {
 					uni.switchTab({
-						url:"../eleguide/eleguide"
+						url: "../eleguide/eleguide"
 					})
-				}else if(e.index == 2){
+				} else if (e.index == 2) {
 					uni.switchTab({
-						url:"../mine/mine"
+						url: "../mine/mine"
 					})
 				}
 			}
@@ -491,20 +528,19 @@
 </script>
 
 <style lang="scss" scoped>
-	
-	page{
+	page {
 		background: #F5F5F5;
 		width: 100%;
 		height: 100%;
 	}
-	
-	.navibarbg{
+
+	.navibarbg {
 		width: 100%;
 		height: 95px;
 		background: #53B7C7;
 	}
-	
-	.navibartitle{
+
+	.navibartitle {
 		font-size: 17px;
 		font-family: PingFang-SC-Semibold, PingFang-SC;
 		font-weight: 600;
@@ -513,9 +549,9 @@
 		height: 24px;
 		padding-left: 15px;
 	}
-	
-	
-	.notifacationtitle{
+
+
+	.notifacationtitle {
 		width: 70px;
 		height: 40px;
 		font-size: 14px;
@@ -524,8 +560,8 @@
 		color: #333333;
 		line-height: 40px;
 	}
-	
-	.notifacationdetail{
+
+	.notifacationdetail {
 		height: 40px;
 		font-size: 14px;
 		font-family: PingFang-SC-Regular, PingFang-SC;
@@ -542,9 +578,9 @@
 		white-space: nowrap;
 		flex: 1;
 	}
-	
-	  
-	.item-icon{
+
+
+	.item-icon {
 		background: #FFFFFF;
 		box-shadow: 0px 2px 10px 0px rgba(0, 67, 77, 0.1);
 		border-radius: 10px;
@@ -554,12 +590,13 @@
 		align-items: center;
 		padding: 15px 0px;
 		margin-left: 15px;
-		.img{
+
+		.img {
 			width: 40px;
 			height: 40px;
 		}
-		
-		.title{
+
+		.title {
 			height: 20px;
 			font-size: 14px;
 			font-family: PingFang-SC-Medium, PingFang-SC;
@@ -571,8 +608,8 @@
 			margin-bottom: 3px;
 			width: 100%;
 		}
-		
-		.detail{
+
+		.detail {
 			height: 16px;
 			font-size: 11px;
 			font-family: PingFang-SC-Regular, PingFang-SC;
@@ -583,22 +620,23 @@
 			text-align: center;
 		}
 	}
-	
-	.menus{
+
+	.menus {
 		padding: 10px 0px;
 	}
-	
-	.margin30{
+
+	.margin30 {
 		margin-top: 30px;
 	}
-	
-	.hs-bar{
+
+	.hs-bar {
 		width: 100%;
 		height: 82px;
 		background: linear-gradient(357deg, #87E7E0 0%, #53B7C7 100%);
 		opacity: 0.9;
 		margin-bottom: 50px;
-		.title{
+
+		.title {
 			padding-top: 15px;
 			padding-left: 15px;
 			font-size: 16px;
@@ -608,8 +646,8 @@
 			line-height: 22px;
 			height: 22px;
 		}
-		
-		.navi-menus-view{
+
+		.navi-menus-view {
 			margin-top: 15px;
 			margin: 10px;
 			background: #FFFFFF;
@@ -617,31 +655,32 @@
 			box-shadow: 0px 2px 10px 0px rgba(0, 67, 77, 0.1);
 		}
 	}
-	
-	.hs-banner{
+
+	.hs-banner {
 		width: 100%;
 		height: 120px;
 	}
-	
-	
-	.cell{
+
+
+	.cell {
 		margin: 0px 10px;
 		border-bottom: 1px solid #F5F5F5;
 		display: flex;
 		justify-content: space-between;
 		background: #FFFFFF;
-		.cont{
-			.title{
+
+		.cont {
+			.title {
 				width: 217px;
 				height: 40px;
 				font-size: 14px;
 				font-family: PingFang-SC-Regular, PingFang-SC;
 				font-weight: 400;
 				color: #333333;
-				
+
 			}
-			
-			.date{
+
+			.date {
 				margin-top: 10px;
 				width: 217px;
 				font-size: 14px;
@@ -650,13 +689,11 @@
 				color: #333333;
 			}
 		}
-		
-		.img{
+
+		.img {
 			width: 50px;
 			height: 50px;
 			float: right;
 		}
 	}
 </style>
-
-
