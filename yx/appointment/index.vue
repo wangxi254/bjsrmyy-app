@@ -1,6 +1,16 @@
 <template>
 	<view class="detailPage">
-		<chooseDay v-if="showDate && !loading" :hasData="hasData" :classId="classId" @getDateData="getDateData" />
+		<div v-if="!limitDoctorDateList || limitDoctorDateList.length == 0">
+			<chooseDay v-if="showDate && !loading" :hasData="hasData" :classId="classId" @getDateData="getDateData" />
+		</div>
+		<div v-else class="top-limit-date">
+			<div v-for="(item,index) in limitDoctorDateList" :key='index' class="item"
+				@click="changeSelectedDate(index,item.date)">
+				<div>{{ getWeek(item.date) }}</div>
+				<div style="color: #53B7C7;margin: 5px 0;">有号</div>
+				<div :class="dateSelectIdx == index ? 'select-point':''">{{ item.date.split('-')[2] }}</div>
+			</div>
+		</div>
 		<view class="sel-condition">
 			<text>{{currentDate}}</text>
 			<!-- <view class="v-switch">
@@ -93,10 +103,23 @@
 				loading: true,
 				classId: '',
 				currentRow: {},
-				specialExplain: ''
+				specialExplain: '',
+
+				limitDoctorCode: "", //是否仅展示属于该 code 的医生排班
+				limitDoctorName: "",
+				limitDoctorDateList: [], //指定医生的有号的日期数据
+				dateSelectIdx: 0,
 			}
 		},
 		onLoad: function(option) { //option为object类型，会序列化上个页面传递的参数
+			// 是否是查询医生过来的
+			this.limitDoctorCode = option.docCode || ''
+			if (this.limitDoctorCode) {
+				this.limitDoctorName = option.docName || ''
+				if (option.type != 1) {
+					this.limitDoctorDateList = JSON.parse(option.doctorPbList || [])
+				}
+			}
 			option.type == 1 ? (this.showDate = false) : ""
 			option.id ? (this.classId = option.id) : (this.classId = 'P')
 			if (option.type == 1) {
@@ -109,6 +132,11 @@
 
 				// this.currentDate = new Date().toISOString().slice(0, 10) //year+'-'+month + '-' + date;
 				this.getDateData(this.currentDate);
+
+			} else {
+				if (this.limitDoctorDateList.length > 0) {
+					this.getDateData(this.limitDoctorDateList[0].date)
+				}
 			}
 			uni.setNavigationBarTitle({
 				title: option.title
@@ -117,6 +145,15 @@
 			this.getExpert();
 		},
 		methods: {
+			changeSelectedDate(idx, date) {
+				this.dateSelectIdx = idx
+				this.getDateData(date);
+			},
+			getWeek(date) {
+				let weekArray = new Array("周日", "周一", "周二", "周三", "周四", "周五", "周六");
+				let week = weekArray[new Date(date).getDay()];
+				return week
+			},
 			getDateforSearch() {
 				function returnDate(num) {
 					var time = new Date()
@@ -380,7 +417,6 @@
 					path: `/smartinquiry/schedule/list?ampm=0&beginDate=${day}&endDate=${day}&depCode=${this.classId}`,
 				}).then(res => {
 					if (res.data.code == 200) {
-
 						// 获取当前日期的专家
 						const topArr = [],
 							bottomArr = [];
@@ -391,6 +427,12 @@
 						if (res.data.data && res.data.data.length > 0) {
 							for (let item of res.data.data) {
 								if (item.code == '1' && item.docInfo) {
+									console.log('过滤 ===== ', item.docCode + '______' + this.limitDoctorCode)
+									if (this.limitDoctorCode && this.limitDoctorCode.length > 0 &&
+										item.docCode != this.limitDoctorCode) {
+										//需要限制显示的医生
+										continue
+									}
 									//只显示未停诊的值班医生
 									const dealdate = `${item.date} ${item.deadLine}`;
 									const newdate = dealdate.replace(/-/g, '/');
@@ -583,6 +625,36 @@
 				color: #000000;
 				margin: 10rpx;
 			}
+		}
+	}
+
+	.top-limit-date {
+		display: flex;
+		align-items: center;
+		width: calc(100% - 40px);
+		height: 100px;
+		margin: 0 20px;
+		overflow-x: auto;
+		background: #fff;
+		padding: 10px 0;
+
+		.item {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			flex-direction: column;
+			width: 70px;
+			text-align: center;
+		}
+
+		.select-point {
+			width: 30px;
+			height: 30px;
+			line-height: 30px;
+			text-align: center;
+			background: #007aff;
+			border-radius: 20px;
+			color: #fff;
 		}
 	}
 </style>
