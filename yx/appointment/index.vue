@@ -8,7 +8,7 @@
 				@click="changeSelectedDate(index,item.date)">
 				<div>{{ getWeek(item.date) }}</div>
 				<div style="color: #53B7C7;margin: 5px 0;">有号</div>
-				<div :class="dateSelectIdx == index ? 'select-point':''">{{ item.date.split('-')[2] }}</div>
+				<div :class="dateSelectIdx == index ? 'select-point':''">{{ getItemTimeDay(item.date,item) }}</div>
 			</div>
 		</div>
 		<view class="sel-condition">
@@ -111,13 +111,22 @@
 				dateSelectIdx: 0,
 			}
 		},
-		onLoad: function(option) { //option为object类型，会序列化上个页面传递的参数
+		onLoad: function(option) {
+			//option为object类型，会序列化上个页面传递的参数
 			// 是否是查询医生过来的
 			this.limitDoctorCode = option.docCode || ''
 			if (this.limitDoctorCode) {
 				this.limitDoctorName = option.docName || ''
 				if (option.type != 1) {
-					this.limitDoctorDateList = JSON.parse(option.doctorPbList || [])
+					let dateList = JSON.parse(option.doctorPbList || [])
+					dateList.sort((a, b) => {
+						if (a.date && b.date) {
+							if (new Date(a.date) > new Date(b.date)) return 1;
+							if (new Date(b.date) > new Date(a.date)) return -1;
+						}
+						return 0;
+					})
+					this.limitDoctorDateList = dateList
 				}
 			}
 			option.type == 1 ? (this.showDate = false) : ""
@@ -145,6 +154,13 @@
 			this.getExpert();
 		},
 		methods: {
+			getItemTimeDay(dateStr, item) {
+				if (dateStr && dateStr.indexOf('-') != -1) {
+					let temp = dateStr.split('-')
+					return temp[temp.length - 1]
+				}
+				return dateStr || ''
+			},
 			changeSelectedDate(idx, date) {
 				this.dateSelectIdx = idx
 				this.getDateData(date);
@@ -250,8 +266,8 @@
 						//只显示未停诊的值班医生
 						const dealdate = `${item.date} ${item.deadLine}`;
 						const newdate = dealdate.replace(/-/g, '/');
-						if (item.date == date && item.depCode == this.classId && item.timeType == '上午') topArr
-							.push({
+						if (item.date == date && item.depCode == this.classId && item.timeType == '上午')
+							topArr.push({
 								name: item.docInfo && item.docInfo.docName ? item.docInfo.docName : '',
 								img: '',
 								price: item.etPrice,
@@ -265,8 +281,8 @@
 								active: (new Date().getTime() < new Date(newdate).getTime()) ? true : false,
 								dzInfo: item.dzInfo
 							})
-						if (item.date == date && item.depCode == this.classId && item.timeType == '下午') bottomArr
-							.push({
+						if (item.date == date && item.depCode == this.classId && item.timeType == '下午')
+							bottomArr.push({
 								name: item.docInfo && item.docInfo.docName ? item.docInfo.docName : '',
 								img: '',
 								price: item.etPrice,
@@ -427,11 +443,11 @@
 						if (res.data.data && res.data.data.length > 0) {
 							for (let item of res.data.data) {
 								if (item.code == '1' && item.docInfo) {
-									console.log('过滤 ===== ', item.docCode + '______' + this.limitDoctorCode)
-									if (this.limitDoctorCode && this.limitDoctorCode.length > 0 &&
-										item.docCode != this.limitDoctorCode) {
-										//需要限制显示的医生
-										continue
+									if (this.limitDoctorCode && this.limitDoctorCode.length > 0) {
+										// 需要限制显示的医生
+										if (item.docCode != this.limitDoctorCode) {
+											continue
+										}
 									}
 									//只显示未停诊的值班医生
 									const dealdate = `${item.date} ${item.deadLine}`;
@@ -480,9 +496,10 @@
 											dzInfo: item.dzInfo
 										});
 									}
+								} else {
+									console.log('无医生信息 docInfo = ', item)
 								}
 							}
-
 							this.list = [topArr, bottomArr]
 						} else {
 							this.list = [
@@ -631,12 +648,11 @@
 	.top-limit-date {
 		display: flex;
 		align-items: center;
-		width: calc(100% - 40px);
 		height: 100px;
-		margin: 0 20px;
 		overflow-x: auto;
 		background: #fff;
 		padding: 10px 0;
+		margin-bottom: 10px;
 
 		.item {
 			display: flex;

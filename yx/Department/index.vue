@@ -84,7 +84,7 @@
 
 			{
 				var dd = new Date();
-				dd.setDate(dd.getDate() + 1);
+				dd.setDate(dd.getDate());
 				var y = dd.getFullYear();
 				var m = dd.getMonth() + 1;
 				var d = dd.getDate();
