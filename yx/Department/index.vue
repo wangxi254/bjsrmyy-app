@@ -192,33 +192,32 @@
 						return item
 					}
 				})
-
-				this.$request({
-					path: '/smartinquiry/schedule/searchDoctorName?doctorName=' + val
-				}).then(res => {
-					if (res.data.code == 200) {
-						if (!this.searchList) {
-							this.searchList = [];
-						}
-						for (let doc of res.data.data) {
-							let item = {
-								depCode: doc.depCode,
-								depName: doc.docName + '-' + doc.depName,
-								fatherCode: "",
-								fathername: "",
-								depDes: "",
-								district: "A001",
-								ageLimit: "",
-								cj: "",
-								orderid: null,
-								empid: "",
-								subData: null,
-								ifExistSubData: false
-							};
-							this.searchList.push(item);
-						}
-					}
-				})
+				// this.$request({
+				// 	path: '/smartinquiry/schedule/searchDoctorName?doctorName=' + val
+				// }).then(res => {
+				// 	if (res.data.code == 200) {
+				// 		if (!this.searchList) {
+				// 			this.searchList = [];
+				// 		}
+				// 		for (let doc of res.data.data) {
+				// 			let item = {
+				// 				depCode: doc.depCode,
+				// 				depName: doc.docName + '-' + doc.depName,
+				// 				fatherCode: "",
+				// 				fathername: "",
+				// 				depDes: "",
+				// 				district: "A001",
+				// 				ageLimit: "",
+				// 				cj: "",
+				// 				orderid: null,
+				// 				empid: "",
+				// 				subData: null,
+				// 				ifExistSubData: false
+				// 			};
+				// 			this.searchList.push(item);
+				// 		}
+				// 	}
+				// })
 			},
 			searchClick() {
 				this.isNotSearching = false;
