@@ -159,6 +159,13 @@
 						}
 					}
 					for (let item of tempArr) {
+						let dealdate = `${item.date} ${item.deadLine}`;
+						let newdate = dealdate.replace(/-/g, '/');
+						let timeLine = new Date().getTime() < new Date(newdate).getTime() ? true : false
+						let isActive = false
+						if (item.code == 1 && timeLine) {
+							isActive = true
+						}
 						if (item.timeType == '1') {
 							//上午
 							topArr.push({
@@ -173,11 +180,10 @@
 								pbCode: item.pbCode || "",
 								docCode: item.docCode || "",
 								type: 0,
-								active: item.code == 1,
+								active: isActive,
 								dzInfo: item.dzInfo || ""
 							});
-						}
-						if (item.timeType == '2') {
+						} else if (item.timeType == '2') {
 							//下午
 							bottomArr.push({
 								name: item.docName || "",
@@ -191,7 +197,7 @@
 								pbCode: item.pbCode || "",
 								docCode: item.docCode || "",
 								type: 1,
-								active: item.code == 1,
+								active: isActive,
 								dzInfo: item.dzInfo || ""
 							});
 						}
