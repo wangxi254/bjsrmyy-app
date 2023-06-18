@@ -106,7 +106,7 @@
 			}
 		},
 		onShow() {
-
+			this.toSearchDoctor()
 		},
 		components: {
 			hsSubfieldList,
@@ -172,7 +172,8 @@
 			//查看搜索到的医生排班数据
 			lookDoctorScheduling(item) {
 				uni.navigateTo({
-					url: '../appointment/index?title=' + item.depName + '&&type=' + this.pageType + '&&id=' + item
+					url: '../appointment/doctorScheduling?title=' + item.depName + '&&type=' + this.pageType +
+						'&&id=' + item
 						.depCode + '&&docCode=' + item.docCode + '&&docName=' + item.docName +
 						'&&doctorPbList=' + JSON.stringify(item.doctorPbList)
 				})
