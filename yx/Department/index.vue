@@ -161,6 +161,7 @@
 								type: this.pageType,
 								doctorPbList: doc.doctorPbList || [],
 								docCode: doc.docCode,
+								docInfo: doc.docInfo,
 							};
 							this.doctorList.push(item);
 						}
@@ -173,9 +174,8 @@
 			lookDoctorScheduling(item) {
 				uni.navigateTo({
 					url: '../appointment/doctorScheduling?title=' + item.depName + '&&type=' + this.pageType +
-						'&&id=' + item
-						.depCode + '&&docCode=' + item.docCode + '&&docName=' + item.docName +
-						'&&doctorPbList=' + JSON.stringify(item.doctorPbList)
+						'&&id=' + item.depCode + '&&docCode=' + item.docCode + '&&docName=' + item.docName +
+						'&&item=' + JSON.stringify(item)
 				})
 			},
 			leftClick(item) {

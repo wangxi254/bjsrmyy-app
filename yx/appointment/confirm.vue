@@ -11,7 +11,7 @@
             </template>
             <view>就诊科室：<text>{{appointmentInfo.depName}}</text></view>
             <view>就诊医生：<text>{{appointmentInfo.name}}</text></view>
-            <view>挂号费用：<text>￥{{appointmentInfo.price}}</text></view>
+            <view>挂号费用：<text>￥{{appointmentInfo.price || 0}}</text></view>
         </hs-card>
         <hs-card class="appointdate-view">
             <template v-slot:header>

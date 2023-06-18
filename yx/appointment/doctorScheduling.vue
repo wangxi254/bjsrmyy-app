@@ -105,28 +105,28 @@
 				currentRow: {},
 				specialExplain: '',
 
-				limitDoctorCode: "", //是否仅展示属于该 code 的医生排班
 				limitDoctorName: "",
 				limitDoctorDateList: [], //指定医生的有号的日期数据
 				dateSelectIdx: 0,
+				doctorInfo: {}
 			}
 		},
 		onLoad: function(option) {
-			//option为object类型，会序列化上个页面传递的参数
-			// 是否是查询医生过来的
-			this.limitDoctorCode = option.docCode || ''
-			if (this.limitDoctorCode) {
-				this.limitDoctorName = option.docName || ''
-				let dateList = JSON.parse(option.doctorPbList || [])
-				dateList.sort((a, b) => {
+			//option为object类型，会序列化上个页面传递的参数  
+			this.limitDoctorName = option.docName || ''
+			if (option.item) {
+				let obj = JSON.parse(option.item)
+				obj.doctorPbList.sort((a, b) => {
 					if (a.date && b.date) {
 						if (new Date(a.date) > new Date(b.date)) return 1;
 						if (new Date(b.date) > new Date(a.date)) return -1;
 					}
 					return 0;
 				})
-				this.limitDoctorDateList = dateList
+				this.limitDoctorDateList = obj.doctorPbList
+				this.doctorInfo = obj.docInfo || {}
 			}
+
 			option.type == 1 ? (this.showDate = false) : ""
 			option.id ? (this.classId = option.id) : (this.classId = 'P')
 			var dd = new Date();
@@ -165,9 +165,10 @@
 								name: item.docName,
 								img: '',
 								price: item.price || "",
-								postion: item.docTitle || "",
+								postion: this.doctorInfo && this.doctorInfo.docTitle ? this.doctorInfo.docTitle :
+									"",
 								describe: item.docDes || "",
-								surplus: item.restnum || "",
+								surplus: this.doctorInfo && this.doctorInfo.total1 ? this.doctorInfo.total1 : 0,
 								depName: item.depName || "",
 								pbCode: item.pbCode || "",
 								docCode: item.docCode || "",
@@ -182,9 +183,10 @@
 								name: item.docName || "",
 								img: '',
 								price: item.price || "",
-								postion: item.docTitle || "",
+								postion: this.doctorInfo && this.doctorInfo.docTitle ? this.doctorInfo.docTitle :
+									"",
 								describe: item.docDes || "",
-								surplus: item.restnum || "",
+								surplus: this.doctorInfo && this.doctorInfo.total2 ? this.doctorInfo.total2 : 0,
 								depName: item.depName || "",
 								pbCode: item.pbCode || "",
 								docCode: item.docCode || "",
@@ -249,6 +251,9 @@
 				this.$refs.popup.open('right');
 			},
 			chooseDate(row) {
+				if (!row.price) {
+					row.price = 0
+				}
 				this.currentRow['currentDate'] = this.currentDate;
 				this.currentRow = {
 					...this.currentRow,
@@ -442,12 +447,6 @@
 						if (res.data.data && res.data.data.length > 0) {
 							for (let item of res.data.data) {
 								if (item.code == '1' && item.docInfo) {
-									if (this.limitDoctorCode && this.limitDoctorCode.length > 0) {
-										// 需要限制显示的医生
-										if (item.docCode != this.limitDoctorCode) {
-											continue
-										}
-									}
 									//只显示未停诊的值班医生
 									const dealdate = `${item.date} ${item.deadLine}`;
 									const newdate = dealdate.replace(/-/g, '/');
