@@ -29,7 +29,7 @@
 						<view class="flex justify-between items-center">
 							<text class="name">{{x.name}}</text>
 							<view class="flex items-center">
-								<text class="price">挂号费：￥{{x.price}}</text>
+								<text class="price">挂号费：￥{{ x.price || 0 }}</text>
 								<!-- <view :class="['surplus',x.active?'active':'']" @click="open(x)">
 									{{!showDate?'可挂号':'可预约'}}({{x.surplus}})
 								</view> -->
@@ -42,10 +42,13 @@
 							</view>
 						</view>
 						<view class="tex">
-							职称：{{x.postion}}
+							所属科室：{{ x.depName || ""}}
 						</view>
 						<view class="tex">
-							擅长：{{x.describe||'暂无介绍'}}
+							职称：{{ x.postion  || ""}}
+						</view>
+						<view class="tex">
+							擅长：{{ x.describe||'暂无介绍'}}
 						</view>
 					</view>
 				</view>
@@ -132,7 +135,7 @@
 			var m = dd.getMonth() + 1;
 			var d = dd.getDate();
 			this.currentDate = y + '-' + (m < 10 ? '0' + m : m) + '-' + (d < 10 ? '0' + d : d);
-			
+
 			uni.setNavigationBarTitle({
 				title: option.title
 			})
@@ -161,7 +164,7 @@
 							topArr.push({
 								name: item.docName,
 								img: '',
-								price: item.etPrice || "",
+								price: item.price || "",
 								postion: item.docTitle || "",
 								describe: item.docDes || "",
 								surplus: item.restnum || "",
@@ -178,7 +181,7 @@
 							bottomArr.push({
 								name: item.docName || "",
 								img: '',
-								price: item.etPrice || "",
+								price: item.price || "",
 								postion: item.docTitle || "",
 								describe: item.docDes || "",
 								surplus: item.restnum || "",
@@ -593,6 +596,7 @@
 					.tex {
 						color: $uni-text-color-grey;
 						margin: 10rpx 0;
+						word-break: break-all;
 					}
 				}
 			}
