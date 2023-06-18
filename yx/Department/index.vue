@@ -13,7 +13,7 @@
 				<view class="show-center justify-content">
 					<image class="search-icon marginl10r10" src="../../static/index/search.png">
 						<input class="search-input" type="text" placeholder="输入专科关键字搜索" v-model="searchText"
-							@focus="vauleEmpty" confirm-type="search" />
+							@focus="valueEmpty" confirm-type="search" />
 				</view>
 				<view @click="cancleEdit" class="cancle">取消</view>
 			</view>
@@ -187,11 +187,13 @@
 				})
 			},
 			filter(val) {
-				this.searchList = this.leftNavData.filter(item => {
-					if (item.depName.indexOf(val) > -1) {
-						return item
-					}
-				})
+				if (this.leftNavData && this.leftNavData.length > 0) {
+					this.searchList = this.leftNavData.filter(item => {
+						if (item.depName.indexOf(val) > -1) {
+							return item
+						}
+					})
+				}
 				// this.$request({
 				// 	path: '/smartinquiry/schedule/searchDoctorName?doctorName=' + val
 				// }).then(res => {

@@ -256,8 +256,8 @@
 				}
 				this.currentRow['currentDate'] = this.currentDate;
 				this.currentRow = {
-					...this.currentRow,
 					...row,
+					...this.currentRow,
 					deptCode: this.classId,
 					registerType: this.showDate ? 1 : 0
 				}
