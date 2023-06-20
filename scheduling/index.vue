@@ -4,7 +4,7 @@
 		<view class="time">
 			<scroll-view scroll-x scroll-with-animation>
 				<div class="timer">
-					<span @click="clickTime(index)" v-for="(item, index) in realTime" :key="'time' + item"
+					<span @click="clickTime(index)" v-for="(item, index) in realTime" :key="index"
 						:class="{'active': timeIndex === index}">{{item}}</span>
 				</div>
 			</scroll-view>
@@ -12,26 +12,29 @@
 		<view class="main">
 			<scroll-view scroll-y scroll-with-animation>
 				<view class="item-con">
-					<view class="item" v-for="(item, index) in sourceData" :key='index'>
-						<view class="dep">{{item.depName}}</view>
-						<view class="ztime">
-							<span class="ztime-zw">上午</span>
-							<view class="persons">
-								<span v-if="person.timeType === '上午' && person.docInfo"
-									v-for="(person,index) in item.persons" :key='index' @click='lookDetails'
-									:data-item='person'>
-									{{person.docInfo.docName}}
-								</span>
+					<div v-if="!sourceData || sourceData.length == 0" class="no-data">{{ loadNotice }}</div>
+					<view v-else>
+						<view class="item" v-for="(item, index) in sourceData" :key='index'>
+							<view class="dep">{{item.depName}}</view>
+							<view class="ztime">
+								<span class="ztime-zw">上午</span>
+								<view class="persons">
+									<span v-if="person.timeType === '上午' && person.docInfo"
+										v-for="(person,index) in item.persons" :key='index' @click='lookDetails'
+										:data-item='person'>
+										{{person.docInfo.docName}}
+									</span>
+								</view>
 							</view>
-						</view>
-						<view class="ztime">
-							<span class="ztime-zw">下午</span>
-							<view class="persons">
-								<span v-if="person.timeType === '下午' && person.docInfo"
-									v-for="(person,index) in item.persons" :key='index' @click='lookDetails'
-									:data-item='person'>
-									{{person.docInfo.docName}}
-								</span>
+							<view class="ztime">
+								<span class="ztime-zw">下午</span>
+								<view class="persons">
+									<span v-if="person.timeType === '下午' && person.docInfo"
+										v-for="(person,index) in item.persons" :key='index' @click='lookDetails'
+										:data-item='person'>
+										{{person.docInfo.docName}}
+									</span>
+								</view>
 							</view>
 						</view>
 					</view>
@@ -49,7 +52,8 @@
 				searchValue: '',
 				time: [],
 				realTime: [],
-				sourceData: []
+				sourceData: [],
+				loadNotice: '加载中...'
 			}
 		},
 		created() {
@@ -281,5 +285,12 @@
 				}
 			}
 		}
+	}
+
+	.no-data {
+		padding: 50px;
+		text-align: center;
+		color: #666;
+		font-size: 16px;
 	}
 </style>

@@ -17,7 +17,7 @@
 						{{patientList[credentialTypeIndex].name||'选择联系人类型'}}
 					</view>
 					<view class="flex1 marginl10 text-color-333333 font-size-14-w400">
-						{{utils.hideIdentityCard(patientList[credentialTypeIndex].credentialNo)}}
+						{{utils.hideIdentityCard(patientList[credentialTypeIndex] ? patientList[credentialTypeIndex].credentialNo : '')}}
 					</view>
 					<view class="font-size-14-w400 text-color-8f8f8f">切换</view>
 					<image class="right marginl10" src="../../static/common/exchange.png"></image>
@@ -112,10 +112,6 @@
 			const dates = new Date()
 			dates.setMonth(dates.getMonth() - 3)
 			this.startDate = dates.toISOString().slice(0, 10)
-
-			if (options.item) {
-				let item = JSON.parse(options.item);
-			}
 			this.pageType = options.pageType || 1
 			this.requestList();
 			// this.getCheckreportbyUserId();
@@ -140,7 +136,7 @@
 				});
 				let defaultPatientItem;
 				if (res.data.code == 200) {
-					const list = res.data.data;
+					const list = res.data.data || [];
 					this.patientList = list;
 					if (list && list.length > 0) {
 						console.log("list===>", JSON.stringify(list));
@@ -316,7 +312,9 @@
 					}
 				}).then(res => {
 					if (res.data.code == 200) {
-						that.list = res.data.data;
+						that.list = res.data.data || [];
+					} else {
+						that.list = []
 					}
 				})
 			},
@@ -327,14 +325,12 @@
 						title: "请选择开始时间"
 					})
 				}
-
 				if (this.endDate.length == 0) {
 					return uni.showToast({
 						icon: "none",
 						title: "请选择结束时间"
 					})
 				}
-
 				let that = this;
 				uni.showLoading();
 				this.$request({
