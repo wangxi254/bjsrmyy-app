@@ -340,7 +340,16 @@
 						"enablePullDownRefresh": false
 					}
 				}
-			]
+			    ,{
+                    "path" : "appointment/doctorScheduling",
+                    "style" :                                                                                    
+                {
+                    "navigationBarTitleText": "",
+                    "enablePullDownRefresh": false
+                }
+                
+                }
+            ]
 		},
 		{
 			"root": "test",

@@ -165,12 +165,10 @@
 			downloadAndOpen(needOpen) {
 				if (!this.testReport.reportPdfUrl) return
 				let that = this
-				if (needOpen) {
-					uni.showLoading({
-						title: '正在打开',
-						mask: true
-					})
-				}
+				uni.showLoading({
+					title: '加载中...',
+					mask: true
+				})
 				if (that.cacheFilePath) {
 					this.open()
 					return

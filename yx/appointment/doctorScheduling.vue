@@ -1,9 +1,6 @@
 <template>
 	<view class="detailPage">
-		<div v-if="!limitDoctorDateList || limitDoctorDateList.length == 0">
-			<chooseDay v-if="showDate && !loading" :classId="classId" @getDateData="getDateData" />
-		</div>
-		<div v-else class="top-limit-date">
+		<div v-if='showDate' class="top-limit-date">
 			<div v-for="(item,index) in limitDoctorDateList" :key='index' class="item"
 				@click="changeSelectedDate(index,item.date)">
 				<div>{{ getWeek(item.date) }}</div>
@@ -32,7 +29,7 @@
 						<view class="flex justify-between items-center">
 							<text class="name">{{x.name}}</text>
 							<view class="flex items-center">
-								<text class="price">挂号费：￥{{x.price}}</text>
+								<text class="price">挂号费：￥{{ x.price || 0 }}</text>
 								<!-- <view :class="['surplus',x.active?'active':'']" @click="open(x)">
 									{{!showDate?'可挂号':'可预约'}}({{x.surplus}})
 								</view> -->
@@ -45,10 +42,13 @@
 							</view>
 						</view>
 						<view class="tex">
-							职称：{{x.postion}}
+							所属科室：{{ x.depName || ""}}
 						</view>
 						<view class="tex">
-							擅长：{{x.describe||'暂无介绍'}}
+							职称：{{ x.postion  || ""}}
+						</view>
+						<view class="tex">
+							擅长：{{ x.describe||'暂无介绍'}}
 						</view>
 					</view>
 				</view>
@@ -98,58 +98,118 @@
 					// ['08:00-08:30','08:30-9:00','09:00-09:30','09:30-10:00','10:00-10:30','10:30-11:00','11:00-11:30','11:30-12:00',],
 					// ['14:00-14:30','14:30-15:00','15:00-15:30','15:30-16:00','16:00-16:30','16:30-17:00','17:00-17:30'],
 				],
+				hasData: {},
 				showDate: true,
 				loading: true,
 				classId: '',
 				currentRow: {},
 				specialExplain: '',
 
-				limitDoctorCode: "", //是否仅展示属于该 code 的医生排班
 				limitDoctorName: "",
 				limitDoctorDateList: [], //指定医生的有号的日期数据
 				dateSelectIdx: 0,
+				doctorInfo: {}
 			}
 		},
 		onLoad: function(option) {
-			//option为object类型，会序列化上个页面传递的参数
-			// 是否是查询医生过来的
-			this.limitDoctorCode = option.docCode || ''
-			if (this.limitDoctorCode) {
-				this.limitDoctorName = option.docName || ''
-				if (option.type != 1) {
-					let tmepList = JSON.parse(option.doctorPbList || [])
-					tmepList.sort((a, b) => {
-						return new Date(a.date + ' 00:00:00') - new Date(b.date + ' 00:00:00');
-					})
-					this.limitDoctorDateList = tmepList
-				}
+			//option为object类型，会序列化上个页面传递的参数  
+			this.limitDoctorName = option.docName || ''
+			if (option.item) {
+				let obj = JSON.parse(option.item)
+				obj.doctorPbList.sort((a, b) => {
+					if (a.date && b.date) {
+						if (new Date(a.date) > new Date(b.date)) return 1;
+						if (new Date(b.date) > new Date(a.date)) return -1;
+					}
+					return 0;
+				})
+				this.limitDoctorDateList = obj.doctorPbList
+				this.doctorInfo = obj.docInfo || {}
 			}
+
 			option.type == 1 ? (this.showDate = false) : ""
 			option.id ? (this.classId = option.id) : (this.classId = 'P')
+			var dd = new Date();
+			if (this.showDate) dd.setDate(dd.getDate() + 1);
+			var y = dd.getFullYear();
+			var m = dd.getMonth() + 1;
+			var d = dd.getDate();
+			this.currentDate = y + '-' + (m < 10 ? '0' + m : m) + '-' + (d < 10 ? '0' + d : d);
 
-			if (option.type == 1) {
-				var dd = new Date();
-				if (this.showDate) dd.setDate(dd.getDate() + 1);
-				var y = dd.getFullYear();
-				var m = dd.getMonth() + 1;
-				var d = dd.getDate();
-				this.currentDate = y + '-' + (m < 10 ? '0' + m : m) + '-' + (d < 10 ? '0' + d : d);
-
-				// this.currentDate = new Date().toISOString().slice(0, 10) //year+'-'+month + '-' + date;
-				this.getDateData(this.currentDate);
-
-			} else {
-				if (this.limitDoctorDateList.length > 0) {
-					this.getDateData(this.limitDoctorDateList[0].date)
-				}
-			}
 			uni.setNavigationBarTitle({
 				title: option.title
 			})
-
-			this.loading = false;
+			this.getExpert();
+			this.showDoctorList()
 		},
 		methods: {
+			showDoctorList(selectedDate) {
+				const topArr = [],
+					bottomArr = [];
+				if (this.limitDoctorDateList && this.limitDoctorDateList.length > 0) {
+					let tempArr = []
+					if (!selectedDate) {
+						selectedDate = this.limitDoctorDateList[0].pbList[0].date
+					}
+					this.currentDate = selectedDate
+					for (let i = 0; i < this.limitDoctorDateList.length; i++) {
+						if (selectedDate == this.limitDoctorDateList[i].date) {
+							tempArr = this.limitDoctorDateList[i].pbList
+							break
+						}
+					}
+					for (let item of tempArr) {
+						let dealdate = `${item.date} ${item.deadLine}`;
+						let newdate = dealdate.replace(/-/g, '/');
+						let timeLine = new Date().getTime() < new Date(newdate).getTime() ? true : false
+						let isActive = false
+						if (item.code == 1 && timeLine) {
+							isActive = true
+						}
+						if (item.timeType == '1') {
+							//上午
+							topArr.push({
+								name: item.docName,
+								img: '',
+								price: item.price || "",
+								postion: this.doctorInfo && this.doctorInfo.docTitle ? this.doctorInfo.docTitle :
+									"",
+								describe: item.docDes || "",
+								surplus: this.doctorInfo && this.doctorInfo.total1 ? this.doctorInfo.total1 : 0,
+								depName: item.depName || "",
+								pbCode: item.pbCode || "",
+								docCode: item.docCode || "",
+								type: 0,
+								active: isActive,
+								dzInfo: item.dzInfo || ""
+							});
+						} else if (item.timeType == '2') {
+							//下午
+							bottomArr.push({
+								name: item.docName || "",
+								img: '',
+								price: item.price || "",
+								postion: this.doctorInfo && this.doctorInfo.docTitle ? this.doctorInfo.docTitle :
+									"",
+								describe: item.docDes || "",
+								surplus: this.doctorInfo && this.doctorInfo.total2 ? this.doctorInfo.total2 : 0,
+								depName: item.depName || "",
+								pbCode: item.pbCode || "",
+								docCode: item.docCode || "",
+								type: 1,
+								active: isActive,
+								dzInfo: item.dzInfo || ""
+							});
+						}
+					}
+					this.list = [topArr, bottomArr]
+				} else {
+					this.list = [
+						[],
+						[]
+					];
+				}
+			},
 			getItemTimeDay(dateStr, item) {
 				if (dateStr && dateStr.indexOf('-') != -1) {
 					let temp = dateStr.split('-')
@@ -159,12 +219,33 @@
 			},
 			changeSelectedDate(idx, date) {
 				this.dateSelectIdx = idx
-				this.getDateData(date);
+				// this.getDateData(date);
+				this.showDoctorList(date)
 			},
 			getWeek(date) {
 				let weekArray = new Array("周日", "周一", "周二", "周三", "周四", "周五", "周六");
 				let week = weekArray[new Date(date).getDay()];
 				return week
+			},
+			getDateforSearch() {
+				function returnDate(num) {
+					var time = new Date()
+					//判断当前时间是否超过20:00
+					//time.getHours()>20 && (num = num + 1);
+					var date = new Date(time.setDate(time.getDate() + num)).getDate() //这里先获取日期，在按需求设置日期，最后获取需要的
+					var year = time.getFullYear() //获取年份
+					var month = time.getMonth() + 1
+					if (date < 10) date = `0${date}`
+					if (month < 10) month = `0${month}`
+					return year + '-' + month + '-' + date
+				}
+				var arr = []
+				let startNum = 0
+				let endNum = 8
+				for (let i = startNum; i < endNum; i++) {
+					arr.push(returnDate(i))
+				}
+				return arr;
 			},
 			changeHasNum() {
 
@@ -176,10 +257,13 @@
 				this.$refs.popup.open('right');
 			},
 			chooseDate(row) {
+				if (!row.price) {
+					row.price = 0
+				}
 				this.currentRow['currentDate'] = this.currentDate;
 				this.currentRow = {
-					...this.currentRow,
 					...row,
+					...this.currentRow,
 					deptCode: this.classId,
 					registerType: this.showDate ? 1 : 0
 				}
@@ -306,6 +390,40 @@
 					}
 				})
 			},
+			getExpert() {
+				uni.showLoading({
+					title: "加载中..."
+				})
+				const arr = this.getDateforSearch();
+				const firstDate = this.showDate ? arr[1] : arr[0];
+				const endDate = this.showDate ? arr[arr.length - 1] : arr[0];
+				let currentArr = []
+				if (this.showDate) {
+					arr.splice(0, 1)
+					currentArr = arr
+				} else {
+					currentArr = [arr[0]];
+				}
+
+				this.loading = false;
+				uni.hideLoading();
+			},
+			getexpert() {
+				uni.showLoading({
+					title: "加载中..."
+				})
+				const arr = this.getDateforSearch();
+				const firstDate = this.showDate ? arr[1] : arr[0];
+				const endDate = this.showDate ? arr[arr.length - 1] : arr[0];
+				let currentArr = []
+				if (this.showDate) {
+					arr.splice(0, 1)
+					currentArr = arr
+				} else currentArr = [arr[0]]
+				let PromiseAll = currentArr.map(item => {
+					return this.getEachDay(item)
+				})
+			},
 			getEachDay(day) {
 				return new Promise((reslove, reject) => {
 					this.$request({
@@ -335,12 +453,6 @@
 						if (res.data.data && res.data.data.length > 0) {
 							for (let item of res.data.data) {
 								if (item.code == '1' && item.docInfo) {
-									if (this.limitDoctorCode && this.limitDoctorCode.length > 0) {
-										// 需要限制显示的医生
-										if (item.docCode != this.limitDoctorCode) {
-											continue
-										}
-									}
 									//只显示未停诊的值班医生
 									const dealdate = `${item.date} ${item.deadLine}`;
 									const newdate = dealdate.replace(/-/g, '/');
@@ -489,6 +601,7 @@
 					.tex {
 						color: $uni-text-color-grey;
 						margin: 10rpx 0;
+						word-break: break-all;
 					}
 				}
 			}

@@ -13,7 +13,7 @@
 				<view class="show-center justify-content">
 					<image class="search-icon marginl10r10" src="../../static/index/search.png">
 						<input class="search-input" type="text" placeholder="输入专科关键字搜索" v-model="searchText"
-							@focus="vauleEmpty" confirm-type="search" />
+							@focus="valueEmpty" confirm-type="search" />
 				</view>
 				<view @click="cancleEdit" class="cancle">取消</view>
 			</view>
@@ -84,7 +84,7 @@
 
 			{
 				var dd = new Date();
-				dd.setDate(dd.getDate() + 1);
+				dd.setDate(dd.getDate());
 				var y = dd.getFullYear();
 				var m = dd.getMonth() + 1;
 				var d = dd.getDate();
@@ -106,7 +106,7 @@
 			}
 		},
 		onShow() {
-
+			this.toSearchDoctor()
 		},
 		components: {
 			hsSubfieldList,
@@ -161,6 +161,7 @@
 								type: this.pageType,
 								doctorPbList: doc.doctorPbList || [],
 								docCode: doc.docCode,
+								docInfo: doc.docInfo,
 							};
 							this.doctorList.push(item);
 						}
