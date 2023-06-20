@@ -53,12 +53,12 @@
 				医院导航
 			</view>
 			<view class="navi-menus-view">
-				<zy-grid @gridClick="gridClick" :grid-list=naviMesus :show-tip="false" :col="5"></zy-grid>
+				<zy-grid @gridClick="gridClick" :grid-list=naviMesus :show-tip="false" :col="4"></zy-grid>
 				<!-- <indexMenuItem :grid-list=naviMesus :show-tip="false" :col="5"></indexMenuItem> -->
 			</view>
 		</view>
 		<hsBannerView :banners="banners" :props="props" @bannerClick="bannerClick" />
-		<view v-for="item in news">
+		<view v-for="(item,index) in news" :key='index'>
 			<view class="cell paading15" @click="goDetail(item)">
 				<view class="cont">
 					<view class="title ellipsis-line2">
@@ -182,6 +182,13 @@
 						navigation: '../../guidance/index',
 						hashospitalInto: false,
 					},
+					{
+						img: '../../static/index/menu-item-navi2.png',
+						title: '出诊信息',
+						no: 2,
+						navigation: '../../scheduling/index',
+						hashospitalInto: false,
+					},
 					// {
 					// 	img:'../../static/index/menu-item2.png',
 					// 	title:'诊间支付',
@@ -200,28 +207,37 @@
 					},
 					{
 						img: '../../static/index/menu-item4.png',
-						title: '检验报告',
+						title: '查看报告',
 						no: 4,
-						navigation: '../../mine/report/testreport',
+						noti: 1,
+						navigation: '../../mine/report/reportType',
 						hashospitalInto: false,
 						needLogin: true,
 					},
-					{
-						img: '../../static/index/menu-item5.png',
-						title: '检查报告',
-						no: 5,
-						navigation: '../../mine/report/checkreport',
-						hashospitalInto: false,
-						needLogin: true,
-					},
-					{
-						img: '../../static/index/menu-item9.png',
-						title: '影像报告',
-						no: 9,
-						navigation: '../../mine/report/yxreport',
-						hashospitalInto: false,
-						needLogin: true,
-					},
+					// {
+					// 	img: '../../static/index/menu-item4.png',
+					// 	title: '检验报告',
+					// 	no: 4,
+					// 	navigation: '../../mine/report/testreport',
+					// 	hashospitalInto: false,
+					// 	needLogin: true,
+					// },
+					// {
+					// 	img: '../../static/index/menu-item5.png',
+					// 	title: '检查报告',
+					// 	no: 5,
+					// 	navigation: '../../mine/report/checkreport',
+					// 	hashospitalInto: false,
+					// 	needLogin: true,
+					// },
+					// {
+					// 	img: '../../static/index/menu-item9.png',
+					// 	title: '影像报告',
+					// 	no: 9,
+					// 	navigation: '../../mine/report/yxreport',
+					// 	hashospitalInto: false,
+					// 	needLogin: true,
+					// },
 					{
 						img: '../../static/index/menu-item6.png',
 						title: '缴费记录',
@@ -234,18 +250,26 @@
 						img: '../../static/index/menu-item10.png',
 						title: '挂号记录',
 						no: 7,
-						navigation: '../../yx/registerRecord/index',
+						navigation: '../../yx/recordType/index',
 						hashospitalInto: false,
 						needLogin: true,
 					},
-					{
-						img: '../../static/index/menu-item8.png',
-						title: '预约记录',
-						no: 7,
-						navigation: '../../yx/appointRecord/index',
-						hashospitalInto: false,
-						needLogin: true,
-					},
+					// {
+					// 	img: '../../static/index/menu-item10.png',
+					// 	title: '挂号记录',
+					// 	no: 7,
+					// 	navigation: '../../yx/registerRecord/index',
+					// 	hashospitalInto: false,
+					// 	needLogin: true,
+					// },
+					// {
+					// 	img: '../../static/index/menu-item8.png',
+					// 	title: '预约记录',
+					// 	no: 7,
+					// 	navigation: '../../yx/appointRecord/index',
+					// 	hashospitalInto: false,
+					// 	needLogin: true,
+					// },
 					{
 						img: '../../static/index/menu-item7.png',
 						title: '核酸检测',
@@ -271,13 +295,13 @@
 						navigation: '../../hospitalIntro/index',
 						hashospitalInto: true,
 					},
-					{
-						img: '../../static/index/menu-item-navi2.png',
-						title: '出诊信息',
-						no: 2,
-						navigation: '../../scheduling/index',
-						hashospitalInto: false,
-					},
+					// {
+					// 	img: '../../static/index/menu-item-navi2.png',
+					// 	title: '出诊信息',
+					// 	no: 2,
+					// 	navigation: '../../scheduling/index',
+					// 	hashospitalInto: false,
+					// },
 					{
 						img: '../../static/index/menu-item-navi3.png',
 						title: '科室介绍',
@@ -417,7 +441,7 @@
 				}
 			},
 			gridClick(item) {
-				if (item.no == 10) { 
+				if (item.no == 10) {
 					uni.openLocation({
 						latitude: 27.304252,
 						longitude: 105.281939,

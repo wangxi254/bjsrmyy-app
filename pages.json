@@ -1,107 +1,105 @@
 {
 	"easycom": {
-	"^w-(.*)": "@/uni_modules/wmf-code/components/w-$1/index.vue"//二维码条形码的配置 如果是uni_modules
+		"^w-(.*)": "@/uni_modules/wmf-code/components/w-$1/index.vue" //二维码条形码的配置 如果是uni_modules
 	},
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
 			"path": "pages/index/index",
 			"style": {
 				"navigationStyle": "custom",
-				"navigationBarTextStyle":"white"
+				"navigationBarTextStyle": "white"
 			}
 		},
 		{
-			"path": "pages/mine/mine", 
+			"path": "pages/mine/mine",
 			"style": {
 				"navigationStyle": "custom",
-				"navigationBarTextStyle":"white"
+				"navigationBarTextStyle": "white"
 			}
 		},
 		{
-			"path":"pages/auth/auth",
-			"style":{
-				"navigationStyle":"custom"
+			"path": "pages/auth/auth",
+			"style": {
+				"navigationStyle": "custom"
 			}
 		},
 		{
-			"path":"pages/showIcon/index",
-			"style":{
+			"path": "pages/showIcon/index",
+			"style": {
 				"navigationBarTitleText": "图标"
 			}
 		},
 		{
-			"path":"pages/eleguide/eleguide",
-			"style":{
+			"path": "pages/eleguide/eleguide",
+			"style": {
 				"navigationBarTitleText": "电子就诊码"
 			}
 		}
 	],
-	"subPackages": [
-		{
+	"subPackages": [{
 			"root": "hospitalIntro",
-			"pages": [
-				{
-					"path":"index",
+			"pages": [{
+					"path": "index",
 					"style": {
 						"navigationBarTitleText": "医院介绍"
 					}
 				},
 				{
-					"path":"roomIntro",
+					"path": "roomIntro",
 					"style": {
 						"navigationBarTitleText": "科室介绍"
 					}
 				},
 				{
-					"path":"roomDetail",
+					"path": "roomDetail",
 					"style": {
 						"navigationBarTitleText": "科室介绍"
 					}
 				},
 				{
-					"path":"expertIntro",
+					"path": "expertIntro",
 					"style": {
 						"navigationBarTitleText": "专家介绍"
 					}
 				},
 				{
-					"path":"expertorDetail",
+					"path": "expertorDetail",
 					"style": {
 						"navigationBarTitleText": "专家介绍"
 					}
 				},
 				{
-					"path":"expertorList",
+					"path": "expertorList",
 					"style": {
 						"navigationBarTitleText": "专家介绍"
 					}
 				},
 				{
-					"path":"naviToFloor",
+					"path": "naviToFloor",
 					"style": {
 						"navigationBarTitleText": "楼层导航"
 					}
 				},
 				{
-					"path":"FloorList",
+					"path": "FloorList",
 					"style": {
 						"navigationBarTitleText": "楼层导航"
 					}
 				},
 				{
-					"path":"guideDiag",
+					"path": "guideDiag",
 					"style": {
 						"navigationBarTitleText": "电子导诊单"
 					}
 				},
 				{
-					"path":"neednkow",
+					"path": "neednkow",
 					"style": {
 						"navigationBarTitleText": "就诊须知"
 					}
 				},
 				{
-					"path":"newdetail",
+					"path": "newdetail",
 					"style": {
 						"navigationBarTitleText": "咨询详情"
 					}
@@ -110,21 +108,20 @@
 		},
 		{
 			"root": "guidance",
-			"pages": [
-				{
-					"path":"index",
+			"pages": [{
+					"path": "index",
 					"style": {
 						"navigationBarTitleText": "智能导诊"
 					}
 				},
 				{
-					"path":"guidanceList",
+					"path": "guidanceList",
 					"style": {
 						"navigationBarTitleText": "导诊列表"
 					}
 				},
 				{
-					"path":"symptomsList",
+					"path": "symptomsList",
 					"style": {
 						"navigationBarTitleText": "已选择症状"
 					}
@@ -133,37 +130,32 @@
 		},
 		{
 			"root": "scheduling",
-			"pages": [
-				{
-					"path":"index",
-					"style": {
-						"navigationBarTitleText": "出诊信息"
-					}
+			"pages": [{
+				"path": "index",
+				"style": {
+					"navigationBarTitleText": "出诊信息"
 				}
-			]
+			}]
 		},
 		{
 			"root": "info",
-			"pages": [
-				{
-					"path":"index",
-					"style": {
-						"navigationBarTitleText": "个人主页"
-					}
+			"pages": [{
+				"path": "index",
+				"style": {
+					"navigationBarTitleText": "个人主页"
 				}
-			]
+			}]
 		},
 		{
 			"root": "attention",
-			"pages": [
-				{
-					"path":"index",
+			"pages": [{
+					"path": "index",
 					"style": {
 						"navigationBarTitleText": "我的关注"
 					}
 				},
 				{
-					"path":"expertorDetail",
+					"path": "expertorDetail",
 					"style": {
 						"navigationBarTitleText": "专家介绍"
 					}
@@ -172,86 +164,90 @@
 		},
 		{
 			"root": "mine",
-			"pages": [
-				{
-					"path":"diagnose/diagnoseLsit",
+			"pages": [{
+					"path": "diagnose/diagnoseLsit",
 					"style": {
 						"navigationBarTitleText": "就诊人管理"
 					}
 				},
 				{
-					"path":"diagnose/addDisagnoser",
+					"path": "diagnose/addDisagnoser",
 					"style": {
 						"navigationBarTitleText": "添加就诊人"
 					}
 				},
 				{
-					"path":"report/checkreport",
+					"path": "report/checkreport",
 					"style": {
 						"navigationBarTitleText": "检查报告"
 					}
 				},
 				{
-					"path":"report/yxreport",
+					"path": "report/yxreport",
 					"style": {
 						"navigationBarTitleText": "影像报告"
 					}
 				},
 				{
-					"path":"report/web",
+					"path": "report/web",
 					"style": {
 						"navigationBarTitleText": "影像报告"
 					}
 				},
 				{
-					"path":"report/testreport",
+					"path": "report/testreport",
 					"style": {
 						"navigationBarTitleText": "检验报告"
 					}
 				},
 				{
-					"path":"diagnose/bindCard",
+					"path": "diagnose/bindCard",
 					"style": {
 						"navigationBarTitleText": "绑定就诊卡"
 					}
 				},
 				{
-					"path":"diagnose/searchdiagnose",
+					"path": "diagnose/searchdiagnose",
 					"style": {
 						"navigationBarTitleText": "查询病例信息"
 					}
 				},
 				{
-					"path":"report/checkdetail",
+					"path": "report/checkdetail",
 					"style": {
 						"navigationBarTitleText": "检查报告详情"
 					}
 				},
 				{
-					"path":"report/testdetail",
+					"path": "report/testdetail",
 					"style": {
 						"navigationBarTitleText": "检验报告详情"
+					}
+				}, {
+					"path": "report/reportType",
+					"style": {
+						"navigationBarTitleText": "查看报告",
+						"enablePullDownRefresh": false
 					}
 				}
 			]
 		},
 		{
 			"root": "records",
-			"pages": [
-				{
-					"path":"listRecord",
+			"pages": [{
+					"path": "listRecord",
 					"style": {
 						"navigationBarTitleText": "门诊缴费"
 					}
 				},
 				{
-					"path":"listRecord/pageOne",
+					"path": "listRecord/pageOne",
 					"style": {
 						"navigationBarTitleText": "门诊详细"
 					}
 				},
 				{
-					"path":"listRecord/pageTwo",
+					"path": "listRecord/pageTwo",
 					"style": {
 						"navigationBarTitleText": "门诊详细"
 					}
@@ -296,7 +292,7 @@
 				// 可预约
 				{
 					"path": "appointment/index"
-					
+
 				},
 				// 预约确认页
 				{
@@ -337,18 +333,24 @@
 					"style": {
 						"navigationBarTitleText": "核酸检测"
 					}
+				}, {
+					"path": "recordType/index",
+					"style": {
+						"navigationBarTitleText": "挂号记录",
+						"enablePullDownRefresh": false
+					}
 				}
 			]
 		},
 		{
 			"root": "test",
 			"pages": [{
-				"path":"index",
+				"path": "index",
 				"style": {
 					"navigationBarTitleText": "测试"
 				}
-			},{
-				"path":"web",
+			}, {
+				"path": "web",
 				"style": {
 					"navigationBarTitleText": "测试1"
 				}
@@ -373,30 +375,31 @@
 			"iconPath": "/static/tabbar/park.png"
 		}, */
 		"list": [{
-			"pagePath": "pages/index/index",
-			"text": "首页",
-			"iconPath": "/static/tabbar/index.png",
-			"selectedIconPath": "/static/tabbar/indexed.png"
-		},
-		{
-			"pagePath":"pages/eleguide/eleguide",
-			// "text":"电子就诊码",
-			"iconPath":"static/tabbar/elecode.png",
-			"selectedIconPath":"static/tabbar/elecode.png"
-		},
-		{
-			"pagePath": "pages/mine/mine",
-			"text": "我的",
-			"iconPath": "/static/tabbar/home.png",
-			"selectedIconPath": "/static/tabbar/homed.png"
-		}]
+				"pagePath": "pages/index/index",
+				"text": "首页",
+				"iconPath": "/static/tabbar/index.png",
+				"selectedIconPath": "/static/tabbar/indexed.png"
+			},
+			{
+				"pagePath": "pages/eleguide/eleguide",
+				// "text":"电子就诊码",
+				"iconPath": "static/tabbar/elecode.png",
+				"selectedIconPath": "static/tabbar/elecode.png"
+			},
+			{
+				"pagePath": "pages/mine/mine",
+				"text": "我的",
+				"iconPath": "/static/tabbar/home.png",
+				"selectedIconPath": "/static/tabbar/homed.png"
+			}
+		]
 	},
 	"condition": {
 		"current": 0,
 		"list": [{
-			"name":"test",
-			"path":"test/index", 
-			"query":"newsid=5158607"     
+			"name": "test",
+			"path": "test/index",
+			"query": "newsid=5158607"
 		}]
 	}
 }

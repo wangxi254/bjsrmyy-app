@@ -1,7 +1,7 @@
 <template>
 	<view class="detailPage">
 		<div v-if="!limitDoctorDateList || limitDoctorDateList.length == 0">
-			<chooseDay v-if="showDate && !loading" :hasData="hasData" :classId="classId" @getDateData="getDateData" />
+			<chooseDay v-if="showDate && !loading" :classId="classId" @getDateData="getDateData" />
 		</div>
 		<div v-else class="top-limit-date">
 			<div v-for="(item,index) in limitDoctorDateList" :key='index' class="item"
@@ -98,7 +98,6 @@
 					// ['08:00-08:30','08:30-9:00','09:00-09:30','09:30-10:00','10:00-10:30','10:30-11:00','11:00-11:30','11:30-12:00',],
 					// ['14:00-14:30','14:30-15:00','15:00-15:30','15:30-16:00','16:00-16:30','16:30-17:00','17:00-17:30'],
 				],
-				hasData: {},
 				showDate: true,
 				loading: true,
 				classId: '',
@@ -117,11 +116,16 @@
 			if (this.limitDoctorCode) {
 				this.limitDoctorName = option.docName || ''
 				if (option.type != 1) {
-					this.limitDoctorDateList = JSON.parse(option.doctorPbList || [])
+					let tmepList = JSON.parse(option.doctorPbList || [])
+					tmepList.sort((a, b) => {
+						return new Date(a.date + ' 00:00:00') - new Date(b.date + ' 00:00:00');
+					})
+					this.limitDoctorDateList = tmepList
 				}
 			}
 			option.type == 1 ? (this.showDate = false) : ""
 			option.id ? (this.classId = option.id) : (this.classId = 'P')
+
 			if (option.type == 1) {
 				var dd = new Date();
 				if (this.showDate) dd.setDate(dd.getDate() + 1);
@@ -141,8 +145,8 @@
 			uni.setNavigationBarTitle({
 				title: option.title
 			})
-			//this.getexpert();
-			this.getExpert();
+
+			this.loading = false;
 		},
 		methods: {
 			changeSelectedDate(idx, date) {
@@ -153,26 +157,6 @@
 				let weekArray = new Array("周日", "周一", "周二", "周三", "周四", "周五", "周六");
 				let week = weekArray[new Date(date).getDay()];
 				return week
-			},
-			getDateforSearch() {
-				function returnDate(num) {
-					var time = new Date()
-					//判断当前时间是否超过20:00
-					//time.getHours()>20 && (num = num + 1);
-					var date = new Date(time.setDate(time.getDate() + num)).getDate() //这里先获取日期，在按需求设置日期，最后获取需要的
-					var year = time.getFullYear() //获取年份
-					var month = time.getMonth() + 1
-					if (date < 10) date = `0${date}`
-					if (month < 10) month = `0${month}`
-					return year + '-' + month + '-' + date
-				}
-				var arr = []
-				let startNum = 0
-				let endNum = 8
-				for (let i = startNum; i < endNum; i++) {
-					arr.push(returnDate(i))
-				}
-				return arr;
 			},
 			changeHasNum() {
 
@@ -313,90 +297,6 @@
 						})
 					}
 				})
-			},
-			getExpert() {
-				uni.showLoading({
-					title: "加载中..."
-				})
-				const arr = this.getDateforSearch();
-				const firstDate = this.showDate ? arr[1] : arr[0];
-				const endDate = this.showDate ? arr[arr.length - 1] : arr[0];
-				let currentArr = []
-				if (this.showDate) {
-					arr.splice(0, 1)
-					currentArr = arr
-				} else {
-					currentArr = [arr[0]];
-				}
-
-				this.loading = false;
-				uni.hideLoading();
-			},
-			getexpert() {
-				uni.showLoading({
-					title: "加载中..."
-				})
-				const arr = this.getDateforSearch();
-				const firstDate = this.showDate ? arr[1] : arr[0];
-				const endDate = this.showDate ? arr[arr.length - 1] : arr[0];
-				let currentArr = []
-				if (this.showDate) {
-					arr.splice(0, 1)
-					currentArr = arr
-				} else currentArr = [arr[0]]
-				let PromiseAll = currentArr.map(item => {
-					return this.getEachDay(item)
-				})
-				/* Promise.all(PromiseAll).then(res=> {
-					let data = []
-					res.map(item=>{
-						data = [...data,...item]
-					})
-					this.loading = false;
-					uni.hideLoading();
-					//const data = res.data.data || [];
-					this.Data = data;
-					if(this.showDate){
-						arr.map(item=>{
-							const has = data.find(x=>{
-								const dealdate = `${x.date} ${x.deadLine}`;
-								const newdate = dealdate.replace(/-/g,'/');
-								// console.log(x.date,item)
-								return (x.date == item && x.depCode == this.classId && (new Date().getTime()< new Date(newdate).getTime()) && x.code == 1)
-							})
-							this.hasData[item] = has?true:false;
-						})
-						
-					}else{
-						this.clickDate(this.currentDate)
-					}
-				}) */
-
-				return
-				// this.$request({
-				// 	path:`/smartinquiry/schedule/list?ampm=0&beginDate=${firstDate}&endDate=${endDate}`,
-				// }).then(res=>{
-				// 	this.loading = false;
-				// 	uni.hideLoading();
-				// 	if(res.data.code == 200){
-				// 		const data = res.data.data || [];
-				// 		this.Data = data;
-				// 		if(this.showDate){
-				// 			arr.map(item=>{
-				// 				const has = data.find(x=>{
-				// 					const dealdate = `${x.date} ${x.deadLine}`;
-				// 					const newdate = dealdate.replace(/-/g,'/');
-				// 					// console.log(x.date,item)
-				// 					return (x.date == item && x.depCode == this.classId && (new Date().getTime()< new Date(newdate).getTime()))
-				// 				})
-				// 				this.hasData[item] = has?true:false;
-				// 			})
-
-				// 		}else{
-				// 			this.clickDate(this.currentDate)
-				// 		}
-				// 	}
-				// })
 			},
 			getEachDay(day) {
 				return new Promise((reslove, reject) => {
