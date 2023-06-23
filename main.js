@@ -15,6 +15,9 @@ import uniTitle from '@/components/uni-title.vue'
 import uniIcons from '@/components/uni-icons/uni-icons.vue'
 import SpullScroll from '@/components/s-pull-scroll/index.vue' 
 
+import moment from 'moment'; //导入模块
+moment.locale('zh-cn'); //设置语言 或 moment.lang('zh-cn'); 
+Vue.prototype.$moment = moment;//赋值使用
 
 Vue.config.productionTip = false
 Vue.component('uni-title',uniTitle)

@@ -82,28 +82,32 @@
 			options.type && (this.pageType = options.type)
 			this.getDepartment();
 
-			{
-				var dd = new Date();
-				dd.setDate(dd.getDate());
-				var y = dd.getFullYear();
-				var m = dd.getMonth() + 1;
-				var d = dd.getDate();
-				let date = y + '-' + (m < 10 ? '0' + m : m) + '-' + (d < 10 ? '0' + d : d);
+			//当前日期
+			this.nowDate = this.$moment(new Date()).format('YYYY-MM-DD');
+			this.sevenDayDate = this.$moment().add(7, 'days').format('YYYY-MM-DD');
+			console.log('当前日期 = ', this.nowDate)
+			console.log('七天后的日期 = ', this.sevenDayDate)
 
-				//当前日期
-				this.nowDate = date
+			// {
+			// 	var dd = new Date();
+			// 	var y = dd.getFullYear();
+			// 	var m = dd.getMonth() + 1;
+			// 	var d = dd.getDate();
+			// 	let date = y + '-' + (m < 10 ? '0' + m : m) + '-' + (d < 10 ? '0' + d : d);
+			// 	//当前日期
+			// 	this.nowDate = date
 
-				//七天后的日期
-				let time = dd;
-				let num = 7;
-				time.getHours() > 20 && (num = num + 1);
-				var dates = new Date(time.setDate(time.getDate() + num)).getDate()
-				var year = time.getFullYear() //获取年份
-				var month = time.getMonth() + 1 // 获取月份
-				let endtime = year + '-' + (month < 10 ? '0' + month : month) + '-' + (dates < 10 ? '0' + dates :
-					dates);
-				this.sevenDayDate = endtime
-			}
+			// 	//七天后的日期
+			// 	let time = dd;
+			// 	let num = 7;
+			// 	time.getHours() > 20 && (num = num + 1);
+			// 	var dates = new Date(time.setDate(time.getDate() + num)).getDate()
+			// 	var year = time.getFullYear() //获取年份
+			// 	var month = time.getMonth() + 1 // 获取月份
+			// 	let endtime = year + '-' + (month < 10 ? '0' + month : month) + '-' + (dates < 10 ? '0' + dates :
+			// 		dates);
+			// 	this.sevenDayDate = endtime
+			// }
 		},
 		onShow() {
 			this.toSearchDoctor()

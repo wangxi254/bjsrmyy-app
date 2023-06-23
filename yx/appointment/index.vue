@@ -119,7 +119,9 @@
 				if (option.type != 1) {
 					let tmepList = JSON.parse(option.doctorPbList || [])
 					tmepList.sort((a, b) => {
-						return new Date(a.date + ' 00:00:00') - new Date(b.date + ' 00:00:00');
+						let temptime = (a.date + ' 00:00:00').replace(/-/g, "/")
+						let temptimeb = (b.date + ' 00:00:00').replace(/-/g, "/")
+						return new Date(temptime) - new Date(temptimeb);
 					})
 					this.limitDoctorDateList = tmepList
 				}
@@ -128,12 +130,18 @@
 			option.id ? (this.classId = option.id) : (this.classId = 'P')
 
 			if (option.type == 1) {
-				var dd = new Date();
-				if (this.showDate) dd.setDate(dd.getDate() + 1);
-				var y = dd.getFullYear();
-				var m = dd.getMonth() + 1;
-				var d = dd.getDate();
-				this.currentDate = y + '-' + (m < 10 ? '0' + m : m) + '-' + (d < 10 ? '0' + d : d);
+				if (this.showDate) {
+					this.currentDate = this.$moment().add(1, 'days').format('YYYY-MM-DD');
+				} else {
+					this.currentDate = this.$moment(new Date()).format('YYYY-MM-DD');
+				}
+				console.log('得到的日期  =  ', this.currentDate)
+				// var dd = new Date();
+				// if (this.showDate) dd.setDate(dd.getDate() + 1);
+				// var y = dd.getFullYear();
+				// var m = dd.getMonth() + 1;
+				// var d = dd.getDate();
+				// this.currentDate = y + '-' + (m < 10 ? '0' + m : m) + '-' + (d < 10 ? '0' + d : d);
 
 				// this.currentDate = new Date().toISOString().slice(0, 10) //year+'-'+month + '-' + date;
 				this.getDateData(this.currentDate);
@@ -183,7 +191,7 @@
 					deptCode: this.classId,
 					registerType: this.showDate ? 1 : 0
 				}
-				const time = this.getFormatTime(new Date());
+				let time = this.$moment(new Date()).format('YYYY-MM-DD');
 				if (time === this.currentDate) {
 					return this.toastMessageAndRedirect('13')
 				}
@@ -220,15 +228,6 @@
 						url: './confirm?row=' + JSON.stringify(that.currentRow)
 					})
 				})
-			},
-			//封装一个获取当前年月日的函数getTime
-			getFormatTime(date) {
-				let y = date.getFullYear() //年
-				let m = date.getMonth() + 1 //月，月是从0开始的所以+1
-				let d = date.getDate() //日
-				m = m < 10 ? "0" + m : m //小于10补0
-				d = d < 10 ? "0" + d : d //小于10补0
-				return y + "-" + m + "-" + d; //返回时间形式yyyy-mm-dd
 			},
 			clickDate(date) {
 				// 获取当前日期的专家
