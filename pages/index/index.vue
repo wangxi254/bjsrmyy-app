@@ -209,7 +209,6 @@
 						img: '../../static/index/menu-item4.png',
 						title: '查看报告',
 						no: 4,
-						noti: 1,
 						navigation: '../../mine/report/reportType',
 						hashospitalInto: false,
 						needLogin: true,
