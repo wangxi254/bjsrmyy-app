@@ -22,8 +22,7 @@
 			<view class="space-beteewn search-bg">
 				<view class="show-center justify-content">
 					<image class="search-icon marginl10r10" src="../../static/index/search.png">
-						<input class="search-input" type="text" placeholder="输入医生名字搜索" v-model="nameSearchText"
-							confirm-type="search" />
+						<input   type="text" placeholder="输入医生名字搜索" v-model="nameSearchText" />
 				</view>
 				<div style="display: flex;align-items: center;">
 					<view @click="reSetNameSearch" class="cancel-btn">重置</view>
@@ -196,33 +195,32 @@
 						return item
 					}
 				})
-
-				this.$request({
-					path: '/smartinquiry/schedule/searchDoctorName?doctorName=' + val
-				}).then(res => {
-					if (res.data.code == 200) {
-						if (!this.searchList) {
-							this.searchList = [];
-						}
-						for (let doc of res.data.data) {
-							let item = {
-								depCode: doc.depCode,
-								depName: doc.docName + '-' + doc.depName,
-								fatherCode: "",
-								fathername: "",
-								depDes: "",
-								district: "A001",
-								ageLimit: "",
-								cj: "",
-								orderid: null,
-								empid: "",
-								subData: null,
-								ifExistSubData: false
-							};
-							this.searchList.push(item);
-						}
-					}
-				})
+				// this.$request({
+				// 	path: '/smartinquiry/schedule/searchDoctorName?doctorName=' + val
+				// }).then(res => {
+				// 	if (res.data.code == 200) {
+				// 		if (!this.searchList) {
+				// 			this.searchList = [];
+				// 		}
+				// 		for (let doc of res.data.data) {
+				// 			let item = {
+				// 				depCode: doc.depCode,
+				// 				depName: doc.docName + '-' + doc.depName,
+				// 				fatherCode: "",
+				// 				fathername: "",
+				// 				depDes: "",
+				// 				district: "A001",
+				// 				ageLimit: "",
+				// 				cj: "",
+				// 				orderid: null,
+				// 				empid: "",
+				// 				subData: null,
+				// 				ifExistSubData: false
+				// 			};
+				// 			this.searchList.push(item);
+				// 		}
+				// 	}
+				// })
 			},
 			searchClick() {
 				this.isNotSearching = false;
