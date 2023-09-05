@@ -74,9 +74,23 @@
 		<!-- <hsMenuList :List="dataList" @menuClick="menuClick" /> -->
 		<view style="height: 88px;"></view>
 		<tabbar current="0" @tabClick="tabClick" />
+
+		<view v-if="showPrivacy" class="privacy-root">
+			<view class="info">
+				<view class="title">提示</view>
+				<view class="content">
+					您正在使用【毕节市第一人民医院】小程序服务，使用之前请仔细阅读
+					<text style="color: #1E90FF;">{{ privacyTitle || '用户隐私协议' }}</text>
+					如您同意该协议，请点击 "同意" 开始使用
+				</view>
+				<view class="btn-div">
+					<button class="look-btn" @click="handleOpenPrivacyContract">查看隐私协议</button>
+					<button class="ok-btn" open-type="agreePrivacyAuthorization"
+						@agreeprivacyauthorization="handleAgreePrivacyAuthorization">同意</button>
+				</view>
+			</view>
+		</view>
 	</view>
-
-
 </template>
 
 <script>
@@ -90,6 +104,9 @@
 	export default {
 		data() {
 			return {
+				showPrivacy: false,
+				privacyTitle: "",
+
 				dataList: [
 					// {id:1,img:'/static/tabbar/home.png',title:'医院介绍',detail:'appointment',navigation:'../../hospitalIntro/index'},
 					// {id:3,img:'/static/tabbar/home.png',title:'就诊指南',detail:'appointment',navigation:'../../hospitalIntro/neadnkow'},
@@ -340,7 +357,7 @@
 					// 	date:'2021-09-10',
 					// }
 				],
-				authShowFlag: true,
+				authShowFlag: false,
 				hoslist: [],
 			}
 		},
@@ -359,9 +376,53 @@
 		onShow() {
 			if (uni.getStorageSync("userId")) {
 				this.authShowFlag = false;
+			} else {
+				if (wx.getPrivacySetting) {
+					try {
+						wx.getPrivacySetting({
+							success: res => {
+								console.log('协议 = ', res)
+								if (res.needAuthorization) {
+									this.showPrivacy = true
+									this.privacyTitle = res.privacyContractName
+								} else {
+									this.showPrivacy = false;
+									this.authShowFlag = true;
+								}
+							},
+							fail: () => {
+								this.showPrivacy = false;
+								this.authShowFlag = true;
+							},
+							complete: () => {}
+						})
+					} catch (e) {
+						this.showPrivacy = false;
+						this.authShowFlag = true;
+						console.log('协议状态获取异常', e)
+					}
+				} else {
+					this.showPrivacy = false;
+					this.authShowFlag = true;
+				}
 			}
 		},
 		methods: {
+			// 打开隐私协议页面
+			handleOpenPrivacyContract() {
+				wx.openPrivacyContract({
+					success: () => {},
+					fail: () => {
+						this.showPrivacy = false;
+						this.authShowFlag = true;
+					},
+					complete: () => {}
+				})
+			},
+			handleAgreePrivacyAuthorization() {
+				this.showPrivacy = false;
+				this.authShowFlag = true;
+			},
 			menuClick(item) {
 				console.log("menuClick:item===>", JSON.stringify(item));
 				uni.navigateTo({
@@ -717,6 +778,68 @@
 			width: 50px;
 			height: 50px;
 			float: right;
+		}
+	}
+
+	.privacy-root {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		position: fixed;
+		top: 0;
+		left: 0;
+		z-index: 1111;
+		width: 100vw;
+		height: 100vh;
+		overflow: hidden;
+		background: rgba(0, 0, 0, 0.5);
+
+		.info {
+			width: calc(90% - 120rpx);
+			padding: 60rpx 30rpx 30rpx 30rpx;
+			background: #ffffff;
+			border-radius: 10rpx;
+
+			.title {
+				color: #000;
+				font-size: 18px;
+				font-weight: bold;
+				text-align: center;
+			}
+
+			.content {
+				color: #000;
+				font-size: 14px;
+				text-indent: 70rpx;
+				margin-top: 30rpx;
+			}
+
+			.btn-div {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				margin-top: 40rpx;
+			}
+
+			.look-btn {
+				flex: 1;
+				color: #666666;
+				background: #ffffff;
+				height: 70rpx;
+				line-height: 70rpx;
+				margin-right: 10rpx;
+				font-size: 14px !important;
+			}
+
+			.ok-btn {
+				flex: 1;
+				color: #ffffff;
+				background: #1E90FF;
+				height: 70rpx;
+				line-height: 70rpx;
+				margin-left: 10rpx;
+				font-size: 14px !important;
+			}
 		}
 	}
 </style>
