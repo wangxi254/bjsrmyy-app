@@ -160,6 +160,19 @@
 					path: `/registration/order/xl-wx-applet-pay?openId=${this.openId}&orderId=${this.info.id}`
 				}).then(res => {
 					uni.hideLoading()
+					if(res.data.msg === 'zeroOrder' && res.data.code === 200){
+						return uni.showModal({
+							title: '提示',
+							showCancel: false,
+							content: '挂号成功，请前往诊室就诊！',
+							success: function (res) {
+								uni.redirectTo({
+									url: '../registerRecord/index'
+								})
+							}
+						});
+					}
+					
 					const payinfo = res.data.data;
 					if (!payinfo) return
 					uni.requestPayment({
