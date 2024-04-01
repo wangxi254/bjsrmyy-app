@@ -387,23 +387,23 @@
 									this.privacyTitle = res.privacyContractName
 								} else {
 									this.showPrivacy = false;
-									this.authShowFlag = true;
+									// this.authShowFlag = true;
 								}
 							},
 							fail: () => {
 								this.showPrivacy = false;
-								this.authShowFlag = true;
+								// this.authShowFlag = true;
 							},
 							complete: () => {}
 						})
 					} catch (e) {
 						this.showPrivacy = false;
-						this.authShowFlag = true;
+						// this.authShowFlag = true;
 						console.log('协议状态获取异常', e)
 					}
 				} else {
 					this.showPrivacy = false;
-					this.authShowFlag = true;
+					// this.authShowFlag = true;
 				}
 			}
 		},
@@ -414,14 +414,14 @@
 					success: () => {},
 					fail: () => {
 						this.showPrivacy = false;
-						this.authShowFlag = true;
+						// this.authShowFlag = true;
 					},
 					complete: () => {}
 				})
 			},
 			handleAgreePrivacyAuthorization() {
 				this.showPrivacy = false;
-				this.authShowFlag = true;
+				// this.authShowFlag = true;
 			},
 			menuClick(item) {
 				console.log("menuClick:item===>", JSON.stringify(item));

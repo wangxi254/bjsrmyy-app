@@ -12,9 +12,9 @@
 </template>
 
 <script>
-import md5 from 'js-md5';
+// import md5 from 'js-md5';
 //let Base64 = require('js-base64').Base64
-import Base64 from 'base-64';
+// import Base64 from 'base-64';
 export default {
     data(){
         return {

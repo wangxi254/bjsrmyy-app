@@ -12,8 +12,8 @@
 </template>
 
 <script>
-import md5 from 'js-md5';
- let Base64 = require('js-base64').Base64
+// import md5 from 'js-md5';
+ // let Base64 = require('js-base64').Base64
 export default {
     data() {
         return {
