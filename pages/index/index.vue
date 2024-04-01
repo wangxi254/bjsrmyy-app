@@ -192,13 +192,13 @@
 						navigation: '../../guidance/index',
 						hashospitalInto: false,
 					},
-					{
-						img: '../../static/index/menu-item1.png',
-						title: '智能导诊',
-						no: 1,
-						navigation: '../../guidance/index',
-						hashospitalInto: false,
-					},
+					// {
+					// 	img: '../../static/index/menu-item1.png',
+					// 	title: '智能导诊',
+					// 	no: 1,
+					// 	navigation: '../../guidance/index',
+					// 	hashospitalInto: false,
+					// },
 					{
 						img: '../../static/index/menu-item-navi2.png',
 						title: '出诊信息',
