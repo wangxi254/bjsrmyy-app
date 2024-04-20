@@ -22,7 +22,7 @@
 			<view class="space-beteewn search-bg">
 				<view class="show-center justify-content">
 					<image class="search-icon marginl10r10" src="../../static/index/search.png">
-						<input   type="text" placeholder="输入医生名字搜索" v-model="nameSearchText" />
+						<input type="text" placeholder="输入医生名字搜索" v-model="nameSearchText" />
 				</view>
 				<div style="display: flex;align-items: center;">
 					<view @click="reSetNameSearch" class="cancel-btn">重置</view>
@@ -34,8 +34,13 @@
 		<uni-notice-bar class="noticebar" backgroundColor="#FEF0E9" :scrollable="true" :showIcon="true" :single="true"
 			text="注：出诊时间如有变化，以当日挂号为准" />
 		<div v-if="searchType == 1">
-			<hsSubfieldList :leftNavData="searchList" :rightNavData="rightNavData" :scrollHeiht="scrollHeiht"
-				@leftClick="leftClick" @rightClick="rightClick" />
+			<div v-if="searchList.length == 0">
+				<hsSubfieldList :leftNavData="leftNavData" :rightNavData="rightNavData" :scrollHeiht="scrollHeiht"
+					:hasRight='true' @leftClick="leftClick" @rightClick="rightClick" />
+			</div>
+			<div v-else>
+				<hsSubfieldList :leftNavData="searchList" :scrollHeiht="scrollHeiht" @leftClick="rightClick" />
+			</div>
 		</div>
 		<div v-else class="doctor-list-root">
 			<div v-if="!doctorListNotice">
@@ -71,7 +76,9 @@
 				sevenDayDate: '',
 				nowDate: '',
 				doctorList: [],
-				doctorListNotice: ""
+				doctorListNotice: "",
+
+				departmentTopList: []
 			}
 		},
 		onLoad(options) {
@@ -183,18 +190,42 @@
 			},
 			leftClick(item) {
 				let array = [];
-				this.rightNavData = array;
+				this.rightNavData = item.subData || [];
+				// uni.navigateTo({
+				// 	url: '../appointment/index?title=' + item.depName + '&&type=' + this.pageType + '&&id=' + item
+				// 		.depCode
+				// })
+			},
+			rightClick(item) {
 				uni.navigateTo({
 					url: '../appointment/index?title=' + item.depName + '&&type=' + this.pageType + '&&id=' + item
 						.depCode
 				})
+				// uni.navigateTo({
+				// 	url: `./roomDetail?item=${JSON.stringify(item)}`
+				// })
 			},
 			filter(val) {
-				this.searchList = this.leftNavData.filter(item => {
-					if (item.depName.indexOf(val) > -1) {
-						return item
+				if (!val) {
+					this.searchList = [];
+					return
+				}
+				let result = []
+				for (var i = 0; i < this.leftNavData.length; i++) {
+					if (this.leftNavData[i].depName.indexOf(val) > -1) {
+						result.push(this.leftNavData[i])
 					}
-				})
+					if (this.leftNavData[i].subData && this.leftNavData[i].subData.length > 0) {
+						this.leftNavData[i].subData.map(citem => {
+							if (citem.depName.indexOf(val) > -1) {
+								citem.depName = '二级的_' + citem.depName
+								result.push(citem)
+							}
+						})
+					}
+				}
+				this.searchList = result;
+
 				// this.$request({
 				// 	path: '/smartinquiry/schedule/searchDoctorName?doctorName=' + val
 				// }).then(res => {
@@ -229,12 +260,8 @@
 				return this.searchText = '';
 			},
 			cancleEdit() {
+				this.searchText = '';
 				this.isNotSearching = true;
-			},
-			rightClick(item) {
-				uni.navigateTo({
-					url: `./roomDetail?item=${JSON.stringify(item)}`
-				})
 			},
 			getDepartment() {
 				uni.showLoading({
@@ -276,7 +303,8 @@
 				}
 
 				this.$request({
-					path: '/department/mobile/listNoPage',
+					// path: '/department/mobile/listNoPage',
+					path: '/department/mobile/treeList',
 					query: {
 						beginDate: date,
 						endDate: endtime,
@@ -284,9 +312,9 @@
 					}
 				}).then(res => {
 					uni.hideLoading();
-					if (res.data.code == 200) {
+					if (res.data.code == 200 && res.data.data) {
 						this.leftNavData = res.data.data;
-						this.searchList = res.data.data;
+						this.rightNavData = res.data.data[0].subData || [];
 					}
 				})
 			}
@@ -438,5 +466,19 @@
 		text-align: center;
 		font-size: 15px;
 		color: #333;
+	}
+
+	.depart-top-root {
+		width: 100%;
+		overflow-y: auto;
+		background: #fff;
+		border-bottom: 2rpx #f6f6f6 solid;
+
+		.depart-top-item {
+			font-size: 13px;
+			color: #333;
+			padding: 10rpx 20rpx;
+			margin: 0 10px;
+		}
 	}
 </style>
