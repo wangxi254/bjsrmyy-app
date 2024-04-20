@@ -212,13 +212,13 @@
 				}
 				let result = []
 				for (var i = 0; i < this.leftNavData.length; i++) {
-					if (this.leftNavData[i].depName.indexOf(val) > -1) {
-						result.push(this.leftNavData[i])
-					}
+					// if (this.leftNavData[i].depName.indexOf(val) > -1) {
+					// 	result.push(this.leftNavData[i])
+					// }
 					if (this.leftNavData[i].subData && this.leftNavData[i].subData.length > 0) {
 						this.leftNavData[i].subData.map(citem => {
 							if (citem.depName.indexOf(val) > -1) {
-								citem.depName = '二级的_' + citem.depName
+								citem.depName = citem.depName
 								result.push(citem)
 							}
 						})
