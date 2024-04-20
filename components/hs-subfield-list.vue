@@ -97,17 +97,17 @@
 	}
 
 	.rightNavItem {
-		height: 45px;
-		line-height: 45px;
 		margin-left: 15px;
+		padding: 30rpx 10px;
+		word-break: break-all;
 		border-bottom: 2rpx #eee solid;
 	}
 
 	.leftNavContent {
-		border-left: 3px solid transparent;
 		padding: 30rpx 10px;
-		border-bottom: 1px solid #eee;
 		word-break: break-all;
+		border-bottom: 1px solid #eee;
+		border-left: 3px solid transparent;
 	}
 
 	.leftActive {
