@@ -12,8 +12,9 @@
 				<view @click="cancleEdit" class="cancle">取消</view>
 			</view>
 		</view> -->
-		<hsSubfieldList :leftNavData="leftNavData" :rightNavData="rightNavData" :scrollHeiht="scrollHeiht"
-			:hasRight='true' @leftClick="leftClick" @rightClick="rightClick" />
+		<hsSubfieldList :leftOneNavData="departmentOneList" :leftNavData="leftNavData" :rightNavData="rightNavData"
+			:scrollHeiht="scrollHeiht" :hasRight='true' @leftOneClick='leftOneClick' @leftClick="leftClick"
+			@rightClick="rightClick" />
 		<view v-if="leftNavData.length == 0" class="font-size-m12-w400 text-color-8f8f8f no-data" v-else>
 			暂无数据
 		</view>
@@ -33,11 +34,12 @@
 				leftProps: {
 					depName: "docName"
 				},
+				departmentOneList: []
 			}
 		},
 		onLoad() {
 			/* 获取屏幕可视区域的高度 */
-			let height = uni.getSystemInfoSync().windowHeight - 44
+			let height = uni.getSystemInfoSync().windowHeight - 14
 			console.log("height===>", height);
 			console.log("height===>", JSON.stringify(uni.getSystemInfoSync()));
 			this.scrollHeiht = `height:${height}px`
@@ -50,6 +52,15 @@
 			hsSubfieldList
 		},
 		methods: {
+			leftOneClick(item) {
+				let array = [];
+				this.leftNavData = item.subData || [];
+				if (this.leftNavData.length > 0) {
+					this.rightNavData = this.leftNavData[0].subData;
+				} else {
+					this.rightNavData = [];
+				}
+			},
 			leftClick(item) {
 				this.rightNavData = item.subData || [];
 			},
@@ -92,8 +103,26 @@
 					}
 				}).then(res => {
 					if (res.data.code == 200 && res.data.data) {
-						this.leftNavData = res.data.data;
-						this.rightNavData = res.data.data[0].subData || [];
+						let onelist = []
+						let twolist = []
+						let templist = res.data.data
+						templist.map(item => {
+							onelist.push({
+								...item,
+							})
+							twolist.push(item.subData)
+						})
+						this.departmentOneList = onelist;
+						if (onelist.length > 0) {
+							this.leftNavData = onelist[0].subData;
+						} else {
+							this.leftNavData = [];
+						}
+						if (this.leftNavData.length > 0) {
+							this.rightNavData = this.leftNavData[0].subData;
+						} else {
+							this.rightNavData = [];
+						}
 					}
 				})
 			}

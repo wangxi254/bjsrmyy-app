@@ -1,11 +1,20 @@
 <template>
 	<view class="row navBox" :style="scrollHeiht">
 		<!-- 左侧一级分类列表 -->
-		<scroll-view scroll-y class="leftNavBox col20-5" :class="hasRight ? 'col20-5':'col100'">
+		<scroll-view v-if="leftOneNavData && leftOneNavData.length > 0" scroll-y class="leftNavBox col20-15">
+			<view class="leftNavItem py-20 text-center" v-for="(item,index) in leftOneNavData" :key="index"
+				@tap="leftOneTap(item,index)">
+				<view :class="leftOneActiveIndex === index?'leftActive':'leftUnActive'" class="leftNavContent py-10">
+					{{ item.depName }}
+				</view>
+			</view>
+		</scroll-view>
+		<!-- 左侧一级分类列表 -->
+		<scroll-view scroll-y class="leftNavBox col20-15">
 			<view class="leftNavItem py-20 text-center" v-for="(item,index) in leftNavData" :key="index"
 				@tap="leftTap(item,index)">
 				<view :class="leftActiveIndex===index?'leftActive':'leftUnActive'" class="leftNavContent py-10">
-					{{item.depName}}
+					{{ item.depName }}
 				</view>
 			</view>
 		</scroll-view>
@@ -26,6 +35,10 @@
 	}
 	export default {
 		props: {
+			leftOneNavData: {
+				type: Array,
+				default: [] /* 一级导航栏的所有数据 */
+			},
 			leftNavData: {
 				type: Array,
 				default: [] /* 一级导航栏的所有数据 */
@@ -52,6 +65,7 @@
 		data() {
 			return {
 				leftActiveIndex: 0,
+				leftOneActiveIndex: 0,
 				scrollTop: 0,
 
 				leftScrollTop: [],
@@ -64,6 +78,11 @@
 			}
 		},
 		methods: {
+			leftOneTap(item, index) {
+				console.log("leftTap:", JSON.stringify(item));
+				this.leftOneActiveIndex = index;
+				this.$emit('leftOneClick', item);
+			},
 			// 点击左边一级导航
 			leftTap(item, index) {
 				console.log("leftTap:", JSON.stringify(item));

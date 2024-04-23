@@ -12,8 +12,9 @@
 				<view @click="cancleEdit" class="cancle">取消</view>
 			</view>
 		</view> -->
-		<hsSubfieldList :leftNavData="leftNavData" :rightNavData="rightNavData" :scrollHeiht="scrollHeiht"
-			:hasRight='true' @leftClick="leftClick" @rightClick="rightClick" />
+		<hsSubfieldList :leftOneNavData="departmentOneList" :leftNavData="leftNavData" :rightNavData="rightNavData"
+			:scrollHeiht="scrollHeiht" :hasRight='true' @leftOneClick='leftOneClick' @leftClick="leftClick"
+			@rightClick="rightClick" />
 	</view>
 </template>
 
@@ -27,11 +28,13 @@
 				searchText: '',
 				isNotSearching: true,
 				scrollHeiht: '',
+
+				departmentOneList: []
 			}
 		},
 		onLoad() {
 			/* 获取屏幕可视区域的高度 */
-			let height = uni.getSystemInfoSync().windowHeight - 44
+			let height = uni.getSystemInfoSync().windowHeight - 14
 			this.scrollHeiht = `height:${height}px`
 			this.getDepartment();
 		},
@@ -40,6 +43,15 @@
 			hsSubfieldList
 		},
 		methods: {
+			leftOneClick(item) {
+				let array = [];
+				this.leftNavData = item.subData || [];
+				if (this.leftNavData.length > 0) {
+					this.rightNavData = this.leftNavData[0].subData;
+				} else {
+					this.rightNavData = [];
+				}
+			},
 			leftClick(item) {
 				this.rightNavData = item.subData || [];
 			},
@@ -76,8 +88,26 @@
 					}
 				}).then(res => {
 					if (res.data.code == 200 && res.data.data) {
-						this.leftNavData = res.data.data;
-						this.rightNavData = res.data.data[0].subData || [];
+						let onelist = []
+						let twolist = []
+						let templist = res.data.data
+						templist.map(item => {
+							onelist.push({
+								...item,
+							})
+							twolist.push(item.subData)
+						})
+						this.departmentOneList = onelist;
+						if (onelist.length > 0) {
+							this.leftNavData = onelist[0].subData;
+						} else {
+							this.leftNavData = [];
+						}
+						if (this.leftNavData.length > 0) {
+							this.rightNavData = this.leftNavData[0].subData;
+						} else {
+							this.rightNavData = [];
+						}
 					}
 				})
 			}

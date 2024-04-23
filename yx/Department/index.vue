@@ -34,9 +34,10 @@
 		<uni-notice-bar class="noticebar" backgroundColor="#FEF0E9" :scrollable="true" :showIcon="true" :single="true"
 			text="注：出诊时间如有变化，以当日挂号为准" />
 		<div v-if="searchType == 1">
-			<div v-if="searchList.length == 0">
-				<hsSubfieldList :leftNavData="leftNavData" :rightNavData="rightNavData" :scrollHeiht="scrollHeiht"
-					:hasRight='true' @leftClick="leftClick" @rightClick="rightClick" />
+			<div v-if="searchList.length == 0" style="display: flex;">
+				<hsSubfieldList :leftOneNavData="departmentOneList" :leftNavData="leftNavData"
+					:rightNavData="rightNavData" :scrollHeiht="scrollHeiht" :hasRight='true' @leftClick="leftClick"
+					@leftOneClick='leftOneClick' @rightClick="rightClick" />
 			</div>
 			<div v-else>
 				<hsSubfieldList :leftNavData="searchList" :scrollHeiht="scrollHeiht" @leftClick="rightClick" />
@@ -77,13 +78,13 @@
 				nowDate: '',
 				doctorList: [],
 				doctorListNotice: "",
-
-				departmentTopList: []
+ 
+				departmentOneList: []
 			}
 		},
 		onLoad(options) {
 			/* 获取屏幕可视区域的高度 */
-			let height = uni.getSystemInfoSync().windowHeight - 44 - 42
+			let height = uni.getSystemInfoSync().windowHeight - 44 - 100
 			this.scrollHeiht = `height:${height}px`
 			options.type && (this.pageType = options.type)
 			this.getDepartment();
@@ -187,6 +188,15 @@
 						.depCode + '&&docCode=' + item.docCode + '&&docName=' + item.docName +
 						'&&doctorPbList=' + JSON.stringify(item.doctorPbList)
 				})
+			},
+			leftOneClick(item) {
+				let array = [];
+				this.leftNavData = item.subData || [];
+				if (this.leftNavData.length > 0) {
+					this.rightNavData = this.leftNavData[0].subData;
+				} else {
+					this.rightNavData = [];
+				}
 			},
 			leftClick(item) {
 				let array = [];
@@ -313,8 +323,26 @@
 				}).then(res => {
 					uni.hideLoading();
 					if (res.data.code == 200 && res.data.data) {
-						this.leftNavData = res.data.data;
-						this.rightNavData = res.data.data[0].subData || [];
+						let onelist = []
+						let twolist = []
+						let templist = res.data.data
+						templist.map(item => {
+							onelist.push({
+								...item,
+							})
+							twolist.push(item.subData)
+						})
+						this.departmentOneList = onelist;
+						if (onelist.length > 0) {
+							this.leftNavData = onelist[0].subData;
+						} else {
+							this.leftNavData = [];
+						}
+						if (this.leftNavData.length > 0) {
+							this.rightNavData = this.leftNavData[0].subData;
+						} else {
+							this.rightNavData = [];
+						}
 					}
 				})
 			}
@@ -479,6 +507,29 @@
 			color: #333;
 			padding: 10rpx 20rpx;
 			margin: 0 10px;
+		}
+	}
+
+	.select-view {
+		width: 97%;
+		margin: 0 auto 20rpx auto;
+	}
+
+	.one-list-root {
+		width: 200rpx;
+		overflow-y: auto;
+
+		.one-list-item {
+			width: 100%;
+			padding: 20rpx;
+			font-size: 24rpx;
+			color: #333;
+			word-break: break-all;
+			background: #F1F1F1;
+		}
+
+		.select {
+			background: #ffffff !important;
 		}
 	}
 </style>
