@@ -81,6 +81,7 @@
 			leftOneTap(item, index) {
 				console.log("leftTap:", JSON.stringify(item));
 				this.leftOneActiveIndex = index;
+				this.leftActiveIndex = 0
 				this.$emit('leftOneClick', item);
 			},
 			// 点击左边一级导航
