@@ -34,13 +34,14 @@
 		<uni-notice-bar class="noticebar" backgroundColor="#FEF0E9" :scrollable="true" :showIcon="true" :single="true"
 			text="注：出诊时间如有变化，以当日挂号为准" />
 		<div v-if="searchType == 1">
-			<div v-if="searchList.length == 0" style="display: flex;">
-				<hsSubfieldList :leftOneNavData="departmentOneList" :leftNavData="leftNavData"
+			<div v-if="searchList.length == 0" style="width: 100%;display: flex;">
+				<hsSubfieldList style="width: 100%;" :leftOneNavData="departmentOneList" :leftNavData="leftNavData"
 					:rightNavData="rightNavData" :scrollHeiht="scrollHeiht" :hasRight='true' @leftClick="leftClick"
 					@leftOneClick='leftOneClick' @rightClick="rightClick" />
 			</div>
-			<div v-else>
-				<hsSubfieldList :leftNavData="searchList" :scrollHeiht="scrollHeiht" @leftClick="rightClick" />
+			<div v-else style="width: 100%;">
+				<hsSubfieldList style="width: 100%;" :leftNavData="searchList" :scrollHeiht="scrollHeiht"
+					@leftClick="rightClick" />
 			</div>
 		</div>
 		<div v-else class="doctor-list-root">
@@ -78,8 +79,9 @@
 				nowDate: '',
 				doctorList: [],
 				doctorListNotice: "",
- 
-				departmentOneList: []
+
+				departmentOneList: [],
+				allDepartmentList: []
 			}
 		},
 		onLoad(options) {
@@ -221,15 +223,20 @@
 					return
 				}
 				let result = []
-				for (var i = 0; i < this.leftNavData.length; i++) {
+				for (var i = 0; i < this.allDepartmentList.length; i++) {
 					// if (this.leftNavData[i].depName.indexOf(val) > -1) {
 					// 	result.push(this.leftNavData[i])
 					// }
-					if (this.leftNavData[i].subData && this.leftNavData[i].subData.length > 0) {
-						this.leftNavData[i].subData.map(citem => {
-							if (citem.depName.indexOf(val) > -1) {
-								citem.depName = citem.depName
-								result.push(citem)
+					let tmepItem = this.allDepartmentList[i].subData
+					if (tmepItem && tmepItem.length > 0) {
+						tmepItem.map(citem => {
+							if (citem.subData && citem.subData.length > 0) {
+								citem.subData.map(citem => {
+									if (citem.depName.indexOf(val) > -1) {
+										citem.depName = citem.depName
+										result.push(citem)
+									}
+								})
 							}
 						})
 					}
@@ -332,6 +339,7 @@
 							})
 							twolist.push(item.subData)
 						})
+						this.allDepartmentList = templist
 						this.departmentOneList = onelist;
 						if (onelist.length > 0) {
 							this.leftNavData = onelist[0].subData;

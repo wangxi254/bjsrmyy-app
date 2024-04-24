@@ -1,7 +1,7 @@
 <template>
 	<view class="row navBox" :style="scrollHeiht">
 		<!-- 左侧一级分类列表 -->
-		<scroll-view v-if="leftOneNavData && leftOneNavData.length > 0" scroll-y class="leftNavBox col20-15">
+		<scroll-view v-if="leftOneNavData && leftOneNavData.length > 0" scroll-y class="leftNavBox">
 			<view class="leftNavItem py-20 text-center" v-for="(item,index) in leftOneNavData" :key="index"
 				@tap="leftOneTap(item,index)">
 				<view :class="leftOneActiveIndex === index?'leftActive':'leftUnActive'" class="leftNavContent py-10">
@@ -10,7 +10,7 @@
 			</view>
 		</scroll-view>
 		<!-- 左侧一级分类列表 -->
-		<scroll-view scroll-y class="leftNavBox col20-15">
+		<scroll-view scroll-y class="leftNavBox">
 			<view class="leftNavItem py-20 text-center" v-for="(item,index) in leftNavData" :key="index"
 				@tap="leftTap(item,index)">
 				<view :class="leftActiveIndex===index?'leftActive':'leftUnActive'" class="leftNavContent py-10">
@@ -19,7 +19,7 @@
 			</view>
 		</scroll-view>
 		<!-- 右侧二级分类列表 -->
-		<scroll-view scroll-y class="col20-15" v-if="hasRight" scroll-with-animation>
+		<scroll-view scroll-y class="leftNavBox" v-if="hasRight" scroll-with-animation>
 			<view class="rightNavItem" @click="clickObjectItem(oitem)" v-for="(oitem,index) in rightNavData"
 				:key="index">
 				{{ oitem.depName }}
@@ -105,10 +105,12 @@
 
 <style lang="scss" scoped>
 	.navBox {
+		width: 100%;
 		border-top: 1px solid $uni-bg-color-hover;
 	}
 
 	.leftNavBox {
+		flex: 1;
 		border-right: 1px solid $uni-bg-color-hover;
 	}
 
